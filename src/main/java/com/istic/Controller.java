@@ -39,6 +39,7 @@ public class Controller implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        vco=new VCO();
         sawRadio.setToggleGroup(group);
         traingleRadio.setToggleGroup(group);
         SquareRadio.setToggleGroup(group);
