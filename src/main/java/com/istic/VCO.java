@@ -8,14 +8,14 @@ public class VCO implements Module{
 
 
     private final double f0 = 440.0;
-    private Synthesizer synth;
+    //private Synthesizer synth;
     private UnitOscillator osc;
     private LinearRamp lag;
     private int octave = 0;
 
-    public VCO(OutMod lineOut){
+    public VCO(Synthesizer synth, OutMod lineOut){
 
-        synth = JSyn.createSynthesizer();
+
 
         // Add a tone generator.
         synth.add( osc = new SquareOscillatorBL() );
@@ -34,8 +34,8 @@ public class VCO implements Module{
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
     }
 
-    public void squareSound(OutMod lineOut){
-        this.disconnectShapeWave(lineOut);
+    public void squareSound(Synthesizer synth, OutMod lineOut){
+        this.disconnectShapeWave(synth, lineOut);
 
         // reconnect the new Oscillator
         synth.add( osc = new SquareOscillatorBL() );
@@ -43,13 +43,13 @@ public class VCO implements Module{
         lag.output.connect( osc.amplitude );
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
 
-        this.start(lineOut);
+        this.start(synth, lineOut);
 
 
 
     }
-    public void sawSound(OutMod lineOut){
-        this.disconnectShapeWave(lineOut);
+    public void sawSound(Synthesizer synth, OutMod lineOut){
+        this.disconnectShapeWave(synth, lineOut);
 
         // reconnect the new Oscillator
         synth.add( osc = new SawtoothOscillatorBL() );
@@ -57,14 +57,14 @@ public class VCO implements Module{
         lag.output.connect( osc.amplitude );
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
 
-        this.start(lineOut);
+        this.start(synth, lineOut);
 
 
 
     }
 
-    public void triangleSound(OutMod lineOut){
-        this.disconnectShapeWave(lineOut);
+    public void triangleSound(Synthesizer synth, OutMod lineOut){
+        this.disconnectShapeWave(synth, lineOut);
 
         // reconnect the new Oscillator
         synth.add( osc = new TriangleOscillator() );
@@ -72,12 +72,12 @@ public class VCO implements Module{
         lag.output.connect( osc.amplitude );
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
 
-        this.start(lineOut);
+        this.start(synth, lineOut);
 
 
 
     }
-    public void stop() throws InterruptedException {
+    public void stop(Synthesizer synth) throws InterruptedException {
         synth.stop();
         //synth.sleepFor(2);
 
@@ -87,7 +87,7 @@ public class VCO implements Module{
     /**
      * Disconnet old Shape Wave
      */
-    private void disconnectShapeWave(OutMod lineOut){
+    private void disconnectShapeWave(Synthesizer synth, OutMod lineOut){
         synth.stop();
         osc.output.disconnect(0, lineOut.input, 0);
         lag.output.disconnect( osc.amplitude );
@@ -105,7 +105,7 @@ public class VCO implements Module{
 
     }
 
-    public void start(OutMod lineOut){
+    public void start(Synthesizer synth, OutMod lineOut){
         synth.start();
         lineOut.start();
 

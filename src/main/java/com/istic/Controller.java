@@ -1,5 +1,7 @@
 package com.istic;
 
+import com.jsyn.JSyn;
+import com.jsyn.Synthesizer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -25,13 +27,16 @@ public class Controller implements Initializable {
     @FXML
     RadioButton sawRadio, traingleRadio,SquareRadio;
 
+    private Synthesizer synth;
     private VCO vco;
     private OutMod lineOut;
 
 
     public void initialize(URL location, ResourceBundle resources) {
+        synth = JSyn.createSynthesizer();
+
         lineOut = new OutMod();
-        vco = new VCO(this.lineOut);
+        vco = new VCO(this.synth, this.lineOut);
         sawRadio.setToggleGroup(group);
         traingleRadio.setToggleGroup(group);
         SquareRadio.setToggleGroup(group);
@@ -54,25 +59,25 @@ public class Controller implements Initializable {
 
 
     public void startSoundVCO() throws InterruptedException {
-        vco.start(this.lineOut);
+        vco.start(this.synth, this.lineOut);
 
     }
 
     public void stopSoundVCO() throws InterruptedException {
-        vco.stop();
+        vco.stop(this.synth);
 
     }
 
     public void squareSound(){
-        vco.squareSound(this.lineOut);
+        vco.squareSound(this.synth, this.lineOut);
 
     }
     public void sawSound(){
-        vco.sawSound(this.lineOut);
+        vco.sawSound(this.synth, this.lineOut);
 
     }
     public void triangleSound(){
-       vco.triangleSound(this.lineOut);
+       vco.triangleSound(this.synth, this.lineOut);
 
     }
 
