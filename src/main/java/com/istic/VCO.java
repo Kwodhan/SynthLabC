@@ -86,4 +86,11 @@ public class VCO implements Module{
 
     }
 
+    public void stop() throws InterruptedException {
+        synth.stop();
+        //synth.sleepFor(2);
+
+
+    }
+
 }

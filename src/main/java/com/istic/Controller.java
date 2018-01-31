@@ -77,15 +77,15 @@ public class Controller implements Initializable {
     }
 
     public void squareSound(){
-        vco.changeShapeWave(ShapeWave.Square);
+        vco.changeShapeWave(ShapeWave.Square,lineOut);
 
     }
     public void sawSound(){
-        vco.changeShapeWave(ShapeWave.Saw);
+        vco.changeShapeWave(ShapeWave.Saw,lineOut);
 
     }
     public void triangleSound(){
-       vco.changeShapeWave(ShapeWave.Triangle);
+       vco.changeShapeWave(ShapeWave.Triangle,lineOut);
 
     }
 
