@@ -8,14 +8,11 @@ public class VCO implements Module{
 
 
     private final double f0 = 440.0;
-    //private Synthesizer synth;
     private UnitOscillator osc;
     private LinearRamp lag;
     private int octave = 0;
 
     public VCO(Synthesizer synth, OutMod lineOut){
-
-
 
         // Add a tone generator.
         synth.add( osc = new SquareOscillatorBL() );
