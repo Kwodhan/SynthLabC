@@ -14,9 +14,8 @@ public class VCO {
     private LineOut lineOut;
     private int octave = 0;
 
-    public VCO(){
+    public VCO() {
         synth = JSyn.createSynthesizer();
-
         // Add a tone generator.
         synth.add( osc = new SquareOscillatorBL() );
         // Add a lag to smooth out amplitude changes and avoid pops.
@@ -34,65 +33,25 @@ public class VCO {
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
     }
 
-    public void squareSound(){
-        this.disconnectShapeWave();
+    public void changeShapeWave(ShapeWave shapeWave) {
 
-        // reconnect the new Oscillator
-        synth.add( osc = new SquareOscillatorBL() );
-        osc.output.connect( 0, lineOut.input, 0 );
-        lag.output.connect( osc.amplitude );
-        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
-
-        this.start();
-
-
-
-    }
-    public void sawSound(){
-        this.disconnectShapeWave();
-
-        // reconnect the new Oscillator
-        synth.add( osc = new SawtoothOscillatorBL() );
-        osc.output.connect( 0, lineOut.input, 0 );
-        lag.output.connect( osc.amplitude );
-        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
-
-        this.start();
-
-
-
-    }
-
-    public void triangleSound(){
-        this.disconnectShapeWave();
-
-        // reconnect the new Oscillator
-        synth.add( osc = new TriangleOscillator() );
-        osc.output.connect( 0, lineOut.input, 0 );
-        lag.output.connect( osc.amplitude );
-        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
-
-        this.start();
-
-
-
-    }
-    public void stop() throws InterruptedException {
-        synth.stop();
-        //synth.sleepFor(2);
-
-
-    }
-
-    /**
-     * Disconnet old Shape Wave
-     */
-    private void disconnectShapeWave(){
+        // Disconnect
         synth.stop();
         osc.output.disconnect(0, lineOut.input, 0);
         lag.output.disconnect( osc.amplitude );
         synth.remove(osc);
+
+        // Reconnect
+        synth.add(osc = shapeWave.getInstance());
+        osc.output.connect(0, lineOut.input, 0);
+        lag.output.connect(osc.amplitude);
+        osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
+        this.start();
+
+
     }
+
+
 
     /**
      *
@@ -103,6 +62,23 @@ public class VCO {
 
         this.osc.frequency.set(this.f0*Math.pow(2,octave));
 
+    }
+
+    /**
+     *
+     * @param hertz 0 and
+     */
+    public void changeFineHertz(double hertz ){
+
+        float r =  1.05946f;
+        System.out.println((440*Math.pow(2,octave))*Math.pow(r,hertz));
+
+        this.osc.frequency.set((440*Math.pow(2,octave))*Math.pow(r,hertz));
+
+    }
+
+    public void stop(){
+        synth.stop();
     }
 
     public void start(){

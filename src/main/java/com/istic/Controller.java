@@ -23,7 +23,9 @@ public class Controller implements Initializable {
     @FXML
     Slider frequencySlider;
     @FXML
-    RadioButton sawRadio, traingleRadio,SquareRadio;
+    Slider frequencyFineSlider;
+    @FXML
+    RadioButton sawRadio, triangleRadio,squareRadio;
 
     VCO vco;
 
@@ -31,15 +33,26 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         vco = new VCO();
         sawRadio.setToggleGroup(group);
-        traingleRadio.setToggleGroup(group);
-        SquareRadio.setToggleGroup(group);
-        SquareRadio.setSelected(true);
+        triangleRadio.setToggleGroup(group);
+        squareRadio.setToggleGroup(group);
+
+        squareRadio.setSelected(true);
 
         frequencySlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
                 frequencySlider.setValue(Math.round(frequencySlider.getValue()));
                 vco.changeOctave((int)frequencySlider.getValue());
+
+
+            }
+        });
+
+        frequencyFineSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
+                vco.changeFineHertz(frequencyFineSlider.getValue());
 
 
             }
@@ -62,15 +75,15 @@ public class Controller implements Initializable {
     }
 
     public void squareSound(){
-        vco.squareSound();
+        vco.changeShapeWave(ShapeWave.Square);
 
     }
     public void sawSound(){
-        vco.sawSound();
+        vco.changeShapeWave(ShapeWave.Saw);
 
     }
     public void triangleSound(){
-       vco.triangleSound();
+       vco.changeShapeWave(ShapeWave.Triangle);
 
     }
 
