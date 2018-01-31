@@ -25,7 +25,9 @@ public class Controller implements Initializable {
     @FXML
     Slider frequencySlider;
     @FXML
-    RadioButton sawRadio, traingleRadio,SquareRadio;
+    Slider frequencyFineSlider;
+    @FXML
+    RadioButton sawRadio, triangleRadio,squareRadio;
 
     private Synthesizer synth;
     private VCO vco;
@@ -33,20 +35,30 @@ public class Controller implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        synth = JSyn.createSynthesizer();
+        this.synth = JSyn.createSynthesizer();
+        this.lineOut = new OutMod();
 
-        lineOut = new OutMod();
         vco = new VCO(this.synth, this.lineOut);
         sawRadio.setToggleGroup(group);
-        traingleRadio.setToggleGroup(group);
-        SquareRadio.setToggleGroup(group);
-        SquareRadio.setSelected(true);
+        triangleRadio.setToggleGroup(group);
+        squareRadio.setToggleGroup(group);
+        squareRadio.setSelected(true);
 
         frequencySlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
                 frequencySlider.setValue(Math.round(frequencySlider.getValue()));
                 vco.changeOctave((int)frequencySlider.getValue());
+
+
+            }
+        });
+
+        frequencyFineSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
+                vco.changeFineHertz(frequencyFineSlider.getValue());
 
 
             }
@@ -59,25 +71,25 @@ public class Controller implements Initializable {
 
 
     public void startSoundVCO() throws InterruptedException {
-        vco.start(this.synth, this.lineOut);
+        vco.start();
 
     }
 
     public void stopSoundVCO() throws InterruptedException {
-        vco.stop(this.synth);
+        vco.stop();
 
     }
 
     public void squareSound(){
-        vco.squareSound(this.synth, this.lineOut);
+        vco.changeShapeWave(ShapeWave.Square);
 
     }
     public void sawSound(){
-        vco.sawSound(this.synth, this.lineOut);
+        vco.changeShapeWave(ShapeWave.Saw);
 
     }
     public void triangleSound(){
-       vco.triangleSound(this.synth, this.lineOut);
+       vco.changeShapeWave(ShapeWave.Triangle);
 
     }
 
