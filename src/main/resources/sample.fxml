@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<AnchorPane id="AnchorPane" prefHeight="472.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
-    <children>
-        <GridPane prefHeight="472.0" prefWidth="649.0">
+<?import javafx.scene.text.Text?>
 
-        </GridPane>
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="472.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
+   <children>
+      <Button fx:id="startVCOButton" layoutX="24.0" layoutY="164.0" mnemonicParsing="false" onAction="#startSoundVCO" text="Start" />
+      <Button fx:id="stopVCOButton" layoutX="130.0" layoutY="169.0" mnemonicParsing="false" onAction="#stopSoundVCO" text="Stop" />
+      <Slider fx:id="frequencySlider" blockIncrement="1.0" layoutX="25.0" layoutY="65.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" />
+      <Text layoutX="47.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frequence" />
+      <RadioButton fx:id="SquareRadio" layoutX="186.0" layoutY="45.0" mnemonicParsing="false" onAction="#squareSound" text="Square" />
+      <RadioButton fx:id="sawRadio" layoutX="180.0" layoutY="84.0" mnemonicParsing="false" onAction="#sawSound" text="SawTooth" />
+      <RadioButton fx:id="traingleRadio" layoutX="180.0" layoutY="119.0" mnemonicParsing="false" onAction="#triangleSound" text="Traingle" />
+      <Text layoutX="61.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VCO" />
+   </children>
 </AnchorPane>
