@@ -4,24 +4,25 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
 
-public class VCO {
+public class VCO implements Module{
 
 
     private final double f0 = 440.0;
     private Synthesizer synth;
     private UnitOscillator osc;
     private LinearRamp lag;
-    private LineOut lineOut;
     private int octave = 0;
 
-    public VCO() {
+    public VCO(OutMod lineOut){
+
         synth = JSyn.createSynthesizer();
+
         // Add a tone generator.
         synth.add( osc = new SquareOscillatorBL() );
         // Add a lag to smooth out amplitude changes and avoid pops.
         synth.add( lag = new LinearRamp() );
         // Add an output mixer.
-        synth.add( lineOut = new LineOut() );
+        synth.add( lineOut );
         // Connect the oscillator to the output.
         osc.output.connect( 0, lineOut.input, 0 );
 
@@ -33,10 +34,13 @@ public class VCO {
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
     }
 
-    public void changeShapeWave(ShapeWave shapeWave) {
+    public void changeShapeWave(ShapeWave shapeWave,OutMod lineOut) {
 
         // Disconnect
         synth.stop();
+        osc.output.disconnect(0, lineOut.input, 0);
+        lag.output.disconnect( osc.amplitude );
+        synth.remove(osc);
         osc.output.disconnect(0, lineOut.input, 0);
         lag.output.disconnect( osc.amplitude );
         synth.remove(osc);
@@ -46,12 +50,10 @@ public class VCO {
         osc.output.connect(0, lineOut.input, 0);
         lag.output.connect(osc.amplitude);
         osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
-        this.start();
+        this.start(lineOut);
 
 
     }
-
-
 
     /**
      *
@@ -77,11 +79,8 @@ public class VCO {
 
     }
 
-    public void stop(){
-        synth.stop();
-    }
 
-    public void start(){
+    public void start(OutMod lineOut){
         synth.start();
         lineOut.start();
 
