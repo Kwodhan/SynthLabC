@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 
@@ -21,18 +22,18 @@ public class Controller implements Initializable {
     Button startVCOButton,stopVCOButton;
     @FXML
     Slider frequencySlider;
-/*    @FXML
-    RadioButton sawRadio, traingleRadio,SquareRadio;*/
+    @FXML
+    RadioButton sawRadio, traingleRadio,SquareRadio;
 
     VCO vco;
 
 
     public void initialize(URL location, ResourceBundle resources) {
         vco = new VCO();
-/*      sawRadio.setToggleGroup(group);
+    sawRadio.setToggleGroup(group);
         traingleRadio.setToggleGroup(group);
         SquareRadio.setToggleGroup(group);
-        SquareRadio.setSelected(true);*/
+        SquareRadio.setSelected(true);
         frequencySlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
@@ -42,6 +43,7 @@ public class Controller implements Initializable {
 
             }
         });
+
 
 
 
@@ -61,7 +63,7 @@ public class Controller implements Initializable {
     }
 
     public void squareSound(){
-        
+
         vco.squareSound();
 
 
