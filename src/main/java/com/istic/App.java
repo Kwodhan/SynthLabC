@@ -7,14 +7,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-    Scene scene;
-    Parent root;
+    private Scene scene;
+    private Parent root;
     @Override
     public void start(Stage stage) throws Exception {
         root = FXMLLoader.load(getClass().getResource("../../sample.fxml"));
         scene = new Scene(root);
         //change skin
-        //scene.getStylesheets().add("/skins/dark.css");
+        scene.getStylesheets().add("/skins/dark.css");
         stage.setTitle("SynthLabC");
         stage.setScene(scene);
         stage.show();
