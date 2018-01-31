@@ -25,11 +25,13 @@ public class Controller implements Initializable {
     @FXML
     RadioButton sawRadio, traingleRadio,SquareRadio;
 
-    VCO vco;
+    private VCO vco;
+    private OutMod lineOut;
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        vco = new VCO();
+        lineOut = new OutMod();
+        vco = new VCO(this.lineOut);
         sawRadio.setToggleGroup(group);
         traingleRadio.setToggleGroup(group);
         SquareRadio.setToggleGroup(group);
@@ -52,7 +54,7 @@ public class Controller implements Initializable {
 
 
     public void startSoundVCO() throws InterruptedException {
-        vco.start();
+        vco.start(this.lineOut);
 
     }
 
@@ -62,15 +64,15 @@ public class Controller implements Initializable {
     }
 
     public void squareSound(){
-        vco.squareSound();
+        vco.squareSound(this.lineOut);
 
     }
     public void sawSound(){
-        vco.sawSound();
+        vco.sawSound(this.lineOut);
 
     }
     public void triangleSound(){
-       vco.triangleSound();
+       vco.triangleSound(this.lineOut);
 
     }
 
