@@ -4,14 +4,14 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
 
-public class VCO {
+public class VCO implements Module{
 
 
     private final double f0 = 440.0;
     private Synthesizer synth;
     private UnitOscillator osc;
-    private LinearRamp lag;
-    private LineOut lineOut;
+    private LinearRamp lag;//
+    private LineOut lineOut;// Module de sortie
     private int octave = 0;
 
     public VCO(){
