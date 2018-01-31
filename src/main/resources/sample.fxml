@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
    <children>
        <MenuBar layoutX="-6.0">
            <menus>
@@ -58,9 +58,10 @@
                                           <Text layoutX="46.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frequence" />
                                           <Button fx:id="startVCOButton" layoutX="255.0" layoutY="56.0" mnemonicParsing="false" onAction="#startSoundVCO" text="Start" />
                                           <Button fx:id="stopVCOButton" layoutX="255.0" layoutY="114.0" mnemonicParsing="false" onAction="#stopSoundVCO" text="Stop" />
-                                          <RadioButton fx:id="SquareRadio" layoutX="370.0" layoutY="60.0" mnemonicParsing="false" onAction="#squareSound" text="Square" />
-                                          <RadioButton fx:id="traingleRadio" layoutX="375.0" layoutY="96.0" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" />
+                                          <RadioButton fx:id="squareRadio" layoutX="370.0" layoutY="60.0" mnemonicParsing="false" onAction="#squareSound" text="Square" />
+                                          <RadioButton fx:id="triangleRadio" layoutX="375.0" layoutY="96.0" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" />
                                           <RadioButton fx:id="sawRadio" layoutX="368.0" layoutY="131.0" mnemonicParsing="false" onAction="#sawSound" text="SawTooth" />
+                                          <Slider fx:id="frequencyFineSlider" layoutX="176.0" layoutY="44.0" orientation="VERTICAL" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
