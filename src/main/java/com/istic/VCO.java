@@ -7,11 +7,12 @@ import com.jsyn.unitgen.*;
 public class VCO {
 
 
-    private final double f0=440.0;
+    private final double f0 = 440.0;
     private Synthesizer synth;
     private UnitOscillator osc;
     private LinearRamp lag;
     private LineOut lineOut;
+    private int octave = 0;
 
     public VCO(){
         synth = JSyn.createSynthesizer();
@@ -30,38 +31,48 @@ public class VCO {
         lag.input.setup( 0.0, 0.5, 1.0 );
         lag.time.set(  0.2 );
 
-        osc.frequency.setup( 30, this.f0, 10000);
+        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
     }
 
     public void squareSound(){
-        synth.stop();
-        synth.remove(osc);
+        this.disconnectShapeWave();
+
+        // reconnect the new Oscillator
         synth.add( osc = new SquareOscillatorBL() );
-        osc.frequency.setup( 30, this.f0, 10000);
-        synth.start();
-        lineOut.start();
+        osc.output.connect( 0, lineOut.input, 0 );
+        lag.output.connect( osc.amplitude );
+        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
+
+        this.start();
 
 
 
     }
     public void sawSound(){
-        synth.stop();
-        synth.remove(osc);
+        this.disconnectShapeWave();
+
+        // reconnect the new Oscillator
         synth.add( osc = new SawtoothOscillatorBL() );
-        osc.frequency.setup( 30, this.f0, 10000);
-        synth.start();
-        lineOut.start();
+        osc.output.connect( 0, lineOut.input, 0 );
+        lag.output.connect( osc.amplitude );
+        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
+
+        this.start();
 
 
 
     }
+
     public void triangleSound(){
-        synth.stop();
-        synth.remove(osc);
+        this.disconnectShapeWave();
+
+        // reconnect the new Oscillator
         synth.add( osc = new TriangleOscillator() );
-        osc.frequency.setup( 30, this.f0, 10000);
-        synth.start();
-        lineOut.start();
+        osc.output.connect( 0, lineOut.input, 0 );
+        lag.output.connect( osc.amplitude );
+        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
+
+        this.start();
 
 
 
@@ -73,19 +84,31 @@ public class VCO {
 
     }
 
-    public void changeOctave(int octave){
-        System.out.println(this.f0*Math.pow(2,octave));
-        this.osc.frequency.set(this.f0*Math.pow(2,octave));
+    /**
+     * Disconnet old Shape Wave
+     */
+    private void disconnectShapeWave(){
+        synth.stop();
+        osc.output.disconnect(0, lineOut.input, 0);
+        lag.output.disconnect( osc.amplitude );
+        synth.remove(osc);
+    }
 
+    /**
+     *
+     * @param octave between -5 and +5
+     */
+    public void changeOctave(int octave){
+        this.octave = octave;
+
+        this.osc.frequency.set(this.f0*Math.pow(2,octave));
 
     }
 
     public void start(){
-        // Start synthesizer using default stereo output at 44100 Hz.
         synth.start();
-        // We only need to start the LineOut. It will pull data from the
         lineOut.start();
-        //Listener for the frequency change
+
     }
 
 }

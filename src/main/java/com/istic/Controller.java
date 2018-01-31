@@ -30,10 +30,11 @@ public class Controller implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         vco = new VCO();
-    sawRadio.setToggleGroup(group);
+        sawRadio.setToggleGroup(group);
         traingleRadio.setToggleGroup(group);
         SquareRadio.setToggleGroup(group);
         SquareRadio.setSelected(true);
+
         frequencySlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
@@ -53,31 +54,23 @@ public class Controller implements Initializable {
     public void startSoundVCO() throws InterruptedException {
         vco.start();
 
-
     }
 
     public void stopSoundVCO() throws InterruptedException {
         vco.stop();
 
-
     }
 
     public void squareSound(){
-
         vco.squareSound();
-
-
 
     }
     public void sawSound(){
         vco.sawSound();
 
-
-
     }
     public void triangleSound(){
        vco.triangleSound();
-
 
     }
 
