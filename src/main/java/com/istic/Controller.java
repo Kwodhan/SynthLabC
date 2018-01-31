@@ -61,6 +61,7 @@ public class Controller implements Initializable {
     }
 
     public void squareSound(){
+        
         vco.squareSound();
 
 
