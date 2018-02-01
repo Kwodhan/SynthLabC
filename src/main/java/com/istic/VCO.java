@@ -1,58 +1,47 @@
 package com.istic;
 
-import com.jsyn.JSyn;
+import com.istic.port.PortOutput;
 import com.jsyn.Synthesizer;
-import com.jsyn.unitgen.*;
+import com.jsyn.unitgen.SquareOscillatorBL;
+import com.jsyn.unitgen.UnitOscillator;
 
 public class VCO implements Module{
 
 
-    private final double f0 = 440.0;
+    private final Double f0 = 440.0;
     private UnitOscillator osc;
-    private LinearRamp lag;
-    private int octave = 0;
+    private Integer octave = 0;
     private Synthesizer synth;
-    private OutMod lineOut;
 
-    public VCO(Synthesizer synth, OutMod lineOut){
+
+    // Port
+    private PortOutput portOutput;
+
+
+    public VCO(Synthesizer synth){
 
         this.synth = synth;
-        this.lineOut = lineOut;
 
-        // Add a tone generator.
-        synth.add( osc = new SquareOscillatorBL() );
-        // Add a lag to smooth out amplitude changes and avoid pops.
-        synth.add( lag = new LinearRamp() );
-        // Add an output mixer.
-        synth.add( this.lineOut );
-        // Connect the oscillator to the output.
-        osc.output.connect( 0, this.lineOut.input, 0 );
+        this.synth.add( osc = new SquareOscillatorBL() );
 
-        // Set the minimum, current and maximum values for the port.
-        lag.output.connect( osc.amplitude );
-        lag.input.setup( 0.0, 0.5, 1.0 );
-        lag.time.set(  0.2 );
+        this.portOutput = new PortOutput(this,this.osc.output);
 
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
     }
 
     public void changeShapeWave(ShapeWave shapeWave) {
 
+/*        Module temp = this.outModule;
+
         // Disconnect
-        synth.stop();
-        osc.output.disconnect(0, lineOut.input, 0);
-        lag.output.disconnect( osc.amplitude );
-        synth.remove(osc);
-        osc.output.disconnect(0, lineOut.input, 0);
-        lag.output.disconnect( osc.amplitude );
-        synth.remove(osc);
+        this.disconnectOuput(this.outModule);
+        this.synth.remove(osc);
 
         // Reconnect
-        synth.add(osc = shapeWave.getInstance());
-        osc.output.connect(0, lineOut.input, 0);
-        lag.output.connect(osc.amplitude);
-        osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
-        this.start();
+        this.synth.add(osc = shapeWave.getInstance());
+        this.connectOuput(temp);
+        this.osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
+        this.start();*/
 
 
     }
@@ -63,7 +52,6 @@ public class VCO implements Module{
      */
     public void changeOctave(int octave){
         this.octave = octave;
-
         this.osc.frequency.set(this.f0*Math.pow(2,octave));
 
     }
@@ -83,16 +71,16 @@ public class VCO implements Module{
 
 
     public void start(){
-        synth.start();
-        lineOut.start();
+        osc.start();
 
     }
 
     public void stop() throws InterruptedException {
-        synth.stop();
-        //synth.sleepFor(2);
-
+        osc.stop();
 
     }
 
+    public PortOutput getPortOutput() {
+        return portOutput;
+    }
 }

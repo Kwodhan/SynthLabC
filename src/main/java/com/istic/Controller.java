@@ -1,14 +1,12 @@
 package com.istic;
 
+import com.istic.cable.Cable;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
@@ -17,7 +15,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    private static final long serialVersionUID = -2704222221111608377L;
 
 
     final ToggleGroup group = new ToggleGroup();
@@ -35,38 +32,38 @@ public class Controller implements Initializable {
     RadioButton sawRadio, triangleRadio,squareRadio;
 
     private Synthesizer synth;
+
     private VCO vco;
     private OutMod lineOut;
 
 
     public void initialize(URL location, ResourceBundle resources) {
         this.synth = JSyn.createSynthesizer();
-        this.lineOut = new OutMod();
 
-        vco = new VCO(this.synth, this.lineOut);
+        this.lineOut = new OutMod(this.synth);
+        this.vco = new VCO(this.synth);
+
+        Cable cable = new Cable(vco.getPortOutput(),lineOut.getPortInput());
+        cable.connect();
+
+
         sawRadio.setToggleGroup(group);
         triangleRadio.setToggleGroup(group);
         squareRadio.setToggleGroup(group);
         squareRadio.setSelected(true);
 
-        frequencySlider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val) {
-                frequencySlider.setValue(Math.round(frequencySlider.getValue()));
-                vco.changeOctave((int)frequencySlider.getValue());
+        frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            frequencySlider.setValue(Math.round(frequencySlider.getValue()));
+            vco.changeOctave((int)frequencySlider.getValue());
 
 
-            }
         });
 
-        frequencyFineSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val) {
-                //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
-                vco.changeFineHertz(frequencyFineSlider.getValue());
+        frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
+            vco.changeFineHertz(frequencyFineSlider.getValue());
 
 
-            }
         });
 
 
@@ -76,13 +73,17 @@ public class Controller implements Initializable {
 
 
     public void startSoundVCO() throws InterruptedException {
+        this.synth.start();
         vco.start();
+        lineOut.start();
+
 
     }
 
     public void stopSoundVCO() throws InterruptedException {
+        this.synth.stop();
         vco.stop();
-
+        lineOut.stop();
     }
 
     public void squareSound(){
