@@ -4,10 +4,10 @@ import com.istic.port.PortInput;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.LineOut;
 
-public class OutMod extends LineOut implements Module {
+public class OutMod implements Module {
 	private double attenuation = 0;
 	private boolean mute = false;
-public class OutMod implements Module {
+
 
 	public double getAttenuation() {
 		return attenuation;
