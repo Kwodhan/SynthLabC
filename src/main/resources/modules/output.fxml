@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="239.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="97.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OUT">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="44.0" fitWidth="38.0" layoutX="108.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/out.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="111.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" />
+   </children>
+</AnchorPane>

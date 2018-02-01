@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CVOModule extends Pane implements Initializable {
+public class VCOModule extends Pane implements Initializable {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
