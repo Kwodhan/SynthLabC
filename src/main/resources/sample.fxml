@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
+<AnchorPane prefHeight="750.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
    <children>
        <MenuBar layoutX="-6.0">
            <menus>
@@ -58,38 +58,40 @@
                </Menu>
            </menus>
        </MenuBar>
-      <SplitPane dividerPositions="0.15080527086383602" layoutY="28.0" prefHeight="530.0" prefWidth="685.0">
+      <SplitPane dividerPositions="0.15080527086383602" layoutY="28.0" prefHeight="767.0" prefWidth="900.0">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="526.0" prefWidth="99.0" />
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="526.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.7787769784172662" orientation="VERTICAL" prefHeight="558.0" prefWidth="576.0">
+                  <Button fx:id="startVCOButton" layoutX="41.0" layoutY="61.0" mnemonicParsing="false" onAction="#startSoundVCO" text="Start" />
+                  <Button fx:id="stopVCOButton" layoutX="42.0" layoutY="117.0" mnemonicParsing="false" onAction="#stopSoundVCO" text="Stop" />
+               </children></AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="600.0">
+               <children>
+                  <SplitPane dividerPositions="0.7208387942332897" orientation="VERTICAL" prefHeight="765.0" prefWidth="773.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0">
                            <children>
-                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="429.0" prefWidth="574.0">
+                              <SplitPane dividerPositions="0.36678832116788324" orientation="VERTICAL" prefHeight="550.0" prefWidth="759.0">
                                 <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="748.0">
                                        <children>
                                           <Text layoutX="113.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VCO" />
                                           <Slider fx:id="frequencySlider" blockIncrement="1.0" layoutX="23.0" layoutY="89.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
                                           <Text layoutX="46.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frequence" />
-                                          <Button fx:id="startVCOButton" layoutX="255.0" layoutY="56.0" mnemonicParsing="false" onAction="#startSoundVCO" text="Start" />
-                                          <Button fx:id="stopVCOButton" layoutX="255.0" layoutY="114.0" mnemonicParsing="false" onAction="#stopSoundVCO" text="Stop" />
                                           <RadioButton fx:id="squareRadio" layoutX="370.0" layoutY="60.0" mnemonicParsing="false" onAction="#squareSound" text="Square" />
-                                          <RadioButton fx:id="triangleRadio" layoutX="375.0" layoutY="96.0" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" />
-                                          <RadioButton fx:id="sawRadio" layoutX="368.0" layoutY="131.0" mnemonicParsing="false" onAction="#sawSound" text="SawTooth" />
+                                          <RadioButton fx:id="triangleRadio" layoutX="370.0" layoutY="95.0" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" />
+                                          <RadioButton fx:id="sawRadio" layoutX="370.0" layoutY="131.0" mnemonicParsing="false" onAction="#sawSound" text="SawTooth" />
                                           <Slider fx:id="frequencyFineSlider" layoutX="176.0" layoutY="44.0" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="572.0">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="315.0" prefWidth="757.0">
                                        <children>
-                                          <HBox fx:id="HBox1" prefHeight="209.0" prefWidth="574.0" />
+                                          <HBox fx:id="HBox1" prefHeight="315.0" prefWidth="759.0" />
                                        </children></AnchorPane>
                                 </items>
                               </SplitPane>
                            </children></AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="243.0" prefWidth="271.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="640.0" />
                     </items>
                   </SplitPane>
                </children>
