@@ -43,8 +43,10 @@ public class Controller implements Initializable {
         this.lineOut = new OutMod(this.synth);
         this.vco = new VCO(this.synth);
 
+
         Cable cable = new Cable(vco.getPortOutput(),lineOut.getPortInput());
-        cable.connect();
+        System.out.println(cable.connect());
+
 
 
         sawRadio.setToggleGroup(group);

@@ -12,8 +12,6 @@ public class VCO implements Module{
     private UnitOscillator osc;
     private Integer octave = 0;
     private Synthesizer synth;
-
-
     // Port
     private PortOutput portOutput;
 
@@ -31,17 +29,17 @@ public class VCO implements Module{
 
     public void changeShapeWave(ShapeWave shapeWave) {
 
-/*        Module temp = this.outModule;
+
 
         // Disconnect
-        this.disconnectOuput(this.outModule);
+
         this.synth.remove(osc);
 
         // Reconnect
         this.synth.add(osc = shapeWave.getInstance());
-        this.connectOuput(temp);
+
         this.osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
-        this.start();*/
+        this.start();
 
 
     }

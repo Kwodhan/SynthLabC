@@ -1,35 +1,36 @@
 package com.istic.port;
 
 import com.istic.Module;
-import com.jsyn.ports.UnitBlockPort;
 
 public abstract class Port {
 
     private Module module;
-    private UnitBlockPort unitPort;
+
     boolean connected = false;
 
-    public Port(Module module, UnitBlockPort unitPort) {
+    protected VisitorConnectPort visitorConnectPort;
+
+    public Port(Module module) {
         this.module = module;
-        this.unitPort = unitPort;
+
 
     }
 
-    public abstract boolean isInput();
-
-    public abstract boolean isOutput();
-
-
+    public VisitorConnectPort getVisitorConnectPort() {
+        return visitorConnectPort;
+    }
 
     public boolean isConnected() {
         return connected;
     }
 
-    public UnitBlockPort getUnitPort() {
-        return unitPort;
-    }
+
 
     public void setConnected(boolean connected) {
         this.connected = connected;
     }
+
+    abstract public boolean accept(VisitorConnectPort visitor);
+
+    abstract public void disconnect();
 }
