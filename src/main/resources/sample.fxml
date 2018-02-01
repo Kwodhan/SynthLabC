@@ -64,6 +64,7 @@
                <children>
                   <Button fx:id="startVCOButton" layoutX="41.0" layoutY="61.0" mnemonicParsing="false" onAction="#startSoundVCO" text="Start" />
                   <Button fx:id="stopVCOButton" layoutX="42.0" layoutY="117.0" mnemonicParsing="false" onAction="#stopSoundVCO" text="Stop" />
+                  <Button fx:id="muteButton" layoutX="41.0" layoutY="173.0" mnemonicParsing="false" onAction="#mute" text="Mute" />
                </children></AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="600.0">
                <children>

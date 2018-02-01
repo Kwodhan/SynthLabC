@@ -23,7 +23,7 @@ public class Controller implements Initializable {
     @FXML
     HBox HBox1;
     @FXML
-    Button startVCOButton,stopVCOButton;
+    Button startVCOButton,stopVCOButton,muteButton;
     @FXML
     Slider frequencySlider;
     @FXML
@@ -155,5 +155,6 @@ public class Controller implements Initializable {
         HBox1.getChildren().add(root);
 
     }
+    public void mute(){}
 
 }

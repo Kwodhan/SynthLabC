@@ -30,5 +30,10 @@ public class App extends Application {
         launch(args);
 
     }
+    @Override
+    public void stop(){
+        System.out.println("Stage is closing");
+        System.exit(0);
+    }
 
 }
