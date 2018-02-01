@@ -5,12 +5,14 @@ import com.jsyn.Synthesizer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,7 +21,10 @@ public class Controller implements Initializable {
 
 
     final ToggleGroup group = new ToggleGroup();
-
+    @FXML
+    MenuItem vcoMenuItem;
+    @FXML
+    HBox HBox1;
     @FXML
     Button startVCOButton,stopVCOButton;
     @FXML
@@ -92,6 +97,11 @@ public class Controller implements Initializable {
        vco.changeShapeWave(ShapeWave.Triangle);
 
     }
+    public void addVCO() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/cvo.fxml"));
 
+        HBox1.getChildren().add(root);
+
+    }
 
 }

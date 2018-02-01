@@ -10,9 +10,10 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
    <children>
        <MenuBar layoutX="-6.0">
            <menus>
@@ -28,6 +29,23 @@
                </Menu>
                <Menu mnemonicParsing="false" text="Display">
                    <items>
+                  <Menu mnemonicParsing="false" text="Add">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="EG" />
+                        <MenuItem mnemonicParsing="false" text="Mixer" />
+                        <MenuItem mnemonicParsing="false" text="Output" />
+                        <MenuItem mnemonicParsing="false" text="Oscilloscope" />
+                        <MenuItem mnemonicParsing="false" text="Replicator" />
+                        <MenuItem mnemonicParsing="false" text="Sequencer" />
+                        <MenuItem mnemonicParsing="false" text="VCA" />
+                        <MenuItem mnemonicParsing="false" text="VCF LP" />
+                        <MenuItem mnemonicParsing="false" text="VCF HP" />
+                        <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVCO" text="VCO" />
+                        <MenuItem mnemonicParsing="false" text="White Noise" />
+                    </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" text="Drop" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
                        <RadioMenuItem mnemonicParsing="false" text="Metal Skin" />
                        <RadioMenuItem mnemonicParsing="false" text="Wood Skin" />
                    </items>
@@ -61,10 +79,13 @@
                                           <RadioButton fx:id="squareRadio" layoutX="370.0" layoutY="60.0" mnemonicParsing="false" onAction="#squareSound" text="Square" />
                                           <RadioButton fx:id="triangleRadio" layoutX="375.0" layoutY="96.0" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" />
                                           <RadioButton fx:id="sawRadio" layoutX="368.0" layoutY="131.0" mnemonicParsing="false" onAction="#sawSound" text="SawTooth" />
-                                          <Slider fx:id="frequencyFineSlider" layoutX="176.0" layoutY="44.0" orientation="VERTICAL" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
+                                          <Slider fx:id="frequencyFineSlider" layoutX="176.0" layoutY="44.0" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="572.0">
+                                       <children>
+                                          <HBox fx:id="HBox1" prefHeight="209.0" prefWidth="574.0" />
+                                       </children></AnchorPane>
                                 </items>
                               </SplitPane>
                            </children></AnchorPane>

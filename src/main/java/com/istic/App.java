@@ -14,7 +14,7 @@ public class App extends Application {
         root = FXMLLoader.load(getClass().getResource("../../sample.fxml"));
         scene = new Scene(root);
         //change skin
-        scene.getStylesheets().add("/skins/dark.css");
+        //scene.getStylesheets().add("/skins/dark.css");
         stage.setTitle("SynthLabC");
         stage.setScene(scene);
         stage.show();
