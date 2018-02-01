@@ -14,7 +14,13 @@ public class Cable {
 
     }
 
+    public Port getPortOne() {
+        return portOne;
+    }
 
+    public Port getPortTwo() {
+        return portTwo;
+    }
 
     public boolean  connect() {
         if(this.portTwo.accept(this.portOne.getVisitorConnectPort())){
