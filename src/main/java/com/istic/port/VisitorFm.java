@@ -1,24 +1,22 @@
 package com.istic.port;
 
-public class VisitorInput  implements VisitorConnectPort {
-    PortInput portInput;
+public class VisitorFm implements VisitorConnectPort {
+    PortFm portFm;
 
-    public VisitorInput(PortInput portInput) {
-        this.portInput = portInput;
+    public VisitorFm(PortFm portFm) {
+
+        this.portFm = portFm;
     }
+
+
     @Override
     public boolean visit(PortInput portInput) {
-
         return false;
-
     }
 
     @Override
     public boolean visit(PortOutput portOutput) {
-        portOutput.getUnitOutputPort().connect(0,portInput.getUnitInputPort(),0);
-
-        return true;
-
+        return false;
     }
 
     @Override
@@ -34,13 +32,5 @@ public class VisitorInput  implements VisitorConnectPort {
     @Override
     public boolean visit(PortGate portGate) {
         return false;
-    }
-
-    public PortInput getPortInput() {
-        return portInput;
-    }
-
-    public void setPortInput(PortInput portInput) {
-        this.portInput = portInput;
     }
 }

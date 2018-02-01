@@ -21,4 +21,19 @@ public class VisitorOuput implements VisitorConnectPort {
         return false;
 
     }
+
+    @Override
+    public boolean visit(PortFm portFm) {
+        return false;
+    }
+
+    @Override
+    public boolean visit(PortAm portAm) {
+        return false;
+    }
+
+    @Override
+    public boolean visit(PortGate portGate) {
+        return false;
+    }
 }
