@@ -1,12 +1,20 @@
 package com.istic.modulesController;
 
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class OUTPUTModuleController extends Pane implements Initializable {
+
+    @FXML
+    ImageView outPort;
+
+
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -17,6 +25,10 @@ public class OUTPUTModuleController extends Pane implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+    }
+    public void connect(){
+
 
     }
 }
