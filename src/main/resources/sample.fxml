@@ -31,17 +31,17 @@
                    <items>
                   <Menu mnemonicParsing="false" text="Add">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="EG" />
-                        <MenuItem mnemonicParsing="false" text="Mixer" />
-                        <MenuItem mnemonicParsing="false" text="Output" />
-                        <MenuItem mnemonicParsing="false" text="Oscilloscope" />
-                        <MenuItem mnemonicParsing="false" text="Replicator" />
-                        <MenuItem mnemonicParsing="false" text="Sequencer" />
-                        <MenuItem mnemonicParsing="false" text="VCA" />
-                        <MenuItem mnemonicParsing="false" text="VCF LP" />
-                        <MenuItem mnemonicParsing="false" text="VCF HP" />
+                        <MenuItem fx:id="egMenuItem" mnemonicParsing="false" onAction="#addEG" text="EG" />
+                        <MenuItem fx:id="mixerMenuItem" mnemonicParsing="false" onAction="#addMixer" text="Mixer" />
+                        <MenuItem fx:id="outputMenuItem" mnemonicParsing="false" onAction="#addOutput" text="Output" />
+                        <MenuItem fx:id="oscilloscopeMenuItem" mnemonicParsing="false" onAction="#addOscilloscope" text="Oscilloscope" />
+                        <MenuItem fx:id="replicatorMenuItem" mnemonicParsing="false" onAction="#addReplicator" text="Replicator" />
+                        <MenuItem fx:id="sequencerMenuItem" mnemonicParsing="false" onAction="#addSequencer" text="Sequencer" />
+                        <MenuItem fx:id="vcaMenuItem" mnemonicParsing="false" onAction="#addVca" text="VCA" />
+                        <MenuItem fx:id="vcfLpMenuItem" mnemonicParsing="false" onAction="#addVcfLp" text="VCF LP" />
+                        <MenuItem fx:id="vcfHpMenuItem" mnemonicParsing="false" onAction="#addVcfHp" text="VCF HP" />
                         <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVCO" text="VCO" />
-                        <MenuItem mnemonicParsing="false" text="White Noise" />
+                        <MenuItem fx:id="whiteNoiseMenuItem" mnemonicParsing="false" onAction="#addWhiteNoise" text="White Noise" />
                     </items>
                   </Menu>
                   <MenuItem mnemonicParsing="false" text="Drop" />
