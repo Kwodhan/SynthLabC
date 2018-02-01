@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="239.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="239.0" prefWidth="284.0" fx:controller="com.istic.modulesController.VCFLPModuleController" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
      <Slider fx:id="frequencySlider" blockIncrement="1.0" layoutX="10.0" layoutY="76.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
      <RadioButton fx:id="squareRadio" layoutX="195.0" layoutY="100.0" mnemonicParsing="false" text="Square" />
