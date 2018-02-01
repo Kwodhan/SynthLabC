@@ -104,5 +104,65 @@ public class Controller implements Initializable {
         HBox1.getChildren().add(root);
 
     }
+    public void addMixer() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/mixer.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addEG() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/eg.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addOutput() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/output.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addOscilloscope() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/oscilloscope.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addReplicator() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/replicator.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addSequencer() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/sequencer.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addVca() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/vca.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addVcfLp() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/vcfLp.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addVcfHp() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/vcfHp.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
+    public void addWhiteNoise() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource("../../modules/whiteNoise.fxml"));
+
+        HBox1.getChildren().add(root);
+
+    }
 
 }
