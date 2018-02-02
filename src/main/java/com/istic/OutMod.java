@@ -35,6 +35,7 @@ public class OutMod extends LineOut implements Module {
 	
 	public void setAttenuation(double att){
 		this.attenuation = att;
+		//
 	}
 	
     @Override
