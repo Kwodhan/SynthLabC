@@ -3,9 +3,12 @@ package com.istic;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
 import com.jsyn.Synthesizer;
-import com.jsyn.unitgen.*;
 import com.jsyn.ports.UnitInputPort;
-
+import com.jsyn.unitgen.SawtoothOscillator;
+import com.jsyn.unitgen.SquareOscillator;
+import com.jsyn.unitgen.SquareOscillatorBL;
+import com.jsyn.unitgen.TriangleOscillator;
+import com.jsyn.unitgen.UnitOscillator;
 
 public class VCO implements Module{
 
@@ -13,11 +16,6 @@ public class VCO implements Module{
      * default : LA
      */
     private Double f0 = 440.0;
-
-    public UnitOscillator getOsc() {
-        return osc;
-    }
-
     private UnitOscillator osc;
     /**
      * octave beetween -3 and +3
@@ -29,6 +27,10 @@ public class VCO implements Module{
     private Double fin = 0d;
 
     private Double fm = 0d;
+    private UnitOscillator oscSquare;
+    private UnitOscillator oscTriangle;
+    private UnitOscillator oscSawtooth;
+    private UnitOscillator[] oscs;
 
 
     private Synthesizer synth;
@@ -41,9 +43,11 @@ public class VCO implements Module{
     public VCO(Synthesizer synth) {
 
         this.synth = synth;
-
-        this.synth.add( osc = new SquareOscillatorBL() );
-
+        this.oscs = new UnitOscillator[3];
+        this.synth.add( oscs[0] = new SquareOscillator());
+        this.synth.add( oscs[1] = new TriangleOscillator());
+        this.synth.add( oscs[2] = new SawtoothOscillator());
+        osc = oscs[0];
         this.portOutput = new PortOutput(this,this.osc.output);
 
         this.portfm = new PortInput(this, new UnitInputPort("Inputfm"));
@@ -52,30 +56,12 @@ public class VCO implements Module{
 
     }
 
-    public void changeShapeWave(ShapeWave shapeWave) {
-        //this.synth.stop();
-        //this.osc.stop();
-        System.out.println("this.osc before get instance" + this.osc.getClass());
-        //this.synth.remove(this.osc);
+    public void changeShapeWave(int i, OutMod outmod) {
 
-
-        this.osc = shapeWave.getInstance();
-        System.out.println("this.osc before after instance" + this.osc.getClass());
-        //this.synth.add(this.osc);
-        this.portOutput = new PortOutput(this,this.osc.output);
-        this.osc.frequency.setup(30, this.f0 * Math.pow(2, this.octave), 10000);
-        //this.osc.frequency.set(this.f0*Math.pow(2,octave));
-
-        //this.start();
-
-
-        // Reconnect
-//        this.synth.add(osc = shapeWave.getInstance());
-//
-//        this.osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
-//        this.start();
-
-
+        // Disconnect
+       outmod.input.disconnectAll();
+       oscs[i].output.connect(outmod.input);
+       osc = oscs[i];
     }
 
     /**
@@ -136,5 +122,9 @@ public class VCO implements Module{
 
     public double getFrequence(){
         return this.osc.frequency.get();
+    }
+
+    public void setPortOutput(){
+    	this.portOutput = new PortOutput(this,this.osc.output);
     }
 }
