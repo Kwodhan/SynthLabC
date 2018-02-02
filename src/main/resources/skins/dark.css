@@ -22,7 +22,10 @@
     /* color of non-focused yet selected elements */
     -fx-selection-bar-non-focused: rgb(50, 50, 50);
 }
+.text-field{
+    -fx-color: white;
 
+}
 /* Fix derived prompt color for text fields */
 .text-input {
     -fx-prompt-text-fill: derive(-fx-control-inner-background, +50%);

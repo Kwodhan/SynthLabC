@@ -1,14 +1,12 @@
 package com.istic.modulesController;
 
-import com.istic.OutMod;
+import com.istic.Controller;
 import com.istic.VCO;
-import com.istic.cable.Cable;
-import com.jsyn.JSyn;
+import com.istic.port.PortOutput;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -24,7 +22,7 @@ public class VCOModuleController extends Pane implements Initializable {
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
     final ToggleGroup group = new ToggleGroup();
-
+    private Controller controller;
     @FXML
     Button startVCOButton,stopVCOButton;
     @FXML
@@ -34,14 +32,12 @@ public class VCOModuleController extends Pane implements Initializable {
     @FXML
     RadioButton sawRadio, triangleRadio,squareRadio;
 
-    private Synthesizer synth;
 
     private VCO vco;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.synth = JSyn.createSynthesizer();
 
-        this.vco = new VCO(this.synth);
+        //this.vco = new VCO(this.synth);
 
 
 
@@ -65,11 +61,21 @@ public class VCOModuleController extends Pane implements Initializable {
 
 
         });
-        this.synth.start();
+        //this.synth.start();
+        //vco.start();
+
+
+
+
+    }
+    public void init(Controller controller,Synthesizer synthesizer){
+        this.controller=controller;
+        this.vco = new VCO(synthesizer);
         vco.start();
 
-
-
+    }
+    public PortOutput connectOut(){
+        return vco.getPortOutput();
 
     }
 

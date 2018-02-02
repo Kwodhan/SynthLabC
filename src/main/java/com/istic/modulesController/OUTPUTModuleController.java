@@ -1,15 +1,12 @@
 package com.istic.modulesController;
 
+import com.istic.Controller;
 import com.istic.OutMod;
-import com.istic.VCO;
-import com.istic.cable.Cable;
-import com.jsyn.JSyn;
+import com.istic.port.PortInput;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -20,9 +17,8 @@ public class OUTPUTModuleController extends Pane implements Initializable {
     @FXML
     ImageView outPort;
 
+    Controller controller;
 
-
-    private Synthesizer synth;
 
     private OutMod lineOut;
 
@@ -38,16 +34,23 @@ public class OUTPUTModuleController extends Pane implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.synth = JSyn.createSynthesizer();
 
-        this.lineOut = new OutMod(this.synth);
-        lineOut.start();
+        //this.lineOut = new OutMod(this.synth);
+        //lineOut.start();
+
 
 
     }
-    public void connect(){
+    public PortInput connect(){
     System.out.println("connetion established");
+        return lineOut.getPortInput();
 
 
+
+    }
+    public void init(Controller controller,Synthesizer synthesizer){
+        this.controller=controller;
+        this.lineOut = new OutMod(synthesizer);
+        lineOut.start();
     }
 }
