@@ -2,9 +2,10 @@ package com.istic;
 
 import com.istic.port.PortInput;
 import com.jsyn.unitgen.LineOut;
+import com.softsynth.math.AudioMath;
 
 public class OutMod extends LineOut implements Module {
-	private double attenuation = 0;
+	private double attenuation = 0.;
 
 	private int mute = 1;
 
@@ -18,22 +19,13 @@ public class OutMod extends LineOut implements Module {
 		return attenuation;
 	}
 
-	public void setAttenuation(double attenuation) {
-		this.attenuation = attenuation;
-		double amp = 1./Math.pow(10, attenuation/10); //changer 1 par l'amplitude du vco
-		//apply change 
+	public void toggleMute() {
+		this.mute = (this.mute == 1) ? 0 : 1;
 	}
 
-	public int isMute() {
-		return mute;
+	public void setAttenuation(double att){
+		this.attenuation = att;
 	}
-
-	public void setOnMute() {
-		this.mute = 0;
-	}
-	public void setOffMute() {
-		this.mute = 1;
-	}	
 	
     @Override
     public void generate(int start, int limit) {
@@ -41,12 +33,13 @@ public class OutMod extends LineOut implements Module {
         double[] inputs1 = input.getValues(1);
         double[] buffer0 = synthesisEngine.getOutputBuffer(0);
         double[] buffer1 = synthesisEngine.getOutputBuffer(1);
+        double fromDCBL ;
         for (int i = start; i < limit; i++) {
-            buffer0[i] += inputs0[i]*mute;
-            buffer1[i] += inputs1[i]*mute;
+        	fromDCBL = AudioMath.decibelsToAmplitude(this.attenuation);
+            buffer0[i] += inputs0[i]*mute*fromDCBL;
+            buffer1[i] += inputs1[i]*mute*fromDCBL;
         }
     }
-
 
 	public PortInput getPortInput() {
 		return new PortInput(this,this.getInput());

@@ -10,20 +10,33 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    Cable cable1;
 
+	public static final int SQUAREWAVE = 0;
+	public static final int TRIANGLEWAVE = 1;
+	public static final int SAWTOOTHWAV = 2;
+
+
+	@FXML
+	HBox HBox1, Hbox;
+
+    Cable cable1;
+    Line line ;
     final ToggleGroup group = new ToggleGroup();
+    @FXML
+    AnchorPane pane;
     @FXML
     MenuItem vcoMenuItem;
     @FXML
-    HBox HBox1;
+    HBox hBox1, hBox2,hBox3;
     @FXML
     Button startVCOButton,stopVCOButton,muteButton;
     @FXML
@@ -36,12 +49,11 @@ public class Controller implements Initializable {
     OUTPUTModuleController outputModuleController;
     private Synthesizer synth;
 
-    private VCO vco;
-    private OutMod lineOut;
+	private VCO vco;
+	private OutMod lineOut;
 
-
-    public void initialize(URL location, ResourceBundle resources) {
-        this.synth = JSyn.createSynthesizer();
+	public void initialize(URL location, ResourceBundle resources) {
+		this.synth = JSyn.createSynthesizer();
 
         this.synth.add(this.vco = new VCO());
         this.synth.add(this.lineOut = new OutMod());
@@ -57,6 +69,7 @@ public class Controller implements Initializable {
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
             vco.changeOctave((int)frequencySlider.getValue());
+
 
         });
 
@@ -76,98 +89,168 @@ public class Controller implements Initializable {
 
     }
 
-    public void stopSoundVCO() throws InterruptedException {
-        this.synth.stop();
-        vco.stop();
-        lineOut.stop();
+	public void stopSoundVCO() throws InterruptedException {
+		this.synth.stop();
+		vco.stop();
+		lineOut.stop();
+	}
+
+	public void squareSound(){
+		vco.changeShapeWave(VCO.SQUAREWAVE);
+
+	}
+	public void sawSound(){
+		vco.changeShapeWave(VCO.SAWWAVE);
+
+	}
+	public void triangleSound(){
+		vco.changeShapeWave(VCO.TRIANGLEWAVE);
+
+	}
+
+	public void addVCO() throws IOException {
+		// vcoModuleController=new VCOModuleController();
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/vco.fxml"));
+		addMod(root);
+		vcoModuleController = (VCOModuleController) root.getUserData();
+		// vcoModuleController.init(this,synth);
+	}
+
+	public void addOutput() throws IOException {
+		// outputModuleController=new OUTPUTModuleController();
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/output.fxml"));
+		addMod(root);
+
+		outputModuleController = (OUTPUTModuleController) root.getUserData();
+		// outputModuleController.init(this,synth);
+
+	}
+
+	public void addMixer() throws IOException {
+
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/mixer.fxml"));
+		addMod(root);
+
+	}
+
+	public void addEG() throws IOException {
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/eg.fxml"));
+		addMod(root);
+
+	}
+
+	public void addOscilloscope() throws IOException {
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/oscilloscope.fxml"));
+		addMod(root);
+
+	}
+
+	public void addReplicator() throws IOException {
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/replicator.fxml"));
+		addMod(root);
+
+	}
+
+	public void addSequencer() throws IOException {
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/sequencer.fxml"));
+		addMod(root);
+
+	}
+
+	public void addVca() throws IOException {
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/vca.fxml"));
+		addMod(root);
+
+	}
+
+	public void addVcfLp() throws IOException {
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/vcfLp.fxml"));
+		addMod(root);
+
+	}
+
+	public void addVcfHp() throws IOException {
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/vcfHp.fxml"));
+		addMod(root);
+
+	}
+
+	public void addWhiteNoise() throws IOException {
+		Node root = FXMLLoader.load(getClass().getResource(
+				"../../modules/whiteNoise.fxml"));
+		addMod(root);
+
+	}
+
+	public void drawCable() {
+		if (line == null) {
+
+			line = new Line(vcoModuleController.getX(),
+					vcoModuleController.getY(), outputModuleController.getX(),
+					outputModuleController.getY());
+			pane.getChildren().add(line);
+
+		} else {
+			pane.getChildren().remove(line);
+			line = new Line(vcoModuleController.getX(),
+					vcoModuleController.getY(), outputModuleController.getX(),
+					outputModuleController.getY());
+			pane.getChildren().add(line);
+
+		}
+	}
+
+	public void connect() {
+
+		vcoModuleController.init(this, synth);
+		outputModuleController.init(this, synth);
+		cable1 = new Cable(vcoModuleController.connectOut(),
+				outputModuleController.connect());
+		if (cable1.connect()&& outputModuleController.getLayoutX()==0 &&vcoModuleController.getLayoutX()==0) {
+			drawCable();
+		}
+		this.synth.start();
+
+
+    }
+    public void addMod(Node root){
+
+
+
+        if(hBox1.getChildren().size()<3){
+            hBox1.getChildren().add(root);
+
+        }else{
+
+            if(hBox2.getChildren().size()<3){
+                hBox2.getChildren().add(root);
+            }else
+            {
+
+                if(hBox3.getChildren().size()<3)
+                {
+                    hBox3.getChildren().add(root);
+                }else{
+                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3){
+
+                    }
+                }
+            }
+        }
+
     }
 
-    public void squareSound(){
-        vco.changeShapeWave(VCO.SQUAREWAVE);
-
-    }
-    public void sawSound(){
-        vco.changeShapeWave(VCO.SAWWAVE);
-
-    }
-    public void triangleSound(){
-       vco.changeShapeWave(VCO.TRIANGLEWAVE);
-
-    }
-
-    public void addVCO() throws IOException {
-        //vcoModuleController=new VCOModuleController();
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/vco.fxml"));
-        HBox1.getChildren().add(root);
-        vcoModuleController= (VCOModuleController) root.getUserData();
-        //vcoModuleController.init(this,synth);
-    }
-    public void addOutput() throws IOException {
-        //outputModuleController=new OUTPUTModuleController();
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/output.fxml"));
-        HBox1.getChildren().add(root);
-
-        outputModuleController= (OUTPUTModuleController) root.getUserData();
-        //outputModuleController.init(this,synth);
-
-    }
-    public void addMixer() throws IOException {
-
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/mixer.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-    public void addEG() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/eg.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-
-    public void addOscilloscope() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/oscilloscope.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-    public void addReplicator() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/replicator.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-    public void addSequencer() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/sequencer.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-    public void addVca() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/vca.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-    public void addVcfLp() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/vcfLp.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-    public void addVcfHp() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/vcfHp.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-    public void addWhiteNoise() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource("../../modules/whiteNoise.fxml"));
-        HBox1.getChildren().add(root);
-
-    }
-    public void mute(){}
-
-    public void connect(){
-        vcoModuleController.init(this,synth);
-        outputModuleController.init(this,synth);
-        cable1 = new Cable(vcoModuleController.connectOut(),outputModuleController.connect());
-        cable1.connect();
-        this.synth.start();
-
-
-    }
-
+	public AnchorPane getPane() {
+		return pane;
+	}
 }
