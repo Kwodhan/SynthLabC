@@ -1,43 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TitledPane animated="false" maxHeight="250.0" maxWidth="250.0" minHeight="250.0" minWidth="250.0" prefHeight="250.0" prefWidth="250.0" text="CVO" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.VCOModuleController">
+<AnchorPane maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.VCOModuleController">
     <userData>
         <fx:reference source="controller" />
     </userData>
-    <content>
-      <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@../skins/ropes.css">
-       <children>
-           <Text layoutX="113.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VCO" />
-           <Slider fx:id="frequencySlider" blockIncrement="1.0" layoutX="11.0" layoutY="69.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
-           <Text layoutX="31.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frequence" />
-           <Button fx:id="startVCOButton" layoutX="255.0" layoutY="56.0" mnemonicParsing="false" text="Start" />
-           <Button fx:id="stopVCOButton" layoutX="255.0" layoutY="114.0" mnemonicParsing="false" text="Stop" />
-           <RadioButton fx:id="squareRadio" layoutX="370.0" layoutY="60.0" mnemonicParsing="false" text="Square" />
-           <RadioButton fx:id="triangleRadio" layoutX="375.0" layoutY="96.0" mnemonicParsing="false" text="Triangle" />
-           <RadioButton fx:id="sawRadio" layoutX="368.0" layoutY="131.0" mnemonicParsing="false" text="SawTooth" />
-           <Slider fx:id="frequencyFineSlider" layoutX="188.0" layoutY="42.0" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-            <ImageView  fx:id="outPort" fitHeight="44.0" onMouseClicked="#connectOutPort" fitWidth="38.0" layoutX="27.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0c" height="210.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="270.0" />
+      <GridPane layoutX="2.0" maxHeight="210.0" maxWidth="260.0" minHeight="200.0" minWidth="260.0" prefHeight="200.0" prefWidth="260.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="VCO" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Octave" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Slider fx:id="frequencyFineSlider" blockIncrement="1.0" majorTickUnit="1.0" max="2.0" min="-9.0" minorTickCount="0" prefHeight="38.0" prefWidth="110.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <RadioButton fx:id="squareRadio" mnemonicParsing="false" text="Square" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <RadioButton fx:id="triangleRadio" mnemonicParsing="false" text="Triangle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <RadioButton fx:id="sawRadio" mnemonicParsing="false" text="SawT   " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FM" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Out" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <ImageView fx:id="outPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectOutPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../img/out.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="fmPort" onMouseClicked="#connectFmPort" fitHeight="44.0" fitWidth="38.0" layoutX="94.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fmPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectFmPort" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../img/fm.png" />
                </image>
             </ImageView>
-            <Text layoutX="32.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Out" />
-            <Text layoutX="100.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FM" />
-       </children>
-      </Pane>
-   </content>
-</TitledPane>
+            <Slider fx:id="frequencySlider" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" min="-3.0" minorTickCount="0" prefHeight="38.0" prefWidth="95.0" showTickLabels="true" showTickMarks="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fine Tune" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

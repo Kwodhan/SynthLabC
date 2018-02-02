@@ -25,26 +25,26 @@ public class Controller implements Initializable {
 	public static final int TRIANGLEWAVE = 1;
 	public static final int SAWTOOTHWAV = 2;
 
-	Cable cable1;
-	Line line;
-	final ToggleGroup group = new ToggleGroup();
-	@FXML
-	AnchorPane pane;
-	@FXML
-	MenuItem vcoMenuItem;
-	@FXML
-	HBox HBox1, Hbox;
-	@FXML
-	Button startVCOButton, stopVCOButton, muteButton;
-	@FXML
-	Slider frequencySlider;
-	@FXML
-	Slider frequencyFineSlider;
-	@FXML
-	RadioButton sawRadio, triangleRadio, squareRadio;
-	VCOModuleController vcoModuleController;
-	OUTPUTModuleController outputModuleController;
-	private Synthesizer synth;
+    Cable cable1;
+    Line line ;
+    final ToggleGroup group = new ToggleGroup();
+    @FXML
+    AnchorPane pane;
+    @FXML
+    MenuItem vcoMenuItem;
+    @FXML
+    HBox hBox1, hBox2,hBox3;
+    @FXML
+    Button startVCOButton,stopVCOButton,muteButton;
+    @FXML
+    Slider frequencySlider;
+    @FXML
+    Slider frequencyFineSlider;
+    @FXML
+    RadioButton sawRadio, triangleRadio,squareRadio;
+    VCOModuleController vcoModuleController;
+    OUTPUTModuleController outputModuleController;
+    private Synthesizer synth;
 
 	private VCO vco;
 	private OutMod lineOut;
@@ -189,16 +189,6 @@ public class Controller implements Initializable {
 
 	}
 
-	public void mute() {
-		if (lineOut.isMute() == 1) {
-			lineOut.setOnMute();
-
-		} else {
-			lineOut.setOffMute();
-		}
-
-	}
-
 	public void drawCable() {
 		if (line == null) {
 
@@ -228,26 +218,34 @@ public class Controller implements Initializable {
 		}
 		this.synth.start();
 
-	}
 
-	public void addMod(Node root) {
-		if (HBox1.getChildren().size() < 5) {
-			HBox1.getChildren().add(root);
+    }
+    public void addMod(Node root){
 
-		} else {
-			System.out.println("Max Size 1");
 
-			if (Hbox.getChildren().size() < 5) {
-				Hbox.getChildren().add(root);
-			} else {
 
-				if (HBox1.getChildren().size() == 5
-						&& Hbox.getChildren().size() == 5) {
-					System.out.println("Max Size 2");
-				}
-			}
-		}
-	}
+        if(hBox1.getChildren().size()<3){
+            hBox1.getChildren().add(root);
+
+        }else{
+
+            if(hBox2.getChildren().size()<3){
+                hBox2.getChildren().add(root);
+            }else
+            {
+
+                if(hBox3.getChildren().size()<3)
+                {
+                    hBox3.getChildren().add(root);
+                }else{
+                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3){
+
+                    }
+                }
+            }
+        }
+
+    }
 
 	public AnchorPane getPane() {
 		return pane;

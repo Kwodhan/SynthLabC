@@ -7,6 +7,7 @@ import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -25,7 +26,8 @@ public class OUTPUTModuleController extends Pane implements Initializable {
 
     private OutMod lineOut;
 
-
+    @FXML
+    private Slider attenuationSlider;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -41,10 +43,14 @@ public class OUTPUTModuleController extends Pane implements Initializable {
         //this.lineOut = new OutMod(this.synth);
         //lineOut.start();
 
-
-
+        attenuationSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            double newAttenuation = Math.round(attenuationSlider.getValue());
+            attenuationSlider.setValue(newAttenuation);
+            lineOut.setAttenuation(newAttenuation);
+        });
     }
-    public PortInput connect(){
+
+    public PortInput connect() {
     System.out.println("connetion established");
 
         Bounds boundsInScene = inPort.localToScene(inPort.getBoundsInLocal());
@@ -63,6 +69,10 @@ public class OUTPUTModuleController extends Pane implements Initializable {
         this.controller=controller;
         this.lineOut = new OutMod(synthesizer);
         lineOut.start();
+    }
+
+    public void toggleMute() {
+        this.lineOut.toggleMute();
     }
 
     public double getX() {
