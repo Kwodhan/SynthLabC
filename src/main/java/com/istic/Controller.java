@@ -185,10 +185,17 @@ public class Controller implements Initializable {
 
     }
     public void mute(){
+        if(lineOut.isMute()==1){
+            lineOut.setOnMute();
+
+        }else{
+                lineOut.setOffMute();
+        }
+
 
 
     }
-public void createCable(){
+public void drawCable(){
     if(line==null){
 
         line= new Line(vcoModuleController.getX(), vcoModuleController.getY(), outputModuleController.getX(), outputModuleController.getY());
@@ -206,7 +213,9 @@ public void createCable(){
         vcoModuleController.init(this,synth);
         outputModuleController.init(this,synth);
         cable1 = new Cable(vcoModuleController.connectOut(),outputModuleController.connect());
-        cable1.connect();
+        if(cable1.connect()){
+            drawCable();
+        }
         this.synth.start();
 
 
