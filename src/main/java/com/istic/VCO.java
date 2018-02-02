@@ -14,8 +14,6 @@ public class VCO implements Module{
      */
     private Double f0 = 440.0;
 
-    private final Double f0 = 440.0;
-
     public UnitOscillator getOsc() {
         return osc;
     }
