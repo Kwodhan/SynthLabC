@@ -34,8 +34,8 @@ public class Controller implements Initializable {
     RadioButton sawRadio, triangleRadio,squareRadio;
     VCOModuleController vcoModuleController;
     OUTPUTModuleController outputModuleController;
-    private Synthesizer synth;
 
+    private Synthesizer synth;
     private VCO vco;
     private OutMod lineOut;
 
@@ -43,11 +43,12 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.synth = JSyn.createSynthesizer();
 
-        this.lineOut = new OutMod(this.synth);
         this.vco = new VCO(this.synth);
+        this.lineOut = new OutMod(this.synth);
 
 
-        Cable cable = new Cable(vco.getPortOutput(),lineOut.getPortInput());
+
+        Cable cable = new Cable(this.vco.getPortOutput(),lineOut.getPortInput());
         System.out.println(cable.connect());
 
         sawRadio.setToggleGroup(group);
@@ -57,14 +58,14 @@ public class Controller implements Initializable {
 
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
-            vco.changeOctave((int)frequencySlider.getValue());
+            this.vco.changeOctave((int)frequencySlider.getValue());
 
 
         });
 
         frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
-            vco.changeFineHertz(frequencyFineSlider.getValue());
+            this.vco.changeFineHertz(frequencyFineSlider.getValue());
 
 
         });
@@ -73,27 +74,46 @@ public class Controller implements Initializable {
 
     public void startSoundVCO() throws InterruptedException {
         this.synth.start();
-        vco.start();
+        this.vco.start();
         lineOut.start();
 
     }
 
     public void stopSoundVCO() throws InterruptedException {
         this.synth.stop();
-        vco.stop();
+        this.vco.stop();
         lineOut.stop();
     }
 
-    public void squareSound(lineOut.getPortInput()){
-        vco.changeShapeWave(ShapeWave.Square);
+    public void squareSound(){
+        System.out.println("vco.osc before" + this.vco.getOsc().getClass());
+        this.vco.changeShapeWave(ShapeWave.Square);
+        System.out.println("vco.osc after squareSOund" + this.vco.getOsc().getClass());
+//        try {
+//            startSoundVCO();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
     }
     public void sawSound(){
+        System.out.println("vco.osc before" + this.vco.getOsc().getClass());
         vco.changeShapeWave(ShapeWave.Saw);
+        System.out.println("vco.osc after sawSOund" + this.vco.getOsc().getClass());
+//        try {
+//            startSoundVCO();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
     }
     public void triangleSound(){
        vco.changeShapeWave(ShapeWave.Triangle);
+//        try {
+//            startSoundVCO();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

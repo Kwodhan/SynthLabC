@@ -8,6 +8,11 @@ public class VCO implements Module{
 
 
     private final Double f0 = 440.0;
+
+    public UnitOscillator getOsc() {
+        return osc;
+    }
+
     private UnitOscillator osc;
     private SquareOscillator square;
     private TriangleOscillator triangle;
@@ -16,9 +21,7 @@ public class VCO implements Module{
     private Synthesizer synth;
     // Port
     private PortOutput portOutput;
-    private PortOutput portOutputsquare;
-    private PortOutput portOutputsaw;
-    private PortOutput portOutputtriangle;
+
 
 
     public VCO(Synthesizer synth){
@@ -27,58 +30,41 @@ public class VCO implements Module{
 
         this.synth.add( osc = new SquareOscillator() );
         this.portOutput = new PortOutput(this,this.osc.output);
-
-        this.synth.add( square = new SquareOscillator() );
-        this.portOutputsquare = new PortOutput(this,this.square.output);
-
-        this.synth.add( saw = new SawtoothOscillator() );
-        this.portOutputsaw = new PortOutput(this,this.saw.output);
-
-        this.synth.add( triangle = new TriangleOscillator() );
-        this.portOutputtriangle = new PortOutput(this,this.triangle.output);
-
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
     }
 
     public void changeShapeWave(ShapeWave shapeWave) {
-        synth.stop();
-        //this.osc.output.disconnect();
-
-
+        this.synth.stop();
+        this.osc.stop();
+        System.out.println("this.osc before get instance" + this.osc.getClass());
         this.synth.remove(this.osc);
-      switch (shapeWave){
-          case Saw:
-              System.out.println("case saw");
-              this.osc = this.saw;
-              this.portOutput = this.portOutputsaw;
-              break;
-          case Square:
-              System.out.println("case square");
-              this.osc = this.square;
-              this.portOutput = this.portOutputsquare;
-              break;
-          case Triangle:
-              System.out.println("case triangle");
-              this.osc = this.triangle;
-              this.portOutput = this.portOutputtriangle;
-              break;
-
-      }
-        this.synth.add(osc);
-        this.osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
-        this.start();
 
 
+//      switch (shapeWave){
+//          case Saw:
+//              System.out.println("case saw");
+//              this.osc = shapeWave.getInstance();
+//              break;
+//          case Square:
+//              System.out.println("case square");
+//              this.osc = this.square;
+//              this.portOutput = this.portOutputsquare;
+//              break;
+//          case Triangle:
+//              System.out.println("case triangle");
+//              this.osc = this.triangle;
+//              this.portOutput = this.portOutputtriangle;
+//              break;
+//      }
 
-        // Disconnect
-//
-//        this.synth.remove(this.osc);
-//
-//        // Reconnect
-//        this.synth.add(osc = shapeWave.getInstance());
+        this.osc = shapeWave.getInstance();
+        System.out.println("this.osc before after instance" + this.osc.getClass());
+        this.synth.add(this.osc);
+        this.portOutput = new PortOutput(this,this.osc.output);
+        this.osc.frequency.setup(30, this.f0 * Math.pow(2, this.octave), 10000);
+        //this.osc.frequency.set(this.f0*Math.pow(2,octave));
 
-
-
+        //this.start();
 
 
     }
