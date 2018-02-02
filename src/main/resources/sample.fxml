@@ -10,10 +10,12 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="pane" maxHeight="750.0" maxWidth="900.0" minHeight="750.0" minWidth="900.0" prefHeight="750.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
+<AnchorPane fx:id="pane" maxHeight="700.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.Controller">
    <children>
        <MenuBar layoutX="-6.0">
            <menus>
@@ -58,47 +60,37 @@
                </Menu>
            </menus>
        </MenuBar>
-      <SplitPane dividerPositions="0.15080527086383602" layoutY="28.0" prefHeight="767.0" prefWidth="900.0">
+      <SplitPane dividerPositions="0.16481069042316257" layoutY="28.0" maxHeight="700.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="526.0" prefWidth="100.0">
+            <AnchorPane maxHeight="700.0" maxWidth="150.0" minHeight="700.0" minWidth="150.0" prefHeight="700.0" prefWidth="150.0">
                <children>
                   <Button fx:id="startVCOButton" layoutX="41.0" layoutY="61.0" mnemonicParsing="false" onAction="#startSoundVCO" text="Start" />
                   <Button fx:id="stopVCOButton" layoutX="42.0" layoutY="117.0" mnemonicParsing="false" onAction="#stopSoundVCO" text="Stop" />
-                  <Button fx:id="muteButton" layoutX="41.0" layoutY="173.0" mnemonicParsing="false" onAction="#mute" text="Mute" />
+                  <Button fx:id="muteButton" layoutX="57.0" layoutY="173.0" mnemonicParsing="false" onAction="#mute" text="Mute" />
                   <Button fx:id="connectButton" layoutX="42.0" layoutY="257.0" mnemonicParsing="false" onAction="#connect" text="Connect" />
+                  <Slider fx:id="frequencySlider" blockIncrement="1.0" layoutX="-3.0" layoutY="303.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
+                  <Slider fx:id="frequencyFineSlider" layoutY="141.0" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+                  <RadioButton fx:id="squareRadio" layoutX="38.0" layoutY="441.0" mnemonicParsing="false" onAction="#squareSound" text="Square" />
+                  <RadioButton fx:id="triangleRadio" layoutX="38.0" layoutY="476.0" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" />
+                  <RadioButton fx:id="sawRadio" layoutX="30.0" layoutY="644.0" mnemonicParsing="false" onAction="#sawSound" text="SawTooth" />
                </children></AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="600.0">
+            <AnchorPane maxHeight="700.0" maxWidth="844.0" minHeight="700.0" minWidth="844.0" prefHeight="700.0" prefWidth="844.0">
                <children>
-                  <SplitPane dividerPositions="0.7208387942332897" orientation="VERTICAL" prefHeight="765.0" prefWidth="773.0">
-                    <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0">
-                           <children>
-                              <SplitPane dividerPositions="0.36678832116788324" orientation="VERTICAL" prefHeight="550.0" prefWidth="759.0">
-                                <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="748.0">
-                                       <children>
-                                          <Text layoutX="113.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VCO" />
-                                          <Slider fx:id="frequencySlider" blockIncrement="1.0" layoutX="23.0" layoutY="89.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
-                                          <Text layoutX="46.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frequence" />
-                                          <RadioButton fx:id="squareRadio" layoutX="370.0" layoutY="60.0" mnemonicParsing="false" onAction="#squareSound" text="Square" />
-                                          <RadioButton fx:id="triangleRadio" layoutX="370.0" layoutY="95.0" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" />
-                                          <RadioButton fx:id="sawRadio" layoutX="370.0" layoutY="131.0" mnemonicParsing="false" onAction="#sawSound" text="SawTooth" />
-                                          <Slider fx:id="frequencyFineSlider" layoutX="176.0" layoutY="44.0" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-                                       </children>
-                                    </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="315.0" prefWidth="757.0">
-                                       <children>
-                                          <HBox fx:id="HBox1" prefHeight="315.0" prefWidth="759.0" />
-                                       </children></AnchorPane>
-                                </items>
-                              </SplitPane>
-                           </children></AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="209.0" prefWidth="756.0">
-                           <children>
-                              <HBox fx:id="Hbox" prefHeight="209.0" prefWidth="730.0" />
-                           </children></AnchorPane>
-                    </items>
-                  </SplitPane>
+                  <GridPane layoutX="5.0" layoutY="6.0" maxHeight="600.0" maxWidth="846.0" minHeight="600.0" minWidth="846.0" prefHeight="600.0" prefWidth="846.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="222.0" minHeight="222.0" prefHeight="222.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="222.0" minHeight="222.0" prefHeight="222.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="222.0" minHeight="222.0" prefHeight="222.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox fx:id="hBox1" maxWidth="746.0" minHeight="-Infinity" minWidth="746.0" prefHeight="100.0" prefWidth="746.0" />
+                        <HBox fx:id="hBox2" maxWidth="746.0" minWidth="746.0" prefHeight="100.0" prefWidth="746.0" GridPane.rowIndex="1" />
+                        <HBox fx:id="hBox3" maxHeight="100.0" maxWidth="746.0" minHeight="100.0" minWidth="746.0" prefHeight="100.0" prefWidth="746.0" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                     </children>
+                  </GridPane>
                </children>
             </AnchorPane>
          </items>

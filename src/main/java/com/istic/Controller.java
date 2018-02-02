@@ -27,7 +27,7 @@ public class Controller implements Initializable {
     @FXML
     MenuItem vcoMenuItem;
     @FXML
-    HBox HBox1,Hbox;
+    HBox hBox1, hBox2,hBox3;
     @FXML
     Button startVCOButton,stopVCOButton,muteButton;
     @FXML
@@ -202,23 +202,30 @@ public void drawCable(){
 
     }
     public void addMod(Node root){
-        if(HBox1.getChildren().size()<5){
-            HBox1.getChildren().add(root);
+
+
+
+        if(hBox1.getChildren().size()<3){
+            hBox1.getChildren().add(root);
 
         }else{
-            System.out.println("Max Size 1");
 
-            if(Hbox.getChildren().size()<5){
-                Hbox.getChildren().add(root);
+            if(hBox2.getChildren().size()<3){
+                hBox2.getChildren().add(root);
             }else
             {
 
-                if(HBox1.getChildren().size()==5 &&Hbox.getChildren().size()==5)
+                if(hBox3.getChildren().size()<3)
                 {
-                    System.out.println("Max Size 2");
+                    hBox3.getChildren().add(root);
+                }else{
+                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3){
+
+                    }
                 }
             }
         }
+
     }
 
     public AnchorPane getPane() {
