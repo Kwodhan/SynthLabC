@@ -46,7 +46,6 @@ public class Controller implements Initializable {
         this.synth.add(this.vco = new VCO());
         this.synth.add(this.lineOut = new OutMod());
 
-
         Cable cable = new Cable(vco.getOutput(),lineOut.getPortInput());
         System.out.println(cable.connect());
 
@@ -59,13 +58,11 @@ public class Controller implements Initializable {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
             vco.changeOctave((int)frequencySlider.getValue());
 
-
         });
 
         frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
             vco.changeFin(frequencyFineSlider.getValue());
-
 
         });
     }
@@ -86,15 +83,15 @@ public class Controller implements Initializable {
     }
 
     public void squareSound(){
-        vco.changeShapeWave(ShapeWave.Square);
+        vco.changeShapeWave(VCO.SQUAREWAVE);
 
     }
     public void sawSound(){
-        vco.changeShapeWave(ShapeWave.Saw);
+        vco.changeShapeWave(VCO.SAWWAVE);
 
     }
     public void triangleSound(){
-       vco.changeShapeWave(ShapeWave.Triangle);
+       vco.changeShapeWave(VCO.TRIANGLEWAVE);
 
     }
 
