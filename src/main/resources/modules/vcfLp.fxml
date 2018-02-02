@@ -1,42 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="239.0" prefWidth="284.0" fx:controller="com.istic.modulesController.VCFLPModuleController" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-     <Slider fx:id="frequencySlider" blockIncrement="1.0" layoutX="10.0" layoutY="76.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
-     <RadioButton fx:id="squareRadio" layoutX="195.0" layoutY="100.0" mnemonicParsing="false" text="Square" />
-     <RadioButton fx:id="triangleRadio" layoutX="190.0" layoutY="66.0" mnemonicParsing="false" text="Triangle" />
-     <RadioButton fx:id="sawRadio" layoutX="197.0" layoutY="30.0" mnemonicParsing="false" text="SawTooth" />
-     <Slider fx:id="frequencyFineSlider" layoutX="150.0" layoutY="25.0" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <ImageView fitHeight="44.0" fitWidth="38.0" layoutX="83.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/fm.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="44.0" fitWidth="38.0" layoutX="25.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/in.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="20.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VCF LF">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Text>
-      <Text layoutX="37.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IN" />
-      <Text layoutX="92.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FM" />
-      <ImageView fitHeight="44.0" fitWidth="38.0" layoutX="218.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/out.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="223.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" />
+<AnchorPane maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.VCFLPModuleController">
+
+
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0c" height="210.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="270.0" />
+      <GridPane layoutX="2.0" maxHeight="210.0" maxWidth="260.0" minHeight="200.0" minWidth="260.0" prefHeight="200.0" prefWidth="260.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="VCF LP" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <Slider fx:id="frequencySlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Slider fx:id="frequencyFineSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IN" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <ImageView fitHeight="44.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../img/in.png" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FM" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <ImageView fitHeight="44.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../img/fm.png" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <ImageView fitHeight="44.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../img/out.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

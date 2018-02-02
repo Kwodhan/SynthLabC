@@ -25,6 +25,10 @@ public class Controller implements Initializable {
 	public static final int TRIANGLEWAVE = 1;
 	public static final int SAWTOOTHWAV = 2;
 
+
+	@FXML
+	HBox HBox1, Hbox;
+
     Cable cable1;
     Line line ;
     final ToggleGroup group = new ToggleGroup();
@@ -213,7 +217,7 @@ public class Controller implements Initializable {
 		outputModuleController.init(this, synth);
 		cable1 = new Cable(vcoModuleController.connectOut(),
 				outputModuleController.connect());
-		if (cable1.connect()) {
+		if (cable1.connect()&& outputModuleController.getLayoutX()==0 &&vcoModuleController.getLayoutX()==0) {
 			drawCable();
 		}
 		this.synth.start();
