@@ -6,7 +6,6 @@ import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.unitgen.SawtoothOscillator;
 import com.jsyn.unitgen.SquareOscillator;
-import com.jsyn.unitgen.SquareOscillatorBL;
 import com.jsyn.unitgen.TriangleOscillator;
 import com.jsyn.unitgen.UnitOscillator;
 
@@ -56,12 +55,13 @@ public class VCO implements Module{
 
     }
 
-    public void changeShapeWave(int i, OutMod outmod) {
+    public void changeShapeWave(int typeWave, OutMod outmod) {
 
         // Disconnect
+        //TODO : Solution for Sprint 1
        outmod.input.disconnectAll();
-       oscs[i].output.connect(outmod.input);
-       osc = oscs[i];
+       oscs[typeWave].output.connect(outmod.input);
+       osc = oscs[typeWave];
     }
 
     /**
