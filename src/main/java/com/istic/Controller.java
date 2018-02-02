@@ -90,8 +90,10 @@ public class Controller implements Initializable {
     }
 
     public void squareSound(){
+        this.lineOut.input.disconnectAll();
         System.out.println("vco.osc before" + this.vco.getOsc().getClass());
         this.vco.changeShapeWave(ShapeWave.Square);
+        this.vco.getOsc().output.connect(this.lineOut.input);
         System.out.println("vco.osc after squareSOund" + this.vco.getOsc().getClass());
 //        try {
 //            startSoundVCO();

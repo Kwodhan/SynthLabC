@@ -53,15 +53,15 @@ public class VCO implements Module{
     }
 
     public void changeShapeWave(ShapeWave shapeWave) {
-        this.synth.stop();
-        this.osc.stop();
+        //this.synth.stop();
+        //this.osc.stop();
         System.out.println("this.osc before get instance" + this.osc.getClass());
-        this.synth.remove(this.osc);
+        //this.synth.remove(this.osc);
 
 
         this.osc = shapeWave.getInstance();
         System.out.println("this.osc before after instance" + this.osc.getClass());
-        this.synth.add(this.osc);
+        //this.synth.add(this.osc);
         this.portOutput = new PortOutput(this,this.osc.output);
         this.osc.frequency.setup(30, this.f0 * Math.pow(2, this.octave), 10000);
         //this.osc.frequency.set(this.f0*Math.pow(2,octave));
@@ -70,10 +70,10 @@ public class VCO implements Module{
 
 
         // Reconnect
-        this.synth.add(osc = shapeWave.getInstance());
-
-        this.osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
-        this.start();
+//        this.synth.add(osc = shapeWave.getInstance());
+//
+//        this.osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
+//        this.start();
 
 
     }
