@@ -76,7 +76,6 @@ public class Controller implements Initializable {
         vco.start();
         lineOut.start();
 
-
     }
 
     public void stopSoundVCO() throws InterruptedException {
@@ -85,7 +84,7 @@ public class Controller implements Initializable {
         lineOut.stop();
     }
 
-    public void squareSound(){
+    public void squareSound(lineOut.getPortInput()){
         vco.changeShapeWave(ShapeWave.Square);
 
     }
