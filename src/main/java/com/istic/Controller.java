@@ -25,26 +25,6 @@ public class Controller implements Initializable {
 	public static final int TRIANGLEWAVE = 1;
 	public static final int SAWTOOTHWAV = 2;
 
-	Cable cable1;
-	Line line;
-	final ToggleGroup group = new ToggleGroup();
-	@FXML
-	AnchorPane pane;
-	@FXML
-	MenuItem vcoMenuItem;
-	@FXML
-	HBox HBox1, Hbox;
-	@FXML
-	Button startVCOButton, stopVCOButton, muteButton;
-	@FXML
-	Slider frequencySlider;
-	@FXML
-	Slider frequencyFineSlider;
-	@FXML
-	RadioButton sawRadio, triangleRadio, squareRadio;
-	VCOModuleController vcoModuleController;
-	OUTPUTModuleController outputModuleController;
-	private Synthesizer synth;
     Cable cable1;
     Line line ;
     final ToggleGroup group = new ToggleGroup();
@@ -206,16 +186,6 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../modules/whiteNoise.fxml"));
 		addMod(root);
-
-	}
-
-	public void mute() {
-		if (lineOut.isMute() == 1) {
-			lineOut.setOnMute();
-
-		} else {
-			lineOut.setOffMute();
-		}
 
 	}
 

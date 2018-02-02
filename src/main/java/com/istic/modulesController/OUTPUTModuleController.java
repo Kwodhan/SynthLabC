@@ -71,6 +71,10 @@ public class OUTPUTModuleController extends Pane implements Initializable {
         lineOut.start();
     }
 
+    public void toggleMute() {
+        this.lineOut.toggleMute();
+    }
+
     public double getX() {
         return x;
     }

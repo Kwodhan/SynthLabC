@@ -12,7 +12,6 @@ public class OutMod extends LineOut implements Module {
 	Synthesizer synth;
 
 	public OutMod(Synthesizer synth) {
-		// TODO Auto-generated constructor stub
 		this.synth = synth;
 		this.synth.add(this);
 	}
@@ -21,21 +20,12 @@ public class OutMod extends LineOut implements Module {
 		return attenuation;
 	}
 
-
-	public int isMute() {
-		return mute;
-	}
-
-	public void setOnMute() {
-		this.mute = 0;
-	}
-	public void setOffMute() {
-		this.mute = 1;
+	public void toggleMute() {
+		this.mute = (this.mute == 1) ? 0 : 1;
 	}
 	
 	public void setAttenuation(double att){
 		this.attenuation = att;
-		//
 	}
 	
     @Override

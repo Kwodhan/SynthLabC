@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -25,5 +26,6 @@
          </image>
       </ImageView>
       <Text layoutX="216.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IN" />
+      <ToggleButton contentDisplay="BOTTOM" layoutX="108.0" layoutY="129.0" mnemonicParsing="false" text="Mute" textOverrun="CENTER_ELLIPSIS" onAction="#toggleMute" />
    </children>
 </AnchorPane>
