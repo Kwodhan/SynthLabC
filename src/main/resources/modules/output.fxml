@@ -12,16 +12,16 @@
       <fx:reference source="controller" />
    </userData>
    <children>
-      <Text layoutX="97.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OUT">
+      <Text layoutX="97.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OUTPUT">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Text>
       <ImageView fx:id="outPort" fitHeight="44.0" fitWidth="38.0" layoutX="108.0" layoutY="99.0" onMouseClicked="#connect" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/out.png" />
+            <Image url="@../img/in.png" />
          </image>
       </ImageView>
-      <Text layoutX="111.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" />
+      <Text layoutX="111.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IN" />
    </children>
 </AnchorPane>
