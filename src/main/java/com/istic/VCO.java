@@ -38,24 +38,7 @@ public class VCO implements Module{
         this.osc.stop();
         System.out.println("this.osc before get instance" + this.osc.getClass());
         this.synth.remove(this.osc);
-
-
-//      switch (shapeWave){
-//          case Saw:
-//              System.out.println("case saw");
-//              this.osc = shapeWave.getInstance();
-//              break;
-//          case Square:
-//              System.out.println("case square");
-//              this.osc = this.square;
-//              this.portOutput = this.portOutputsquare;
-//              break;
-//          case Triangle:
-//              System.out.println("case triangle");
-//              this.osc = this.triangle;
-//              this.portOutput = this.portOutputtriangle;
-//              break;
-//      }
+        
 
         this.osc = shapeWave.getInstance();
         System.out.println("this.osc before after instance" + this.osc.getClass());
