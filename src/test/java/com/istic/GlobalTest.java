@@ -31,13 +31,16 @@ public class GlobalTest {
 
     @Test
     public void testCreateVCO() {
-        VCO vco = new VCO(this.synth);
+        VCO vco = new VCO();
+        this.synth.add(vco);
+
         assertNotNull(vco);
     }
 
     @Test
     public void testCreateOutMod() {
-        OutMod outMod = new OutMod(this.synth);
+        OutMod outMod = new OutMod();
+        this.synth.add(outMod);
         assertNotNull(outMod);
     }
 }

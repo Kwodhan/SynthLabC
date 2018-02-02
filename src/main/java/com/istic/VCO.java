@@ -1,122 +1,80 @@
 package com.istic;
 
-import com.istic.port.PortInput;
+import com.istic.port.PortFm;
 import com.istic.port.PortOutput;
-import com.jsyn.Synthesizer;
-import com.jsyn.ports.UnitInputPort;
-import com.jsyn.unitgen.SquareOscillatorBL;
-import com.jsyn.unitgen.UnitOscillator;
+import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.Circuit;
+import com.jsyn.unitgen.SawtoothOscillator;
+import com.jsyn.unitgen.SquareOscillator;
+import com.jsyn.unitgen.TriangleOscillator;
 
-public class VCO implements Module{
+public class VCO extends Circuit implements Module{
+
+    private TriangleOscillator triangleOscillator;
+
+    private SawtoothOscillator sawtoothOscillator;
+
+    private SquareOscillator squareOscillator;
 
     /**
-     * default : LA
+     * Port de sortie du VCO
      */
-    private Double f0 = 440.0;
-    private UnitOscillator osc;
+    private UnitOutputPort out;
+
     /**
-     * octave beetween -3 and +3
+     * reglage fo, octave, fm, fin
      */
-    private Integer octave = 0;
-    /**
-     * reglage fin
-     */
-    private Double fin = 0d;
-
-    private Double fm = 0d;
+    private ReglageVCO reglageVCO;
 
 
-    private Synthesizer synth;
-    // Port
-    private PortOutput portOutput;
+    public VCO() {
 
-    private PortInput portfm;
+        add(squareOscillator = new SquareOscillator());
+
+        addPortAlias(squareOscillator.getOutput(),"squareOut");
+
+        add(reglageVCO = new ReglageVCO());
+
+        addPortAlias(out = squareOscillator.getOutput(),"out");
+
+        reglageVCO.getOut().connect(squareOscillator.frequency);
+
+        reglageVCO.getF0().set(440);
 
 
-    public VCO(Synthesizer synth) {
-
-        this.synth = synth;
-
-        this.synth.add( osc = new SquareOscillatorBL() );
-
-        this.portOutput = new PortOutput(this,this.osc.output);
-
-        this.portfm = new PortInput(this, new UnitInputPort("Inputfm"));
-
-        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
     }
 
     public void changeShapeWave(ShapeWave shapeWave) {
 
-        // Disconnect
-        this.synth.remove(osc);
-
-        // Reconnect
-        this.synth.add(osc = shapeWave.getInstance());
-
-        this.osc.frequency.setup(30, this.f0 * Math.pow(2, octave), 10000);
-        this.start();
 
 
     }
 
-    /**
-     *
-     * @param octave between -3 and +3
-     */
-    public void changeOctave(int octave) {
-        this.octave = octave;
-
-        float r =  1.05946f;
-        this.osc.frequency.set(this.f0 * Math.pow(2,octave) * Math.pow(r,fin)  * Math.pow(2,fm));
-        System.out.println(this.getFrequence());
-
+    public void changeF0(double f0){
+        this.reglageVCO.getF0().set(f0);
     }
 
-    /**
-     *
-     * @param fin -9 and 2
-     */
-    public void changeFineHertz(double fin ) {
-        if(fin < -9 && fin > 2 ){
-            return;
-        }
-        this.fin = fin;
-        float r =  1.05946f;
-
-        this.osc.frequency.set(this.f0 * Math.pow(2,octave) * Math.pow(r,fin) * Math.pow(2,fm));
-        System.out.println(this.getFrequence());
 
 
-    }
-    /**
-     *
-     * @param fm fm in hertz
-     */
-    public void changeFm (double fm) {
-
-        float r =  1.05946f;
-        this.fm =  Math.log(fm)/Math.log(2);
-
-        this.osc.frequency.set(this.f0 * Math.pow(2,octave) * Math.pow(r,fin) * Math.pow(2,fm));
-        System.out.println(this.getFrequence());
+    public void changeFin(double fin){
+        this.reglageVCO.getFin().set(fin);
     }
 
-    public void start(){
-        osc.start();
-
+    public void changeOctave(double octave){
+        this.reglageVCO.getOctave().set(octave);
     }
 
-    public void stop() throws InterruptedException {
-        osc.stop();
 
+    public PortOutput getOutput() {
+        return new PortOutput(this,out);
     }
 
-    public PortOutput getPortOutput() {
-        return portOutput;
+    public PortFm getFm(){
+        return new PortFm(this,this.reglageVCO.getFm());
     }
 
-    public double getFrequence(){
-        return this.osc.frequency.get();
+
+    public double getFrequence() {
+        return reglageVCO.getFrequence();
     }
 }

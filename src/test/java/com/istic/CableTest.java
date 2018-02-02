@@ -4,19 +4,16 @@ import com.istic.cable.Cable;
 import com.istic.port.Port;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import com.jsyn.unitgen.SquareOscillatorBL;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Enclosed.class)
 public class CableTest {
@@ -40,12 +37,14 @@ public class CableTest {
             VCO vco;
 
             synth = JSyn.createSynthesizer();
-            lineOut = new OutMod(synth);
-            vco = new VCO(synth);
+            lineOut = new OutMod();
+            vco = new VCO();
+            synth.add(lineOut);
+            synth.add(vco);
 
             return Arrays.asList(new Object[][] {
-                { vco.getPortOutput(), lineOut.getPortInput(), true, true, true, false, false },
-                { vco.getPortOutput(), vco.getPortOutput(), false, false, false, false, false },
+                { vco.getOutput(), lineOut.getPortInput(), true, true, true, false, false },
+                { vco.getOutput(), vco.getOutput(), false, false, false, false, false },
             });
         }
 

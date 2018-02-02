@@ -7,6 +7,8 @@ public class PortFm extends Port {
 
     private UnitInputPort unitFmPort;
 
+    private Integer Volt = 0;
+
     public PortFm(Module module,UnitInputPort unitFmPort) {
         super(module);
         this.unitFmPort = unitFmPort;
@@ -28,4 +30,11 @@ public class PortFm extends Port {
         return unitFmPort;
     }
 
+    public Integer getVolt() {
+        return Volt;
+    }
+
+    public void setVolt(Integer volt) {
+        Volt = volt;
+    }
 }

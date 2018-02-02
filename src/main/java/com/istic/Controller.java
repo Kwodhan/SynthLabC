@@ -43,11 +43,11 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.synth = JSyn.createSynthesizer();
 
-        this.lineOut = new OutMod(this.synth);
-        this.vco = new VCO(this.synth);
+        this.synth.add(this.vco = new VCO());
+        this.synth.add(this.lineOut = new OutMod());
 
 
-        Cable cable = new Cable(vco.getPortOutput(),lineOut.getPortInput());
+        Cable cable = new Cable(vco.getOutput(),lineOut.getPortInput());
         System.out.println(cable.connect());
 
         sawRadio.setToggleGroup(group);
@@ -64,7 +64,7 @@ public class Controller implements Initializable {
 
         frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
-            vco.changeFineHertz(frequencyFineSlider.getValue());
+            vco.changeFin(frequencyFineSlider.getValue());
 
 
         });
@@ -73,7 +73,7 @@ public class Controller implements Initializable {
 
     public void startSoundVCO() throws InterruptedException {
         this.synth.start();
-        vco.start();
+
         lineOut.start();
 
 
