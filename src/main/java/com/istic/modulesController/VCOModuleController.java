@@ -6,7 +6,9 @@ import com.istic.port.PortOutput;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -31,6 +33,11 @@ public class VCOModuleController extends Pane implements Initializable {
     Slider frequencyFineSlider;
     @FXML
     RadioButton sawRadio, triangleRadio,squareRadio;
+    @FXML
+    ImageView outPort;
+    double x,y;
+    @FXML
+    ImageView fmPort;
 
 
     private VCO vco;
@@ -78,6 +85,33 @@ public class VCOModuleController extends Pane implements Initializable {
         return vco.getPortOutput();
 
     }
+    public void connectFmPort() {
+        Bounds boundsInScene = fmPort.localToScene(outPort.getBoundsInLocal());
+        x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
+        y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
+        System.out.println("vcoooooooooooooooooooooooooooo"+x);
+    }
+    public void connectOutPort() {
+        Bounds boundsInScene = outPort.localToScene(outPort.getBoundsInLocal());
+        x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
+        y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
+        System.out.println("vcoooooooooooooooooooooooooooo"+x);
+    }
 
 
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
 }

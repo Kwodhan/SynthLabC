@@ -49,6 +49,7 @@ public class VCO implements Module{
         this.portfm = new PortInput(this, new UnitInputPort("Inputfm"));
 
         osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
+
     }
 
     public void changeShapeWave(ShapeWave shapeWave) {

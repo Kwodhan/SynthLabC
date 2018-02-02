@@ -6,7 +6,9 @@ import com.istic.port.PortInput;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -15,10 +17,11 @@ import java.util.ResourceBundle;
 public class OUTPUTModuleController extends Pane implements Initializable {
 
     @FXML
-    ImageView outPort;
-
+    ImageView inPort;
+    @FXML
+    AnchorPane pane;
     Controller controller;
-
+    double x,y;
 
     private OutMod lineOut;
 
@@ -43,14 +46,38 @@ public class OUTPUTModuleController extends Pane implements Initializable {
     }
     public PortInput connect(){
     System.out.println("connetion established");
-        return lineOut.getPortInput();
 
+        Bounds boundsInScene = inPort.localToScene(inPort.getBoundsInLocal());
+        x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
+        y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
+        System.out.println(boundsInScene.toString());
 
+        if(lineOut!=null)
+           return      lineOut.getPortInput();
+
+            return  null;
 
     }
+
     public void init(Controller controller,Synthesizer synthesizer){
         this.controller=controller;
         this.lineOut = new OutMod(synthesizer);
         lineOut.start();
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }

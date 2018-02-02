@@ -1,17 +1,19 @@
 package com.istic;
 
+import com.istic.port.PortInput;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.LineOut;
 
 public class OutMod extends LineOut implements Module {
 	private double attenuation = 0;
-	private VCO vco;
-	private int mute = 0;
+
+	private int mute = 1;
 	Synthesizer synth;
 
 	public OutMod(Synthesizer synth) {
 		// TODO Auto-generated constructor stub
 		this.synth = synth;
+		this.synth.add(this);
 	}
 
 	public double getAttenuation() {
@@ -46,6 +48,9 @@ public class OutMod extends LineOut implements Module {
             buffer1[i] += inputs1[i]*mute;
         }
     }
-	
 
+
+	public PortInput getPortInput() {
+		return new PortInput(this,this.getInput());
+	}
 }

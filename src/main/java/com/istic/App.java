@@ -13,6 +13,7 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         root = FXMLLoader.load(getClass().getResource("../../sample.fxml"));
         scene = new Scene(root);
+        stage.setResizable(false);
         //change skin
         //scene.getStylesheets().add("/skins/dark.css");
         stage.setTitle("SynthLabC");
