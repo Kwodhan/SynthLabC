@@ -10,7 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,12 +20,14 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     Cable cable1;
-
+    Line line ;
     final ToggleGroup group = new ToggleGroup();
+    @FXML
+    AnchorPane pane;
     @FXML
     MenuItem vcoMenuItem;
     @FXML
-    HBox HBox1;
+    HBox HBox1,Hbox;
     @FXML
     Button startVCOButton,stopVCOButton,muteButton;
     @FXML
@@ -101,14 +105,14 @@ public class Controller implements Initializable {
     public void addVCO() throws IOException {
         //vcoModuleController=new VCOModuleController();
         Node root = FXMLLoader.load(getClass().getResource("../../modules/vco.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
         vcoModuleController= (VCOModuleController) root.getUserData();
         //vcoModuleController.init(this,synth);
     }
     public void addOutput() throws IOException {
         //outputModuleController=new OUTPUTModuleController();
         Node root = FXMLLoader.load(getClass().getResource("../../modules/output.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
         outputModuleController= (OUTPUTModuleController) root.getUserData();
         //outputModuleController.init(this,synth);
@@ -117,53 +121,69 @@ public class Controller implements Initializable {
     public void addMixer() throws IOException {
 
         Node root = FXMLLoader.load(getClass().getResource("../../modules/mixer.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
     public void addEG() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource("../../modules/eg.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
 
     public void addOscilloscope() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource("../../modules/oscilloscope.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
     public void addReplicator() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource("../../modules/replicator.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
     public void addSequencer() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource("../../modules/sequencer.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
     public void addVca() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource("../../modules/vca.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
     public void addVcfLp() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource("../../modules/vcfLp.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
     public void addVcfHp() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource("../../modules/vcfHp.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
     public void addWhiteNoise() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource("../../modules/whiteNoise.fxml"));
-        HBox1.getChildren().add(root);
+        addMod(root);
 
     }
-    public void mute(){}
+    public void mute(){
 
+
+    }
+public void createCable(){
+    if(line==null){
+
+        line= new Line(vcoModuleController.getX(), vcoModuleController.getY(), outputModuleController.getX(), outputModuleController.getY());
+        pane.getChildren().add(line);
+
+    }else{
+        pane.getChildren().remove(line);
+        line= new Line(vcoModuleController.getX(), vcoModuleController.getY(), outputModuleController.getX(), outputModuleController.getY());
+        pane.getChildren().add(line);
+
+    }
+}
     public void connect(){
+
         vcoModuleController.init(this,synth);
         outputModuleController.init(this,synth);
         cable1 = new Cable(vcoModuleController.connectOut(),outputModuleController.connect());
@@ -172,5 +192,27 @@ public class Controller implements Initializable {
 
 
     }
+    public void addMod(Node root){
+        if(HBox1.getChildren().size()<5){
+            HBox1.getChildren().add(root);
 
+        }else{
+            System.out.println("Max Size 1");
+
+            if(Hbox.getChildren().size()<5){
+                Hbox.getChildren().add(root);
+            }else
+            {
+
+                if(HBox1.getChildren().size()==5 &&Hbox.getChildren().size()==5)
+                {
+                    System.out.println("Max Size 2");
+                }
+            }
+        }
+    }
+
+    public AnchorPane getPane() {
+        return pane;
+    }
 }

@@ -25,12 +25,12 @@
            <RadioButton fx:id="triangleRadio" layoutX="375.0" layoutY="96.0" mnemonicParsing="false" text="Triangle" />
            <RadioButton fx:id="sawRadio" layoutX="368.0" layoutY="131.0" mnemonicParsing="false" text="SawTooth" />
            <Slider fx:id="frequencyFineSlider" layoutX="188.0" layoutY="42.0" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-            <ImageView fitHeight="44.0" fitWidth="38.0" layoutX="27.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView  fx:id="outPort" fitHeight="44.0" onMouseClicked="#connectOutPort" fitWidth="38.0" layoutX="27.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/out.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="44.0" fitWidth="38.0" layoutX="94.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fmPort" onMouseClicked="#connectFmPort" fitHeight="44.0" fitWidth="38.0" layoutX="94.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/fm.png" />
                </image>
