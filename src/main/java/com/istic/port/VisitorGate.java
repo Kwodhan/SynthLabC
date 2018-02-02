@@ -37,11 +37,4 @@ public class VisitorGate  implements VisitorConnectPort{
         return false;
     }
 
-    public PortGate getPortGate() {
-        return portGate;
-    }
-
-    public void setPortGate(PortGate portGate) {
-        this.portGate = portGate;
-    }
 }
