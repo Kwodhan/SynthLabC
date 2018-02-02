@@ -51,7 +51,6 @@ public class OutMod extends LineOut implements Module {
         }
     }
 
-
 	public PortInput getPortInput() {
 		return new PortInput(this,this.getInput());
 	}
