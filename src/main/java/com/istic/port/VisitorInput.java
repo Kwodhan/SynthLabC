@@ -36,11 +36,4 @@ public class VisitorInput  implements VisitorConnectPort {
         return false;
     }
 
-    public PortInput getPortInput() {
-        return portInput;
-    }
-
-    public void setPortInput(PortInput portInput) {
-        this.portInput = portInput;
-    }
 }

@@ -18,7 +18,7 @@ public class VisitorAm implements VisitorConnectPort {
     @Override
     public boolean visit(PortOutput portOutput) {
 
-        return true;
+        return false;
 
     }
 

@@ -1,87 +1,92 @@
 package com.istic;
 
 import com.istic.cable.Cable;
+import com.istic.port.Port;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.SquareOscillatorBL;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(Enclosed.class)
 public class CableTest {
 
-    private Synthesizer synth;
-    private OutMod lineOut;
-    private VCO vco;
+    @RunWith(Parameterized.class)
+    public static class ComponentParamTests {
 
-    @Before
-    public void initSynth() {
-        this.synth = JSyn.createSynthesizer();
-        this.lineOut = new OutMod(this.synth);
-        this.vco = new VCO(this.synth);
-    }
+        // {
+        // port1,
+        // port2,
+        // isConnectedAfterConnect,
+        // cableOneIsConnectedAfterConnect,
+        // cableTwoIsConnectedAfterConnect,
+        // cableOneIsConnectedAfterDisconnect,
+        // cableTwoIsConnectedAfterDisconnect
+        // }
+        @Parameterized.Parameters
+        public static Collection<Object[]> data() {
+            Synthesizer synth;
+            OutMod lineOut;
+            VCO vco;
 
-    @Test
-    public void testCreateGoodCable() {
-        Cable cable = new Cable(this.vco.getPortOutput(), this.lineOut.getPortInput());
-        assertNotNull(cable);
+            synth = JSyn.createSynthesizer();
+            lineOut = new OutMod(synth);
+            vco = new VCO(synth);
 
-        // connect
+            return Arrays.asList(new Object[][] {
+                { vco.getPortOutput(), lineOut.getPortInput(), true, true, true, false, false },
+                { vco.getPortOutput(), vco.getPortOutput(), false, false, false, false, false },
+            });
+        }
 
-        boolean isConnected = cable.connect();
-        assertTrue(isConnected);
+        @Parameterized.Parameter
+        public Port p1;
 
-        assertTrue(cable.getPortOne().isConnected());
-        assertTrue(cable.getPortTwo().isConnected());
+        @Parameterized.Parameter(1)
+        public Port p2;
 
-        // disconnect
+        @Parameterized.Parameter(2)
+        public boolean isConnectedAfterConnect;
 
-        cable.disconnect();
+        @Parameterized.Parameter(3)
+        public boolean cableOneIsConnectedAfterConnect;
 
-        assertFalse(cable.getPortOne().isConnected());
-        assertFalse(cable.getPortTwo().isConnected());
-    }
+        @Parameterized.Parameter(4)
+        public boolean cableTwoIsConnectedAfterConnect;
 
-    @Test
-    public void testCreateGoodCableInverse() {
-        Cable cable = new Cable(this.lineOut.getPortInput(), this.vco.getPortOutput());
-        assertNotNull(cable);
+        @Parameterized.Parameter(5)
+        public boolean cableOneIsConnectedAfterDisconnect;
 
-        // connect
+        @Parameterized.Parameter(6)
+        public boolean cableTwoIsConnectedAfterDisconnect;
 
-        boolean isConnected = cable.connect();
-        assertTrue(isConnected);
+        @Test
+        public void testMutate() {
+            Cable cable = new Cable(p1, p2);
+            assertNotNull(cable);
 
-        assertTrue(cable.getPortOne().isConnected());
-        assertTrue(cable.getPortTwo().isConnected());
+            boolean isConnected = cable.connect();
+            assertEquals(isConnected, isConnectedAfterConnect);
 
-        // disconnect
+            assertEquals(cable.getPortOne().isConnected(), cableOneIsConnectedAfterConnect);
+            assertEquals(cable.getPortTwo().isConnected(), cableTwoIsConnectedAfterConnect);
 
-        cable.disconnect();
+            // disconnect
 
-        assertFalse(cable.getPortOne().isConnected());
-        assertFalse(cable.getPortTwo().isConnected());
-    }
+            cable.disconnect();
 
-    @Test
-    public void testCreateBadCable() {
-        Cable cable = new Cable(this.vco.getPortOutput(), this.vco.getPortOutput());
-        assertNotNull(cable);
-
-        // connect
-
-        boolean isConnected = cable.connect();
-        assertFalse(isConnected);
-
-        assertFalse(cable.getPortOne().isConnected());
-        assertFalse(cable.getPortTwo().isConnected());
-
-        // disconnect
-
-        cable.disconnect();
-
-        assertFalse(cable.getPortOne().isConnected());
-        assertFalse(cable.getPortTwo().isConnected());
+            assertEquals(cable.getPortOne().isConnected(), cableOneIsConnectedAfterDisconnect);
+            assertEquals(cable.getPortTwo().isConnected(), cableTwoIsConnectedAfterDisconnect);
+        }
     }
 }

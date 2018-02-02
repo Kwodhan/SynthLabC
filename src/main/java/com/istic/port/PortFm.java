@@ -7,7 +7,7 @@ public class PortFm extends Port {
 
     private UnitInputPort unitFmPort;
 
-    public PortFm(Module module) {
+    public PortFm(Module module,UnitInputPort unitFmPort) {
         super(module);
         this.unitFmPort = unitFmPort;
         this.visitorConnectPort =  new VisitorFm(this);
@@ -22,6 +22,10 @@ public class PortFm extends Port {
     @Override
     public void disconnect() {
         this.unitFmPort.disconnectAll();
+    }
+
+    public UnitInputPort getUnitInputPort() {
+        return unitFmPort;
     }
 
 }
