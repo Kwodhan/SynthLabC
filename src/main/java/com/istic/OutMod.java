@@ -7,7 +7,7 @@ import com.jsyn.unitgen.LineOut;
 public class OutMod extends LineOut implements Module {
 	private double attenuation = 0;
 
-	private int mute = 0;
+	private int mute = 1;
 	Synthesizer synth;
 
 	public OutMod(Synthesizer synth) {
