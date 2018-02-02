@@ -123,7 +123,7 @@ public class VCO implements Module{
     public double getFrequence(){
         return this.osc.frequency.get();
     }
-    
+
     public void setPortOutput(){
     	this.portOutput = new PortOutput(this,this.osc.output);
     }

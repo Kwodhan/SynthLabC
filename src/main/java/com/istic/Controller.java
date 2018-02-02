@@ -193,16 +193,6 @@ public class Controller implements Initializable {
 
 	}
 
-	public void mute() {
-		if (lineOut.isMute() == 1) {
-			lineOut.setOnMute();
-
-		} else {
-			lineOut.setOffMute();
-		}
-
-	}
-
 	public void drawCable() {
 		if (line == null) {
 

@@ -66,7 +66,6 @@
                <children>
                   <Button fx:id="startVCOButton" layoutX="41.0" layoutY="61.0" mnemonicParsing="false" onAction="#startSoundVCO" text="Start" />
                   <Button fx:id="stopVCOButton" layoutX="42.0" layoutY="117.0" mnemonicParsing="false" onAction="#stopSoundVCO" text="Stop" />
-                  <Button fx:id="muteButton" layoutX="57.0" layoutY="173.0" mnemonicParsing="false" onAction="#mute" text="Mute" />
                   <Button fx:id="connectButton" layoutX="42.0" layoutY="257.0" mnemonicParsing="false" onAction="#connect" text="Connect" />
                   <Slider fx:id="frequencySlider" blockIncrement="1.0" layoutX="-3.0" layoutY="303.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" />
                   <Slider fx:id="frequencyFineSlider" layoutY="141.0" majorTickUnit="1.0" max="2" min="-9" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
