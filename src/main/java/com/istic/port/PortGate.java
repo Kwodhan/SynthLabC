@@ -1,12 +1,12 @@
 package com.istic.port;
 
 import com.istic.Module;
-import com.jsyn.ports.UnitInputPort;
+import com.jsyn.ports.UnitGatePort;
 
 public class PortGate extends Port {
-    private UnitInputPort unitGatePort;
+    private UnitGatePort unitGatePort;
 
-    public PortGate(Module module) {
+    public PortGate(Module module,UnitGatePort unitGatePort) {
         super(module);
         this.unitGatePort = unitGatePort;
         this.visitorConnectPort =  new VisitorGate(this);
@@ -23,11 +23,10 @@ public class PortGate extends Port {
         this.unitGatePort.disconnectAll();
     }
 
-    public UnitInputPort getUnitGatePort() {
+    public UnitGatePort getUnitGatePort() {
         return unitGatePort;
     }
 
-    public void setUnitGatePort(UnitInputPort unitGatePort) {
-        this.unitGatePort = unitGatePort;
-    }
+
+
 }

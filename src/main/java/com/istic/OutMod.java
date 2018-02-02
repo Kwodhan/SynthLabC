@@ -4,55 +4,53 @@ import com.istic.port.PortInput;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.LineOut;
 
-public class OutMod implements Module {
+public class OutMod extends LineOut implements Module {
 	private double attenuation = 0;
-	private boolean mute = false;
 
+	private int mute = 0;
+	Synthesizer synth;
+
+	public OutMod(Synthesizer synth) {
+		// TODO Auto-generated constructor stub
+		this.synth = synth;
+		this.synth.add(this);
+	}
 
 	public double getAttenuation() {
 		return attenuation;
 	}
-    private Synthesizer synth;
-    private LineOut lineOut;
 
 	public void setAttenuation(double attenuation) {
 		this.attenuation = attenuation;
+		double amp = 1./Math.pow(10, attenuation/10); //changer 1 par l'amplitude du vco
+		//apply change 
 	}
 
-	public boolean isMute() {
+	public int isMute() {
 		return mute;
 	}
 
 	public void setOnMute() {
-		this.mute = true;
+		this.mute = 0;
 	}
 	public void setOffMute() {
-		this.mute = false;
+		this.mute = 1;
+	}	
+	
+    @Override
+    public void generate(int start, int limit) {
+        double[] inputs0 = input.getValues(0);
+        double[] inputs1 = input.getValues(1);
+        double[] buffer0 = synthesisEngine.getOutputBuffer(0);
+        double[] buffer1 = synthesisEngine.getOutputBuffer(1);
+        for (int i = start; i < limit; i++) {
+            buffer0[i] += inputs0[i]*mute;
+            buffer1[i] += inputs1[i]*mute;
+        }
+    }
+
+
+	public PortInput getPortInput() {
+		return new PortInput(this,this.getInput());
 	}
-
-
-    private PortInput portInput;
-
-    public OutMod(Synthesizer synth) {
-        this.synth = synth;
-        this.synth.add(lineOut = new LineOut());
-        this.portInput  = new PortInput(this,this.lineOut.input);
-    }
-
-
-
-
-    @Override
-    public void start() {
-        this.lineOut.start();
-    }
-
-    @Override
-    public void stop() throws InterruptedException {
-        this.lineOut.stop();
-    }
-
-    public PortInput getPortInput() {
-        return portInput;
-    }
 }
