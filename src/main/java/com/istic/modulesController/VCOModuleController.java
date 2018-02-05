@@ -40,6 +40,9 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
     @FXML
     ImageView fmPort;
 
+    @FXML
+    Label txtHertz;
+
     int currentPort=-1;
 
 
@@ -61,15 +64,13 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
             vco.changeOctave((int)frequencySlider.getValue());
-
-
+            txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
         });
 
         frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
             vco.changeFin(frequencyFineSlider.getValue());
-
-
+            txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
         });
         //this.synth.start();
         //vco.start();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
@@ -38,9 +39,9 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Octave" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Slider fx:id="frequencyFineSlider" blockIncrement="1.0" majorTickUnit="1.0" max="2.0" min="-9.0" minorTickCount="0" prefHeight="38.0" prefWidth="110.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <RadioButton fx:id="squareRadio" mnemonicParsing="false" text="Square" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" onAction="#squareSound"/>
-            <RadioButton fx:id="triangleRadio" mnemonicParsing="false" text="Triangle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" onAction="#triangleSound" />
-            <RadioButton fx:id="sawRadio" mnemonicParsing="false" text="SawT   " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" onAction="#sawSound" />
+            <RadioButton fx:id="squareRadio" mnemonicParsing="false" onAction="#squareSound" text="Square" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <RadioButton fx:id="triangleRadio" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <RadioButton fx:id="sawRadio" mnemonicParsing="false" onAction="#sawSound" text="SawT   " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FM" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Out" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <ImageView fx:id="outPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectOutPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
@@ -55,6 +56,7 @@
             </ImageView>
             <Slider fx:id="frequencySlider" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" min="-3.0" minorTickCount="0" prefHeight="38.0" prefWidth="95.0" showTickLabels="true" showTickMarks="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fine Tune" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="txtHertz" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="93.0" text="Hz" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
