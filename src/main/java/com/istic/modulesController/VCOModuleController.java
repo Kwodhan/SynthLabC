@@ -76,10 +76,12 @@ public class VCOModuleController extends Pane implements Initializable {
 
     }
     public void init(Controller controller,Synthesizer synthesizer){
+
         this.controller=controller;
 
         this.vco = new VCO();
         synthesizer.add(vco);
+
         //vco.start();
 
     }

@@ -55,35 +55,34 @@ public class Controller implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.synth = JSyn.createSynthesizer();
 
-        this.synth.add(this.vco = new VCO());
-        this.synth.add(this.lineOut = new OutMod());
-
-        Cable cable = new Cable(vco.getOutput(),lineOut.getPortInput());
-        System.out.println(cable.connect());
-
-        sawRadio.setToggleGroup(group);
-        triangleRadio.setToggleGroup(group);
-        squareRadio.setToggleGroup(group);
-        squareRadio.setSelected(true);
-
-        frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            frequencySlider.setValue(Math.round(frequencySlider.getValue()));
-            vco.changeOctave((int)frequencySlider.getValue());
-
-
-        });
-
-        frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
-            vco.changeFin(frequencyFineSlider.getValue());
-
-        });
+//        this.synth.add(this.vco = new VCO());
+//        this.synth.add(this.lineOut = new OutMod());
+//
+//        Cable cable = new Cable(vco.getOutput(),lineOut.getPortInput());
+//        System.out.println(cable.connect());
+//
+//        sawRadio.setToggleGroup(group);
+//        triangleRadio.setToggleGroup(group);
+//        squareRadio.setToggleGroup(group);
+//        squareRadio.setSelected(true);
+//
+//        frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
+//            frequencySlider.setValue(Math.round(frequencySlider.getValue()));
+//            vco.changeOctave((int)frequencySlider.getValue());
+//
+//
+//        });
+//
+//        frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+//            //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
+//            vco.changeFin(frequencyFineSlider.getValue());
+//
+//        });
     }
 
 
     public void startSoundVCO() throws InterruptedException {
         this.synth.start();
-
         lineOut.start();
 
 
@@ -114,7 +113,7 @@ public class Controller implements Initializable {
 				"../../modules/vco.fxml"));
 		addMod(root);
 		vcoModuleController = (VCOModuleController) root.getUserData();
-		// vcoModuleController.init(this,synth);
+		vcoModuleController.init(this,synth);
 	}
 
 	public void addOutput() throws IOException {
@@ -124,7 +123,7 @@ public class Controller implements Initializable {
 		addMod(root);
 
 		outputModuleController = (OUTPUTModuleController) root.getUserData();
-		// outputModuleController.init(this,synth);
+		outputModuleController.init(this,synth);
 
 	}
 
@@ -212,8 +211,7 @@ public class Controller implements Initializable {
 
 	public void connect() {
 
-		vcoModuleController.init(this, synth);
-		outputModuleController.init(this, synth);
+
 		cable1 = new Cable(vcoModuleController.connectOut(),
 				outputModuleController.connect());
 		if (cable1.connect()&& outputModuleController.getLayoutX()==0 &&vcoModuleController.getLayoutX()==0) {
