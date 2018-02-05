@@ -16,7 +16,8 @@ public class VisitorFm implements VisitorConnectPort {
 
     @Override
     public boolean visit(PortOutput portOutput) {
-        return false;
+        portOutput.getUnitOutputPort().connect(0,portFm.getUnitInputPort(),0);
+        return true;
     }
 
     @Override

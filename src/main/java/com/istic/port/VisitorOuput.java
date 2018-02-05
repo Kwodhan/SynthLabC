@@ -24,7 +24,8 @@ public class VisitorOuput implements VisitorConnectPort {
 
     @Override
     public boolean visit(PortFm portFm) {
-        return false;
+        portOutput.getUnitOutputPort().connect(0,portFm.getUnitInputPort(),0);
+        return true;
     }
 
     @Override
