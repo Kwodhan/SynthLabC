@@ -27,9 +27,9 @@
                        <MenuItem mnemonicParsing="false" text="Close" />
                    </items>
                </Menu>
-               <Menu mnemonicParsing="false" text="Display">
+               <Menu fx:id="display" mnemonicParsing="false" text="Display">
                    <items>
-                  <Menu mnemonicParsing="false" text="Add">
+                  <Menu fx:id="add" mnemonicParsing="false" text="Add">
                     <items>
                         <MenuItem fx:id="egMenuItem" mnemonicParsing="false" onAction="#addEG" text="EG" />
                         <MenuItem fx:id="mixerMenuItem" mnemonicParsing="false" onAction="#addMixer" text="Mixer" />
