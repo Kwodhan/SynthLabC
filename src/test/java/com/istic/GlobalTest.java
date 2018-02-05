@@ -1,10 +1,12 @@
 package com.istic;
 
+import com.istic.vco.VCO;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.SquareOscillatorBL;
 import org.junit.Before;
 import org.junit.Test;
+import com.istic.out.OutMod;
 
 import static org.junit.Assert.assertNotNull;
 

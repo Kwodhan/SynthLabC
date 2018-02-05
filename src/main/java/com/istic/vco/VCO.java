@@ -1,4 +1,4 @@
-package com.istic;
+package com.istic.vco;
 
 import com.istic.port.PortFm;
 import com.istic.port.PortOutput;
@@ -7,7 +7,7 @@ import com.jsyn.unitgen.*;
 
 import java.util.ArrayList;
 
-public class VCO extends Circuit implements Module{
+public class VCO extends Circuit {
 
 
     public static final int SQUAREWAVE = 0;
@@ -41,7 +41,7 @@ public class VCO extends Circuit implements Module{
 
         add(reglageVCO = new ReglageVCO());
         add(passThrough = new PassThrough());
-        addPortAlias(out = passThrough.getOutput(),"out");
+        addPortAlias(out = passThrough.getOutput(), "com/istic/out");
         addPortAlias(passThrough.getInput(),"in");
 
         for(UnitOscillator oscillator : this.oscillators){
@@ -74,11 +74,11 @@ public class VCO extends Circuit implements Module{
 
     public PortOutput getOutput() {
 
-        return new PortOutput(this,out);
+        return new PortOutput(out);
     }
 
     public PortFm getFm(){
-        return new PortFm(this,this.reglageVCO.getFm());
+        return new PortFm(this.reglageVCO.getFm());
     }
 
 

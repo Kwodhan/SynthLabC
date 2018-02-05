@@ -1,9 +1,7 @@
 package com.istic.modulesController;
 
-import com.istic.Controller;
-import com.istic.OutMod;
+import com.istic.out.OutMod;
 import com.istic.port.Port;
-import com.istic.port.PortInput;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -83,10 +81,12 @@ public class OUTPUTModuleController extends Pane implements Initializable, Modul
     }
 
     public void init(Controller controller,Synthesizer synthesizer){
+
         this.controller=controller;
         this.lineOut = new OutMod();
         synthesizer.add(this.lineOut);
         lineOut.start();
+
     }
 
     public void toggleMute() {

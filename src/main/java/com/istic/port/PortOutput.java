@@ -1,14 +1,13 @@
 package com.istic.port;
 
-import com.istic.Module;
 import com.jsyn.ports.UnitOutputPort;
 
 public class PortOutput extends Port {
 
     private UnitOutputPort unitOutputPort;
 
-    public PortOutput(Module module, UnitOutputPort unitOutputPort) {
-        super(module);
+    public PortOutput( UnitOutputPort unitOutputPort) {
+        super();
         this.unitOutputPort = unitOutputPort;
         this.visitorConnectPort =  new VisitorOuput(this);
     }

@@ -1,10 +1,11 @@
-package com.istic;
+package com.istic.out;
 
 import com.istic.port.PortInput;
 import com.jsyn.unitgen.LineOut;
 import com.softsynth.math.AudioMath;
 
-public class OutMod extends LineOut implements Module {
+public class OutMod extends LineOut {
+
 	private double attenuation = 0.;
 
 	private int mute = 1;
@@ -35,13 +36,13 @@ public class OutMod extends LineOut implements Module {
         double[] buffer1 = synthesisEngine.getOutputBuffer(1);
         double fromDCBL ;
         for (int i = start; i < limit; i++) {
-        	fromDCBL = AudioMath.decibelsToAmplitude(this.attenuation);
+        	fromDCBL = AudioMath.semitonesToFrequencyScaler(this.attenuation);
             buffer0[i] += inputs0[i]*mute*fromDCBL;
             buffer1[i] += inputs1[i]*mute*fromDCBL;
         }
     }
 
 	public PortInput getPortInput() {
-		return new PortInput(this,this.getInput());
+		return new PortInput(this.getInput());
 	}
 }

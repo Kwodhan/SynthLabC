@@ -1,5 +1,6 @@
 package com.istic;
 
+import com.istic.vco.VCO;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import org.junit.Before;

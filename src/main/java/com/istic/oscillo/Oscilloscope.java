@@ -1,4 +1,4 @@
-package com.istic;
+package com.istic.oscillo;
 
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
@@ -11,11 +11,6 @@ public class Oscilloscope {
 
     private AudioScope scope;
 
-    // How to use :
-    //    Oscilloscope oscilloscope = new Oscilloscope(synth);
-    //    oscilloscope.addProbe(osc.output);
-    //    AudioScopeView audioScopeView = oscilloscope.getView();
-    //    oscilloscope.start();
 
     /**
      * Init Oscilloscope

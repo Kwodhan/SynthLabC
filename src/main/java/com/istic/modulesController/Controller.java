@@ -1,4 +1,4 @@
-package com.istic;
+package com.istic.modulesController;
 
 import com.istic.cable.Cable;
 import com.istic.modulesController.ModuleController;
@@ -62,33 +62,9 @@ public class Controller implements Initializable {
 		this.synth = JSyn.createSynthesizer();
 		this.synth.start();
 
-//        this.synth.add(this.vco = new VCO());
-//        this.synth.add(this.lineOut = new OutMod());
-//
-//        Cable cable = new Cable(vco.getOutput(),lineOut.getPortInput());
-//        System.out.println(cable.connect());
-//
-//        sawRadio.setToggleGroup(group);
-//        triangleRadio.setToggleGroup(group);
-//        squareRadio.setToggleGroup(group);
-//        squareRadio.setSelected(true);
-//
-//        frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-//            frequencySlider.setValue(Math.round(frequencySlider.getValue()));
-//            vco.changeOctave((int)frequencySlider.getValue());
-//
-//
-//        });
-//
-//        frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-//            //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
-//            vco.changeFin(frequencyFineSlider.getValue());
-//
-//        });
 
 		try {
 			addOutput();
-			addVCO();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -97,18 +73,19 @@ public class Controller implements Initializable {
 
 
 	public void addVCO() throws IOException {
-		// vcoModuleController=new VCOModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/vco.fxml"));
+				"../../../modules/vco.fxml"));
 		addMod(root);
 		vcoModuleController = (VCOModuleController) root.getUserData();
 		vcoModuleController.init(this,synth);
 	}
 
 	public void addOutput() throws IOException {
+
 		// outputModuleController=new OUTPUTModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/output.fxml"));
+				"../../../modules/output.fxml"));
+
 		addMod(root);
 
 		outputModuleController = (OUTPUTModuleController) root.getUserData();
@@ -119,70 +96,69 @@ public class Controller implements Initializable {
 	public void addMixer() throws IOException {
 
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/mixer.fxml"));
+				"../../../modules/mixer.fxml"));
 		addMod(root);
 
 	}
 
 	public void addEG() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/eg.fxml"));
+				"../../../modules/eg.fxml"));
 		addMod(root);
 
 	}
 
 	public void addOscilloscope() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/oscilloscope.fxml"));
+				"../../../modules/oscilloscope.fxml"));
 		addMod(root);
 
 	}
 
 	public void addReplicator() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/replicator.fxml"));
+				"../../../modules/replicator.fxml"));
 		addMod(root);
 
 	}
 
 	public void addSequencer() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/sequencer.fxml"));
+				"../../../modules/sequencer.fxml"));
 		addMod(root);
 
 	}
 
 	public void addVca() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/vca.fxml"));
+				"../../../modules/vca.fxml"));
 		addMod(root);
 
 	}
 
 	public void addVcfLp() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/vcfLp.fxml"));
+				"../../../modules/vcfLp.fxml"));
 		addMod(root);
 
 	}
 
 	public void addVcfHp() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/vcfHp.fxml"));
+				"../../../modules/vcfHp.fxml"));
 		addMod(root);
 
 	}
 
 	public void addWhiteNoise() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
-				"../../modules/whiteNoise.fxml"));
+				"../../../modules/whiteNoise.fxml"));
 		addMod(root);
 
 	}
 
 	public void drawCable() {
 		if (line == null) {
-
 			line = new Line(vcoModuleController.getX(),
 					vcoModuleController.getY(), outputModuleController.getX(),
 					outputModuleController.getY());

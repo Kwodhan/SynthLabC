@@ -1,6 +1,5 @@
 package com.istic.port;
 
-import com.istic.Module;
 import com.jsyn.ports.UnitInputPort;
 
 public class PortFm extends Port {
@@ -9,8 +8,8 @@ public class PortFm extends Port {
 
     private Integer Volt = 0;
 
-    public PortFm(Module module,UnitInputPort unitFmPort) {
-        super(module);
+    public PortFm(UnitInputPort unitFmPort) {
+        super();
         this.unitFmPort = unitFmPort;
         this.visitorConnectPort =  new VisitorFm(this);
     }

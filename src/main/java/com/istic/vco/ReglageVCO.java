@@ -1,4 +1,4 @@
-package com.istic;
+package com.istic.vco;
 
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
@@ -23,7 +23,7 @@ public class ReglageVCO extends UnitGenerator {
         addPort(this.octave = new UnitInputPort("octave"));
         addPort(this.fin = new UnitInputPort("fin"));
         addPort(this.fm = new UnitInputPort("fm"));
-        addPort(this.out = new UnitOutputPort("out"));
+        addPort(this.out = new UnitOutputPort("com/istic/out"));
     }
 
     @Override
