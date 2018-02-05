@@ -3,18 +3,11 @@ package com.istic;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
-
-import java.awt.*;
-
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.util.NodeQueryUtils.hasText;
 
 public class IHMTest extends ApplicationTest {
 
@@ -31,7 +24,6 @@ public class IHMTest extends ApplicationTest {
     @Before
     public void testConnectVCOwithOuput() {
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#outputMenuItem");
 
         clickOn("#outPort");
@@ -41,23 +33,51 @@ public class IHMTest extends ApplicationTest {
     }
 
     @Test
-    public void testMute() {
+    public void testSprint1() {
+        // Mute
+        sleep(2000);
         clickOn("#mute");
         sleep(2000);
         clickOn("#mute");
-        sleep(3000);
+        sleep(2000);
+
+        // Type de signal
+//        clickOn("#triangleRadio");
+//        sleep(2000);
+//        clickOn("#sawRadio");
+//        sleep(1000);
+//        clickOn("#squareRadio");
+//        sleep(1000);
+
+        // Octave slider
+        moveTo("#frequencySlider");
+        Slider octave = lookup("#frequencySlider").query();
+        octave.setValue(3);
+        sleep(1000);
+        octave.setValue(-3);
+        sleep(1000);
+        octave.setValue(0);
+        sleep(2000);
+
+        // Fin slider
+        moveTo("#frequencyFineSlider");
+        Slider fin = lookup("#frequencyFineSlider").query();
+        fin.setValue(-7);
+        sleep(1000);
+        fin.setValue(2);
+        sleep(1000);
+
+        // Attenuation
+        moveTo("#attenuationSlider");
+        Slider attenuation = lookup("#attenuationSlider").query();
+        attenuation.setValue(-6);
+        sleep(1000);
+        attenuation.setValue(-12);
+        sleep(1000);
+        attenuation.setValue(0);
+
+        // end
+        sleep(2000);
     }
-
-    @Test
-    public void testWaveChanged() {
-        clickOn("#triangleRadio");
-        sleep(3000);
-    }
-
-    @Test
-    public void testSliderChanged() {
-
-    }
-
 
 }
