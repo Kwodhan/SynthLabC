@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 import com.istic.Controller;
 import com.istic.OutMod;
+import com.istic.port.Port;
 import com.istic.port.PortInput;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
@@ -15,14 +16,14 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class OUTPUTModuleController extends Pane implements Initializable {
+public class OUTPUTModuleController extends Pane implements Initializable, ModuleController {
 
     @FXML
     ImageView inPort;
     @FXML
     AnchorPane pane;
     Controller controller;
-    double x,y;
+    double x=0,y=0;
 
     private OutMod lineOut;
 
@@ -50,18 +51,34 @@ public class OUTPUTModuleController extends Pane implements Initializable {
         });
     }
 
-    public PortInput connect() {
-    System.out.println("connetion established");
+    public void connect() {
+        System.out.println("connect");
 
+        connectIn();
+        //boolean a=!this.controller.getPort().equals(this.getCurrentPort());
+        //System.out.println("pourquoi  "+a);
+        if(this.controller.isPlugged()  && !this.controller.getPort().equals(this.getCurrentPort()) ){
+            this.controller.connect();
+            this.controller.setPort(this.getCurrentPort());
+            this.controller.setPlugged(false);
+
+            System.out.println("connetion OUT");
+        }else{
+            this.controller.setPlugged(true);
+            this.controller.setPort(this.getCurrentPort());
+            System.out.println("merde plugged OUT");
+        }
+
+        System.out.println("Done connecting");
+
+
+    }
+    public void connectIn(){
+        System.out.println("connecting");
         Bounds boundsInScene = inPort.localToScene(inPort.getBoundsInLocal());
         x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
         y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
         System.out.println(boundsInScene.toString());
-
-        if(lineOut!=null)
-           return      lineOut.getPortInput();
-
-            return  null;
 
     }
 
@@ -91,4 +108,16 @@ public class OUTPUTModuleController extends Pane implements Initializable {
     public void setY(double y) {
         this.y = y;
     }
+    @Override
+    public Port getCurrentPort(){
+
+        System.out.println("getCurrentPort");
+        if(lineOut!=null) {
+
+            return lineOut.getPortInput();
+        }
+
+        return  null;
+    }
+
 }

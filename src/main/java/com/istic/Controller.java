@@ -1,8 +1,10 @@
 package com.istic;
 
 import com.istic.cable.Cable;
+import com.istic.modulesController.ModuleController;
 import com.istic.modulesController.OUTPUTModuleController;
 import com.istic.modulesController.VCOModuleController;
+import com.istic.port.Port;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
@@ -29,7 +31,8 @@ public class Controller implements Initializable {
 	HBox HBox1, Hbox;
 
     Cable cable1;
-    Line line ;
+    Line line;
+
     final ToggleGroup group = new ToggleGroup();
     @FXML
     AnchorPane pane;
@@ -45,15 +48,19 @@ public class Controller implements Initializable {
     Slider frequencyFineSlider;
     @FXML
     RadioButton sawRadio, triangleRadio,squareRadio;
+
     VCOModuleController vcoModuleController;
     OUTPUTModuleController outputModuleController;
+
     private Synthesizer synth;
 
-	private VCO vco;
-	private OutMod lineOut;
+	Port port;
+
+    private boolean isPlugged = false;
 
 	public void initialize(URL location, ResourceBundle resources) {
 		this.synth = JSyn.createSynthesizer();
+		this.synth.start();
 
 //        this.synth.add(this.vco = new VCO());
 //        this.synth.add(this.lineOut = new OutMod());
@@ -78,34 +85,16 @@ public class Controller implements Initializable {
 //            vco.changeFin(frequencyFineSlider.getValue());
 //
 //        });
+
+		try {
+			addOutput();
+			addVCO();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
-
-    public void startSoundVCO() throws InterruptedException {
-        this.synth.start();
-        lineOut.start();
-
-
-    }
-
-	public void stopSoundVCO() throws InterruptedException {
-		this.synth.stop();
-		vco.stop();
-		lineOut.stop();
-	}
-
-	public void squareSound(){
-		vco.changeShapeWave(VCO.SQUAREWAVE);
-
-	}
-	public void sawSound(){
-		vco.changeShapeWave(VCO.SAWWAVE);
-
-	}
-	public void triangleSound(){
-		vco.changeShapeWave(VCO.TRIANGLEWAVE);
-
-	}
 
 	public void addVCO() throws IOException {
 		// vcoModuleController=new VCOModuleController();
@@ -211,16 +200,21 @@ public class Controller implements Initializable {
 
 	public void connect() {
 
+		if(vcoModuleController != null && outputModuleController != null && outputModuleController.getX() != 0 && vcoModuleController.getX() != 0) {
+			System.out.println("connect in main");
+			cable1 = new Cable(vcoModuleController.getCurrentPort(),
+					outputModuleController.getCurrentPort());
+			System.out.println("connect in main2");
 
-		cable1 = new Cable(vcoModuleController.connectOut(),
-				outputModuleController.connect());
-		if (cable1.connect()&& outputModuleController.getLayoutX()==0 &&vcoModuleController.getLayoutX()==0) {
-			drawCable();
+			if (cable1.connect() && outputModuleController.getX() != 0 && vcoModuleController.getX() != 0) {
+				drawCable();
+			}
+
 		}
-		this.synth.start();
 
 
     }
+
     public void addMod(Node root){
 
 
@@ -250,5 +244,21 @@ public class Controller implements Initializable {
 
 	public AnchorPane getPane() {
 		return pane;
+	}
+
+	public boolean isPlugged() {
+		return isPlugged;
+	}
+
+	public void setPlugged(boolean plugged) {
+		isPlugged = plugged;
+	}
+
+	public Port getPort() {
+		return port;
+	}
+
+	public void setPort(Port port) {
+		this.port = port;
 	}
 }

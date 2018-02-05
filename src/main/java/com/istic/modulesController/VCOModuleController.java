@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 import com.istic.Controller;
 import com.istic.VCO;
+import com.istic.port.Port;
 import com.istic.port.PortOutput;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VCOModuleController extends Pane implements Initializable {
+public class VCOModuleController extends Pane implements Initializable,ModuleController {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -35,9 +36,11 @@ public class VCOModuleController extends Pane implements Initializable {
     RadioButton sawRadio, triangleRadio,squareRadio;
     @FXML
     ImageView outPort;
-    double x,y;
+    double x=0,y=0;
     @FXML
     ImageView fmPort;
+
+    int currentPort=-1;
 
 
     private VCO vco;
@@ -86,22 +89,66 @@ public class VCOModuleController extends Pane implements Initializable {
 
     }
     public PortOutput connectOut(){
+
         return vco.getOutput();
 
     }
+
+    /**
+     * Connecting the fmPort to draw the cable
+     */
     public void connectFmPort() {
-        Bounds boundsInScene = fmPort.localToScene(outPort.getBoundsInLocal());
-        x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
-        y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
-        System.out.println("vcoooooooooooooooooooooooooooo"+x);
-    }
-    public void connectOutPort() {
-        Bounds boundsInScene = outPort.localToScene(outPort.getBoundsInLocal());
-        x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
-        y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
-        System.out.println("vcoooooooooooooooooooooooooooo"+x);
+        currentPort=1;
+        connecting(fmPort);
+        if(this.controller.isPlugged()  && !this.controller.getPort().equals(this.getCurrentPort())){
+            this.controller.connect();
+            this.controller.setPort(null);
+            this.controller.setPlugged(false);
+
+        }else{
+            this.controller.setPlugged(true);
+            this.controller.setPort(this.getCurrentPort());
+        }
+
     }
 
+    /**
+     * Connecting the outPort to draw the cable
+     */
+    public void connectOutPort() {
+        System.out.println("connectOutPort");
+
+        currentPort=0;
+        connecting(outPort);
+
+
+        if(this.controller.isPlugged() && !this.controller.getPort().equals(this.getCurrentPort())){
+
+            this.controller.connect();
+            this.controller.setPlugged(false);
+            this.controller.setPort(null);
+            System.out.println("merde connect VCO");
+        }else{
+            this.controller.setPlugged(true);
+            this.controller.setPort(this.getCurrentPort());
+            System.out.println("merde plugged VCO");
+
+        }
+    }
+
+    /**
+     * initialize x and y to draw
+     * @param port
+     */
+    public void connecting(ImageView port){
+        System.out.println("connecting VCO");
+
+        Bounds boundsInScene = port.localToScene(port.getBoundsInLocal());
+        x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
+        y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
+        System.out.println("vcoooooooooooooooooooooooooooo"+x);
+
+    }
 
     public double getX() {
         return x;
@@ -130,5 +177,16 @@ public class VCOModuleController extends Pane implements Initializable {
     public void triangleSound(){
         vco.changeShapeWave(VCO.TRIANGLEWAVE);
 
+    }
+
+    public Port getCurrentPort(){
+        System.out.println("getCurrentPort VCO");
+
+        if(currentPort==0){
+            return vco.getOutput();
+        }else if(currentPort==1) {
+                return vco.getFm() ;
+        }
+        return null;
     }
 }
