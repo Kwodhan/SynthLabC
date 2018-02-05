@@ -67,7 +67,8 @@ public class OUTPUTModuleController extends Pane implements Initializable {
 
     public void init(Controller controller,Synthesizer synthesizer){
         this.controller=controller;
-        this.lineOut = new OutMod(synthesizer);
+        this.lineOut = new OutMod();
+        synthesizer.add(this.lineOut);
         lineOut.start();
     }
 

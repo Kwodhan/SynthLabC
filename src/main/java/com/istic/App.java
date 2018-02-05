@@ -11,7 +11,7 @@ public class App extends Application {
     private Parent root;
     @Override
     public void start(Stage stage) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("../../sample.fxml"));
+        root = FXMLLoader.load(getClass().getResource("../../sample_sprint1.fxml"));
         scene = new Scene(root);
         stage.setResizable(false);
         

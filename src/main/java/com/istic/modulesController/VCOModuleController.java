@@ -64,7 +64,7 @@ public class VCOModuleController extends Pane implements Initializable {
 
         frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
-            vco.changeFineHertz(frequencyFineSlider.getValue());
+            vco.changeFin(frequencyFineSlider.getValue());
 
 
         });
@@ -76,13 +76,17 @@ public class VCOModuleController extends Pane implements Initializable {
 
     }
     public void init(Controller controller,Synthesizer synthesizer){
+
         this.controller=controller;
-        this.vco = new VCO(synthesizer);
-        vco.start();
+
+        this.vco = new VCO();
+        synthesizer.add(vco);
+
+        //vco.start();
 
     }
     public PortOutput connectOut(){
-        return vco.getPortOutput();
+        return vco.getOutput();
 
     }
     public void connectFmPort() {
@@ -113,5 +117,18 @@ public class VCOModuleController extends Pane implements Initializable {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public void squareSound(){
+        vco.changeShapeWave(VCO.SQUAREWAVE);
+
+    }
+    public void sawSound(){
+        vco.changeShapeWave(VCO.SAWWAVE);
+
+    }
+    public void triangleSound(){
+        vco.changeShapeWave(VCO.TRIANGLEWAVE);
+
     }
 }

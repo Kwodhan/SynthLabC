@@ -1,130 +1,90 @@
 package com.istic;
 
-import com.istic.port.PortInput;
+import com.istic.port.PortFm;
 import com.istic.port.PortOutput;
-import com.jsyn.Synthesizer;
-import com.jsyn.ports.UnitInputPort;
-import com.jsyn.unitgen.SawtoothOscillator;
-import com.jsyn.unitgen.SquareOscillator;
-import com.jsyn.unitgen.TriangleOscillator;
-import com.jsyn.unitgen.UnitOscillator;
+import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.*;
 
-public class VCO implements Module{
+import java.util.ArrayList;
+
+public class VCO extends Circuit implements Module{
+
+
+    public static final int SQUAREWAVE = 0;
+    public static final int TRIANGLEWAVE = 1;
+    public static final int SAWWAVE = 2;
+
+    private ArrayList<UnitOscillator> oscillators ;
+
 
     /**
-     * default : LA
+     * Port de sortie du VCO
      */
-    private Double f0 = 440.0;
-    private UnitOscillator osc;
-    /**
-     * octave beetween -3 and +3
-     */
-    private Integer octave = 0;
-    /**
-     * reglage fin
-     */
-    private Double fin = 0d;
+    private UnitOutputPort out;
 
-    private Double fm = 0d;
-    private UnitOscillator oscSquare;
-    private UnitOscillator oscTriangle;
-    private UnitOscillator oscSawtooth;
-    private UnitOscillator[] oscs;
-
-
-    private Synthesizer synth;
-    // Port
-    private PortOutput portOutput;
-
-    private PortInput portfm;
-
-
-    public VCO(Synthesizer synth) {
-
-        this.synth = synth;
-        this.oscs = new UnitOscillator[3];
-        this.synth.add( oscs[0] = new SquareOscillator());
-        this.synth.add( oscs[1] = new TriangleOscillator());
-        this.synth.add( oscs[2] = new SawtoothOscillator());
-        osc = oscs[0];
-        this.portOutput = new PortOutput(this,this.osc.output);
-
-        this.portfm = new PortInput(this, new UnitInputPort("Inputfm"));
-
-        osc.frequency.setup( 30, this.f0*Math.pow(2,octave), 10000);
-
-    }
-
-    public void changeShapeWave(int typeWave, OutMod outmod) {
-
-        // Disconnect
-        //TODO : Solution for Sprint 1
-       outmod.input.disconnectAll();
-       oscs[typeWave].output.connect(outmod.input);
-       osc = oscs[typeWave];
-    }
 
     /**
-     *
-     * @param octave between -3 and +3
+     * reglage fo, octave, fm, fin
      */
-    public void changeOctave(int octave) {
-        this.octave = octave;
-
-        float r =  1.05946f;
-        this.osc.frequency.set(this.f0 * Math.pow(2,octave) * Math.pow(r,fin)  * Math.pow(2,fm));
-        System.out.println(this.getFrequence());
-
-    }
+    private ReglageVCO reglageVCO;
 
     /**
-     *
-     * @param fin -9 and 2
+     * reglage wave
      */
-    public void changeFineHertz(double fin ) {
-        if(fin < -9 && fin > 2 ){
-            return;
+    private WaveReglage waveReglage;
+
+    public VCO() {
+        this.oscillators = new ArrayList<>();
+        this.oscillators.add(new SquareOscillator());
+        this.oscillators.add(new TriangleOscillator());
+        this.oscillators.add(new SawtoothOscillator());
+
+        add(reglageVCO = new ReglageVCO());
+        add(waveReglage = new WaveReglage());
+        addPortAlias(out = waveReglage.getOutputPort(),"out");
+        addPortAlias(waveReglage.getInputPort(),"in");
+
+        for(UnitOscillator oscillator : this.oscillators){
+            add(oscillator);
+            addPort(oscillator.getOutput());
+            reglageVCO.getOut().connect(oscillator.frequency);
         }
-        this.fin = fin;
-        float r =  1.05946f;
 
-        this.osc.frequency.set(this.f0 * Math.pow(2,octave) * Math.pow(r,fin) * Math.pow(2,fm));
-        System.out.println(this.getFrequence());
+        this.oscillators.get(SQUAREWAVE).getOutput().connect(waveReglage.getInputPort());
 
-
-    }
-    /**
-     *
-     * @param fm fm in hertz
-     */
-    public void changeFm (double fm) {
-
-        float r =  1.05946f;
-        this.fm =  Math.log(fm)/Math.log(2);
-
-        this.osc.frequency.set(this.f0 * Math.pow(2,octave) * Math.pow(r,fin) * Math.pow(2,fm));
-        System.out.println(this.getFrequence());
-    }
-
-    public void start(){
-        osc.start();
+        reglageVCO.getF0().set(440);
 
     }
 
-    public void stop() throws InterruptedException {
-        osc.stop();
+    public void changeShapeWave(int typeWave) {
+        this.waveReglage.getInputPort().disconnectAll();
+        this.oscillators.get(typeWave).getOutput().connect(0,waveReglage.getInputPort(),0);
 
     }
 
-    public PortOutput getPortOutput() {
-        return portOutput;
+    public void changeF0(double f0){
+        this.reglageVCO.getF0().set(f0);
     }
 
-    public double getFrequence(){
-        return this.osc.frequency.get();
+    public void changeFin(double fin){
+        this.reglageVCO.getFin().set(fin);
     }
 
-    public void setPortOutput(){
-    	this.portOutput = new PortOutput(this,this.osc.output);
+    public void changeOctave(double octave){
+        this.reglageVCO.getOctave().set(octave);
+    }
+
+
+    public PortOutput getOutput() {
+        return new PortOutput(this,out);
+    }
+
+    public PortFm getFm(){
+        return new PortFm(this,this.reglageVCO.getFm());
+    }
+
+
+    public double getFrequence() {
+        return reglageVCO.getFrequence();
     }
 }

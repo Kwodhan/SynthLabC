@@ -1,7 +1,6 @@
 package com.istic;
 
 import com.istic.port.PortInput;
-import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.LineOut;
 import com.softsynth.math.AudioMath;
 
@@ -9,11 +8,11 @@ public class OutMod extends LineOut implements Module {
 	private double attenuation = 0.;
 
 	private int mute = 1;
-	Synthesizer synth;
 
-	public OutMod(Synthesizer synth) {
-		this.synth = synth;
-		this.synth.add(this);
+
+	public OutMod() {
+		// TODO Auto-generated constructor stub
+
 	}
 
 	public double getAttenuation() {
@@ -23,7 +22,7 @@ public class OutMod extends LineOut implements Module {
 	public void toggleMute() {
 		this.mute = (this.mute == 1) ? 0 : 1;
 	}
-	
+
 	public void setAttenuation(double att){
 		this.attenuation = att;
 	}

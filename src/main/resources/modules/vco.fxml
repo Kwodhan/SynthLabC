@@ -38,9 +38,9 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Octave" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Slider fx:id="frequencyFineSlider" blockIncrement="1.0" majorTickUnit="1.0" max="2.0" min="-9.0" minorTickCount="0" prefHeight="38.0" prefWidth="110.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <RadioButton fx:id="squareRadio" mnemonicParsing="false" text="Square" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <RadioButton fx:id="triangleRadio" mnemonicParsing="false" text="Triangle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <RadioButton fx:id="sawRadio" mnemonicParsing="false" text="SawT   " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <RadioButton fx:id="squareRadio" mnemonicParsing="false" text="Square" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" onAction="#squareSound"/>
+            <RadioButton fx:id="triangleRadio" mnemonicParsing="false" text="Triangle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" onAction="#triangleSound" />
+            <RadioButton fx:id="sawRadio" mnemonicParsing="false" text="SawT   " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" onAction="#sawSound" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FM" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Out" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <ImageView fx:id="outPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectOutPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">

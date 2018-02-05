@@ -1,6 +1,7 @@
 package com.istic;
 
 import com.jsyn.JSyn;
+import com.jsyn.Synthesizer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +13,9 @@ public class VcoTest {
 
     @Before
     public void initSynth() {
-        this.vco = new VCO(JSyn.createSynthesizer());
+        Synthesizer syn = JSyn.createSynthesizer();
+        syn.add(this.vco = new VCO());
+
     }
 
     @Test
@@ -24,25 +27,25 @@ public class VcoTest {
     public void testFrequencyNote() {
         // la
         this.vco.changeOctave(0);
-        this.vco.changeFineHertz(0);
+        this.vco.changeFin(0);
         assertEquals((double)Math.round(this.vco.getFrequence()),440d);
 
         // sol
         this.vco.changeOctave(0);
-        this.vco.changeFineHertz(-2);
+        this.vco.changeFin(-2);
         assertEquals((double)Math.round(this.vco.getFrequence()),392d);
 
         // la
         this.vco.changeOctave(-2);
-        this.vco.changeFineHertz(0);
+        this.vco.changeFin(0);
         assertEquals((double)Math.round(this.vco.getFrequence()),110d);
 
         // ré
         this.vco.changeOctave(3);
-        this.vco.changeFineHertz(-7);
+        this.vco.changeFin(-7);
         assertEquals((double)Math.round(this.vco.getFrequence()),2349d);
 
-        this.vco.changeFineHertz(0);
+        this.vco.changeFin(0);
         assertEquals((double)Math.round(this.vco.getFrequence()),3520d);
 
         this.vco.changeOctave(0);
