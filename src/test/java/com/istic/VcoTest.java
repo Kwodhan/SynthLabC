@@ -53,5 +53,11 @@ public class VcoTest {
 
     }
 
+//    @Test
+//    public void testChangeOfShapeWave(){
+//        this.vco.changeShapeWave(VCO.SAWWAVE);
+//        // check change of wave shape
+//    }
+
 
 }
