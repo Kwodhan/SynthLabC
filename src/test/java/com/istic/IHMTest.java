@@ -24,12 +24,11 @@ public class IHMTest extends ApplicationTest {
     @Before
     public void testConnectVCOwithOuput() {
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#outputMenuItem");
 
         clickOn("#outPort");
         clickOn("#inPort");
 
-        clickOn("#connectButton");
+
     }
 
     @Test
