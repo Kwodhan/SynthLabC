@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
@@ -157,20 +159,20 @@ public class Controller implements Initializable {
 	}
 
 	public void drawCable() {
-		if (line == null) {
-			line = new Line(vcoModuleController.getX(),
-					vcoModuleController.getY(), outputModuleController.getX(),
-					outputModuleController.getY());
-			pane.getChildren().add(line);
-
-		} else {
+		if (line != null) {
 			pane.getChildren().remove(line);
-			line = new Line(vcoModuleController.getX(),
-					vcoModuleController.getY(), outputModuleController.getX(),
-					outputModuleController.getY());
-			pane.getChildren().add(line);
-
 		}
+
+		line = new Line(vcoModuleController.getX(),
+				vcoModuleController.getY(), outputModuleController.getX(),
+				outputModuleController.getY());
+		line.setStrokeWidth(5);
+		line.setStroke(Color.BLUEVIOLET);
+		line.setId("cable1");
+		pane.getChildren().add(line);
+		line.setOnMouseClicked(event -> {
+			this.disconnect();
+		});
 	}
 
 	public void deleteCable() {
