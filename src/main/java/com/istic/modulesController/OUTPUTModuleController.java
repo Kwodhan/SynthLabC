@@ -50,33 +50,32 @@ public class OUTPUTModuleController extends Pane implements Initializable, Modul
     }
 
     public void connect() {
-        System.out.println("connect");
+
 
         connectIn();
-        //boolean a=!this.controller.getPort().equals(this.getCurrentPort());
-        //System.out.println("pourquoi  "+a);
+
         if(this.controller.isPlugged()  && !this.controller.getPort().equals(this.getCurrentPort()) ){
             this.controller.connect();
             this.controller.setPort(this.getCurrentPort());
             this.controller.setPlugged(false);
 
-            System.out.println("connetion OUT");
+
         }else{
             this.controller.setPlugged(true);
             this.controller.setPort(this.getCurrentPort());
-            System.out.println("merde plugged OUT");
+
         }
 
-        System.out.println("Done connecting");
+
 
 
     }
     public void connectIn(){
-        System.out.println("connecting");
+
         Bounds boundsInScene = inPort.localToScene(inPort.getBoundsInLocal());
         x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
         y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
-        System.out.println(boundsInScene.toString());
+
 
     }
 
@@ -111,7 +110,6 @@ public class OUTPUTModuleController extends Pane implements Initializable, Modul
     @Override
     public Port getCurrentPort(){
 
-        System.out.println("getCurrentPort");
         if(lineOut!=null) {
 
             return lineOut.getPortInput();

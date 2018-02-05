@@ -184,10 +184,10 @@ public class Controller implements Initializable {
 	public void connect() {
 
 		if(vcoModuleController != null && outputModuleController != null && outputModuleController.getX() != 0 && vcoModuleController.getX() != 0) {
-			System.out.println("connect in main");
+
 			cable1 = new Cable(vcoModuleController.getCurrentPort(),
 					outputModuleController.getCurrentPort());
-			System.out.println("connect in main2");
+
 
 			if (cable1.connect() && outputModuleController.getX() != 0 && vcoModuleController.getX() != 0) {
 				drawCable();

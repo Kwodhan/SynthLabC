@@ -117,7 +117,7 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-        System.out.println("connectOutPort");
+
 
         currentPort=0;
         connecting(outPort);
@@ -128,11 +128,11 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
             this.controller.connect();
             this.controller.setPlugged(false);
             this.controller.setPort(null);
-            System.out.println("merde connect VCO");
+
         }else{
             this.controller.setPlugged(true);
             this.controller.setPort(this.getCurrentPort());
-            System.out.println("merde plugged VCO");
+
 
         }
     }
@@ -142,12 +142,12 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
      * @param port
      */
     public void connecting(ImageView port){
-        System.out.println("connecting VCO");
+
 
         Bounds boundsInScene = port.localToScene(port.getBoundsInLocal());
         x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
         y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
-        System.out.println("vcoooooooooooooooooooooooooooo"+x);
+
 
     }
 
@@ -181,7 +181,7 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
     }
 
     public Port getCurrentPort(){
-        System.out.println("getCurrentPort VCO");
+
 
         if(currentPort==0){
             return vco.getOutput();
