@@ -62,7 +62,6 @@ public class Controller implements Initializable {
 		this.synth = JSyn.createSynthesizer();
 		this.synth.start();
 
-
 		try {
 			addOutput();
 
@@ -174,6 +173,12 @@ public class Controller implements Initializable {
 		}
 	}
 
+	public void deleteCable() {
+	    if (line!=null) {
+	        pane.getChildren().remove(line);
+        }
+    }
+
 	public void connect() {
 
 		if(vcoModuleController != null && outputModuleController != null && outputModuleController.getX() != 0 && vcoModuleController.getX() != 0) {
@@ -187,8 +192,13 @@ public class Controller implements Initializable {
 			}
 
 		}
+    }
 
-
+    public void disconnect() {
+	    if (cable1 != null) {
+	        cable1.disconnect();
+	        deleteCable();
+        }
     }
 
     public void addMod(Node root){
