@@ -35,16 +35,26 @@ public class CableTest {
             Synthesizer synth;
             OutMod lineOut;
             VCO vco;
+            VCO vco2;
 
             synth = JSyn.createSynthesizer();
             lineOut = new OutMod();
             vco = new VCO();
+            vco2 = new VCO();
             synth.add(lineOut);
             synth.add(vco);
+            synth.add(vco2);
 
             return Arrays.asList(new Object[][] {
                 { vco.getOutput(), lineOut.getPortInput(), true, true, true, false, false },
                 { vco.getOutput(), vco.getOutput(), false, false, false, false, false },
+                { lineOut.getPortInput(), vco.getOutput(),  true, true, true, false, false },
+                { lineOut.getPortInput(), lineOut.getPortInput(), false, false, false, false, false },
+                { vco2.getFm(), vco.getOutput(),  true, true, true, false, false },
+                { vco.getOutput(), vco2.getFm(),  true, true, true, false, false },
+                { vco2.getFm(), vco.getFm(),  false, false, false, false, false },
+                { vco2.getFm(), lineOut.getPortInput(),  false, false, false, false, false },
+                { lineOut.getPortInput(), vco2.getFm(),  false, false, false, false, false },
             });
         }
 
@@ -87,5 +97,7 @@ public class CableTest {
             assertEquals(cable.getPortOne().isConnected(), cableOneIsConnectedAfterDisconnect);
             assertEquals(cable.getPortTwo().isConnected(), cableTwoIsConnectedAfterDisconnect);
         }
+
+
     }
 }

@@ -16,7 +16,6 @@ public class VCO extends Circuit implements Module{
 
     private ArrayList<UnitOscillator> oscillators ;
 
-
     /**
      * Port de sortie du VCO
      */
@@ -34,6 +33,7 @@ public class VCO extends Circuit implements Module{
     private WaveReglage waveReglage;
 
     public VCO() {
+
         this.oscillators = new ArrayList<>();
         this.oscillators.add(new SquareOscillator());
         this.oscillators.add(new TriangleOscillator());
@@ -52,6 +52,8 @@ public class VCO extends Circuit implements Module{
 
         this.oscillators.get(SQUAREWAVE).getOutput().connect(waveReglage.getInputPort());
 
+
+
         reglageVCO.getF0().set(440);
 
     }
@@ -59,7 +61,6 @@ public class VCO extends Circuit implements Module{
     public void changeShapeWave(int typeWave) {
         this.waveReglage.getInputPort().disconnectAll();
         this.oscillators.get(typeWave).getOutput().connect(0,waveReglage.getInputPort(),0);
-
     }
 
     public void changeF0(double f0){
