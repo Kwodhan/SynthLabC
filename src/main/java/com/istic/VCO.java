@@ -30,7 +30,7 @@ public class VCO extends Circuit implements Module{
     /**
      * reglage wave
      */
-    private WaveReglage waveReglage;
+    private PassThrough passThrough;
 
     public VCO() {
 
@@ -40,9 +40,9 @@ public class VCO extends Circuit implements Module{
         this.oscillators.add(new SawtoothOscillator());
 
         add(reglageVCO = new ReglageVCO());
-        add(waveReglage = new WaveReglage());
-        addPortAlias(out = waveReglage.getOutputPort(),"out");
-        addPortAlias(waveReglage.getInputPort(),"in");
+        add(passThrough = new PassThrough());
+        addPortAlias(out = passThrough.getOutput(),"out");
+        addPortAlias(passThrough.getInput(),"in");
 
         for(UnitOscillator oscillator : this.oscillators){
             add(oscillator);
@@ -50,22 +50,18 @@ public class VCO extends Circuit implements Module{
             reglageVCO.getOut().connect(oscillator.frequency);
         }
 
-        this.oscillators.get(SQUAREWAVE).getOutput().connect(waveReglage.getInputPort());
-
-
+        this.oscillators.get(SQUAREWAVE).getOutput().connect(passThrough.getInput());
 
         reglageVCO.getF0().set(440);
 
     }
 
     public void changeShapeWave(int typeWave) {
-        this.waveReglage.getInputPort().disconnectAll();
-        this.oscillators.get(typeWave).getOutput().connect(0,waveReglage.getInputPort(),0);
+        this.passThrough.getInput().disconnectAll();
+
+        this.oscillators.get(typeWave).getOutput().connect(0,passThrough.getInput(),0);
     }
 
-    public void changeF0(double f0){
-        this.reglageVCO.getF0().set(f0);
-    }
 
     public void changeFin(double fin){
         this.reglageVCO.getFin().set(fin);
@@ -77,6 +73,7 @@ public class VCO extends Circuit implements Module{
 
 
     public PortOutput getOutput() {
+
         return new PortOutput(this,out);
     }
 

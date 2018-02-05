@@ -6,9 +6,9 @@ package com.istic.port;
 public interface VisitorConnectPort {
     boolean visit(PortInput portInput);
     boolean visit(PortOutput portOutput);
-    public boolean visit(PortFm portFm);
-    public boolean visit(PortAm portAm);
-    public boolean visit(PortGate portGate);
+    boolean visit(PortFm portFm);
+    boolean visit(PortAm portAm);
+    boolean visit(PortGate portGate);
 
 
 
