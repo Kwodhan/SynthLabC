@@ -113,6 +113,9 @@ public class Controller implements Initializable {
 				"../../../modules/oscilloscope.fxml"));
 		addMod(root);
 
+		OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
+		this.moduleControllers.add(oscilloscopeModuleController);
+		oscilloscopeModuleController.init(this);
 	}
 
 	public void addReplicator() throws IOException {
@@ -133,6 +136,9 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vca.fxml"));
 		addMod(root);
+        VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
+        this.moduleControllers.add(vcaModuleController);
+        vcaModuleController.init(this);
 
 	}
 

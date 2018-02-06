@@ -1,21 +1,23 @@
 package com.istic.vca;
 
+import com.istic.port.PortAm;
 import com.istic.port.PortFm;
+import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
-import com.istic.vco.ReglageVCO;
+import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.PassThrough;
-import com.jsyn.unitgen.UnitOscillator;
-
-import java.util.ArrayList;
+import com.jsyn.unitgen.UnitGate;
 
 public class VCA extends Circuit {
     /**
      * Port de sortie du VCO
      */
     private UnitOutputPort out;
-    private UnitOscillator oscillator ;
+
+    private UnitInputPort in;
+
 
 
     /**
@@ -26,17 +28,19 @@ public class VCA extends Circuit {
      * reglage wave
      */
     private PassThrough passThrough;
-    public VCA() {
 
+    public VCA() {
         add(reglageVCA = new ReglageVCA());
         add(passThrough = new PassThrough());
         addPortAlias(out = passThrough.getOutput(), "com/istic/out");
-        addPortAlias(passThrough.getInput(),"in");
-        reglageVCA.getA0().set(440);
+        addPortAlias(in = reglageVCA.getInput(), "com/istic/in");
+        reglageVCA.getOut().connect(passThrough.getInput());
+        reglageVCA.getInput();
 
-        add(oscillator);
-        addPort(oscillator.getOutput());
-        reglageVCA.getOut().connect(oscillator.amplitude);
+        reglageVCA.getA0().set(0);
+        //reglageVCA.getInput().connect();
+        //reglageVCA.getOut().connect(passThrough.amp);
+
 
 
     }
@@ -44,11 +48,24 @@ public class VCA extends Circuit {
 
         return new PortOutput(out);
     }
-    public PortFm getAm(){
-        return new PortFm(this.reglageVCA.getAm());
+    public PortInput getInput() {
+
+        return new PortInput(in);
+    }
+    public PortAm getAm(){
+        return new PortAm(this.reglageVCA.getAm());
     }
 
 
     public double getAmplitude() {
         return reglageVCA.getAmplitude();
-    }}
+    }
+    public void changeA0(double a0){
+        this.reglageVCA.getA0().set(a0);
+    }
+
+    public void changeAm(double am){
+        this.reglageVCA.getAm().set(am);
+    }
+
+}
