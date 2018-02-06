@@ -21,14 +21,14 @@ public class CableController {
             pane.getChildren().remove(line);
     }
 
-    public void drawCable(ModuleController moduleController1, ModuleController moduleController2) {
+    public void drawCable(ModuleController moduleController1, ModuleController moduleController2,Integer id) {
 
         line = new Line(moduleController1.getX(),
                 moduleController1.getY(), moduleController2.getX(),
                 moduleController2.getY());
         line.setStrokeWidth(5);
         line.setStroke(Color.BLUEVIOLET);
-        line.setId("cable");
+        line.setId("cable"+id);
         pane.getChildren().add(line);
         line.setOnMouseClicked(event -> {
             this.disconnect();
