@@ -5,6 +5,7 @@ import com.istic.port.Port;
 import com.istic.port.PortOutput;
 import com.istic.vco.VCO;
 import com.jsyn.Synthesizer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -59,13 +60,13 @@ public class VCOModuleController extends ModuleController implements Initializab
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
             vco.changeOctave((int) frequencySlider.getValue());
-            txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
+            Platform.runLater(() -> txtHertz.setText(Math.round(vco.getFrequence()) + " Hz"));
         });
 
         frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
             vco.changeFin(frequencyFineSlider.getValue());
-            txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
+            Platform.runLater(() -> txtHertz.setText(Math.round(vco.getFrequence()) + " Hz"));
         });
         //this.synth.start();
         //vco.start();
