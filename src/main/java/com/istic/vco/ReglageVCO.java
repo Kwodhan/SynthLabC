@@ -1,5 +1,6 @@
 package com.istic.vco;
 
+import com.istic.Constant;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
@@ -23,7 +24,7 @@ public class ReglageVCO extends UnitGenerator {
         addPort(this.octave = new UnitInputPort("octave"));
         addPort(this.fin = new UnitInputPort("fin"));
         addPort(this.fm = new UnitInputPort("fm"));
-        addPort(this.out = new UnitOutputPort("com/istic/out"));
+        addPort(this.out = new UnitOutputPort("out"));
     }
 
     @Override
@@ -35,7 +36,8 @@ public class ReglageVCO extends UnitGenerator {
         double[] outputs = out.getValues();
 
         for (int i = start; i < limit; i++) {
-            outputs[i] = f0s[i] * Math.pow(2,octaves[i]) * Math.pow(1.05946f,fins[i])  * Math.pow(2,fms[i]);
+
+            outputs[i] = f0s[i] * Math.pow(2,octaves[i] + fms[i] * Constant.Volt) * Math.pow(1.05946f,fins[i]);
 
         }
     }
@@ -61,6 +63,6 @@ public class ReglageVCO extends UnitGenerator {
     }
 
     public double getFrequence(){
-        return this.f0.get() * Math.pow(2,this.octave.get()) * Math.pow(1.05946f,this.fin.get())  * Math.pow(2,this.getFm().get());
+        return this.f0.get() * Math.pow(2,this.octave.get()) * Math.pow(1.05946f,this.fin.get());
     }
 }
