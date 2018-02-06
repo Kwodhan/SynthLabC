@@ -79,7 +79,7 @@ public class Controller implements Initializable {
 		addMod(root);
         VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
 		this.moduleControllers.add(vcoModuleController);
-        vcoModuleController.init(this,synth);
+        vcoModuleController.init(this);
 	}
 
 	public void addOutput() throws IOException {
@@ -92,7 +92,7 @@ public class Controller implements Initializable {
 
         OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
         this.moduleControllers.add(outputModuleController);
-        outputModuleController.init(this,synth);
+        outputModuleController.init(this);
 
 	}
 
@@ -205,6 +205,8 @@ public class Controller implements Initializable {
 
     }
 
+
+    //Setters & Getters
 	public AnchorPane getPane() {
 		return pane;
 	}
@@ -225,4 +227,8 @@ public class Controller implements Initializable {
     public void setModuleController(ModuleController moduleController) {
         this.moduleController = moduleController;
     }
+	public Synthesizer getSynth() {
+		return synth;
+	}
+
 }

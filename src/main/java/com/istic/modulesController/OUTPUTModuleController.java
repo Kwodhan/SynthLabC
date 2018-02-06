@@ -5,23 +5,20 @@ import com.istic.port.Port;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class OUTPUTModuleController extends Pane implements Initializable, ModuleController {
+public class OUTPUTModuleController extends ModuleController implements Initializable {
 
     @FXML
     ImageView inPort;
     @FXML
     AnchorPane pane;
-    Controller controller;
-    double x=0,y=0;
+
 
     private OutMod lineOut;
 
@@ -39,9 +36,6 @@ public class OUTPUTModuleController extends Pane implements Initializable, Modul
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //this.lineOut = new OutMod(this.synth);
-        //lineOut.start();
-
         attenuationSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             double newAttenuation = Math.round(attenuationSlider.getValue());
             attenuationSlider.setValue(newAttenuation);
@@ -49,64 +43,28 @@ public class OUTPUTModuleController extends Pane implements Initializable, Modul
         });
     }
 
-    public void connect() {
 
 
-        connectIn();
+    public void init(Controller controller){
 
-        if(this.controller.isPlugged()  && !this.controller.getModuleController().equals(this) ){
-            this.controller.connect(this);
-            this.controller.setModuleController(null);
-            this.controller.setPlugged(false);
-
-
-        }else{
-            this.controller.setPlugged(true);
-            this.controller.setModuleController(this);
-
-        }
-
-
-
-
-    }
-    public void connectIn(){
-
-        Bounds boundsInScene = inPort.localToScene(inPort.getBoundsInLocal());
-        x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
-        y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
-
-    }
-
-    public void init(Controller controller,Synthesizer synthesizer){
-
-        this.controller=controller;
+        super.init(controller);
         this.lineOut = new OutMod();
-        synthesizer.add(this.lineOut);
+        this.controller.getSynth().add(this.lineOut);
         lineOut.start();
 
     }
+
+    public void connect() {
+        super.getLayout(inPort);
+        super.connect();
+    }
+
 
     public void toggleMute() {
         this.lineOut.toggleMute();
     }
 
-    public double getX() {
-        return x;
-    }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-    @Override
     public Port getCurrentPort(){
 
 
