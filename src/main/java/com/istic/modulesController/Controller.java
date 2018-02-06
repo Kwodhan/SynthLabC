@@ -20,17 +20,6 @@ import java.util.*;
 
 public class Controller implements Initializable {
 
-	public static final int SQUAREWAVE = 0;
-	public static final int TRIANGLEWAVE = 1;
-	public static final int SAWTOOTHWAV = 2;
-
-
-	@FXML
-	HBox HBox1, Hbox;
-
-    Line line;
-
-    final ToggleGroup group = new ToggleGroup();
     @FXML
     AnchorPane pane;
     @FXML
@@ -38,7 +27,7 @@ public class Controller implements Initializable {
     @FXML
     HBox hBox1, hBox2,hBox3;
     @FXML
-    Button startVCOButton,stopVCOButton,muteButton;
+    Button startVCOButton,stopVCOButton;
     @FXML
     Slider frequencySlider;
     @FXML
@@ -46,15 +35,19 @@ public class Controller implements Initializable {
     @FXML
     RadioButton sawRadio, triangleRadio,squareRadio;
 
-    List<ModuleController> moduleControllers;
-    List<CableController> cables;
-//    VCOModuleController vcoModuleController;
-//    OUTPUTModuleController outputModuleController;
+    private List<ModuleController> moduleControllers;
+    private List<CableController> cables;
+
 
     private Synthesizer synth;
-
+    /**
+     * Module temporaire pour le cablage
+     */
 	ModuleController moduleController;
-
+    /**
+     * valeur incrementale pour chaque id
+     */
+	private Integer cableId = 0;
 
     private boolean isPlugged = false;
 
@@ -168,7 +161,7 @@ public class Controller implements Initializable {
 
         if (cable.connect()) {
             CableController cableController = new CableController(pane,cable);
-            cableController.drawCable(this.moduleController,moduleController);
+            cableController.drawCable(this.moduleController,moduleController,++cableId);
             this.cables.add(cableController);
 
         }
