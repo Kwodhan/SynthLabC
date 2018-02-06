@@ -5,6 +5,7 @@ import com.istic.port.Port;
 import com.istic.port.PortOutput;
 import com.istic.vco.VCO;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -21,7 +22,8 @@ public class EGModuleController extends ModuleController implements Initializabl
     @FXML
     ImageView outPort;
     @FXML
-    ImageView gateport;
+    ImageView gatePort;
+
     @FXML
     Slider attackSlider;
     @FXML
@@ -40,6 +42,25 @@ public class EGModuleController extends ModuleController implements Initializabl
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        attackSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            System.out.println(attackSlider.getValue());
+            this.eg.setAttack(attackSlider.getValue());
+        });
+
+        releaseSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            System.out.println(releaseSlider.getValue());
+            this.eg.setRelease(releaseSlider.getValue());
+        });
+
+        decaySlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            System.out.println(decaySlider.getValue());
+            this.eg.setDecay(decaySlider.getValue());
+        });
+
+        sustainSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            System.out.println(sustainSlider.getValue());
+            this.eg.setSustain(sustainSlider.getValue());
+        });
 
     }
 
@@ -51,11 +72,7 @@ public class EGModuleController extends ModuleController implements Initializabl
         }
         return null;
     }
-    public PortOutput getOutPort() {
 
-        return this.eg.getOutputPort();
-
-    }
     public void init(Controller controller) {
         super.init(controller);
         this.eg = new EG();
@@ -65,7 +82,7 @@ public class EGModuleController extends ModuleController implements Initializabl
     
     public void connectGatePort() {
         currentPort = 1;
-        getLayout(gateport);
+        getLayout(gatePort);
         super.connect();
     }
 

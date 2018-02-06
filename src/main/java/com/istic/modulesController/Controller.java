@@ -102,6 +102,10 @@ public class Controller implements Initializable {
 				"../../../modules/eg.fxml"));
 		addMod(root);
 
+		EGModuleController egModuleController = (EGModuleController) root.getUserData();
+		this.moduleControllers.add(egModuleController);
+		egModuleController.init(this);
+
 	}
 
 	public void addOscilloscope() throws IOException {

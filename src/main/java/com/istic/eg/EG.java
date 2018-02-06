@@ -26,7 +26,6 @@ public class EG extends EnvelopeDAHDSR {
 
 	public void setDecay(double decay) {
 		this.decay.set(decay);
-
 	}
  
 

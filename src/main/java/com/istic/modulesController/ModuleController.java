@@ -21,6 +21,7 @@ public abstract class ModuleController {
     }
 
     public void connect() {
+
         if (this.controller.isPlugged() && !this.controller.getModuleController().equals(this)) {
             this.controller.connect(this);
             this.controller.setModuleController(null);

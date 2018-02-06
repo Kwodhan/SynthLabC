@@ -30,10 +30,10 @@ public class REP  extends Circuit{
      public REP() {
 
         add(reglageREP = new ReglageREP());
-         addPortAlias(out1 = reglageREP.getOut1(), "com/istic/out1");
+        addPortAlias(out1 = reglageREP.getOut1(), "com/istic/out1");
         addPortAlias(out2 = reglageREP.getOut2(), "com/istic/out2");
         addPortAlias(out3 = reglageREP.getOut3(), "com/istic/out3");
-        addPortAlias(in =reglageREP.getInput(),"in");
+        addPortAlias(in = reglageREP.getInput(),"in");
  
          //addPort(oscillator.getOutput());
         //reglageVCA.getOut().connect(oscillator.amplitude);

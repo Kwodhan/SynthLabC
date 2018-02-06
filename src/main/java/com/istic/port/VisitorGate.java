@@ -4,13 +4,9 @@ public class VisitorGate  implements VisitorConnectPort{
 
     PortGate portGate;
 
-
-
     public VisitorGate(PortGate portGate) {
         this.portGate = portGate;
     }
-
-
 
     @Override
     public boolean visit(PortInput portInput) {
@@ -19,7 +15,8 @@ public class VisitorGate  implements VisitorConnectPort{
 
     @Override
     public boolean visit(PortOutput portOutput) {
-        return false;
+        portOutput.getUnitOutputPort().connect(0,portGate.getUnitGatePort(),0);
+        return true;
     }
 
     @Override

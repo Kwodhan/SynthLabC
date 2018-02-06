@@ -49,9 +49,6 @@ public class VCOModuleController extends ModuleController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //this.vco = new VCO(this.synth);
-
-
         sawRadio.setToggleGroup(group);
         triangleRadio.setToggleGroup(group);
         squareRadio.setToggleGroup(group);
