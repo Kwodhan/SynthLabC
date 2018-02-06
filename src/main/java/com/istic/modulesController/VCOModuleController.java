@@ -101,14 +101,14 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
     public void connectFmPort() {
         currentPort=1;
         connecting(fmPort);
-        if(this.controller.isPlugged()  && !this.controller.getPort().equals(this.getCurrentPort())){
-            this.controller.connect();
-            this.controller.setPort(null);
+        if(this.controller.isPlugged()  && !this.controller.getModuleController().equals(this)){
+            this.controller.connect(this);
+            this.controller.setModuleController(null);
             this.controller.setPlugged(false);
 
         }else{
             this.controller.setPlugged(true);
-            this.controller.setPort(this.getCurrentPort());
+            this.controller.setModuleController(this);
         }
 
     }
@@ -123,15 +123,15 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
         connecting(outPort);
 
 
-        if(this.controller.isPlugged() && !this.controller.getPort().equals(this.getCurrentPort())){
+        if(this.controller.isPlugged() && !this.controller.getModuleController().equals(this)){
 
-            this.controller.connect();
+            this.controller.connect(this);
             this.controller.setPlugged(false);
-            this.controller.setPort(null);
+            this.controller.setModuleController(null);
 
         }else{
             this.controller.setPlugged(true);
-            this.controller.setPort(this.getCurrentPort());
+            this.controller.setModuleController(this);
 
 
         }
@@ -142,7 +142,6 @@ public class VCOModuleController extends Pane implements Initializable,ModuleCon
      * @param port
      */
     public void connecting(ImageView port){
-
 
         Bounds boundsInScene = port.localToScene(port.getBoundsInLocal());
         x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;

@@ -54,15 +54,15 @@ public class OUTPUTModuleController extends Pane implements Initializable, Modul
 
         connectIn();
 
-        if(this.controller.isPlugged()  && !this.controller.getPort().equals(this.getCurrentPort()) ){
-            this.controller.connect();
-            this.controller.setPort(this.getCurrentPort());
+        if(this.controller.isPlugged()  && !this.controller.getModuleController().equals(this) ){
+            this.controller.connect(this);
+            this.controller.setModuleController(null);
             this.controller.setPlugged(false);
 
 
         }else{
             this.controller.setPlugged(true);
-            this.controller.setPort(this.getCurrentPort());
+            this.controller.setModuleController(this);
 
         }
 
@@ -75,7 +75,6 @@ public class OUTPUTModuleController extends Pane implements Initializable, Modul
         Bounds boundsInScene = inPort.localToScene(inPort.getBoundsInLocal());
         x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
         y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
-
 
     }
 
@@ -110,12 +109,9 @@ public class OUTPUTModuleController extends Pane implements Initializable, Modul
     @Override
     public Port getCurrentPort(){
 
-        if(lineOut!=null) {
 
-            return lineOut.getPortInput();
-        }
+        return lineOut.getPortInput();
 
-        return  null;
     }
 
 }

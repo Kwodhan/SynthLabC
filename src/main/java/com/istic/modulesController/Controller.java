@@ -1,9 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.cable.Cable;
-import com.istic.modulesController.ModuleController;
-import com.istic.modulesController.OUTPUTModuleController;
-import com.istic.modulesController.VCOModuleController;
+import com.istic.cable.CableController;
 import com.istic.port.Port;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
@@ -14,13 +12,11 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controller implements Initializable {
 
@@ -32,7 +28,6 @@ public class Controller implements Initializable {
 	@FXML
 	HBox HBox1, Hbox;
 
-    Cable cable1;
     Line line;
 
     final ToggleGroup group = new ToggleGroup();
@@ -51,18 +46,23 @@ public class Controller implements Initializable {
     @FXML
     RadioButton sawRadio, triangleRadio,squareRadio;
 
-    VCOModuleController vcoModuleController;
-    OUTPUTModuleController outputModuleController;
+    List<ModuleController> moduleControllers;
+    List<CableController> cables;
+//    VCOModuleController vcoModuleController;
+//    OUTPUTModuleController outputModuleController;
 
     private Synthesizer synth;
 
-	Port port;
+	ModuleController moduleController;
+
 
     private boolean isPlugged = false;
 
 	public void initialize(URL location, ResourceBundle resources) {
 		this.synth = JSyn.createSynthesizer();
 		this.synth.start();
+        this.moduleControllers = new ArrayList<>();
+        this.cables = new ArrayList<>();
 
 		try {
 			addOutput();
@@ -77,8 +77,9 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vco.fxml"));
 		addMod(root);
-		vcoModuleController = (VCOModuleController) root.getUserData();
-		vcoModuleController.init(this,synth);
+        VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
+		this.moduleControllers.add(vcoModuleController);
+        vcoModuleController.init(this,synth);
 	}
 
 	public void addOutput() throws IOException {
@@ -89,8 +90,9 @@ public class Controller implements Initializable {
 
 		addMod(root);
 
-		outputModuleController = (OUTPUTModuleController) root.getUserData();
-		outputModuleController.init(this,synth);
+        OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
+        this.moduleControllers.add(outputModuleController);
+        outputModuleController.init(this,synth);
 
 	}
 
@@ -158,50 +160,23 @@ public class Controller implements Initializable {
 
 	}
 
-	public void drawCable() {
-		if (line != null) {
-			pane.getChildren().remove(line);
-		}
 
-		line = new Line(vcoModuleController.getX(),
-				vcoModuleController.getY(), outputModuleController.getX(),
-				outputModuleController.getY());
-		line.setStrokeWidth(5);
-		line.setStroke(Color.BLUEVIOLET);
-		line.setId("cable1");
-		pane.getChildren().add(line);
-		line.setOnMouseClicked(event -> {
-			this.disconnect();
-		});
-	}
 
-	public void deleteCable() {
-	    if (line!=null) {
-	        pane.getChildren().remove(line);
+	public void connect(ModuleController moduleController) {
+
+        Cable cable = new Cable(this.moduleController.getCurrentPort(),moduleController.getCurrentPort());
+
+        if (cable.connect()) {
+            CableController cableController = new CableController(pane,cable);
+            cableController.drawCable(this.moduleController,moduleController);
+            this.cables.add(cableController);
+
         }
+
+
     }
 
-	public void connect() {
 
-		if(vcoModuleController != null && outputModuleController != null && outputModuleController.getX() != 0 && vcoModuleController.getX() != 0) {
-
-			cable1 = new Cable(vcoModuleController.getCurrentPort(),
-					outputModuleController.getCurrentPort());
-
-
-			if (cable1.connect() && outputModuleController.getX() != 0 && vcoModuleController.getX() != 0) {
-				drawCable();
-			}
-
-		}
-    }
-
-    public void disconnect() {
-	    if (cable1 != null) {
-	        cable1.disconnect();
-	        deleteCable();
-        }
-    }
 
     public void addMod(Node root){
 
@@ -242,11 +217,12 @@ public class Controller implements Initializable {
 		isPlugged = plugged;
 	}
 
-	public Port getPort() {
-		return port;
-	}
 
-	public void setPort(Port port) {
-		this.port = port;
-	}
+    public ModuleController getModuleController() {
+        return moduleController;
+    }
+
+    public void setModuleController(ModuleController moduleController) {
+        this.moduleController = moduleController;
+    }
 }
