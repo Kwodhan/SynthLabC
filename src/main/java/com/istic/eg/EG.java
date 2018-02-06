@@ -1,17 +1,15 @@
 package com.istic.eg;
 
-import java.nio.channels.GatheringByteChannel;
-
 import com.istic.port.PortGate;
 import com.istic.port.PortOutput;
-import com.jsyn.JSyn;
-import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.EnvelopeDAHDSR;
-import com.jsyn.unitgen.LineOut;
-import com.jsyn.unitgen.SquareOscillator;
 
 public class EG {
 	EnvelopeDAHDSR env = new EnvelopeDAHDSR();
+	
+	public EnvelopeDAHDSR getEnv() {
+		return this.env;
+	}
 
 	public PortGate getGateInput() {
 		return new PortGate(env.input);
