@@ -1,12 +1,13 @@
 package com.istic.modulesController;
 
+import com.istic.port.Port;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VCFLPModuleController extends Pane implements Initializable {
+public class VCFLPModuleController extends ModuleController implements Initializable {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -18,5 +19,10 @@ public class VCFLPModuleController extends Pane implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    @Override
+    public Port getCurrentPort() {
+        return null;
     }
 }
