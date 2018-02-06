@@ -8,6 +8,7 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.PassThrough;
+import com.jsyn.unitgen.UnitGate;
 
 public class VCA extends Circuit {
     /**
@@ -29,18 +30,17 @@ public class VCA extends Circuit {
     private PassThrough passThrough;
 
     public VCA() {
-
         add(reglageVCA = new ReglageVCA());
         add(passThrough = new PassThrough());
         addPortAlias(out = passThrough.getOutput(), "com/istic/out");
-        addPortAlias(in = passThrough.getInput(), "com/istic/in");
-        addPortAlias(passThrough.getInput(),"in");
+        addPortAlias(in = reglageVCA.getInput(), "com/istic/in");
+        reglageVCA.getOut().connect(passThrough.getInput());
+        reglageVCA.getInput();
+
         reglageVCA.getA0().set(0);
+        //reglageVCA.getInput().connect();
+        //reglageVCA.getOut().connect(passThrough.amp);
 
-
-
-        add( passThrough = new PassThrough() );
-        addPort( reglageVCA.amplitude = passThrough.input );
 
 
     }
