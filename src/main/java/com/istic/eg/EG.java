@@ -56,13 +56,4 @@ public class EG {
 
 	}
 
-	public static void main() {
-		Synthesizer synth = JSyn.createSynthesizer();
-		SquareOscillator gatingOsc;
-		synth.add(gatingOsc = new SquareOscillator());
-		EnvelopeDAHDSR dahdsr;
-		synth.add(dahdsr = new EnvelopeDAHDSR());
-		LineOut lineOut;
-		synth.add(lineOut = new LineOut());
-	}
 }
