@@ -109,6 +109,9 @@ public class Controller implements Initializable {
 				"../../../modules/oscilloscope.fxml"));
 		addMod(root);
 
+		OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
+		this.moduleControllers.add(oscilloscopeModuleController);
+		oscilloscopeModuleController.init(this);
 	}
 
 	public void addReplicator() throws IOException {
