@@ -129,6 +129,9 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vca.fxml"));
 		addMod(root);
+        VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
+        this.moduleControllers.add(vcaModuleController);
+        vcaModuleController.init(this);
 
 	}
 

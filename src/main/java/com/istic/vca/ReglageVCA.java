@@ -3,8 +3,9 @@ package com.istic.vca;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
+import com.jsyn.unitgen.VariableRateMonoReader;
 
-public class ReglageVCA  extends UnitGenerator{
+public class ReglageVCA  extends VariableRateMonoReader{
 
     private UnitInputPort a0;
 
@@ -23,6 +24,7 @@ public class ReglageVCA  extends UnitGenerator{
         addPort(this.am = new UnitInputPort("am"));
         addPort(this.out = new UnitOutputPort("com/istic/out"));
 
+        /* Connect envelope to oscillator amplitude. */
 
     }
 
@@ -34,7 +36,13 @@ public class ReglageVCA  extends UnitGenerator{
         double[] outputs = out.getValues();
 
         for (int i = start; i < limit; i++) {
-            outputs[i] =inputs[i]*a0s[i] * (ams[i]*12);
+            if(ams[i]!=0){
+                outputs[i] =inputs[i]+a0s[i] + (ams[i]*12);
+
+            }else{
+                outputs[i] =0;
+
+            }
 
         }
     }
@@ -58,7 +66,7 @@ public class ReglageVCA  extends UnitGenerator{
 
     public double getAmplitude(){
         return this.a0.get() *this.input.get() * this.getAm().get()*12;
-        
+
     }
 
 }
