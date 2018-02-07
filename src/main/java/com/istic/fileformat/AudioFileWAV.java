@@ -28,15 +28,7 @@ public class AudioFileWAV extends AudioFile{
  
 	@Override
 	public void play() {
-		// TODO Auto-generated m
-	}
- 
-	@Override
-	public void play() {
-	}
- 
-	@Override
-	public void play() {ethod stub
+		// TODO Auto-generated method stub
 		
 	}
 	 
