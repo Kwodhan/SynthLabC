@@ -27,7 +27,7 @@ public class DragAndDrop {
     public static void addDropHandling(StackPane pane) {
         pane.setOnDragOver(e -> {
             Dragboard db = e.getDragboard();
-            if (db.hasContent(nodeFormat) && draggingNode != null) {
+            if (db.hasContent(nodeFormat) && draggingNode != null && pane.getChildren().isEmpty()) {
                 e.acceptTransferModes(TransferMode.MOVE);
 
             }

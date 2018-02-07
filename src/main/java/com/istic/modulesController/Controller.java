@@ -3,15 +3,16 @@ package com.istic.modulesController;
 import com.istic.cable.Cable;
 import com.istic.cable.CableController;
 import com.istic.port.Port;
+import com.istic.util.DragAndDrop;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
@@ -20,43 +21,53 @@ import java.util.*;
 
 public class Controller implements Initializable {
 
-    @FXML
-    AnchorPane pane;
-    @FXML
-    MenuItem vcoMenuItem;
-    @FXML
-    HBox hBox1, hBox2,hBox3;
-    @FXML
-    Button startVCOButton,stopVCOButton;
-    @FXML
-    Slider frequencySlider;
-    @FXML
-    Slider frequencyFineSlider;
-    @FXML
-    RadioButton sawRadio, triangleRadio,squareRadio;
+	@FXML
+	AnchorPane pane;
+	@FXML
+	MenuItem vcoMenuItem;
+	@FXML
+	HBox hBox1, hBox2, hBox3;
+	@FXML
+	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9;
 
-    private List<ModuleController> moduleControllers;
-    private List<CableController> cables;
+	@FXML
+	Button startVCOButton, stopVCOButton;
+	@FXML
+	Slider frequencySlider;
+	@FXML
+	Slider frequencyFineSlider;
+	@FXML
+	RadioButton sawRadio, triangleRadio, squareRadio;
 
+	private List<ModuleController> moduleControllers;
+	private List<CableController> cables;
 
-    private Synthesizer synth;
-    /**
-     * Module temporaire pour le cablage
-     */
+	private Synthesizer synth;
+	/**
+	 * Module temporaire pour le cablage
+	 */
 	ModuleController moduleController;
-    /**
-     * valeur incrementale pour chaque id
-     */
+	/**
+	 * valeur incrementale pour chaque id
+	 */
 	private Integer cableId = 0;
 
-    private boolean isPlugged = false;
+	private boolean isPlugged = false;
 
 	public void initialize(URL location, ResourceBundle resources) {
 		this.synth = JSyn.createSynthesizer();
 		this.synth.start();
 
-        this.moduleControllers = new ArrayList<>();
-        this.cables = new ArrayList<>();
+		this.moduleControllers = new ArrayList<>();
+		this.cables = new ArrayList<>();
+		
+		StackPane[] stacks = { box1, box2, box3, box4, box5, box6, box7, box8,
+				box9};
+
+		//make stackpane handle drop
+		for (StackPane s : stacks) {
+			DragAndDrop.addDropHandling(s);
+		}
 
 		try {
 			addOutput();
@@ -64,16 +75,16 @@ public class Controller implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
-
+	}
 
 	public void addVCO() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vco.fxml"));
 		addMod(root);
-        VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
+		VCOModuleController vcoModuleController = (VCOModuleController) root
+				.getUserData();
 		this.moduleControllers.add(vcoModuleController);
-        vcoModuleController.init(this);
+		vcoModuleController.init(this);
 	}
 
 	public void addOutput() throws IOException {
@@ -84,9 +95,10 @@ public class Controller implements Initializable {
 
 		addMod(root);
 
-        OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
-        this.moduleControllers.add(outputModuleController);
-        outputModuleController.init(this);
+		OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root
+				.getUserData();
+		this.moduleControllers.add(outputModuleController);
+		outputModuleController.init(this);
 
 	}
 
@@ -103,7 +115,8 @@ public class Controller implements Initializable {
 				"../../../modules/eg.fxml"));
 		addMod(root);
 
-		EGModuleController egModuleController = (EGModuleController) root.getUserData();
+		EGModuleController egModuleController = (EGModuleController) root
+				.getUserData();
 		this.moduleControllers.add(egModuleController);
 		egModuleController.init(this);
 
@@ -114,7 +127,8 @@ public class Controller implements Initializable {
 				"../../../modules/oscilloscope.fxml"));
 		addMod(root);
 
-		OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
+		OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root
+				.getUserData();
 		this.moduleControllers.add(oscilloscopeModuleController);
 		oscilloscopeModuleController.init(this);
 	}
@@ -124,7 +138,8 @@ public class Controller implements Initializable {
 				"../../../modules/replicator.fxml"));
 		addMod(root);
 
-		REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root.getUserData();
+		REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root
+				.getUserData();
 		this.moduleControllers.add(replicatorModuleController);
 		replicatorModuleController.init(this);
 
@@ -141,9 +156,10 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vca.fxml"));
 		addMod(root);
-        VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
-        this.moduleControllers.add(vcaModuleController);
-        vcaModuleController.init(this);
+		VCAModuleController vcaModuleController = (VCAModuleController) root
+				.getUserData();
+		this.moduleControllers.add(vcaModuleController);
+		vcaModuleController.init(this);
 
 	}
 
@@ -168,75 +184,60 @@ public class Controller implements Initializable {
 
 	}
 
-
-
 	public void connect(ModuleController moduleController) {
 
-        Cable cable = new Cable(this.moduleController.getCurrentPort(),moduleController.getCurrentPort());
+		Cable cable = new Cable(this.moduleController.getCurrentPort(),
+				moduleController.getCurrentPort());
 
-        if (cable.connect()) {
+		if (cable.connect()) {
 
-            CableController cableController = new CableController(pane,cable);
-            cableController.drawCable(this.moduleController,moduleController,++cableId);
-            this.cables.add(cableController);
+			CableController cableController = new CableController(pane, cable);
+			cableController.drawCable(this.moduleController, moduleController,
+					++cableId);
+			this.cables.add(cableController);
 
+		}
 
-        }
+	}
 
+	public void addMod(Node root) {
 
-    }
+		if (box1.getChildren().isEmpty()) {
+			box1.getChildren().add(root);
+			DragAndDrop.dragNode(root);
+		} else if (box2.getChildren().isEmpty()) {
+			box2.getChildren().add(root);
+			DragAndDrop.dragNode(root);
+		}
+	}
 
+	public void removeMod(Node root) {
 
+		// if(hBox1.getChildren().size()<3){
+		// hBox1.getChildren().remove(root);
+		//
+		// }else{
+		//
+		// if(hBox2.getChildren().size()<3){
+		// hBox2.getChildren().add(root);
+		// }else
+		// {
+		//
+		// if(hBox3.getChildren().size()<3)
+		// {
+		// hBox3.getChildren().add(root);
+		// }else{
+		// if(hBox1.getChildren().size()==3 &&
+		// hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3)
+		// {
+		//
+		// }
+		// }
+		// }
+		// }
+	}
 
-    public void addMod(Node root){
-
-        if(hBox1.getChildren().size()<3){
-            hBox1.getChildren().add(root);
-        }else{
-            if(hBox2.getChildren().size()<3){
-                hBox2.getChildren().add(root);
-            }else
-            {
-                if(hBox3.getChildren().size()<3)
-                {
-                    hBox3.getChildren().add(root);
-                }else{
-                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3)
-                    {
-
-                    }
-                }
-            }
-        }
-    }
-
-    public void removeMod(Node root){
-
-//        if(hBox1.getChildren().size()<3){
-//            hBox1.getChildren().remove(root);
-//
-//        }else{
-//
-//            if(hBox2.getChildren().size()<3){
-//                hBox2.getChildren().add(root);
-//            }else
-//            {
-//
-//                if(hBox3.getChildren().size()<3)
-//                {
-//                    hBox3.getChildren().add(root);
-//                }else{
-//                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3)
-//                    {
-//
-//                    }
-//                }
-//            }
-//        }
-    }
-
-
-    //Setters & Getters
+	// Setters & Getters
 	public AnchorPane getPane() {
 		return pane;
 	}
@@ -249,14 +250,14 @@ public class Controller implements Initializable {
 		isPlugged = plugged;
 	}
 
+	public ModuleController getModuleController() {
+		return moduleController;
+	}
 
-    public ModuleController getModuleController() {
-        return moduleController;
-    }
+	public void setModuleController(ModuleController moduleController) {
+		this.moduleController = moduleController;
+	}
 
-    public void setModuleController(ModuleController moduleController) {
-        this.moduleController = moduleController;
-    }
 	public Synthesizer getSynth() {
 		return synth;
 	}
