@@ -77,7 +77,6 @@ public class VCAModuleController extends ModuleController implements Initializab
 
             case 0:
                 return vca.getOutput();
-
             case 1:
                 return vca.getAm();
             case 2 :
