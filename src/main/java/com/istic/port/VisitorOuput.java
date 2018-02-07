@@ -27,12 +27,13 @@ public class VisitorOuput implements VisitorConnectPort {
 
     @Override
     public boolean visit(PortAm portAm) {
-        return false;
+        portOutput.getUnitOutputPort().connect(0,portAm.getUnitAmPort(),0);
+        return true;
     }
 
     @Override
     public boolean visit(PortGate portGate) {
-        portOutput.getUnitOutputPort().connect(0,portGate.getUnitGatePort(),0);
+        portOutput.getUnitOutputPort().connect(portGate.getUnitGatePort());
         return true;
     }
 }

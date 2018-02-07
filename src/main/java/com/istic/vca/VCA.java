@@ -20,30 +20,26 @@ public class VCA extends Circuit {
 
     private PortInput portInput;
 
+    private PortAm portAm;
     /**
      * reglage ao, am
      */
     private ReglageVCA reglageVCA;
-    /**
-     * reglage wave
-     */
-    private PassThrough passThrough;
 
     public VCA() {
 
         add(reglageVCA = new ReglageVCA());
-        add(passThrough = new PassThrough());
-        addPortAlias(out = passThrough.getOutput(), "out");
+
+        addPortAlias(out = reglageVCA.getOut(), "out");
         addPortAlias(in = reglageVCA.getInput(), "in");
-        reglageVCA.getOut().connect(passThrough.getInput());
-        reglageVCA.getInput();
+
 
         reglageVCA.getA0().set(0);
-        //reglageVCA.getInput().connect();
-        //reglageVCA.getOut().connect(passThrough.amp);
+
 
         portOutput = new PortOutput(out);
         portInput = new PortInput(in);
+        portAm = new PortAm(this.reglageVCA.getAm());
 
     }
     public PortOutput getOutput() {
@@ -55,7 +51,7 @@ public class VCA extends Circuit {
         return portInput;
     }
     public PortAm getAm(){
-        return new PortAm(this.reglageVCA.getAm());
+        return portAm;
     }
 
 
@@ -66,8 +62,5 @@ public class VCA extends Circuit {
         this.reglageVCA.getA0().set(a0);
     }
 
-    public void changeAm(double am){
-        this.reglageVCA.getAm().set(am);
-    }
 
 }

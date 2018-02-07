@@ -30,7 +30,7 @@ public class VCAModuleController extends ModuleController implements Initializab
             amplitudeSlider.setValue(Math.round(amplitudeSlider.getValue()));
             vca.changeA0((int) amplitudeSlider.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
-            System.out.println(vca.getAmplitude());
+
         });
 
     }

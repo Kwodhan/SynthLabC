@@ -1,5 +1,6 @@
 package com.istic.vco;
 
+import com.istic.Constant;
 import com.istic.port.PortFm;
 import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitOutputPort;
@@ -50,8 +51,7 @@ public class VCO extends Circuit {
         for(UnitOscillator oscillator : this.oscillators){
             add(oscillator);
             addPort(oscillator.getOutput());
-            oscillator.amplitude.setup(0,0.2,10);
-            //oscillator.amplitude.set((double)1/ Constant.Volt);
+            oscillator.amplitude.setup(0,(double)1/Constant.Volt,10);
 
             reglageVCO.getOut().connect(oscillator.frequency);
         }

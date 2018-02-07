@@ -1,8 +1,10 @@
 package com.istic.vca;
 
+import com.istic.Constant;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.VariableRateMonoReader;
+import com.softsynth.math.AudioMath;
 
 public class ReglageVCA  extends VariableRateMonoReader{
 
@@ -23,7 +25,7 @@ public class ReglageVCA  extends VariableRateMonoReader{
         addPort(this.am = new UnitInputPort("am"));
         addPort(this.out = new UnitOutputPort("out"));
 
-        /* Connect envelope to oscillator amplitude. */
+
 
     }
 
@@ -34,10 +36,15 @@ public class ReglageVCA  extends VariableRateMonoReader{
         double[] ams = am.getValues();
         double[] outputs = out.getValues();
 
-        for (int i = start; i < limit; i++) {
-//            System.out.println("VCA inputs " + inputs[i]);
-            outputs[i] = inputs[i] * a0s[i] ;
-//            System.out.println("VCA output " + outputs[i]);
+        for (int i = start; i < limit ; i++) {
+           if(ams[i] > 0 ) {
+                outputs[i] = inputs[i] * Math.pow(2, 2 * ((Math.abs(ams[i]) * Constant.Volt) - 5 / Constant.Volt));
+
+            }else if (ams[i] < 0){
+                outputs[i] = inputs[i] * Math.pow(2, 2 * ((Math.abs(ams[i]) * Constant.Volt) - 5 / Constant.Volt));
+            }else{
+                outputs[i] = 0;
+            }
         }
 
 
