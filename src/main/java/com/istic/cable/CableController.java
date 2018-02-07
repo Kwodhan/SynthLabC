@@ -29,7 +29,7 @@ public class CableController {
                 moduleController2.getY());
         line.setStrokeWidth(5);
         line.setStroke(Color.BLUEVIOLET);
-        line.setId("cable"+id);
+        line.setId("cable-"+id);
         pane.getChildren().add(line);
         line.setOnMouseClicked(event -> {
             this.disconnect();

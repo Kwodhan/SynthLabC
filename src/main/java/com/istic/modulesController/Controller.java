@@ -47,7 +47,8 @@ public class Controller implements Initializable {
     /**
      * valeur incrementale pour chaque id
      */
-	private Integer cableId = 0;
+	private Integer cableId = 1;
+	private Integer moduleId = 1;
 
     private boolean isPlugged = false;
 
@@ -71,6 +72,7 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vco.fxml"));
 		addMod(root);
+
         VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
 		this.moduleControllers.add(vcoModuleController);
         vcoModuleController.init(this);
@@ -81,7 +83,6 @@ public class Controller implements Initializable {
 		// outputModuleController=new OUTPUTModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/output.fxml"));
-
 		addMod(root);
 
         OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
@@ -95,7 +96,6 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/mixer.fxml"));
 		addMod(root);
-
 	}
 
 	public void addEG() throws IOException {
@@ -141,7 +141,8 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vca.fxml"));
 		addMod(root);
-        VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
+
+		VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
         this.moduleControllers.add(vcaModuleController);
         vcaModuleController.init(this);
 
@@ -151,46 +152,32 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vcfLp.fxml"));
 		addMod(root);
-
 	}
 
 	public void addVcfHp() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vcfHp.fxml"));
 		addMod(root);
-
 	}
 
 	public void addWhiteNoise() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/whiteNoise.fxml"));
 		addMod(root);
-
 	}
 
-
-
 	public void connect(ModuleController moduleController) {
-
         Cable cable = new Cable(this.moduleController.getCurrentPort(),moduleController.getCurrentPort());
-
         if (cable.connect()) {
-
             CableController cableController = new CableController(pane,cable);
-            cableController.drawCable(this.moduleController,moduleController,++cableId);
+            cableController.drawCable(this.moduleController,moduleController,cableId++);
             this.cables.add(cableController);
-
-
         }
-
-
     }
 
-
-
-    public void addMod(Node root){
-
-        if(hBox1.getChildren().size()<3){
+    public void addMod(Node root) {
+		root.setId("module-" + moduleId++);
+		if(hBox1.getChildren().size()<3){
             hBox1.getChildren().add(root);
         }else{
             if(hBox2.getChildren().size()<3){
