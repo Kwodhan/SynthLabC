@@ -12,7 +12,7 @@ import com.jsyn.unitgen.UnitGate;
 
 public class VCA extends Circuit {
     /**
-     * Port de sortie du VCO
+     * Port de sortie du VCA
      */
     private UnitOutputPort out;
 

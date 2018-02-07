@@ -12,7 +12,9 @@ import com.jsyn.unitgen.UnitGenerator;
 import com.jsyn.unitgen.UnitOscillator;
 
 public class REP  extends Circuit{
-	   /**
+
+
+    /**
      * Port de sortie du VCO
      */
     private UnitInputPort in;
@@ -69,6 +71,10 @@ public class REP  extends Circuit{
      public PortInput getPortInput(){
          return portInput;
      }
+
+    public PortInput getInput() {
+        return new PortInput(in);
+    }
  
 	 
 }

@@ -123,6 +123,10 @@ public class Controller implements Initializable {
 				"../../../modules/replicator.fxml"));
 		addMod(root);
 
+		REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root.getUserData();
+		this.moduleControllers.add(replicatorModuleController);
+		replicatorModuleController.init(this);
+
 	}
 
 	public void addSequencer() throws IOException {
