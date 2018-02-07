@@ -1,6 +1,5 @@
 package com.istic.vco;
 
-import com.istic.Constant;
 import com.istic.port.PortFm;
 import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitOutputPort;

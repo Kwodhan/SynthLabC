@@ -1,14 +1,12 @@
 package com.istic.vca;
 
 import com.istic.port.PortAm;
-import com.istic.port.PortFm;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.PassThrough;
-import com.jsyn.unitgen.UnitGate;
 
 public class VCA extends Circuit {
     /**

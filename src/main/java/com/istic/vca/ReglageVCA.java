@@ -2,7 +2,6 @@ package com.istic.vca;
 
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
-import com.jsyn.unitgen.UnitGenerator;
 import com.jsyn.unitgen.VariableRateMonoReader;
 
 public class ReglageVCA  extends VariableRateMonoReader{

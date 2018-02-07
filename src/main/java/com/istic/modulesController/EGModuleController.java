@@ -2,15 +2,10 @@ package com.istic.modulesController;
 
 import com.istic.eg.EG;
 import com.istic.port.Port;
-import com.istic.port.PortOutput;
-import com.istic.vco.VCO;
-
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,15 +1,10 @@
 package com.istic.rep;
 
-import com.istic.port.PortFm;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
-import com.istic.vca.ReglageVCA;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
-import com.jsyn.unitgen.PassThrough;
-import com.jsyn.unitgen.UnitGenerator;
-import com.jsyn.unitgen.UnitOscillator;
 
 public class REP  extends Circuit{
 

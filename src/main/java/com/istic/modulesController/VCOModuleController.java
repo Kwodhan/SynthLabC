@@ -4,7 +4,6 @@ package com.istic.modulesController;
 import com.istic.port.Port;
 import com.istic.port.PortOutput;
 import com.istic.vco.VCO;
-import com.jsyn.Synthesizer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

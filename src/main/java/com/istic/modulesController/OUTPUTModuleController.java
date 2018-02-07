@@ -2,7 +2,6 @@ package com.istic.modulesController;
 
 import com.istic.out.OutMod;
 import com.istic.port.Port;
-import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;

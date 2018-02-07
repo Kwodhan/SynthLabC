@@ -1,7 +1,6 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
-import com.jsyn.Synthesizer;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 
