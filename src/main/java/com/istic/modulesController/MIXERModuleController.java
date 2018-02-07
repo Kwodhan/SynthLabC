@@ -2,7 +2,6 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;

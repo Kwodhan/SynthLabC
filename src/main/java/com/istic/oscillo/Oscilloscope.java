@@ -6,9 +6,8 @@ import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.scope.AudioScope;
 import com.jsyn.scope.swing.AudioScopeView;
-import com.jsyn.unitgen.PassThrough;
 
-public class Oscilloscope extends PassThrough {
+public class Oscilloscope {
 
     private AudioScope scope;
 
