@@ -38,6 +38,9 @@ public class Controller implements Initializable {
 	Slider frequencyFineSlider;
 	@FXML
 	RadioButton sawRadio, triangleRadio, squareRadio;
+	
+	
+	private StackPane[] stacks;
 
 	private List<ModuleController> moduleControllers;
 	private List<CableController> cables;
@@ -61,9 +64,7 @@ public class Controller implements Initializable {
 		this.moduleControllers = new ArrayList<>();
 		this.cables = new ArrayList<>();
 		
-		StackPane[] stacks = { box1, box2, box3, box4, box5, box6, box7, box8,
-				box9};
-
+		stacks = new StackPane[]{ box1, box2, box3, box4, box5, box6, box7, box8, box9};
 		//make stackpane handle drop
 		for (StackPane s : stacks) {
 			DragAndDrop.addDropHandling(s);
@@ -200,41 +201,20 @@ public class Controller implements Initializable {
 
 	}
 
-	public void addMod(Node root) {
-
-		if (box1.getChildren().isEmpty()) {
-			box1.getChildren().add(root);
-			DragAndDrop.dragNode(root);
-		} else if (box2.getChildren().isEmpty()) {
-			box2.getChildren().add(root);
-			DragAndDrop.dragNode(root);
+	public boolean addMod(Node root) {
+		
+		
+		for(StackPane s: stacks){
+			if(s.getChildren().isEmpty()){
+				s.getChildren().add(root);
+				DragAndDrop.dragNode(root);
+				return true;
+			}
 		}
+		return false;
 	}
 
 	public void removeMod(Node root) {
-
-		// if(hBox1.getChildren().size()<3){
-		// hBox1.getChildren().remove(root);
-		//
-		// }else{
-		//
-		// if(hBox2.getChildren().size()<3){
-		// hBox2.getChildren().add(root);
-		// }else
-		// {
-		//
-		// if(hBox3.getChildren().size()<3)
-		// {
-		// hBox3.getChildren().add(root);
-		// }else{
-		// if(hBox1.getChildren().size()==3 &&
-		// hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3)
-		// {
-		//
-		// }
-		// }
-		// }
-		// }
 	}
 
 	// Setters & Getters
