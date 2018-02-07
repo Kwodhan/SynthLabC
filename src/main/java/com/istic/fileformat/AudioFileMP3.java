@@ -9,10 +9,12 @@ int taux_compression = 128; //kbit/s
 		// TODO Auto-generated constructor stub
 	}
 
+ 
+
 
 @Override
-public void play() {
-	// TODO Auto-generated method stub
+public void get_float_data() {
+	// istancie un audiofilewav, converti en wav, puis appel get_float_data du fichier .wav
 	
 }
 }

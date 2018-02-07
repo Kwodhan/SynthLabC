@@ -14,12 +14,15 @@ import it.sauronsoftware.jave.InputFormatException;
 public abstract class AudioFile {
 String path;
 byte [] raw_data;
-
+float[] data ;
 
 public AudioFile (String path) {
 	this.path=path;
 }
-public void load() {
+abstract public    void get_float_data();
+
+/////////////////////////////////////////////
+public void load_raw_data() {
 	try {
 		raw_data = Files.readAllBytes(Paths.get(path));
 	} catch (IOException e) {
@@ -27,7 +30,7 @@ public void load() {
 		e.printStackTrace();
 	}
 }
-public void save() {
+public void save_raw_data() {
 	try {
 		Files.write(  Paths.get(path), raw_data);
 	} catch (IOException e) {
@@ -87,5 +90,4 @@ static void convert ( AudioFileMP3 afm, AudioFileWAV afw) {
 		e.printStackTrace();
 	}}
  
-abstract public    void play();
 }
