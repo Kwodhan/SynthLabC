@@ -1,6 +1,7 @@
 package com.istic.rep;
 
 import com.istic.port.PortFm;
+import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
 import com.istic.vca.ReglageVCA;
 import com.jsyn.ports.UnitInputPort;
@@ -11,7 +12,9 @@ import com.jsyn.unitgen.UnitGenerator;
 import com.jsyn.unitgen.UnitOscillator;
 
 public class REP  extends Circuit{
-	   /**
+
+
+    /**
      * Port de sortie du VCO
      */
     private UnitInputPort in;
@@ -52,6 +55,10 @@ public class REP  extends Circuit{
 
          return new PortOutput(out3);
      }
+
+    public PortInput getInput() {
+        return new PortInput(in);
+    }
  
 	 
 }
