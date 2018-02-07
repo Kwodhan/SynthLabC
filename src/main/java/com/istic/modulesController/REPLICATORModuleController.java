@@ -40,35 +40,43 @@ public class REPLICATORModuleController extends ModuleController implements Init
     }
 
     public void connectInPort() {
-        currentPort = 0;
-        getLayout(inPort);
-        super.connect();
+        if(!this.rep.getInput().isConnected()) {
+            currentPort = 0;
+            getLayout(inPort);
+            super.connect();
+        }
     }
 
     /**
      * Connecting the outPort1 to draw the cable
      */
     public void connectOutPort1() {
-        currentPort = 1;
-        getLayout(outPort1);
-        super.connect();
+        if(!this.rep.getOutput1().isConnected()) {
+            currentPort = 1;
+            getLayout(outPort1);
+            super.connect();
+        }
     }
 
     /**
      * Connecting the outPort2 to draw the cable
      */
     public void connectOutPort2() {
-        currentPort = 2;
-        getLayout(outPort2);
-        super.connect();
+        if(!this.rep.getOutput1().isConnected()) {
+            currentPort = 2;
+            getLayout(outPort2);
+            super.connect();
+        }
     }
     /**
      * Connecting the outPort3 to draw the cable
      */
     public void connectOutPort3() {
-        currentPort = 3;
-        getLayout(outPort3);
-        super.connect();
+        if(!this.rep.getOutput1().isConnected()) {
+            currentPort = 3;
+            getLayout(outPort3);
+            super.connect();
+        }
     }
 
 

@@ -89,7 +89,7 @@ public class VCOModuleController extends ModuleController implements Initializab
      * Connecting the fmPort to draw the cable
      */
     public void connectFmPort() {
-        System.out.println(!this.vco.getFm().isConnected());
+
         if(!this.vco.getFm().isConnected()) {
             currentPort = 1;
             getLayout(fmPort);
@@ -101,7 +101,7 @@ public class VCOModuleController extends ModuleController implements Initializab
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-        System.out.println(!this.vco.getOutput().isConnected());
+
         if(!this.vco.getOutput().isConnected()) {
             currentPort = 0;
             getLayout(outPort);
