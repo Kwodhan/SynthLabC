@@ -22,12 +22,12 @@ public abstract class ModuleController {
     public void connect() {
 
         if (this.controller.isPlugged() && !this.controller.getModuleController().equals(this)) {
-
             this.controller.connect(this);
             this.controller.setModuleController(null);
             this.controller.setPlugged(false);
 
         } else {
+
             this.controller.setPlugged(true);
             this.controller.setModuleController(this);
         }

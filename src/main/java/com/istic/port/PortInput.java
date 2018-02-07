@@ -2,6 +2,9 @@ package com.istic.port;
 
 import com.jsyn.ports.UnitInputPort;
 
+/**
+ * Port input d'un module
+ */
 public class PortInput extends Port {
 
     private UnitInputPort unitInputPort;

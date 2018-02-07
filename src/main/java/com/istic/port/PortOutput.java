@@ -2,6 +2,9 @@ package com.istic.port;
 
 import com.jsyn.ports.UnitOutputPort;
 
+/**
+ * Port OutPut d'un module
+ */
 public class PortOutput extends Port {
 
     private UnitOutputPort unitOutputPort;

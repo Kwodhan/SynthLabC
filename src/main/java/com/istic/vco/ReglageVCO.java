@@ -6,13 +6,22 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
 
 public class ReglageVCO extends UnitGenerator {
-
+    /**
+     *
+     */
     private UnitInputPort f0;
-
+    /**
+     * Changement d'octave
+     */
     private UnitInputPort octave;
-
+    /**
+     * Changement de note
+     */
     private UnitInputPort fin;
 
+    /**
+     * Port Fm
+     */
     private UnitInputPort fm;
 
     private UnitOutputPort out;
@@ -61,6 +70,10 @@ public class ReglageVCO extends UnitGenerator {
         return out;
     }
 
+    /**
+     * Fréquence de base
+     * @return
+     */
     public double getFrequence(){
         return this.f0.get() * Math.pow(2,this.octave.get()) * Math.pow(1.05946f,this.fin.get());
     }

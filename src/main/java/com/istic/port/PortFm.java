@@ -2,10 +2,12 @@ package com.istic.port;
 
 import com.jsyn.ports.UnitInputPort;
 
+/**
+ * Port FM d'un module
+ */
 public class PortFm extends Port {
 
     private UnitInputPort unitFmPort;
-
 
     public PortFm(UnitInputPort unitFmPort) {
         super();

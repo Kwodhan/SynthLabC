@@ -8,6 +8,23 @@ import com.jsyn.unitgen.*;
 
 import java.util.ArrayList;
 
+/**
+ * +--------------------------------------------+
+ |                                              |
+ |                                              |
+ |                                              |
+ +--------+        +------+                     |
+ | Reglage|   |----OTriang0         +-----------+
+ |   VCO  |   |    +------+         |passThrougs|
+ O        0---+----OSaw   0     |---O           0
+ |        |   |    +------+     |   +-----------+
+ |        |   |----OSquare0-----                |
+ +-+-+-+--+        +------+                     |
+ | | | |                                        |
+ | | | |                                        |
+ +-O-O-O----------------------------------------+
+
+ */
 public class VCO extends Circuit {
 
 
@@ -28,15 +45,14 @@ public class VCO extends Circuit {
      */
     private ReglageVCO reglageVCO;
 
-    /**
-     * reglage wave
-     */
+
     private PassThrough passThrough;
 
     PortFm portFm;
 
     PortOutput portOutput;
     public VCO() {
+
 
         this.oscillators = new ArrayList<>();
         this.oscillators.add(new SquareOscillator());
@@ -45,17 +61,19 @@ public class VCO extends Circuit {
 
         add(reglageVCO = new ReglageVCO());
         add(passThrough = new PassThrough());
-        addPortAlias(out = passThrough.getOutput(), "out");
-        addPortAlias(passThrough.getInput(),"in");
+        addPort(out = passThrough.getOutput());
+        addPort(passThrough.getInput());
+
 
         for(UnitOscillator oscillator : this.oscillators){
             add(oscillator);
             addPort(oscillator.getOutput());
+            // 0.2 Amp => 1 V
             oscillator.amplitude.setup(0,(double)1/Constant.Volt,10);
-
+            // connexion des 3 oscillators au reglageVCO
             reglageVCO.getOut().connect(oscillator.frequency);
         }
-
+        // Oscillator Carré par defaut
         this.oscillators.get(SQUAREWAVE).getOutput().connect(passThrough.getInput());
 
         reglageVCO.getF0().set(440);
@@ -65,7 +83,12 @@ public class VCO extends Circuit {
 
     }
 
+    /**
+     * Choix de la forme du signal
+     * @param typeWave
+     */
     public void changeShapeWave(int typeWave) {
+        // on déconnecte
         this.passThrough.getInput().disconnectAll();
 
         this.oscillators.get(typeWave).getOutput().connect(0,passThrough.getInput(),0);

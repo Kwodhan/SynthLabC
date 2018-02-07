@@ -2,7 +2,11 @@ package com.istic.port;
 
 import com.jsyn.ports.UnitGatePort;
 
+/**
+ * Port gate d'un module
+ */
 public class PortGate extends Port {
+
     private UnitGatePort unitGatePort;
 
     public PortGate(UnitGatePort unitGatePort) {

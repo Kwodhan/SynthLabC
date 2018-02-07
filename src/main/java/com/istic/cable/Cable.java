@@ -2,9 +2,14 @@ package com.istic.cable;
 
 import com.istic.port.Port;
 
+/**
+ * représente un cable entre deux ports
+ *
+ */
 public class Cable {
 
     Port portOne;
+
     Port portTwo;
 
 
@@ -22,7 +27,7 @@ public class Cable {
         return portTwo;
     }
 
-    public boolean  connect() {
+    public boolean connect() {
 
         if(this.getPortTwo() == null){
             return false;
@@ -30,6 +35,7 @@ public class Cable {
         if(this.getPortOne() == null){
             return false;
         }
+        // si les ports peuvent être cablés
         if(this.portTwo.accept(this.portOne.getVisitorConnectPort())){
             this.portOne.setConnected(true);
             this.portTwo.setConnected(true);
@@ -39,6 +45,10 @@ public class Cable {
 
 
     }
+
+    /**
+     * Deconnexion du cable
+     */
     public void disconnect() {
         this.portOne.setConnected(false);
         this.portTwo.setConnected(false);
