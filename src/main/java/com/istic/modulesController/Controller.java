@@ -189,29 +189,49 @@ public class Controller implements Initializable {
 
     public void addMod(Node root){
 
-
-
         if(hBox1.getChildren().size()<3){
             hBox1.getChildren().add(root);
-
         }else{
-
             if(hBox2.getChildren().size()<3){
                 hBox2.getChildren().add(root);
             }else
             {
-
                 if(hBox3.getChildren().size()<3)
                 {
                     hBox3.getChildren().add(root);
                 }else{
-                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3){
+                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3)
+                    {
 
                     }
                 }
             }
         }
+    }
 
+    public void removeMod(Node root){
+
+//        if(hBox1.getChildren().size()<3){
+//            hBox1.getChildren().remove(root);
+//
+//        }else{
+//
+//            if(hBox2.getChildren().size()<3){
+//                hBox2.getChildren().add(root);
+//            }else
+//            {
+//
+//                if(hBox3.getChildren().size()<3)
+//                {
+//                    hBox3.getChildren().add(root);
+//                }else{
+//                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3)
+//                    {
+//
+//                    }
+//                }
+//            }
+//        }
     }
 
 
