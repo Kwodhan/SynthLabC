@@ -11,8 +11,9 @@ import com.jsyn.unitgen.PassThrough;
 public class Oscilloscope extends PassThrough {
 
     private AudioScope scope;
-    private PortOutput portOutput;
+
     private PortInput portInput;
+    private PortOutput portOutput;
 
     /**
      * Init Oscilloscope
@@ -22,10 +23,11 @@ public class Oscilloscope extends PassThrough {
         scope = new AudioScope(synth);
         scope.setTriggerMode(AudioScope.TriggerMode.NORMAL);
 
-        portOutput = new PortOutput(this.output);
-        portInput = new PortInput(this.input);
+        OscilloscopePassThrough oscilloscopePassThrough = new OscilloscopePassThrough();
+        portInput = new PortInput(oscilloscopePassThrough.getInputPort());
+        portOutput = new PortOutput(oscilloscopePassThrough.getOutputPort());
 
-        addProbe(this.output);
+        addProbe(oscilloscopePassThrough.getOutputPortOscilloscope());
     }
 
     /**
