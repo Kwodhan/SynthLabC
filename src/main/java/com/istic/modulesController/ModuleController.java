@@ -1,8 +1,11 @@
 package com.istic.modulesController;
 
+import com.istic.cable.CableController;
 import com.istic.port.Port;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
+
+import java.util.List;
 
 public abstract class ModuleController {
     protected Controller controller;
@@ -10,6 +13,8 @@ public abstract class ModuleController {
     protected double x = 0, y = 0;
 
     protected int currentPort = -1;
+
+
 
 
     public void init(Controller controller) {
@@ -30,6 +35,22 @@ public abstract class ModuleController {
 
             this.controller.setPlugged(true);
             this.controller.setModuleController(this);
+        }
+    }
+
+    public void disconnect(Port port) {
+        List<CableController> cables = this.controller.getCables();
+        Port portOne;
+        Port portTwo;
+        for (CableController cableController : cables) {
+             portOne = cableController.getCable().getPortOne();
+             portTwo = cableController.getCable().getPortTwo();
+             if (portOne.equals(port)) {
+                 cableController.disconnect();
+             }
+            if (portTwo.equals(port)) {
+                cableController.disconnect();
+            }
         }
     }
 

@@ -4,10 +4,13 @@ import com.istic.out.OutMod;
 import com.istic.port.Port;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,7 +20,8 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     ImageView inPort;
     @FXML
     AnchorPane pane;
-
+    @FXML
+    public Button closeButton;
 
     private OutMod lineOut;
 
@@ -71,6 +75,22 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         }
         return null;
 
+    }
+
+    public void removeOutput() throws IOException {
+        // Suppression OUTmod model
+        //suppression OUTmod controller
+        // suppression Outmod IHM
+            // suppression cable
+
+        //1- Deconnexion cable
+        Port port = lineOut.getPortInput();
+        super.disconnect(port);
+
+//        Node root = closeButton.getParent();
+//        System.out.println(root.toString());
+
+        //inPort
     }
 
 }

@@ -72,7 +72,6 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vco.fxml"));
 		addMod(root);
-
         VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
 		this.moduleControllers.add(vcoModuleController);
         vcoModuleController.init(this);
@@ -83,6 +82,7 @@ public class Controller implements Initializable {
 		// outputModuleController=new OUTPUTModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/output.fxml"));
+
 		addMod(root);
 
         OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
@@ -173,6 +173,11 @@ public class Controller implements Initializable {
             cableController.drawCable(this.moduleController,moduleController,cableId++);
             this.cables.add(cableController);
         }
+
+    }
+
+    public void disconnect(ModuleController moduleController) {
+	    //this.moduleController.
     }
 
     public void addMod(Node root) {
@@ -198,6 +203,10 @@ public class Controller implements Initializable {
     }
 
     public void removeMod(Node root){
+
+        Node box = root.getParent();
+        System.out.println(box.toString());
+
 
 //        if(hBox1.getChildren().size()<3){
 //            hBox1.getChildren().remove(root);
@@ -247,5 +256,9 @@ public class Controller implements Initializable {
 	public Synthesizer getSynth() {
 		return synth;
 	}
+
+	public List<CableController> getCables() {
+        return cables;
+    }
 
 }
