@@ -52,7 +52,7 @@
                </image>
             </ImageView>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="REPLICATOR">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="REPLICATOR" textAlignment="CENTER" wrappingWidth="261.12890625">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
