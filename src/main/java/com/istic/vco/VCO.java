@@ -1,5 +1,6 @@
 package com.istic.vco;
 
+import com.istic.Constant;
 import com.istic.port.PortFm;
 import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitOutputPort;
@@ -32,6 +33,9 @@ public class VCO extends Circuit {
      */
     private PassThrough passThrough;
 
+    PortFm portFm;
+
+    PortOutput portOutput;
     public VCO() {
 
         this.oscillators = new ArrayList<>();
@@ -41,18 +45,24 @@ public class VCO extends Circuit {
 
         add(reglageVCO = new ReglageVCO());
         add(passThrough = new PassThrough());
-        addPortAlias(out = passThrough.getOutput(), "com/istic/out");
+        addPortAlias(out = passThrough.getOutput(), "out");
         addPortAlias(passThrough.getInput(),"in");
 
         for(UnitOscillator oscillator : this.oscillators){
             add(oscillator);
             addPort(oscillator.getOutput());
+            oscillator.amplitude.setup(0,0.2,10);
+            //oscillator.amplitude.set((double)1/ Constant.Volt);
+
             reglageVCO.getOut().connect(oscillator.frequency);
         }
 
         this.oscillators.get(SQUAREWAVE).getOutput().connect(passThrough.getInput());
 
         reglageVCO.getF0().set(440);
+
+        portFm =  new PortFm(this.reglageVCO.getFm());
+        portOutput = new PortOutput(out);
 
     }
 
@@ -74,11 +84,11 @@ public class VCO extends Circuit {
 
     public PortOutput getOutput() {
 
-        return new PortOutput(out);
+        return portOutput;
     }
 
     public PortFm getFm(){
-        return new PortFm(this.reglageVCO.getFm());
+        return portFm;
     }
 
 

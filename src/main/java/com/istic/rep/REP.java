@@ -1,6 +1,7 @@
 package com.istic.rep;
 
 import com.istic.port.PortFm;
+import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
 import com.istic.vca.ReglageVCA;
 import com.jsyn.ports.UnitInputPort;
@@ -18,6 +19,14 @@ public class REP  extends Circuit{
 	private UnitOutputPort out1;
 	private UnitOutputPort out2;
 	private UnitOutputPort out3;
+
+	PortOutput portOutput1;
+
+	PortOutput portOutput2;
+
+	PortOutput portOutput3;
+
+	PortInput portInput;
  
 
     /**
@@ -34,7 +43,11 @@ public class REP  extends Circuit{
         addPortAlias(out2 = reglageREP.getOut2(), "com/istic/out2");
         addPortAlias(out3 = reglageREP.getOut3(), "com/istic/out3");
         addPortAlias(in = reglageREP.getInput(),"in");
- 
+
+         portInput = new PortInput(in);
+         portOutput1 = new PortOutput(out1);
+         portOutput2 = new PortOutput(out2);
+         portOutput3 = new PortOutput(out3);
          //addPort(oscillator.getOutput());
         //reglageVCA.getOut().connect(oscillator.amplitude);
 
@@ -42,15 +55,19 @@ public class REP  extends Circuit{
     }
      public PortOutput getOutput1() {
 
-         return new PortOutput(out1);
+         return portOutput1;
      }
      public PortOutput getOutput2() {
 
-         return new PortOutput(out2);
+         return portOutput2;
      }
      public PortOutput getOutput3() {
 
-         return new PortOutput(out3);
+         return portOutput3;
+     }
+
+     public PortInput getPortInput(){
+         return portInput;
      }
  
 	 

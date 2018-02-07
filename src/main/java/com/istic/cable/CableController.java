@@ -19,6 +19,7 @@ public class CableController {
     public void disconnect() {
             cable.disconnect();
             pane.getChildren().remove(line);
+
     }
 
     public void drawCable(ModuleController moduleController1, ModuleController moduleController2,Integer id) {

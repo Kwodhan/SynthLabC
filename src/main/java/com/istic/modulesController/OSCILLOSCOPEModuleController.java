@@ -63,18 +63,22 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
      * Connecting the inPort to draw the cable
      */
     public void connectInPort() {
-        currentPort = 1;
-        getLayout(inPort);
-        super.connect();
+        if(!this.oscilloscope.getInputPort().isConnected()) {
+            currentPort = 1;
+            getLayout(inPort);
+            super.connect();
+        }
     }
 
     /**
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-        currentPort = 0;
-        getLayout(outPort);
-        super.connect();
+        if(!this.oscilloscope.getOutputPort().isConnected()) {
+            currentPort = 0;
+            getLayout(outPort);
+            super.connect();
+        }
     }
 
     /**

@@ -23,6 +23,14 @@ public class Cable {
     }
 
     public boolean  connect() {
+        System.out.println(this.getPortTwo());
+        System.out.println(this.getPortOne());
+        if(this.getPortTwo() == null){
+            return false;
+        }
+        if(this.getPortOne() == null){
+            return false;
+        }
         if(this.portTwo.accept(this.portOne.getVisitorConnectPort())){
             this.portOne.setConnected(true);
             this.portTwo.setConnected(true);

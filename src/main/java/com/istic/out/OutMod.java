@@ -10,9 +10,11 @@ public class OutMod extends LineOut {
 
 	private int mute = 1;
 
+	private PortInput portInput;
 
 	public OutMod() {
-		// TODO Auto-generated constructor stub
+		portInput =  new PortInput(this.getInput());
+
 
 	}
 
@@ -36,6 +38,7 @@ public class OutMod extends LineOut {
         double[] buffer1 = synthesisEngine.getOutputBuffer(1);
         double fromDCBL ;
         for (int i = start; i < limit; i++) {
+
         	fromDCBL = AudioMath.semitonesToFrequencyScaler(this.attenuation);
             buffer0[i] += inputs0[i]*mute*fromDCBL;
             buffer1[i] += inputs1[i]*mute*fromDCBL;
@@ -43,6 +46,6 @@ public class OutMod extends LineOut {
     }
 
 	public PortInput getPortInput() {
-		return new PortInput(this.getInput());
+		return this.portInput;
 	}
 }

@@ -18,7 +18,9 @@ public class VCA extends Circuit {
 
     private UnitInputPort in;
 
+    private PortOutput portOutput;
 
+    private PortInput portInput;
 
     /**
      * reglage ao, am
@@ -30,10 +32,11 @@ public class VCA extends Circuit {
     private PassThrough passThrough;
 
     public VCA() {
+
         add(reglageVCA = new ReglageVCA());
         add(passThrough = new PassThrough());
-        addPortAlias(out = passThrough.getOutput(), "com/istic/out");
-        addPortAlias(in = reglageVCA.getInput(), "com/istic/in");
+        addPortAlias(out = passThrough.getOutput(), "out");
+        addPortAlias(in = reglageVCA.getInput(), "in");
         reglageVCA.getOut().connect(passThrough.getInput());
         reglageVCA.getInput();
 
@@ -41,16 +44,17 @@ public class VCA extends Circuit {
         //reglageVCA.getInput().connect();
         //reglageVCA.getOut().connect(passThrough.amp);
 
-
+        portOutput = new PortOutput(out);
+        portInput = new PortInput(in);
 
     }
     public PortOutput getOutput() {
 
-        return new PortOutput(out);
+        return portOutput;
     }
     public PortInput getInput() {
 
-        return new PortInput(in);
+        return portInput;
     }
     public PortAm getAm(){
         return new PortAm(this.reglageVCA.getAm());

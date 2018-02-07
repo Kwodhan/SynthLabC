@@ -67,8 +67,10 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
     public Port getCurrentPort(){
 
-
-        return lineOut.getPortInput();
+        if(!this.lineOut.getPortInput().isConnected()) {
+            return lineOut.getPortInput();
+        }
+        return null;
 
     }
 

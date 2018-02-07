@@ -25,6 +25,7 @@ public abstract class Port {
 
 
     public void setConnected(boolean connected) {
+        System.out.println("je suis con"+connected);
         this.connected = connected;
     }
 

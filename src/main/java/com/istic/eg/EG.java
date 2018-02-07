@@ -11,12 +11,21 @@ public class EG extends EnvelopeDAHDSR {
 //		return this.env;
 //	}
 
+	PortGate portGate;
+
+	PortOutput portOutput;
+
+	public EG() {
+		this.portGate = new PortGate(this.input);
+		this.portOutput = new PortOutput(this.output);
+	}
+
 	public PortGate getGateInput() {
-		return new PortGate(this.input);
+		return portGate;
 	}
 
 	public PortOutput getOutputPort() {
-		return new PortOutput(this.output);
+		return portOutput;
 	}
  
 	public void setAttack(double attack) {

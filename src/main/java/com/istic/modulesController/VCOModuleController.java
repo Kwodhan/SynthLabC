@@ -89,18 +89,24 @@ public class VCOModuleController extends ModuleController implements Initializab
      * Connecting the fmPort to draw the cable
      */
     public void connectFmPort() {
-        currentPort = 1;
-        getLayout(fmPort);
-        super.connect();
+        System.out.println(!this.vco.getFm().isConnected());
+        if(!this.vco.getFm().isConnected()) {
+            currentPort = 1;
+            getLayout(fmPort);
+            super.connect();
+        }
     }
 
     /**
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-        currentPort = 0;
-        getLayout(outPort);
-        super.connect();
+        System.out.println(!this.vco.getOutput().isConnected());
+        if(!this.vco.getOutput().isConnected()) {
+            currentPort = 0;
+            getLayout(outPort);
+            super.connect();
+        }
     }
 
     public Port getCurrentPort() {

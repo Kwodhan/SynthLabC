@@ -170,9 +170,11 @@ public class Controller implements Initializable {
         Cable cable = new Cable(this.moduleController.getCurrentPort(),moduleController.getCurrentPort());
 
         if (cable.connect()) {
+
             CableController cableController = new CableController(pane,cable);
             cableController.drawCable(this.moduleController,moduleController,++cableId);
             this.cables.add(cableController);
+
 
         }
 

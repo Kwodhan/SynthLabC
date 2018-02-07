@@ -81,17 +81,21 @@ public class EGModuleController extends ModuleController implements Initializabl
     }
     
     public void connectGatePort() {
-        currentPort = 1;
-        getLayout(gatePort);
-        super.connect();
+        if(!this.eg.getGateInput().isConnected()) {
+            currentPort = 1;
+            getLayout(gatePort);
+            super.connect();
+        }
     }
 
     /**
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-        currentPort = 0;
-        getLayout(outPort);
-        super.connect();
+        if(!this.eg.getOutputPort().isConnected()) {
+            currentPort = 0;
+            getLayout(outPort);
+            super.connect();
+        }
     }
 }

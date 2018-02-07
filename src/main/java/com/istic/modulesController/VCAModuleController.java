@@ -49,25 +49,31 @@ public class VCAModuleController extends ModuleController implements Initializab
      * Connecting the AmPort to draw the cable
      */
     public void connectAmPort() {
-        currentPort = 1;
-        getLayout(amPort);
-        super.connect();
+        if(!this.vca.getAm().isConnected()) {
+            currentPort = 1;
+            getLayout(amPort);
+            super.connect();
+        }
     }
     /**
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-        currentPort = 0;
-        getLayout(outPort);
-        super.connect();
+        if(!this.vca.getOutput().isConnected()) {
+            currentPort = 0;
+            getLayout(outPort);
+            super.connect();
+        }
     }
     /**
      * Connecting the inPort to draw the cable
      */
     public void connectInPort() {
-        currentPort = 2;
-        getLayout(inPort);
-        super.connect();
+        if(!this.vca.getInput().isConnected()) {
+            currentPort = 2;
+            getLayout(inPort);
+            super.connect();
+        }
     }
 
 
@@ -77,7 +83,6 @@ public class VCAModuleController extends ModuleController implements Initializab
 
             case 0:
                 return vca.getOutput();
-
             case 1:
                 return vca.getAm();
             case 2 :
