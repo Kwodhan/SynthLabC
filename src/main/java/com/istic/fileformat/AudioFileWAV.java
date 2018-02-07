@@ -20,7 +20,7 @@ public class AudioFileWAV extends AudioFile{
 	   
 			byte [] header ;
 			byte [] data ;
-			
+ 
 	public AudioFileWAV(String path) {
 		super(path);
 		// TODO Auto-generated constructor stub
@@ -28,11 +28,17 @@ public class AudioFileWAV extends AudioFile{
  
 	@Override
 	public void play() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated m
+	}
+ 
+	@Override
+	public void play() {
+	}
+ 
+	@Override
+	public void play() {ethod stub
 		
 	}
-	public void convert_from_mp3 (AudioFileMP3 afm) {
-		
-	}
+	 
 
 }
