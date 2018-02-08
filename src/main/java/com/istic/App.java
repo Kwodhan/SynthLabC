@@ -9,31 +9,25 @@ import javafx.stage.Stage;
 public class App extends Application {
     private Scene scene;
     private Parent root;
+
     @Override
     public void start(Stage stage) throws Exception {
         root = FXMLLoader.load(getClass().getResource("../../sample_sprint1.fxml"));
         scene = new Scene(root);
         stage.setResizable(false);
-        
-        //change skin
-        //scene.getStylesheets().add("/skins/wood.css");
         stage.setTitle("SynthLabC");
         stage.setScene(scene);
         stage.show();
 
-
-            /* change skin
-            scene.getStylesheets().remove(theme1Url);
-            if(!scene.getStylesheets().contains(theme2Url)) scene.getStylesheets().add(theme2Url);
-        */
     }
 
     public static void main(String[] args) {
         launch(args);
 
     }
+
     @Override
-    public void stop(){
+    public void stop() {
         System.out.println("Stage is closing");
         System.exit(0);
     }
