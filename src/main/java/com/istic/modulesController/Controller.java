@@ -28,7 +28,7 @@ public class Controller implements Initializable {
 	@FXML
 	HBox hBox1, hBox2, hBox3;
 	@FXML
-	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9;
+	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
 
 	@FXML
 	Button startVCOButton, stopVCOButton;
@@ -64,7 +64,7 @@ public class Controller implements Initializable {
 		this.moduleControllers = new ArrayList<>();
 		this.cables = new ArrayList<>();
 		
-		stacks = new StackPane[]{ box1, box2, box3, box4, box5, box6, box7, box8, box9};
+		stacks = new StackPane[]{ box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12};
 		//make stackpane handle drop
 		for (StackPane s : stacks) {
 			DragAndDrop.addDropHandling(s);
