@@ -19,7 +19,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class IHMTestSprint2 extends ApplicationTest {
 
-    private final App app = new App();
 
     @Override
     public void start (Stage stage) throws Exception {

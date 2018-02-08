@@ -11,7 +11,7 @@ import org.testfx.framework.junit.ApplicationTest;
 
 public class IHMTestSprint1 extends ApplicationTest {
 
-    private final App app = new App();
+
 
     @Override
     public void start (Stage stage) throws Exception {
