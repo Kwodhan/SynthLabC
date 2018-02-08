@@ -2,7 +2,6 @@ package com.istic.modulesController;
 
 import com.istic.cable.Cable;
 import com.istic.cable.CableController;
-import com.istic.port.Port;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXML;
@@ -11,8 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,7 +42,7 @@ public class Controller implements Initializable {
     /**
      * Module temporaire pour le cablage
      */
-	ModuleController moduleController;
+	ModuleController temporaryCableModuleController;
     /**
      * valeur incrementale pour chaque id
      */
@@ -72,7 +71,6 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vco.fxml"));
 		addMod(root);
-
         VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
 		this.moduleControllers.add(vcoModuleController);
         vcoModuleController.init(this);
@@ -83,6 +81,7 @@ public class Controller implements Initializable {
 		// outputModuleController=new OUTPUTModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/output.fxml"));
+
 		addMod(root);
 
         OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
@@ -167,12 +166,22 @@ public class Controller implements Initializable {
 	}
 
 	public void connect(ModuleController moduleController) {
-        Cable cable = new Cable(this.moduleController.getCurrentPort(),moduleController.getCurrentPort());
+        Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
         if (cable.connect()) {
             CableController cableController = new CableController(pane,cable);
-            cableController.drawCable(this.moduleController,moduleController,cableId++);
+            cableController.drawCable(this.temporaryCableModuleController,moduleController,cableId++);
             this.cables.add(cableController);
         }
+
+    }
+
+    public void disconnect(ModuleController moduleController) {
+	    for (ModuleController module: this.moduleControllers) {
+	    	if (module.equals(moduleController)) {
+	    		this.moduleControllers.remove(module);
+	    		moduleController = null;
+			}
+		}
     }
 
     public void addMod(Node root) {
@@ -197,30 +206,15 @@ public class Controller implements Initializable {
         }
     }
 
-    public void removeMod(Node root){
-
-//        if(hBox1.getChildren().size()<3){
-//            hBox1.getChildren().remove(root);
-//
-//        }else{
-//
-//            if(hBox2.getChildren().size()<3){
-//                hBox2.getChildren().add(root);
-//            }else
-//            {
-//
-//                if(hBox3.getChildren().size()<3)
-//                {
-//                    hBox3.getChildren().add(root);
-//                }else{
-//                    if(hBox1.getChildren().size()==3 && hBox2.getChildren().size()==3&&hBox3.getChildren().size()==3)
-//                    {
-//
-//                    }
-//                }
-//            }
-//        }
-    }
+//    public void removeMod(){
+    // old code to get parent hbox1 : not necessary anymore
+//        SplitPane splitPane= (SplitPane) pane.getChildren().get(1);
+//        AnchorPane anch = (AnchorPane) splitPane.getItems().get(1);
+//        GridPane grid = (GridPane) anch.getChildren().get(0);
+//        //grid.getChildren().get(0).toString()
+//        HBox hbox1 = (HBox) grid.getChildren().get(0);
+//        System.out.println(hbox1.toString());
+//    }
 
 
     //Setters & Getters
@@ -237,15 +231,19 @@ public class Controller implements Initializable {
 	}
 
 
-    public ModuleController getModuleController() {
-        return moduleController;
+    public ModuleController getTemporaryCableModuleController() {
+        return temporaryCableModuleController;
     }
 
-    public void setModuleController(ModuleController moduleController) {
-        this.moduleController = moduleController;
+    public void setTemporaryCableModuleController(ModuleController temporaryCableModuleController) {
+        this.temporaryCableModuleController = temporaryCableModuleController;
     }
 	public Synthesizer getSynth() {
 		return synth;
 	}
+
+	public List<CableController> getCables() {
+        return cables;
+    }
 
 }

@@ -12,7 +12,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,8 +29,8 @@ public class VCOModuleController extends ModuleController implements Initializab
      * <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
-
-
+    @FXML
+    AnchorPane pane;
     @FXML
     Slider frequencySlider;
     @FXML
@@ -129,6 +133,22 @@ public class VCOModuleController extends ModuleController implements Initializab
     public void triangleSound() {
         vco.changeShapeWave(VCO.TRIANGLEWAVE);
 
+    }
+
+    @FXML
+    public void removeOutput(InputEvent e) throws IOException {
+        //Deconnexion cable
+        Port fm = vco.getFm();
+        Port out = vco.getOutput();
+        super.disconnect(fm);
+        super.disconnect(out);
+        // Deconnexion du module Output du synthetizer
+        this.controller.getSynth().remove(vco);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        HBox hbox1= (HBox) pane.getParent();
+        // supprime le mod niveau ihm
+        hbox1.getChildren().remove(pane);
     }
 
 }

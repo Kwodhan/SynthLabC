@@ -43,4 +43,9 @@ public class CableController {
             this.disconnect();
         });
     }
+
+    public Cable getCable() {
+        return cable;
+    }
+
 }

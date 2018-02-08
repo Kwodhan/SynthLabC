@@ -40,46 +40,46 @@ public class CableTest {
         public static Collection<Object[]> data() {
             Synthesizer synth;
             OutMod lineOut;
-            VCO vco;
+            VCO vco1;
             VCO vco2;
             VCA vca;
-            EG eg;
+            EG eg1;
             EG eg2;
             REP rep;
             Oscilloscope oscilloscope;
 
             synth = JSyn.createSynthesizer();
             lineOut = new OutMod();
-            vco = new VCO();
+            vco1 = new VCO();
             vco2 = new VCO();
             vca = new VCA();
-            eg = new EG();
+            eg1 = new EG();
             eg2 = new EG();
             rep = new REP();
             oscilloscope = new Oscilloscope(synth);
 
             synth.add(lineOut);
-            synth.add(vco);
+            synth.add(vco1);
             synth.add(vco2);
             synth.add(vca);
-            synth.add(eg);
+            synth.add(eg1);
             synth.add(eg2);
             synth.add(rep);
 
             return Arrays.asList(new Object[][] {
 
-                { vco.getOutput(), vco.getOutput(), false, false, false, false, false },
-                { vco2.getFm(), vco.getFm(),  false, false, false, false, false },
+                { vco1.getOutput(), vco1.getOutput(), false, false, false, false, false },
+                { vco2.getFm(), vco1.getFm(),  false, false, false, false, false },
                 { lineOut.getPortInput(), lineOut.getPortInput(), false, false, false, false, false },
                 { vca.getAm(), vca.getAm(), false, false, false, false, false },
-                { eg.getGateInput(), eg.getGateInput(), false, false, false, false, false },
-                { eg.getGateInput(), eg2.getGateInput(), false, false, false, false, false },
+                { eg1.getGateInput(), eg1.getGateInput(), false, false, false, false, false },
+                { eg1.getGateInput(), eg2.getGateInput(), false, false, false, false, false },
 
-                { vco2.getFm(), vco.getOutput(),  true, true, true, false, false },
-                { vco.getOutput(), vco2.getFm(),  true, true, true, false, false },
+                { vco2.getFm(), vco1.getOutput(),  true, true, true, false, false },
+                { vco1.getOutput(), vco2.getFm(),  true, true, true, false, false },
 
-                { vco.getOutput(), lineOut.getPortInput(), true, true, true, false, false },
-                { lineOut.getPortInput(), vco.getOutput(),  true, true, true, false, false },
+                { vco1.getOutput(), lineOut.getPortInput(), true, true, true, false, false },
+                { lineOut.getPortInput(), vco1.getOutput(),  true, true, true, false, false },
 
                 { vco2.getFm(), lineOut.getPortInput(),  false, false, false, false, false },
                 { lineOut.getPortInput(), vco2.getFm(),  false, false, false, false, false },
@@ -90,14 +90,14 @@ public class CableTest {
                 { vco2.getOutput(), vca.getInput(),  true, true, true, false, false },
                 { vca.getInput(), vco2.getOutput(),  true, true, true, false, false },
 
-                { vca.getAm(), eg.getOutputPort(),  true, true, true, false, false },
-                { eg.getOutputPort(), vca.getAm(),  true, true, true, false, false },
+                { vca.getAm(), eg1.getOutputPort(),  true, true, true, false, false },
+                { eg1.getOutputPort(), vca.getAm(),  true, true, true, false, false },
 
-                { eg.getOutputPort(), vco.getFm(),  true, true, true, false, false },
-                { vco.getFm(), eg.getOutputPort(),  true, true, true, false, false },
+                { eg1.getOutputPort(), vco1.getFm(),  true, true, true, false, false },
+                { vco1.getFm(), eg1.getOutputPort(),  true, true, true, false, false },
 
-                { vco.getFm(), vca.getAm(),  false, false, false, false, false },
-                { vca.getAm(), vco.getFm(),  false, false, false, false, false },
+                { vco1.getFm(), vca.getAm(),  false, false, false, false, false },
+                { vca.getAm(), vco1.getFm(),  false, false, false, false, false },
 
                 { vca.getAm(), rep.getInput(),  false, false, false, false, false },
                 { rep.getInput(),vca.getAm(),  false, false, false, false, false },
@@ -105,14 +105,14 @@ public class CableTest {
                 { vca.getInput(),rep.getOutput1(),  true, true, true, false, false },
                 { rep.getOutput2(),vca.getInput(),  true, true, true, false, false },
 
-                { eg.getGateInput(),vca.getOutput(),  true, true, true, false, false },
-                { vca.getOutput(),eg.getGateInput(),  true, true, true, false, false },
+                { eg1.getGateInput(),vca.getOutput(),  true, true, true, false, false },
+                { vca.getOutput(),eg1.getGateInput(),  true, true, true, false, false },
 
-                { vco.getFm(),eg.getGateInput(),  false, false, false, false, false },
-                { eg.getGateInput(),vco.getFm(),  false, false, false, false, false },
+                { vco1.getFm(),eg1.getGateInput(),  false, false, false, false, false },
+                { eg1.getGateInput(),vco1.getFm(),  false, false, false, false, false },
 
-                { vca.getAm(),eg.getGateInput(),  false, false, false, false, false },
-                { eg.getGateInput(),vca.getAm(),  false, false, false, false, false },
+                { vca.getAm(),eg1.getGateInput(),  false, false, false, false, false },
+                { eg1.getGateInput(),vca.getAm(),  false, false, false, false, false },
 
             });
         }
