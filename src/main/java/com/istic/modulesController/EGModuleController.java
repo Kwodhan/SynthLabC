@@ -6,7 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,11 +18,13 @@ import java.util.ResourceBundle;
 public class EGModuleController extends ModuleController implements Initializable {
 	
 	protected EG eg;
+
     @FXML
+    AnchorPane pane;
+	@FXML
     ImageView outPort;
     @FXML
     ImageView gatePort;
-
     @FXML
     Slider attackSlider;
     @FXML
@@ -60,7 +66,7 @@ public class EGModuleController extends ModuleController implements Initializabl
 
     public Port getCurrentPort() {
         if (currentPort == 0) {
-            return eg.getOutputPort();
+            return eg.getOutput();
         } else if (currentPort == 1) {
             return eg.getGateInput();
         }
@@ -86,10 +92,26 @@ public class EGModuleController extends ModuleController implements Initializabl
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-        if(!this.eg.getOutputPort().isConnected()) {
+        if(!this.eg.getOutput().isConnected()) {
             currentPort = 0;
             getLayout(outPort);
             super.connect();
         }
     }
+    @FXML
+    public void removeModule(InputEvent e) throws IOException {
+        //Deconnexion cable
+        Port gate = eg.getGateInput();
+        Port out = eg.getOutput();
+        super.disconnect(gate);
+        super.disconnect(out);
+        // Deconnexion du module Output du synthetizer
+        this.controller.getSynth().remove(eg);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        HBox hbox1= (HBox) pane.getParent();
+        // supprime le mod niveau ihm
+        hbox1.getChildren().remove(pane);
+    }
+
 }
