@@ -55,9 +55,6 @@ public class VCA extends Circuit {
     }
 
 
-    public double getAmplitude() {
-        return reglageVCA.getAmplitude();
-    }
     public void changeA0(double a0){
         this.reglageVCA.getA0().set(a0);
     }

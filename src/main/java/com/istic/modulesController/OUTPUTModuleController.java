@@ -92,10 +92,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         HBox hbox1= (HBox) pane.getParent();
         // supprime le mod niveau ihm
         hbox1.getChildren().remove(pane);
-
-
-
-
     }
 
 }

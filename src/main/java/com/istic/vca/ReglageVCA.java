@@ -27,13 +27,10 @@ public class ReglageVCA  extends VariableRateMonoReader{
 
     public ReglageVCA() {
 
-
         addPort(this.a0 = new UnitInputPort("a0"));
         addPort(this.input = new UnitInputPort("input"));
         addPort(this.am = new UnitInputPort("am"));
         addPort(this.out = new UnitOutputPort("out"));
-
-
 
     }
 
@@ -45,11 +42,12 @@ public class ReglageVCA  extends VariableRateMonoReader{
         double[] outputs = out.getValues();
 
         for (int i = start; i < limit ; i++) {
+
            if(ams[i] > 0 ) {
                 outputs[i] = inputs[i] * Math.pow(2, 2 * (Constraints.verifModAmp(Math.abs(ams[i]) * Constraints.VOLT) - 5 ) + a0s[i]);
-            }else if (ams[i] < 0){
+            } else if (ams[i] < 0) {
                 outputs[i] = inputs[i] * Math.pow(2, 2 * (Constraints.verifModAmp(Math.abs(ams[i]) * Constraints.VOLT) - 5 ) + a0s[i]);
-            }else{
+            } else{
                 outputs[i] = 0;
             }
         }
@@ -77,19 +75,6 @@ public class ReglageVCA  extends VariableRateMonoReader{
 
     public UnitOutputPort getOut() {
         return out;
-    }
-
-    public double getAmplitude(){
-        /*if(getAm().get()==0){
-            return 0;
-        }else{
-
-            return this.a0.get() *this.input.get() * this.getAm().get()*12;
-
-        }
-        */
-        return this.a0.get() +this.getInput().get() + this.getAm().get()*12;
-
     }
 
 }
