@@ -7,22 +7,19 @@ public abstract class Port {
 
 
     /**
-     * Si le port est cable à un cable
+     * Si le port est cablé à un cable
      */
+
     boolean connected = false;
+
     /**
-     * Comportement à definir quand il est cablé avec un autre port
+     * Définie les contraintes avec un autre port
      */
-    protected VisitorConnectPort visitorConnectPort;
-
-    public Port() {
+    protected VisitorPort visitorPort;
 
 
-
-    }
-
-    public VisitorConnectPort getVisitorConnectPort() {
-        return visitorConnectPort;
+    public VisitorPort getVisitorPort() {
+        return visitorPort;
     }
 
     public boolean isConnected() {
@@ -36,7 +33,12 @@ public abstract class Port {
         this.connected = connected;
     }
 
-    abstract public boolean accept(VisitorConnectPort visitor);
+    /**
+     *
+     * @param visitor le comportement à adopter avec un autre port
+     * @return true si la cable est branché | false si le cable n'est pas branché
+     */
+    abstract public boolean accept(VisitorPort visitor);
 
     abstract public void disconnect();
 }

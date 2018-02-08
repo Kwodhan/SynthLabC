@@ -12,12 +12,12 @@ public class PortFm extends Port {
     public PortFm(UnitInputPort unitFmPort) {
         super();
         this.unitFmPort = unitFmPort;
-        this.visitorConnectPort =  new VisitorFm(this);
+        this.visitorPort =  new VisitorFm(this);
     }
 
 
     @Override
-    public boolean accept(VisitorConnectPort visitor) {
+    public boolean accept(VisitorPort visitor) {
         return visitor.visit(this);
     }
 

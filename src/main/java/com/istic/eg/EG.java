@@ -21,6 +21,8 @@ public class EG extends Circuit {
 		this.dahdsr.decay.setMaximum(0.5d);
 		this.dahdsr.sustain.setMaximum(5);
 		this.dahdsr.release.setMaximum(0.5d);
+		// varie entre 0 et 5 volt
+		this.dahdsr.amplitude.setMaximum(1);
 	}
 
 	public PortGate getGateInput() {

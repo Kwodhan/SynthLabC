@@ -40,6 +40,7 @@ public class VCAModuleController extends ModuleController implements Initializab
         this.vca = new VCA();
         this.controller.getSynth().add(vca);
 
+
     }
 
     /**

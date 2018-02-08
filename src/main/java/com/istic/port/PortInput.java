@@ -9,16 +9,15 @@ public class PortInput extends Port {
 
     private UnitInputPort unitInputPort;
 
-
     public PortInput(UnitInputPort unitInputPort) {
         super();
         this.unitInputPort = unitInputPort;
-        this.visitorConnectPort =  new VisitorInput(this);
+        this.visitorPort =  new VisitorInput(this);
     }
 
 
     @Override
-    public boolean accept(VisitorConnectPort visitor) {
+    public boolean accept(VisitorPort visitor) {
         return visitor.visit(this);
     }
 

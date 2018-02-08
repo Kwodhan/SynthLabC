@@ -1,6 +1,7 @@
 package com.istic.port;
 
-public class VisitorOuput implements VisitorConnectPort {
+public class VisitorOuput implements VisitorPort {
+
     PortOutput portOutput;
 
     public VisitorOuput(PortOutput portOutput) {

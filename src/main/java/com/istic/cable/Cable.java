@@ -27,6 +27,10 @@ public class Cable {
         return portTwo;
     }
 
+    /**
+     * réalise la connection entre deux cable
+     * @return true si les ports sont branchés | false si les ports sont incompatible
+     */
     public boolean connect() {
 
         if(this.getPortTwo() == null){
@@ -36,7 +40,7 @@ public class Cable {
             return false;
         }
         // si les ports peuvent être cablés
-        if(this.portTwo.accept(this.portOne.getVisitorConnectPort())){
+        if(this.portTwo.accept(this.portOne.getVisitorPort())){
             this.portOne.setConnected(true);
             this.portTwo.setConnected(true);
             return true;

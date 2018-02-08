@@ -4,12 +4,23 @@ import com.istic.port.PortInput;
 import com.jsyn.unitgen.LineOut;
 import com.softsynth.math.AudioMath;
 
+/**
+ * Module de sortie
+ */
 public class OutMod extends LineOut {
-
+	/**
+	 * permet d'eviter la saturation
+	 */
 	private double attenuation = 0.;
 
+	/**
+	 * 0 la sortie audio est null | 1 on entend la sortie audio
+	 */
 	private int mute = 1;
 
+	/**
+	 * entré du signal audio
+	 */
 	private PortInput portInput;
 
 	public OutMod() {
@@ -18,9 +29,6 @@ public class OutMod extends LineOut {
 
 	}
 
-	public double getAttenuation() {
-		return attenuation;
-	}
 
 	public void toggleMute() {
 		this.mute = (this.mute == 1) ? 0 : 1;

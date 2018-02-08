@@ -1,6 +1,6 @@
 package com.istic.port;
 
-public class VisitorFm implements VisitorConnectPort {
+public class VisitorFm implements VisitorPort {
     PortFm portFm;
 
     public VisitorFm(PortFm portFm) {

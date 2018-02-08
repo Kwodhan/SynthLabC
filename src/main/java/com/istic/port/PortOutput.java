@@ -12,12 +12,12 @@ public class PortOutput extends Port {
     public PortOutput( UnitOutputPort unitOutputPort) {
         super();
         this.unitOutputPort = unitOutputPort;
-        this.visitorConnectPort =  new VisitorOuput(this);
+        this.visitorPort =  new VisitorOuput(this);
     }
 
 
     @Override
-    public boolean accept(VisitorConnectPort visitor) {
+    public boolean accept(VisitorPort visitor) {
         return visitor.visit(this);
     }
 

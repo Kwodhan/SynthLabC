@@ -1,10 +1,9 @@
 package com.istic.vca;
 
-import com.istic.Constant;
+import com.istic.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.VariableRateMonoReader;
-import com.softsynth.math.AudioMath;
 
 public class ReglageVCA  extends VariableRateMonoReader{
     /**
@@ -12,11 +11,11 @@ public class ReglageVCA  extends VariableRateMonoReader{
      */
     private UnitInputPort a0;
     /**
-     * Signal d'entré
+     * Signal d'entrée
      */
     private UnitInputPort input;
     /**
-     * signal peut varier entre 10 et -10
+     * Signal de modulation d'amplitude. Peut varier entre 10 et -10
      */
     private UnitInputPort am;
 
@@ -47,9 +46,9 @@ public class ReglageVCA  extends VariableRateMonoReader{
 
         for (int i = start; i < limit ; i++) {
            if(ams[i] > 0 ) {
-                outputs[i] = inputs[i] * Math.pow(2, 2 * ((Math.abs(ams[i]) * Constant.Volt) - 5 ) + a0s[i]);
+                outputs[i] = inputs[i] * Math.pow(2, 2 * (Constraints.verifModAmp(Math.abs(ams[i]) * Constraints.VOLT) - 5 ) + a0s[i]);
             }else if (ams[i] < 0){
-                outputs[i] = inputs[i] * Math.pow(2, 2 * ((Math.abs(ams[i]) * Constant.Volt) - 5 ) + a0s[i]);
+                outputs[i] = inputs[i] * Math.pow(2, 2 * (Constraints.verifModAmp(Math.abs(ams[i]) * Constraints.VOLT) - 5 ) + a0s[i]);
             }else{
                 outputs[i] = 0;
             }

@@ -1,6 +1,7 @@
 package com.istic.vco;
 
-import com.istic.Constant;
+
+import com.istic.Constraints;
 import com.istic.port.PortFm;
 import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitOutputPort;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
  | | | |                                        |
  +-O-O-O----------------------------------------+
 
+
+   Génére 1 Volt.
  */
 public class VCO extends Circuit {
 
@@ -65,17 +68,18 @@ public class VCO extends Circuit {
         addPort(passThrough.getInput());
 
 
-        for(UnitOscillator oscillator : this.oscillators){
+        for(UnitOscillator oscillator : this.oscillators) {
             add(oscillator);
             addPort(oscillator.getOutput());
             // 0.2 Amp => 1 V
-            oscillator.amplitude.setup(0,1,10);
+            oscillator.amplitude.setup(0,1/ Constraints.VOLT,10);
             // connexion des 3 oscillators au reglageVCO
             reglageVCO.getOut().connect(oscillator.frequency);
         }
         // Oscillator Carré par defaut
         this.oscillators.get(SQUAREWAVE).getOutput().connect(passThrough.getInput());
 
+        // Note LA par défaut
         reglageVCO.getF0().set(440);
 
         portFm =  new PortFm(this.reglageVCO.getFm());

@@ -1,26 +1,29 @@
 package com.istic.vco;
 
-import com.istic.Constant;
+import com.istic.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
 
 public class ReglageVCO extends UnitGenerator {
+
     /**
-     *
+     * Fréquence de base
      */
     private UnitInputPort f0;
+
     /**
      * Changement d'octave
      */
     private UnitInputPort octave;
+
     /**
      * Changement de note
      */
     private UnitInputPort fin;
 
     /**
-     * Port Fm
+     * Signal de Modulation de fréquence Fm varie entre -5 et 5
      */
     private UnitInputPort fm;
 
@@ -45,7 +48,7 @@ public class ReglageVCO extends UnitGenerator {
         double[] outputs = out.getValues();
 
         for (int i = start; i < limit; i++) {
-            outputs[i] = f0s[i] * Math.pow(2,octaves[i] + fms[i]) * Math.pow(1.05946f,fins[i]);
+            outputs[i] = f0s[i] * Math.pow(2,octaves[i] + Constraints.verifModFreq(fms[i]*5)) * Math.pow(1.05946f,fins[i]);
 
         }
     }

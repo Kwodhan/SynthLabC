@@ -1,6 +1,6 @@
 package com.istic.port;
 
-public class VisitorGate  implements VisitorConnectPort{
+public class VisitorGate  implements VisitorPort {
 
     PortGate portGate;
 
