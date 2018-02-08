@@ -68,24 +68,6 @@ public class MIXERModuleController extends ModuleController implements Initializ
 
     @Override
     public Port getCurrentPort() {
-        return null;
-    }
-
-    @FXML // A decommenter et adapter quand le model Mixer sera fait !
-    public void removeModule(InputEvent e) throws IOException {
-//        //Deconnexion cable
-//        Port gate = mixer.getGateInput();
-//        Port out = mixer.getOutput();
-//        super.disconnect(gate);
-//        super.disconnect(out);
-//        // Deconnexion du module Output du synthetizer
-//        this.controller.getSynth().remove(mixer);
-//        // Get parent node of pane corresponding to OutMod
-        // Recupere le noeud parent fxml du outmod
-        HBox hbox1= (HBox) pane.getParent();
-        // supprime le mod niveau ihm
-        hbox1.getChildren().remove(pane);
-    }
 
         switch (currentPort) {
 
@@ -103,6 +85,7 @@ public class MIXERModuleController extends ModuleController implements Initializ
             default: return null;
         }
     }
+
     /**
      * Connecting the outPort to draw the cable
      */
@@ -151,6 +134,27 @@ public class MIXERModuleController extends ModuleController implements Initializ
         this.controller.getSynth().add(mixer);
 
 
+    }
+    @FXML
+    public void removeModule(InputEvent e) throws IOException {
+        //Deconnexion cable
+        Port in1 = mixer.getInput1();
+        Port in2 = mixer.getInput2();
+        Port in3 = mixer.getInput3();
+        Port in4 = mixer.getInput4();
+        Port out = mixer.getOutput();
+        super.disconnect(in1);
+        super.disconnect(in2);
+        super.disconnect(in3);
+        super.disconnect(in4);
+        super.disconnect(out);
+        // Deconnexion du module Output du synthetizer
+        this.controller.getSynth().remove(mixer);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        HBox hbox1= (HBox) pane.getParent();
+        // supprime le mod niveau ihm
+        hbox1.getChildren().remove(pane);
     }
 
 }
