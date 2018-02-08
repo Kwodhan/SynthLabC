@@ -65,11 +65,11 @@ public class Oscilloscope {
         scope.stop();
     }
 
-    public PortOutput getOutputPort() {
+    public PortOutput getOutput() {
         return portOutput;
     }
 
-    public PortInput getInputPort() {
+    public PortInput getInput() {
         return portInput;
     }
 

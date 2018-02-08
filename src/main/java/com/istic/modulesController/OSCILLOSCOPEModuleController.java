@@ -7,10 +7,14 @@ import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,6 +29,9 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
      */
 
     private Oscilloscope oscilloscope;
+
+    @FXML
+    AnchorPane pane;
 
     @FXML
     ImageView outPort;
@@ -52,9 +59,9 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
     @Override
     public Port getCurrentPort() {
         if (currentPort == 0) {
-            return this.oscilloscope.getOutputPort();
+            return this.oscilloscope.getOutput();
         } else if (currentPort == 1) {
-            return this.oscilloscope.getInputPort();
+            return this.oscilloscope.getInput();
         }
         return null;
     }
@@ -63,7 +70,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
      * Connecting the inPort to draw the cable
      */
     public void connectInPort() {
-        if(!this.oscilloscope.getInputPort().isConnected()) {
+        if(!this.oscilloscope.getInput().isConnected()) {
             currentPort = 1;
             getLayout(inPort);
             super.connect();
@@ -74,7 +81,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-        if(!this.oscilloscope.getOutputPort().isConnected()) {
+        if(!this.oscilloscope.getOutput().isConnected()) {
             currentPort = 0;
             getLayout(outPort);
             super.connect();
@@ -93,4 +100,21 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         audioScopeView.setPreferredSize(d);
         SwingUtilities.invokeLater(() -> swingNode.setContent(audioScopeView));
     }
+
+    @FXML
+    public void removeModule(InputEvent e) throws IOException {
+        //Deconnexion cable
+        Port in = oscilloscope.getInput();
+        Port out = oscilloscope.getOutput();
+        super.disconnect(in);
+        super.disconnect(out);
+        // Deconnexion du module Output du synthetizer
+        //this.controller.getSynth().remove(oscilloscope);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        HBox hbox1= (HBox) pane.getParent();
+        // supprime le mod niveau ihm
+        hbox1.getChildren().remove(pane);
+    }
+
 }

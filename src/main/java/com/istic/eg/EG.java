@@ -24,7 +24,7 @@ public class EG extends Circuit {
 		return portGate;
 	}
 
-	public PortOutput getOutputPort() {
+	public PortOutput getOutput() {
 		return portOutput;
 	}
 

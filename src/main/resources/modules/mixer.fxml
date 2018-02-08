@@ -11,8 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.MIXERModuleController">
-   <userData>
+<?import javafx.scene.control.Button?>
+<AnchorPane fx:id="pane" maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.MIXERModuleController">
+    <userData>
         <fx:reference source="controller" />
     </userData>
 
@@ -65,6 +66,8 @@
                   <Image url="@../img/out.png" />
                </image>
             </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+             <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
             <Slider fx:id="amplitudeSlider1" blockIncrement="1.0" majorTickUnit="1.0" max="0" min="-10" minorTickCount="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Slider fx:id="amplitudeSlider2" blockIncrement="1.0" majorTickUnit="1.0" max="0" min="-10" minorTickCount="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />

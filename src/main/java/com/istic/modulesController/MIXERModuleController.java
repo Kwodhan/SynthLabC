@@ -1,17 +1,29 @@
 package com.istic.modulesController;
 
+import com.istic.eg.EG;
 import com.istic.mixer.MIXER;
 import com.istic.port.Port;
+import javafx.fxml.FXML;
 import com.istic.vca.VCA;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MIXERModuleController extends ModuleController implements Initializable {
+
+    @FXML
+    AnchorPane pane;
+
+
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -73,6 +85,7 @@ public class MIXERModuleController extends ModuleController implements Initializ
             default: return null;
         }
     }
+
     /**
      * Connecting the outPort to draw the cable
      */
@@ -121,6 +134,27 @@ public class MIXERModuleController extends ModuleController implements Initializ
         this.controller.getSynth().add(mixer);
 
 
+    }
+    @FXML
+    public void removeModule(InputEvent e) throws IOException {
+        //Deconnexion cable
+        Port in1 = mixer.getInput1();
+        Port in2 = mixer.getInput2();
+        Port in3 = mixer.getInput3();
+        Port in4 = mixer.getInput4();
+        Port out = mixer.getOutput();
+        super.disconnect(in1);
+        super.disconnect(in2);
+        super.disconnect(in3);
+        super.disconnect(in4);
+        super.disconnect(out);
+        // Deconnexion du module Output du synthetizer
+        this.controller.getSynth().remove(mixer);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        HBox hbox1= (HBox) pane.getParent();
+        // supprime le mod niveau ihm
+        hbox1.getChildren().remove(pane);
     }
 
 }

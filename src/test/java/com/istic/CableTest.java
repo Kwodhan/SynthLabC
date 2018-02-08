@@ -90,11 +90,11 @@ public class CableTest {
                 { vco2.getOutput(), vca.getInput(),  true, true, true, false, false },
                 { vca.getInput(), vco2.getOutput(),  true, true, true, false, false },
 
-                { vca.getAm(), eg1.getOutputPort(),  true, true, true, false, false },
-                { eg1.getOutputPort(), vca.getAm(),  true, true, true, false, false },
+                { vca.getAm(), eg1.getOutput(),  true, true, true, false, false },
+                { eg1.getOutput(), vca.getAm(),  true, true, true, false, false },
 
-                { eg1.getOutputPort(), vco1.getFm(),  true, true, true, false, false },
-                { vco1.getFm(), eg1.getOutputPort(),  true, true, true, false, false },
+                { eg1.getOutput(), vco1.getFm(),  true, true, true, false, false },
+                { vco1.getFm(), eg1.getOutput(),  true, true, true, false, false },
 
                 { vco1.getFm(), vca.getAm(),  false, false, false, false, false },
                 { vca.getAm(), vco1.getFm(),  false, false, false, false, false },

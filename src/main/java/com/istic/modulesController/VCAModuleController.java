@@ -6,11 +6,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class VCAModuleController extends ModuleController implements Initializable {
+
+    @FXML
+    AnchorPane pane;
+    @FXML
+    Slider amplitudeSlider;
+    @FXML
+    ImageView outPort,inPort,amPort;
+    protected VCA vca;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -19,11 +32,6 @@ public class VCAModuleController extends ModuleController implements Initializab
      *                  <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
-    @FXML
-    Slider amplitudeSlider;
-    @FXML
-    ImageView outPort,inPort,amPort;
-    protected VCA vca;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         amplitudeSlider.valueProperty().addListener((ov, old_val, new_val) -> {
@@ -88,5 +96,23 @@ public class VCAModuleController extends ModuleController implements Initializab
 
             default: return null;
         }
+    }
+
+    @FXML
+    public void removeModule(InputEvent e) throws IOException {
+        //Deconnexion cable
+        Port am = vca.getAm();
+        Port in = vca.getInput();
+        Port out = vca.getOutput();
+        super.disconnect(am);
+        super.disconnect(in);
+        super.disconnect(out);
+        // Deconnexion du module Output du synthetizer
+        this.controller.getSynth().remove(vca);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        HBox hbox1= (HBox) pane.getParent();
+        // supprime le mod niveau ihm
+        hbox1.getChildren().remove(pane);
     }
 }
