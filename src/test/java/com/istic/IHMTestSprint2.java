@@ -29,7 +29,6 @@ public class IHMTestSprint2 extends ApplicationTest {
         stage.toFront();
     }
 
-    @Ignore
     @Test
     public void testSprint2() {
         // get output module
