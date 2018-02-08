@@ -77,13 +77,10 @@ public class REP  extends Circuit{
          return portOutput3;
      }
 
-     public PortInput getPortInput(){
+     public PortInput getInput(){
          return portInput;
      }
 
-    public PortInput getInput() {
-        return new PortInput(in);
-    }
  
 	 
 }
