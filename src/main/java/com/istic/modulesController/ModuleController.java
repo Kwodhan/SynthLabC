@@ -26,18 +26,22 @@ public abstract class ModuleController {
 
     public void connect() {
 
-        if (this.controller.isPlugged() && !this.controller.getModuleController().equals(this)) {
+        if (this.controller.isPlugged() && !this.controller.getTemporaryCableModuleController().equals(this)) {
             this.controller.connect(this);
-            this.controller.setModuleController(null);
+            this.controller.setTemporaryCableModuleController(null);
             this.controller.setPlugged(false);
 
         } else {
 
             this.controller.setPlugged(true);
-            this.controller.setModuleController(this);
+            this.controller.setTemporaryCableModuleController(this);
         }
     }
 
+    /**
+     * Supprime le cable branché sur le port du module
+     * @param port port auquel on veut supprimer le cable
+     */
     public void disconnect(Port port) {
         List<CableController> cables = this.controller.getCables();
         Port portOne;
@@ -53,6 +57,10 @@ public abstract class ModuleController {
             }
         }
     }
+
+//    public void deleteModuleControllerFromController(){
+//        this.controller.disconnect(this);
+//    }
 
     /**
      * Get the layout of the port on the UI
