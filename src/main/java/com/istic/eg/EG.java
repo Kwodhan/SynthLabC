@@ -17,11 +17,6 @@ public class EG extends Circuit {
 
 		this.portGate = new PortGate(dahdsr.input);
 		this.portOutput = new PortOutput(dahdsr.output);
-		this.dahdsr.attack.setMaximum(0.05d);
-		this.dahdsr.decay.setMaximum(0.5d);
-		this.dahdsr.sustain.setMaximum(5);
-		this.dahdsr.release.setMaximum(0.5d);
-		// varie entre 0 et 5 volt
 		this.dahdsr.amplitude.setMaximum(1);
 	}
 
@@ -32,21 +27,35 @@ public class EG extends Circuit {
 	public PortOutput getOutputPort() {
 		return portOutput;
 	}
- 
+
+	/**
+	 *
+	 * @param attack varie 0.0003 et 8s
+	 */
 	public void setAttack(double attack) {
 		this.dahdsr.attack.set(attack);
 	}
- 
 
+	/**
+	 *
+	 * @param decay varie 0.0003 et 8s
+	 */
 	public void setDecay(double decay) {
 		this.dahdsr.decay.set(decay);
 	}
- 
 
+	/**
+	 *
+	 * @param sustain varie 0 et 5 V
+	 */
 	public void setSustain(double sustain) {
 		this.dahdsr.sustain.set(sustain);
+	}
 
-	} 
+	/**
+	 *
+	 * @param release varie 0.0003 et 8s
+	 */
 	public void setRelease(double release) {
 		this.dahdsr.release.set(release);
 

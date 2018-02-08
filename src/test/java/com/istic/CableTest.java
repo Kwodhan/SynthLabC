@@ -1,7 +1,11 @@
 package com.istic;
 
 import com.istic.cable.Cable;
+import com.istic.eg.EG;
+import com.istic.oscillo.Oscilloscope;
 import com.istic.port.Port;
+import com.istic.rep.REP;
+import com.istic.vca.VCA;
 import com.istic.vco.VCO;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
@@ -38,25 +42,78 @@ public class CableTest {
             OutMod lineOut;
             VCO vco;
             VCO vco2;
+            VCA vca;
+            EG eg;
+            EG eg2;
+            REP rep;
+            Oscilloscope oscilloscope;
 
             synth = JSyn.createSynthesizer();
             lineOut = new OutMod();
             vco = new VCO();
             vco2 = new VCO();
+            vca = new VCA();
+            eg = new EG();
+            eg2 = new EG();
+            rep = new REP();
+            oscilloscope = new Oscilloscope(synth);
+
             synth.add(lineOut);
             synth.add(vco);
             synth.add(vco2);
+            synth.add(vca);
+            synth.add(eg);
+            synth.add(eg2);
+            synth.add(rep);
 
             return Arrays.asList(new Object[][] {
-                { vco.getOutput(), lineOut.getPortInput(), true, true, true, false, false },
+
                 { vco.getOutput(), vco.getOutput(), false, false, false, false, false },
-                { lineOut.getPortInput(), vco.getOutput(),  true, true, true, false, false },
+                { vco2.getFm(), vco.getFm(),  false, false, false, false, false },
                 { lineOut.getPortInput(), lineOut.getPortInput(), false, false, false, false, false },
+                { vca.getAm(), vca.getAm(), false, false, false, false, false },
+                { eg.getGateInput(), eg.getGateInput(), false, false, false, false, false },
+                { eg.getGateInput(), eg2.getGateInput(), false, false, false, false, false },
+
                 { vco2.getFm(), vco.getOutput(),  true, true, true, false, false },
                 { vco.getOutput(), vco2.getFm(),  true, true, true, false, false },
-                { vco2.getFm(), vco.getFm(),  false, false, false, false, false },
+
+                { vco.getOutput(), lineOut.getPortInput(), true, true, true, false, false },
+                { lineOut.getPortInput(), vco.getOutput(),  true, true, true, false, false },
+
                 { vco2.getFm(), lineOut.getPortInput(),  false, false, false, false, false },
                 { lineOut.getPortInput(), vco2.getFm(),  false, false, false, false, false },
+
+                { vca.getOutput(), lineOut.getPortInput(),  true, true, true, false, false },
+                { lineOut.getPortInput(), vca.getOutput(),  true, true, true, false, false },
+
+                { vco2.getOutput(), vca.getInput(),  true, true, true, false, false },
+                { vca.getInput(), vco2.getOutput(),  true, true, true, false, false },
+
+                { vca.getAm(), eg.getOutputPort(),  true, true, true, false, false },
+                { eg.getOutputPort(), vca.getAm(),  true, true, true, false, false },
+
+                { eg.getOutputPort(), vco.getFm(),  true, true, true, false, false },
+                { vco.getFm(), eg.getOutputPort(),  true, true, true, false, false },
+
+                { vco.getFm(), vca.getAm(),  false, false, false, false, false },
+                { vca.getAm(), vco.getFm(),  false, false, false, false, false },
+
+                { vca.getAm(), rep.getInput(),  false, false, false, false, false },
+                { rep.getInput(),vca.getAm(),  false, false, false, false, false },
+
+                { vca.getInput(),rep.getOutput1(),  true, true, true, false, false },
+                { rep.getOutput2(),vca.getInput(),  true, true, true, false, false },
+
+                { eg.getGateInput(),vca.getOutput(),  true, true, true, false, false },
+                { vca.getOutput(),eg.getGateInput(),  true, true, true, false, false },
+
+                { vco.getFm(),eg.getGateInput(),  false, false, false, false, false },
+                { eg.getGateInput(),vco.getFm(),  false, false, false, false, false },
+
+                { vca.getAm(),eg.getGateInput(),  false, false, false, false, false },
+                { eg.getGateInput(),vca.getAm(),  false, false, false, false, false },
+
             });
         }
 
