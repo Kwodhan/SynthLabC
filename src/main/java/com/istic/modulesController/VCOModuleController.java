@@ -52,17 +52,17 @@ public class VCOModuleController extends ModuleController implements Initializab
         triangleRadio.setToggleGroup(group);
         squareRadio.setToggleGroup(group);
         squareRadio.setSelected(true);
-
+        Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
             vco.changeOctave((int) frequencySlider.getValue());
-            Platform.runLater(() -> txtHertz.setText(Math.round(vco.getFrequence()) + " Hz"));
+            Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
         });
 
         frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
             vco.changeFin(frequencyFineSlider.getValue());
-            Platform.runLater(() -> txtHertz.setText(Math.round(vco.getFrequence()) + " Hz"));
+            Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
         });
         //this.synth.start();
         //vco.start();

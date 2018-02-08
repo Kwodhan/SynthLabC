@@ -69,7 +69,7 @@ public class VCO extends Circuit {
             add(oscillator);
             addPort(oscillator.getOutput());
             // 0.2 Amp => 1 V
-            oscillator.amplitude.setup(0,(double)1/Constant.Volt,10);
+            oscillator.amplitude.setup(0,1,10);
             // connexion des 3 oscillators au reglageVCO
             reglageVCO.getOut().connect(oscillator.frequency);
         }
