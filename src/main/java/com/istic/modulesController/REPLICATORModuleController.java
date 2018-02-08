@@ -5,7 +5,11 @@ import com.istic.rep.REP;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -13,6 +17,8 @@ public class REPLICATORModuleController extends ModuleController implements Init
 
     protected REP rep;
 
+    @FXML
+    AnchorPane pane;
     @FXML
     ImageView outPort1, outPort2, outPort3;
     @FXML
@@ -94,5 +100,25 @@ public class REPLICATORModuleController extends ModuleController implements Init
 
             default: return null;
         }
+    }
+
+    @FXML
+    public void removeModule(InputEvent e) throws IOException {
+        //Deconnexion cable
+        Port in = rep.getInput();
+        Port out1 = rep.getOutput1();
+        Port out2 = rep.getOutput2();
+        Port out3 = rep.getOutput3();
+        super.disconnect(in);
+        super.disconnect(out1);
+        super.disconnect(out2);
+        super.disconnect(out3);
+        // Deconnexion du module Output du synthetizer
+        this.controller.getSynth().remove(rep);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        HBox hbox1= (HBox) pane.getParent();
+        // supprime le mod niveau ihm
+        hbox1.getChildren().remove(pane);
     }
 }
