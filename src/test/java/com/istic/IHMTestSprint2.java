@@ -124,7 +124,9 @@ public class IHMTestSprint2 extends ApplicationTest {
         moveTo(vco2SliderFin);
         vco2SliderFin.setValue(2.2);
 
-        sleep(10000);
+        sleep(2000);
+
+        clickOn("#mute");
     }
 
 }

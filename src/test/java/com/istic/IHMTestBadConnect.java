@@ -158,8 +158,9 @@ public class IHMTestBadConnect extends ApplicationTest {
 
         cable1 = lookup("#cable-1").query();
         assertNull(cable1);
-
+        clickOn("#mute");
     }
+
 
 
 }

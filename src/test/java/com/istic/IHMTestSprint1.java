@@ -11,7 +11,7 @@ import org.testfx.framework.junit.ApplicationTest;
 
 public class IHMTestSprint1 extends ApplicationTest {
 
-
+    Stage stage;
 
     @Override
     public void start (Stage stage) throws Exception {
@@ -19,7 +19,9 @@ public class IHMTestSprint1 extends ApplicationTest {
         stage.setScene(new Scene(mainNode));
         stage.show();
         stage.toFront();
+        this.stage=stage;
     }
+
 
     @Before
     public void testConnectVCOwithOuput() {
@@ -76,7 +78,12 @@ public class IHMTestSprint1 extends ApplicationTest {
         attenuation.setValue(0);
 
         // end
+
         sleep(2000);
+
+        clickOn("#mute");
+
     }
+
 
 }
