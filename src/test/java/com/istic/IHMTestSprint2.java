@@ -103,6 +103,28 @@ public class IHMTestSprint2 extends ApplicationTest {
         assertNotNull(cable6);
         assertEquals(cable6.getId(), "cable-6");
 
+
+        // CHANGE SLIDER
+
+
+        // un VCO n°1 réglé à la fréquence de 1 Hz (comme un LFO) ;
+        Slider vco1SliderOctave = (Slider) vco1.lookup("#frequencySlider");
+        moveTo(vco1SliderOctave);
+        vco1SliderOctave.setValue(-8);
+
+        Slider vco1SliderFin = (Slider) vco1.lookup("#frequencyFineSlider");
+        moveTo(vco1SliderFin);
+        vco1SliderFin.setValue(-9);
+
+        // un VCO n°2 réglé à la fréquence de base de 1 kHz ;
+        Slider vco2SliderOctave = (Slider) vco2.lookup("#frequencySlider");
+        moveTo(vco2SliderOctave);
+        vco2SliderOctave.setValue(1);
+
+        Slider vco2SliderFin = (Slider) vco2.lookup("#frequencyFineSlider");
+        moveTo(vco2SliderFin);
+        vco2SliderFin.setValue(2);
+
         sleep(5000);
     }
 
