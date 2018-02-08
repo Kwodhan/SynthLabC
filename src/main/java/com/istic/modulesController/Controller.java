@@ -95,6 +95,9 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/mixer.fxml"));
 		addMod(root);
+		MIXERModuleController mixerModuleController= (MIXERModuleController) root.getUserData();
+		this.moduleControllers.add(mixerModuleController);
+		mixerModuleController.init(this);
 	}
 
 	public void addEG() throws IOException {
