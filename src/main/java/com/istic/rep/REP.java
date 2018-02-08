@@ -1,17 +1,35 @@
 package com.istic.rep;
 
+import com.istic.port.PortFm;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
+import com.istic.vca.ReglageVCA;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
+import com.jsyn.unitgen.PassThrough;
+import com.jsyn.unitgen.UnitGenerator;
+import com.jsyn.unitgen.UnitOscillator;
 
+/**
+ *
+ +--------------------------------------+
+ |                                      |
+ |        +--------------------+        |
+ |        |                    |        |
+ |        |     Reglage        +--------0
+ +--------O       REP          |        |
+ |        |                    +--------0
+ |        |                    |        |
+ |        |                    +--------0
+ |        +--------------------+        |
+ |                                      |
+ +--------------------------------------+
+
+ */
 public class REP  extends Circuit{
 
 
-    /**
-     * Port de sortie du VCO
-     */
     private UnitInputPort in;
 	private UnitOutputPort out1;
 	private UnitOutputPort out2;
@@ -24,11 +42,7 @@ public class REP  extends Circuit{
 	PortOutput portOutput3;
 
 	PortInput portInput;
- 
 
-    /**
-     * reglage ao, am
-     */
     private ReglageREP reglageREP;
     /**
      * reglage wave

@@ -61,7 +61,7 @@ public class REPLICATORModuleController extends ModuleController implements Init
      * Connecting the outPort2 to draw the cable
      */
     public void connectOutPort2() {
-        if(!this.rep.getOutput1().isConnected()) {
+        if(!this.rep.getOutput2().isConnected()) {
             currentPort = 2;
             getLayout(outPort2);
             super.connect();
@@ -71,7 +71,7 @@ public class REPLICATORModuleController extends ModuleController implements Init
      * Connecting the outPort3 to draw the cable
      */
     public void connectOutPort3() {
-        if(!this.rep.getOutput1().isConnected()) {
+        if(!this.rep.getOutput3().isConnected()) {
             currentPort = 3;
             getLayout(outPort3);
             super.connect();

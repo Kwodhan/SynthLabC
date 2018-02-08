@@ -1,6 +1,6 @@
 package com.istic.port;
 
-public class VisitorGate  implements VisitorConnectPort{
+public class VisitorGate  implements VisitorPort {
 
     PortGate portGate;
 
@@ -15,7 +15,7 @@ public class VisitorGate  implements VisitorConnectPort{
 
     @Override
     public boolean visit(PortOutput portOutput) {
-        portOutput.getUnitOutputPort().connect(0,portGate.getUnitGatePort(),0);
+        portOutput.getUnitOutputPort().connect(portGate.getUnitGatePort());
         return true;
     }
 

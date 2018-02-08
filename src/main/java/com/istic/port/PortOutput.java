@@ -2,6 +2,9 @@ package com.istic.port;
 
 import com.jsyn.ports.UnitOutputPort;
 
+/**
+ * Port OutPut d'un module
+ */
 public class PortOutput extends Port {
 
     private UnitOutputPort unitOutputPort;
@@ -9,12 +12,12 @@ public class PortOutput extends Port {
     public PortOutput( UnitOutputPort unitOutputPort) {
         super();
         this.unitOutputPort = unitOutputPort;
-        this.visitorConnectPort =  new VisitorOuput(this);
+        this.visitorPort =  new VisitorOuput(this);
     }
 
 
     @Override
-    public boolean accept(VisitorConnectPort visitor) {
+    public boolean accept(VisitorPort visitor) {
         return visitor.visit(this);
     }
 

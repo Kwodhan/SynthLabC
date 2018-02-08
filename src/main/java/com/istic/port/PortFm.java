@@ -2,21 +2,22 @@ package com.istic.port;
 
 import com.jsyn.ports.UnitInputPort;
 
+/**
+ * Port FM d'un module
+ */
 public class PortFm extends Port {
 
     private UnitInputPort unitFmPort;
 
-    private Integer Volt = 0;
-
     public PortFm(UnitInputPort unitFmPort) {
         super();
         this.unitFmPort = unitFmPort;
-        this.visitorConnectPort =  new VisitorFm(this);
+        this.visitorPort =  new VisitorFm(this);
     }
 
 
     @Override
-    public boolean accept(VisitorConnectPort visitor) {
+    public boolean accept(VisitorPort visitor) {
         return visitor.visit(this);
     }
 
@@ -29,11 +30,4 @@ public class PortFm extends Port {
         return unitFmPort;
     }
 
-    public Integer getVolt() {
-        return Volt;
-    }
-
-    public void setVolt(Integer volt) {
-        Volt = volt;
-    }
 }

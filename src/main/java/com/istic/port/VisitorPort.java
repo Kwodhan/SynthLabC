@@ -1,9 +1,9 @@
 package com.istic.port;
 
 /**
- * Contrainte pour chaque port
+ * Définition des contraintes pour chaque port
  */
-public interface VisitorConnectPort {
+public interface VisitorPort {
     boolean visit(PortInput portInput);
     boolean visit(PortOutput portOutput);
     boolean visit(PortFm portFm);

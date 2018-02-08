@@ -6,8 +6,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class CableController {
+    /**
+     *
+     */
     AnchorPane pane;
+    /**
+     * Cable entre deux ports
+     */
     Cable cable;
+    /**
+     * Ligne graphique
+     */
     Line line;
 
     public CableController(AnchorPane pane, Cable cable) {
@@ -19,7 +28,6 @@ public class CableController {
     public void disconnect() {
             cable.disconnect();
             pane.getChildren().remove(line);
-
     }
 
     public void drawCable(ModuleController moduleController1, ModuleController moduleController2,Integer id) {
@@ -29,10 +37,15 @@ public class CableController {
                 moduleController2.getY());
         line.setStrokeWidth(5);
         line.setStroke(Color.BLUEVIOLET);
-        line.setId("cable"+id);
+        line.setId("cable-"+id);
         pane.getChildren().add(line);
         line.setOnMouseClicked(event -> {
             this.disconnect();
         });
     }
+
+    public Cable getCable() {
+        return cable;
+    }
+
 }

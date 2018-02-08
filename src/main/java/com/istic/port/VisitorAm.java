@@ -1,10 +1,11 @@
 package com.istic.port;
 
-public class VisitorAm implements VisitorConnectPort {
-    PortAm portInput;
+public class VisitorAm implements VisitorPort {
 
-    public VisitorAm(PortAm portGate) {
-        this.portInput = portGate;
+    PortAm portAm;
+
+    public VisitorAm(PortAm portAm) {
+        this.portAm = portAm;
     }
 
 
@@ -17,8 +18,8 @@ public class VisitorAm implements VisitorConnectPort {
 
     @Override
     public boolean visit(PortOutput portOutput) {
-
-        return false;
+        portOutput.getUnitOutputPort().connect(0,portAm.getUnitAmPort(),0);
+        return true;
 
     }
 

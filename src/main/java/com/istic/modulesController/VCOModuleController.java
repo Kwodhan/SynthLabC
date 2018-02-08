@@ -12,7 +12,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,8 +30,8 @@ public class VCOModuleController extends ModuleController implements Initializab
      * <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
-
-
+    @FXML
+    AnchorPane pane;
     @FXML
     Slider frequencySlider;
     @FXML
@@ -52,17 +57,17 @@ public class VCOModuleController extends ModuleController implements Initializab
         triangleRadio.setToggleGroup(group);
         squareRadio.setToggleGroup(group);
         squareRadio.setSelected(true);
-
+        Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
             vco.changeOctave((int) frequencySlider.getValue());
-            Platform.runLater(() -> txtHertz.setText(Math.round(vco.getFrequence()) + " Hz"));
+            Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
         });
 
         frequencyFineSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             //frequencyFineSlider.setValue(Math.round(frequencyFineSlider.getValue()));
             vco.changeFin(frequencyFineSlider.getValue());
-            Platform.runLater(() -> txtHertz.setText(Math.round(vco.getFrequence()) + " Hz"));
+            Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
         });
         //this.synth.start();
         //vco.start();
@@ -129,6 +134,22 @@ public class VCOModuleController extends ModuleController implements Initializab
     public void triangleSound() {
         vco.changeShapeWave(VCO.TRIANGLEWAVE);
 
+    }
+
+    @FXML
+    public void removeOutput(InputEvent e) throws IOException {
+        //Deconnexion cable
+        Port fm = vco.getFm();
+        Port out = vco.getOutput();
+        super.disconnect(fm);
+        super.disconnect(out);
+        // Deconnexion du module Output du synthetizer
+        this.controller.getSynth().remove(vco);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        StackPane stackPane = (StackPane) pane.getParent();
+        // supprime le mod niveau ihm
+        stackPane.getChildren().remove(pane);
     }
 
 }

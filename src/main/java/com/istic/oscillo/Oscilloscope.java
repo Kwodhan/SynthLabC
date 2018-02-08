@@ -7,6 +7,21 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.scope.AudioScope;
 import com.jsyn.scope.swing.AudioScopeView;
 
+/**
+ *
+ +----------------------------------------+
+ |                                        |
+ |                       +--------------+ |
+ +---------------+       |Audio Scope   | |
+ | Oscilloscope  0-------O              | |
+ O PassThroug    |       +--------------+ |
+ |               +--|                     |
+ +---------------+  |---------------------0
+ |                                        |
+ |                                        |
+ +----------------------------------------+
+
+ */
 public class Oscilloscope {
 
     private AudioScope scope;
@@ -20,6 +35,7 @@ public class Oscilloscope {
      */
     public Oscilloscope(Synthesizer synth) {
         scope = new AudioScope(synth);
+        scope.setViewMode(AudioScope.ViewMode.SPECTRUM);
         scope.setTriggerMode(AudioScope.TriggerMode.NORMAL);
 
         OscilloscopePassThrough oscilloscopePassThrough = new OscilloscopePassThrough();

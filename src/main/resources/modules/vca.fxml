@@ -36,7 +36,7 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Text>
-                <Slider fx:id="amplitudeSlider" blockIncrement="1.0" majorTickUnit="1.0" max="50.0" min="0.0" minorTickCount="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <Slider fx:id="amplitudeSlider" blockIncrement="1.0" majorTickUnit="1.0" max="0" min="-10" minorTickCount="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                 <ImageView fx:id="outPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectOutPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                     <image>
