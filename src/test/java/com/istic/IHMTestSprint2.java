@@ -114,7 +114,7 @@ public class IHMTestSprint2 extends ApplicationTest {
 
         Slider vco1SliderFin = (Slider) vco1.lookup("#frequencyFineSlider");
         moveTo(vco1SliderFin);
-        vco1SliderFin.setValue(-9);
+        vco1SliderFin.setValue(-9.4);
 
         // un VCO n°2 réglé à la fréquence de base de 1 kHz ;
         Slider vco2SliderOctave = (Slider) vco2.lookup("#frequencySlider");
@@ -123,9 +123,9 @@ public class IHMTestSprint2 extends ApplicationTest {
 
         Slider vco2SliderFin = (Slider) vco2.lookup("#frequencyFineSlider");
         moveTo(vco2SliderFin);
-        vco2SliderFin.setValue(2);
+        vco2SliderFin.setValue(2.2);
 
-        sleep(5000);
+        sleep(10000);
     }
 
 }
