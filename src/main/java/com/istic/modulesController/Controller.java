@@ -33,8 +33,12 @@ public class Controller implements Initializable {
     Slider frequencyFineSlider;
     @FXML
     RadioButton sawRadio, triangleRadio,squareRadio;
+    @FXML
+	RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem;
+	final ToggleGroup group = new ToggleGroup();
 
-    private List<ModuleController> moduleControllers;
+
+	private List<ModuleController> moduleControllers;
     private List<CableController> cables;
 
 
@@ -54,8 +58,11 @@ public class Controller implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.synth = JSyn.createSynthesizer();
 		this.synth.start();
+		coralMenuItem.setToggleGroup(group);
+		darkMenuItem.setToggleGroup(group);
+		woodMenuItem.setToggleGroup(group);
 
-        this.moduleControllers = new ArrayList<>();
+		this.moduleControllers = new ArrayList<>();
         this.cables = new ArrayList<>();
 
 		try {
@@ -65,6 +72,18 @@ public class Controller implements Initializable {
 			e.printStackTrace();
 		}
     }
+    public void coralTheme(){
+		pane.getStylesheets().clear();
+		pane.getStylesheets().add("/skins/coral.css");
+	}
+	public void darkTheme(){
+		pane.getStylesheets().clear();
+		pane.getStylesheets().add("/skins/dark.css");
+	}
+	public void woodTheme(){
+		pane.getStylesheets().clear();
+		pane.getStylesheets().add("/skins/wood.css");
+	}
 
 
 	public void addVCO() throws IOException {
@@ -95,6 +114,9 @@ public class Controller implements Initializable {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/mixer.fxml"));
 		addMod(root);
+		MIXERModuleController mixerModuleController= (MIXERModuleController) root.getUserData();
+		this.moduleControllers.add(mixerModuleController);
+		mixerModuleController.init(this);
 	}
 
 	public void addEG() throws IOException {
