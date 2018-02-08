@@ -81,7 +81,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     }
 
     @FXML
-    public void removeOutput(InputEvent e) throws IOException {
+    public void removeModule(InputEvent e) throws IOException {
         //Deconnexion cable
         Port port = lineOut.getPortInput();
         super.disconnect(port);

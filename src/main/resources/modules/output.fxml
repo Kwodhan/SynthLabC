@@ -50,7 +50,7 @@
             </ImageView>
             <Slider fx:id="attenuationSlider" blockIncrement="1.0" majorTickUnit="1.0" max="12.0" min="-12.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <ToggleButton fx:id="mute" contentDisplay="BOTTOM" layoutX="108.0" layoutY="129.0" mnemonicParsing="false" onAction="#toggleMute" text="Mute" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeOutput" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
+            <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </children>

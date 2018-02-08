@@ -136,7 +136,7 @@ public class VCOModuleController extends ModuleController implements Initializab
     }
 
     @FXML
-    public void removeOutput(InputEvent e) throws IOException {
+    public void removeModule(InputEvent e) throws IOException {
         //Deconnexion cable
         Port fm = vco.getFm();
         Port out = vco.getOutput();
