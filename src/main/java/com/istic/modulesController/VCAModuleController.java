@@ -40,9 +40,14 @@ public class VCAModuleController extends ModuleController implements Initializab
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
-
     }
 
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller
+     */
     public void init(Controller controller) {
         super.init(controller);
         this.vca = new VCA();
@@ -82,7 +87,10 @@ public class VCAModuleController extends ModuleController implements Initializab
         }
     }
 
-
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
         switch (currentPort) {

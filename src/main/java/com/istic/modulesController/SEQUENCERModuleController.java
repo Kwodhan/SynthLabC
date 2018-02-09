@@ -30,6 +30,10 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 
     }
 
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
         return null;
