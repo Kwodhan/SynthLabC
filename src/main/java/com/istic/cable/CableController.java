@@ -102,6 +102,7 @@ public class CableController {
         double x=Math.abs(x1-x2);
         double y=Math.abs(y1-y2);
         return x/6+y/2;
+        
     }
 
 }
