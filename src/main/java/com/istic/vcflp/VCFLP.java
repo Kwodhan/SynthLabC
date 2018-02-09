@@ -1,6 +1,5 @@
-package vcflp;
+package com.istic.vcflp;
 
-import com.istic.port.PortAm;
 import com.istic.port.PortFm;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;

@@ -1,16 +1,13 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
-import com.istic.vca.VCA;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
-import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import vcflp.VCFLP;
+import com.istic.vcflp.VCFLP;
 
 import java.io.IOException;
 import java.net.URL;
