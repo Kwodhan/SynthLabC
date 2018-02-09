@@ -289,7 +289,7 @@ public class Controller implements Initializable {
 
     /**
      * Ajoute un module sur le board
-     * 
+     *
      * @param root
      */
     public void addMod(Node root) {

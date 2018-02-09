@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
@@ -65,6 +64,23 @@ public class EGModuleController extends ModuleController implements Initializabl
 
     }
 
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller
+     */
+    public void init(Controller controller) {
+        super.init(controller);
+        this.eg = new EG();
+        this.controller.getSynth().add(eg);
+
+    }
+
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     public Port getCurrentPort() {
         if (currentPort == 0) {
             return eg.getOutput();
@@ -74,13 +90,9 @@ public class EGModuleController extends ModuleController implements Initializabl
         return null;
     }
 
-    public void init(Controller controller) {
-        super.init(controller);
-        this.eg = new EG();
-        this.controller.getSynth().add(eg);
-
-    }
-    
+    /**
+     * Connecte le port Gate pour tracer le cable
+     */
     public void connectGatePort() {
         if(!this.eg.getGateInput().isConnected()) {
             currentPort = 1;

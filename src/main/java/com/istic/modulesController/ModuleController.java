@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import java.util.List;
 
 public abstract class ModuleController {
+
     protected Controller controller;
 
     protected double x = 0, y = 0;
@@ -15,8 +16,11 @@ public abstract class ModuleController {
     protected int currentPort = -1;
 
 
-
-
+    /**
+     * Lie le controller du module au controller général
+     *
+     * @param controller
+     */
     public void init(Controller controller) {
 
         this.controller = controller;
@@ -24,6 +28,10 @@ public abstract class ModuleController {
 
     }
 
+    /**
+     * Crée un cable entre deux ports
+     *
+     */
     public void connect() {
 
         if (this.controller.isPlugged() && !this.controller.getTemporaryCableModuleController().equals(this)) {
@@ -75,6 +83,7 @@ public abstract class ModuleController {
 
     }
 
+    // Setters & Getters
 
     public abstract Port getCurrentPort();
 

@@ -5,6 +5,7 @@ import com.istic.port.PortOutput;
 import com.jsyn.unitgen.*;
 
 public class EG extends Circuit {
+
 	private EnvelopeDAHDSR dahdsr;
 
 	PortGate portGate;
