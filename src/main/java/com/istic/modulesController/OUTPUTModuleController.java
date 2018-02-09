@@ -50,9 +50,13 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     }
 
 
-
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller
+     */
     public void init(Controller controller){
-
         super.init(controller);
         this.lineOut = new OutMod();
         this.controller.getSynth().add(this.lineOut);
@@ -60,24 +64,34 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
     }
 
+    /**
+     * Connecte le port d'entrée pour tracer le cable
+     */
     public void connect() {
         super.getLayout(inPort);
         super.connect();
     }
 
-
+    /**
+     * Gère la fonctionnalité "Muet"
+     * Coupe le son
+     */
     public void toggleMute() {
+
         this.lineOut.toggleMute();
     }
 
 
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     public Port getCurrentPort(){
 
         if(!this.lineOut.getPortInput().isConnected()) {
             return lineOut.getPortInput();
         }
         return null;
-
     }
 
     /**

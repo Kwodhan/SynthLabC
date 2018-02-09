@@ -66,6 +66,18 @@ public class MIXERModuleController extends ModuleController implements Initializ
     }
 
     /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller
+     */
+    public void init(Controller controller) {
+        super.init(controller);
+        this.mixer = new MIXER();
+        this.controller.getSynth().add(mixer);
+    }
+
+    /**
      * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
      * @return le port sur lequel l'utilisateur a cliqué côté IHM
      */
@@ -144,18 +156,6 @@ public class MIXERModuleController extends ModuleController implements Initializ
             getLayout(inPort4);
             super.connect();
         }
-    }
-
-    /**
-     * Initialise le contrôleur du module et
-     * ajoute le module au synthétiseur
-     *
-     * @param controller
-     */
-    public void init(Controller controller) {
-        super.init(controller);
-        this.mixer = new MIXER();
-        this.controller.getSynth().add(mixer);
     }
 
     /**
