@@ -1,13 +1,16 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.vca.VCA;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Slider;
 import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import vcflp.VCFLP;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +21,11 @@ public class VCFLPModuleController extends ModuleController implements Initializ
 
     @FXML
     AnchorPane pane;
+    protected VCFLP vcflp;
+    @FXML
+    ImageView outPort,inPort,fmPort;
+    @FXML
+    Slider filterSlider,frequencySlider;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -29,7 +37,18 @@ public class VCFLPModuleController extends ModuleController implements Initializ
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        filterSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            filterSlider.setValue(Math.round(filterSlider.getValue()));
+            vcflp.changeFilter((int) filterSlider.getValue());
+            //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
+        });
+        frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            frequencySlider.setValue(Math.round(frequencySlider.getValue()));
+            vcflp.changeF0((int) frequencySlider.getValue());
+            //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
+
+        });
     }
 
     /**
@@ -38,8 +57,18 @@ public class VCFLPModuleController extends ModuleController implements Initializ
      */
     @Override
     public Port getCurrentPort() {
-        return null;
+        switch (currentPort) {
+
+            case 0:
+                return vcflp.getOutput();
+            case 1:
+                return vcflp.getInput();
+            case 2 :
+                return vcflp.getFm();
+            default: return null;
+        }
     }
+
 
     @Override
     public Map<ImageView, Port> getAllPorts() {
@@ -66,5 +95,42 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+    }
+    public void init(Controller controller) {
+        super.init(controller);
+        this.vcflp = new VCFLP();
+        this.controller.getSynth().add(vcflp);
+
+
+    }
+    /**
+     * Connecting the outPort to draw the cable
+     */
+    public void connectOutPort() {
+        if(!this.vcflp.getOutput().isConnected()) {
+            currentPort = 0;
+            getLayout(outPort);
+            super.connect();
+        }
+    }
+    /**
+     * Connecting the inPort to draw the cable
+     */
+    public void connectInPort() {
+        if(!this.vcflp.getInput().isConnected()) {
+            currentPort = 1;
+            getLayout(inPort);
+            super.connect();
+        }
+    }
+    /**
+     * Connecting the fmPort to draw the cable
+     */
+    public void connectFmPort() {
+        if(!this.vcflp.getFm().isConnected()) {
+            currentPort = 2;
+            getLayout(fmPort);
+            super.connect();
+        }
     }
 }

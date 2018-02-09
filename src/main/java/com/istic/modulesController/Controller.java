@@ -29,20 +29,10 @@ public class Controller implements Initializable  {
 	@FXML
 	AnchorPane pane;
 	@FXML
-	MenuItem vcoMenuItem;
-	@FXML
-	HBox hBox1, hBox2, hBox3;
-	@FXML
-	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
+	MenuItem vcoMenuItem,saveConfigMenuItem,openConfigMenuItem,saveToMP3MenuItem,dropAllMenuItem;
 
 	@FXML
-	Button startVCOButton, stopVCOButton;
-	@FXML
-	Slider frequencySlider;
-	@FXML
-	Slider frequencyFineSlider;
-	@FXML
-	RadioButton sawRadio, triangleRadio, squareRadio;
+	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
 
     @FXML
     RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem;
@@ -114,7 +104,33 @@ public class Controller implements Initializable  {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Drop all the modules
+	 */
+	public void dropAll(){
+        for(StackPane s : stacks) {
+            s.getChildren().clear();
+        }
+	}
 
+	/**
+	 * Open a configuration
+	 */
+	public void openConfig(){
+
+	}
+	/**
+	 * Save a configuration
+	 */
+	public void saveConfig(){
+
+	}
+    /**
+     * Save as MP3 file
+     */
+    public void saveToMP3(){
+
+    }
     /**
      * Change le thème en coral
      */
@@ -270,6 +286,9 @@ public class Controller implements Initializable  {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vcfLp.fxml"));
 		addMod(root);
+        VCFLPModuleController vcflpModuleController = (VCFLPModuleController) root.getUserData();
+        this.moduleControllers.add(vcflpModuleController);
+        vcflpModuleController.init(this);
 	}
 
     /**
