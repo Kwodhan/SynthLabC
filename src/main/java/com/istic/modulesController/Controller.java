@@ -74,6 +74,7 @@ public class Controller implements Initializable  {
 		woodMenuItem.setToggleGroup(group);
 		this.mouseLine = new Line();
 		this.mouseLine.setVisible(false);
+		this.mouseLine.setStrokeWidth(3);
 		this.moduleControllers = new ArrayList<>();
         this.cables = new ArrayList<>();
 		pane.getChildren().add(mouseLine);
