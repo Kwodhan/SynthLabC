@@ -43,17 +43,19 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
     Pane paneOscilloscope;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) { }
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 
     public void init(Controller controller) {
         super.init(controller);
         this.oscilloscope = new Oscilloscope(controller.getSynth());
 
         final SwingNode swingNode = new SwingNode();
+        oscilloscope.start();
         createSwingContent(swingNode, oscilloscope.getView());
         paneOscilloscope.getChildren().add(swingNode);
 
-        oscilloscope.start();
     }
 
     @Override

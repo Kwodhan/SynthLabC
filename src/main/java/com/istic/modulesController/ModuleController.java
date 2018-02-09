@@ -4,6 +4,7 @@ import com.istic.cable.CableController;
 import com.istic.port.Port;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Line;
 
 import java.util.List;
 
@@ -26,13 +27,23 @@ public abstract class ModuleController {
 
     public void connect() {
 
+        Line line = this.controller.getMouseLine();
+        // si il y a déja une connection, on connect
         if (this.controller.isPlugged() && !this.controller.getTemporaryCableModuleController().equals(this)) {
             this.controller.connect(this);
             this.controller.setTemporaryCableModuleController(null);
             this.controller.setPlugged(false);
+            line.setVisible(false);
 
-        } else {
+        } else if (this.controller.isPlugged()) {  // si c'est le même module
+            this.controller.setTemporaryCableModuleController(null);
+            this.controller.setPlugged(false);
+            line.setVisible(false);
 
+        }else { // si c'est le premier port
+            line.setStartX(this.getX());
+            line.setStartY(this.getY());
+            line.setVisible(true);
             this.controller.setPlugged(true);
             this.controller.setTemporaryCableModuleController(this);
         }

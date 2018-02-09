@@ -113,7 +113,6 @@ public class IHMTestBadConnect extends ApplicationTest {
         cable1 = lookup("#cable-1").query();
         assertNull(cable1);
 
-
         // la sortie `out` du VCA est reliée à la sortie `out2` du REP ;
         clickOn(eg.lookup("#gatePort"));
         clickOn(replicator.lookup("#inPort"));

@@ -53,16 +53,19 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
     public void init(Controller controller){
 
-        super.init(controller);
-        this.lineOut = new OutMod();
-        this.controller.getSynth().add(this.lineOut);
-        lineOut.start();
+            super.init(controller);
+            this.lineOut = new OutMod();
+            this.controller.getSynth().add(this.lineOut);
+            lineOut.start();
+
 
     }
 
     public void connect() {
-        super.getLayout(inPort);
-        super.connect();
+        if(!this.lineOut.getPortInput().isConnected()) {
+            super.getLayout(inPort);
+            super.connect();
+        }
     }
 
 

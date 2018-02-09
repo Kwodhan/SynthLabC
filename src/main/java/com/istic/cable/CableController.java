@@ -22,6 +22,7 @@ public class CableController {
     public CableController(AnchorPane pane, Cable cable) {
         this.cable = cable;
         this.pane = pane;
+
     }
 
 

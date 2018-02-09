@@ -4,14 +4,17 @@ import com.istic.cable.Cable;
 import com.istic.cable.CableController;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +44,7 @@ public class Controller implements Initializable {
 	private List<ModuleController> moduleControllers;
     private List<CableController> cables;
 
+    protected Line mouseLine = new Line();
 
     private Synthesizer synth;
     /**
@@ -71,6 +75,18 @@ public class Controller implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		pane.getChildren().add(mouseLine);
+		mouseLine.setVisible(false);
+		pane.addEventFilter(MouseEvent.ANY, mouseEvent -> {
+
+            if(mouseEvent.getEventType() == MouseEvent.MOUSE_MOVED){
+            	int x = (mouseLine.getStartX()>mouseEvent.getX()?2:-2);
+				int y = (mouseLine.getStartY()>mouseEvent.getY()?2:-2);
+                mouseLine.setEndX(mouseEvent.getX()+x);
+                mouseLine.setEndY(mouseEvent.getY()+y);
+            }
+
+        });
     }
     public void coralTheme(){
 		pane.getStylesheets().clear();
@@ -133,11 +149,11 @@ public class Controller implements Initializable {
 	public void addOscilloscope() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/oscilloscope.fxml"));
-		addMod(root);
-
 		OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
 		this.moduleControllers.add(oscilloscopeModuleController);
 		oscilloscopeModuleController.init(this);
+
+		addMod(root);
 	}
 
 	public void addReplicator() throws IOException {
@@ -267,5 +283,10 @@ public class Controller implements Initializable {
 	public List<CableController> getCables() {
         return cables;
     }
+
+	public Line getMouseLine() {
+		return mouseLine;
+	}
+
 
 }
