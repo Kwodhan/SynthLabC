@@ -8,6 +8,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class VCAModuleController extends ModuleController implements Initializable {
@@ -91,7 +93,11 @@ public class VCAModuleController extends ModuleController implements Initializab
     }
 
     @Override
-    public void updateCablesPosition() {
-
+    public Map<ImageView, Port> getAllPorts() {
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(outPort, vca.getOutput());
+        hashMap.put(inPort, vca.getInput());
+        hashMap.put(amPort, vca.getAm());
+        return hashMap;
     }
 }

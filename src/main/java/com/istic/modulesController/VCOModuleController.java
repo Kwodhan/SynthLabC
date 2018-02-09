@@ -16,10 +16,11 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import org.omg.PortableServer.POA;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class VCOModuleController extends ModuleController implements Initializable {
     /**
@@ -137,14 +138,11 @@ public class VCOModuleController extends ModuleController implements Initializab
     }
 
     @Override
-    public void updateCablesPosition() {
-        getLayout(outPort);
-        Port out = vco.getOutput();
-        super.updateCablesPositionFromPort(out);
-
-        getLayout(fmPort);
-        Port fm = vco.getFm();
-        super.updateCablesPositionFromPort(fm);
+    public Map<ImageView, Port> getAllPorts() {
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(outPort, vco.getOutput());
+        hashMap.put(fmPort, vco.getFm());
+        return hashMap;
     }
 
     @FXML

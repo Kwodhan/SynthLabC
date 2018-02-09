@@ -12,6 +12,8 @@ import javafx.scene.layout.Pane;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class OSCILLOSCOPEModuleController extends ModuleController implements Initializable {
@@ -60,8 +62,11 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
     }
 
     @Override
-    public void updateCablesPosition() {
-
+    public Map<ImageView, Port> getAllPorts() {
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(outPort, oscilloscope.getOutputPort());
+        hashMap.put(inPort, oscilloscope.getInputPort());
+        return hashMap;
     }
 
     /**

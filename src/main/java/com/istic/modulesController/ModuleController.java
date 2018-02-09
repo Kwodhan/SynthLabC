@@ -5,7 +5,9 @@ import com.istic.port.Port;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class ModuleController {
     protected Controller controller;
@@ -67,12 +69,9 @@ public abstract class ModuleController {
      * @param port the port clicked on the UI
      */
     public void getLayout(ImageView port){
-
         Bounds boundsInScene = port.localToScene(port.getBoundsInLocal());
         x=(boundsInScene.getMaxX()+boundsInScene.getMinX())/2.0;
         y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
-
-
     }
 
 
@@ -98,7 +97,14 @@ public abstract class ModuleController {
      * Redéfinis dans chaque module
      * Met à jour la position des cables liés au module
      */
-    public abstract void updateCablesPosition();
+    public void updateCablesPosition() {
+        for(Map.Entry<ImageView, Port> entry : getAllPorts().entrySet()) {
+            getLayout(entry.getKey());
+            this.updateCablesPositionFromPort(entry.getValue());
+        }
+    }
+
+    public abstract Map<ImageView, Port> getAllPorts();
 
     public double getX() {
         return x;

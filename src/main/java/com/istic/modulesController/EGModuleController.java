@@ -8,6 +8,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 
@@ -68,8 +70,11 @@ public class EGModuleController extends ModuleController implements Initializabl
     }
 
     @Override
-    public void updateCablesPosition() {
-
+    public Map<ImageView, Port> getAllPorts() {
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(outPort, eg.getOutputPort());
+        hashMap.put(gatePort, eg.getGateInput());
+        return hashMap;
     }
 
     public void init(Controller controller) {

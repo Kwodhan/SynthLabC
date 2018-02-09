@@ -16,6 +16,8 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class OUTPUTModuleController extends ModuleController implements Initializable {
@@ -82,8 +84,10 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     }
 
     @Override
-    public void updateCablesPosition() {
-
+    public Map<ImageView, Port> getAllPorts() {
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(inPort, lineOut.getPortInput());
+        return hashMap;
     }
 
     @FXML

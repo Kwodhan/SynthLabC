@@ -2,8 +2,10 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class WHITENOISEModuleController extends ModuleController implements Initializable {
@@ -26,7 +28,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     }
 
     @Override
-    public void updateCablesPosition() {
-
+    public Map<ImageView, Port> getAllPorts() {
+        return null;
     }
 }

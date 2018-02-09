@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class REPLICATORModuleController extends ModuleController implements Initializable {
@@ -97,7 +99,12 @@ public class REPLICATORModuleController extends ModuleController implements Init
     }
 
     @Override
-    public void updateCablesPosition() {
-
+    public Map<ImageView, Port> getAllPorts() {
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(inPort, rep.getPortInput());
+        hashMap.put(outPort1, rep.getOutput1());
+        hashMap.put(outPort2, rep.getOutput2());
+        hashMap.put(outPort3, rep.getOutput3());
+        return hashMap;
     }
 }

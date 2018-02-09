@@ -9,6 +9,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class MIXERModuleController extends ModuleController implements Initializable {
@@ -75,8 +76,8 @@ public class MIXERModuleController extends ModuleController implements Initializ
     }
 
     @Override
-    public void updateCablesPosition() {
-
+    public Map<ImageView, Port> getAllPorts() {
+        return null;
     }
 
     /**
