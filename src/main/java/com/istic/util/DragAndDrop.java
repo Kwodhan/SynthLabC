@@ -35,11 +35,6 @@ public class DragAndDrop {
         // onDragDropped
         pane.setOnDragDropped(e -> {
 
-            // Update cable position
-            AnchorPane p = (AnchorPane) e.getGestureSource();
-            ModuleController moduleController = (ModuleController) p.getUserData();
-            moduleController.updateCablesPosition();
-
             Dragboard db = e.getDragboard();
             if (db.hasContent(nodeFormat)) {
                 ((Pane)draggingNode.getParent()).getChildren().remove(draggingNode);
@@ -47,7 +42,12 @@ public class DragAndDrop {
                 e.setDropCompleted(true);
 
                 draggingNode = null;
-            }           
+            }
+
+            // Update cable position
+            AnchorPane p = (AnchorPane) e.getGestureSource();
+            ModuleController moduleController = (ModuleController) p.getUserData();
+            moduleController.updateCablesPosition();
         });
     }
 }

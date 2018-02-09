@@ -139,11 +139,12 @@ public class VCOModuleController extends ModuleController implements Initializab
     @Override
     public void updateCablesPosition() {
         getLayout(outPort);
+        Port out = vco.getOutput();
+        super.updateCablesPositionFromPort(out);
+
         getLayout(fmPort);
         Port fm = vco.getFm();
-        Port out = vco.getOutput();
-        super.test(fm);
-        super.test(out);
+        super.updateCablesPositionFromPort(fm);
     }
 
     @FXML

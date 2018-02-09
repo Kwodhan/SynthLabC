@@ -19,6 +19,9 @@ public class CableController {
      */
     Line line;
 
+    ModuleController mc1;
+    ModuleController mc2;
+
     public CableController(AnchorPane pane, Cable cable) {
         this.cable = cable;
         this.pane = pane;
@@ -30,14 +33,17 @@ public class CableController {
             pane.getChildren().remove(line);
     }
 
-    public void updatePosition(double startX, double startY, double endX, double endY) {
-        line.setStartX(startX);
-        line.setStartY(startY);
-        line.setEndX(endX);
-        line.setEndY(endY);
+    public void updatePosition() {
+        line.setStartX(mc1.getX());
+        line.setStartY(mc1.getY());
+        line.setEndX(mc2.getX());
+        line.setEndY(mc2.getY());
     }
 
     public void drawCable(ModuleController moduleController1, ModuleController moduleController2,Integer id) {
+
+        mc1 = moduleController1;
+        mc2 = moduleController2;
 
         line = new Line(moduleController1.getX(),
                 moduleController1.getY(), moduleController2.getX(),

@@ -78,7 +78,7 @@ public abstract class ModuleController {
 
     public abstract Port getCurrentPort();
 
-    public void test(Port port) {
+    public void updateCablesPositionFromPort(Port port) {
         List<CableController> cables = this.controller.getCables();
         Port portOne;
         Port portTwo;
@@ -86,10 +86,10 @@ public abstract class ModuleController {
             portOne = cableController.getCable().getPortOne();
             portTwo = cableController.getCable().getPortTwo();
             if (portOne.equals(port)) {
-                cableController.updatePosition(1, 1, 300, 300);
+                cableController.updatePosition();
             }
             if (portTwo.equals(port)) {
-                cableController.updatePosition(1, 1, 300, 300);
+                cableController.updatePosition();
             }
         }
     }
