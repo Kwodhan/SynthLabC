@@ -21,7 +21,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
 
     @Override
     public void start (Stage stage) throws Exception {
-        Parent mainNode = FXMLLoader.load(App.class.getResource("../../sample_sprint1.fxml"));
+        Parent mainNode = FXMLLoader.load(App.class.getResource("../../main.fxml"));
         stage.setScene(new Scene(mainNode));
         stage.show();
         stage.toFront();
@@ -107,17 +107,19 @@ public class IHMTestDeleteCable extends ApplicationTest {
         assertNotNull(cable1);
         assertEquals(cable1.getId(), "cable-1");
 
-        // out1 rep --> in oscillo
-        clickOn(repli.lookup("#outPort1"));
-        clickOn(oscillo.lookup("#inPort"));
+
+
+        // out oscillo --> in oscillo
+        clickOn(oscillo.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
 
         Line cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
         assertEquals(cable2.getId(), "cable-2");
 
-        // out oscillo --> in oscillo
-        clickOn(oscillo.lookup("#outPort"));
-        clickOn(output.lookup("#inPort"));
+        // out1 rep --> in oscillo
+        clickOn(repli.lookup("#outPort1"));
+        clickOn(oscillo.lookup("#inPort"));
 
         Line cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);

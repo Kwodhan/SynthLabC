@@ -20,7 +20,7 @@ public class IHMTestDeleteModule extends ApplicationTest {
 
     @Override
     public void start (Stage stage) throws Exception {
-        Parent mainNode = FXMLLoader.load(App.class.getResource("../../sample_sprint1.fxml"));
+        Parent mainNode = FXMLLoader.load(App.class.getResource("../../main.fxml"));
         stage.setScene(new Scene(mainNode));
         stage.show();
         stage.toFront();
@@ -114,18 +114,19 @@ public class IHMTestDeleteModule extends ApplicationTest {
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
         AnchorPane vco = lookup("#module-2").query();
 
+
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane osc1 = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane osc2 = lookup("#module-4").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane osc3 = lookup("#module-5").query();
+
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#replicatorMenuItem");
-        AnchorPane repli = lookup("#module-3").query();
-
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
-        AnchorPane osc1 = lookup("#module-4").query();
-
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
-        AnchorPane osc2 = lookup("#module-5").query();
-
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
-        AnchorPane osc3 = lookup("#module-6").query();
-
+        AnchorPane repli = lookup("#module-6").query();
 
         // out vco --> in rep
         clickOn(vco.lookup("#outPort"));
@@ -168,17 +169,18 @@ public class IHMTestDeleteModule extends ApplicationTest {
         vco = lookup("#module-2").query();
         assertNotNull(vco);
 
-        repli = lookup("#module-3").query();
-        assertNull(repli);
-
-        osc1 = lookup("#module-4").query();
+        osc1 = lookup("#module-3").query();
         assertNotNull(osc1);
 
-        osc2 = lookup("#module-5").query();
+        osc2 = lookup("#module-4").query();
         assertNotNull(osc2);
 
-        osc3 = lookup("#module-6").query();
+        osc3 = lookup("#module-5").query();
         assertNotNull(osc3);
+
+        repli = lookup("#module-6").query();
+        assertNull(repli);
+
         // verif cable
         cable1 = lookup("#cable-1").query();
         assertNull(cable1);
@@ -201,14 +203,14 @@ public class IHMTestDeleteModule extends ApplicationTest {
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
         AnchorPane vco = lookup("#module-2").query();
 
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane osc1 = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane osc2 = lookup("#module-4").query();
+
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#replicatorMenuItem");
-        AnchorPane repli = lookup("#module-3").query();
-
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
-        AnchorPane osc1 = lookup("#module-4").query();
-
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
-        AnchorPane osc2 = lookup("#module-5").query();
+        AnchorPane repli = lookup("#module-5").query();
 
         // out vco --> in rep
         clickOn(vco.lookup("#outPort"));
@@ -251,13 +253,13 @@ public class IHMTestDeleteModule extends ApplicationTest {
         vco = lookup("#module-2").query();
         assertNotNull(vco);
 
-        repli = lookup("#module-3").query();
+        repli = lookup("#module-5").query();
         assertNotNull(repli);
 
-        osc1 = lookup("#module-4").query();
+        osc1 = lookup("#module-3").query();
         assertNotNull(osc1);
 
-        osc2 = lookup("#module-5").query();
+        osc2 = lookup("#module-4").query();
         assertNotNull(osc2);
 
         // verif cable
@@ -410,11 +412,11 @@ public class IHMTestDeleteModule extends ApplicationTest {
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
         AnchorPane vco2 = lookup("#module-3").query();
 
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcaMenuItem");
-        AnchorPane vca = lookup("#module-4").query();
-
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#egMenuItem");
-        AnchorPane eg = lookup("#module-5").query();
+        AnchorPane eg = lookup("#module-4").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcaMenuItem");
+        AnchorPane vca = lookup("#module-5").query();
 
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#replicatorMenuItem");
         AnchorPane replicator = lookup("#module-6").query();
@@ -472,30 +474,6 @@ public class IHMTestDeleteModule extends ApplicationTest {
         assertNotNull(cable6);
         assertEquals(cable6.getId(), "cable-6");
 
-
-        // CHANGE SLIDER
-
-
-        // un VCO n°1 réglé à la fréquence de 1 Hz (comme un LFO) ;
-        Slider vco1SliderOctave = (Slider) vco1.lookup("#frequencySlider");
-        moveTo(vco1SliderOctave);
-        vco1SliderOctave.setValue(-8);
-
-        Slider vco1SliderFin = (Slider) vco1.lookup("#frequencyFineSlider");
-        moveTo(vco1SliderFin);
-        vco1SliderFin.setValue(-9.4);
-
-        // un VCO n°2 réglé à la fréquence de base de 1 kHz ;
-        Slider vco2SliderOctave = (Slider) vco2.lookup("#frequencySlider");
-        moveTo(vco2SliderOctave);
-        vco2SliderOctave.setValue(1);
-
-        Slider vco2SliderFin = (Slider) vco2.lookup("#frequencyFineSlider");
-        moveTo(vco2SliderFin);
-        vco2SliderFin.setValue(2.2);
-
-        sleep(2000);
-
         clickOn(vca.lookup("#closeButton"));
         // verif module
         output = lookup("#module-1").query();
@@ -507,10 +485,10 @@ public class IHMTestDeleteModule extends ApplicationTest {
         vco2 = lookup("#module-3").query();
         assertNotNull(vco2);
 
-        vca = lookup("#module-4").query();
+        vca = lookup("#module-5").query();
         assertNull(vca);
 
-        eg = lookup("#module-5").query();
+        eg = lookup("#module-6").query();
         assertNotNull(eg);
 
         replicator = lookup("#module-6").query();
@@ -546,18 +524,19 @@ public class IHMTestDeleteModule extends ApplicationTest {
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
         AnchorPane vco = lookup("#module-2").query();
 
+
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane osc1 = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane osc2 = lookup("#module-4").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane osc3 = lookup("#module-5").query();
+
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#replicatorMenuItem");
-        AnchorPane repli = lookup("#module-3").query();
-
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
-        AnchorPane osc1 = lookup("#module-4").query();
-
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
-        AnchorPane osc2 = lookup("#module-5").query();
-
-        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
-        AnchorPane osc3 = lookup("#module-6").query();
-
+        AnchorPane repli = lookup("#module-6").query();
 
         // out vco --> in rep
         clickOn(vco.lookup("#outPort"));
@@ -611,16 +590,16 @@ public class IHMTestDeleteModule extends ApplicationTest {
         vco = lookup("#module-2").query();
         assertNotNull(vco);
 
-        repli = lookup("#module-3").query();
+        repli = lookup("#module-6").query();
         assertNotNull(repli);
 
-        osc1 = lookup("#module-4").query();
+        osc1 = lookup("#module-3").query();
         assertNull(osc1);
 
-        osc2 = lookup("#module-5").query();
+        osc2 = lookup("#module-4").query();
         assertNotNull(osc2);
 
-        osc3 = lookup("#module-6").query();
+        osc3 = lookup("#module-5").query();
         assertNotNull(osc3);
         // verif cable
         cable1 = lookup("#cable-1").query();
@@ -645,16 +624,16 @@ public class IHMTestDeleteModule extends ApplicationTest {
         vco = lookup("#module-2").query();
         assertNotNull(vco);
 
-        repli = lookup("#module-3").query();
+        repli = lookup("#module-6").query();
         assertNotNull(repli);
 
-        osc1 = lookup("#module-4").query();
+        osc1 = lookup("#module-3").query();
         assertNull(osc1);
 
-        osc2 = lookup("#module-5").query();
+        osc2 = lookup("#module-4").query();
         assertNull(osc2);
 
-        osc3 = lookup("#module-6").query();
+        osc3 = lookup("#module-5").query();
         assertNotNull(osc3);
         // verif cable
         cable1 = lookup("#cable-1").query();
