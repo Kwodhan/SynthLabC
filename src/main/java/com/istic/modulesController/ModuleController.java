@@ -19,7 +19,7 @@ public abstract class ModuleController {
     /**
      * Lie le controller du module au controller général
      *
-     * @param controller
+     * @param controller controller général
      */
     public void init(Controller controller) {
 

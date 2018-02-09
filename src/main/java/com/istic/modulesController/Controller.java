@@ -58,8 +58,9 @@ public class Controller implements Initializable {
      * Initialise les objets nécessaires à l'application
      * et ajoute un module de sortie au board
      *
-     * @param location
-     * @param resources
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
     public void initialize(URL location, ResourceBundle resources) {
 		this.synth = JSyn.createSynthesizer();
@@ -106,7 +107,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module VCO sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addVCO() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -120,7 +121,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Output sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addOutput() throws IOException {
 
@@ -138,7 +139,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Mixer sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addMixer() throws IOException {
 
@@ -153,7 +154,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module EG sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addEG() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -169,7 +170,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Oscilloscope sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addOscilloscope() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -184,7 +185,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Réplicateur sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addReplicator() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -200,7 +201,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Séquenceur sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addSequencer() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -212,7 +213,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module VCA sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addVca() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -228,7 +229,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module VCF LP sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addVcfLp() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -239,7 +240,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module VCF HP sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addVcfHp() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -250,7 +251,7 @@ public class Controller implements Initializable {
     /**
      * Crée les objets nécessaires pour l'apparition d'un module bruit blanc sur le board
      *
-     * @throws IOException
+     * @throws IOException si ajout impossible
      */
 	public void addWhiteNoise() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -259,9 +260,8 @@ public class Controller implements Initializable {
 	}
 
     /**
-     * Crée un cable entre deux ports
-     *
-     * @throws IOException
+     * Ajout d'un cable
+     * @param moduleController controleur du module qu'il faut connecter
      */
 	public void connect(ModuleController moduleController) {
         Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
@@ -276,7 +276,7 @@ public class Controller implements Initializable {
     /**
      * Supprime un module controller de la liste du controller
      *
-     * @param moduleController
+     * @param moduleController controleur du module à supprimer
      */
     public void disconnect(ModuleController moduleController) {
 	    for (ModuleController module: this.moduleControllers) {
@@ -290,7 +290,7 @@ public class Controller implements Initializable {
     /**
      * Ajoute un module sur le board
      *
-     * @param root
+     * @param root noeud du module à ajouter au board
      */
     public void addMod(Node root) {
 		root.setId("module-" + moduleId++);

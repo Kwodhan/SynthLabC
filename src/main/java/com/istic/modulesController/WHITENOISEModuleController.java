@@ -42,7 +42,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
      *
-     * @throws IOException
+     * @throws IOException si deconnexion impossible
      */
     @FXML // A decommenter et adapter quand le model white noise sera fait !
     public void removeModule() throws IOException {

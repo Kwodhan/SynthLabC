@@ -43,7 +43,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
      *
-     * @throws IOException
+     * @throws IOException si deconnexion impossible
      */
     @FXML // A decommenter et adapter quand le model sequencer sera fait !
     public void removeModule() throws IOException {

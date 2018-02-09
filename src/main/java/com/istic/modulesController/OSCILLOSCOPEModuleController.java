@@ -59,7 +59,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
      * Initialise le contrôleur du module et
      * ajoute le module au synthétiseur
      *
-     * @param controller
+     * @param controller controleur général
      */
     public void init(Controller controller) {
         super.init(controller);
@@ -125,7 +125,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
      *
-     * @throws IOException
+     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() throws IOException {

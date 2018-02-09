@@ -75,7 +75,7 @@ public class ReglageVCO extends UnitGenerator {
 
     /**
      * Fréquence de base
-     * @return
+     * @return fréquence finale
      */
     public double getFrequence(){
         return this.f0.get() * Math.pow(2,this.octave.get()) * Math.pow(1.05946f,this.fin.get());

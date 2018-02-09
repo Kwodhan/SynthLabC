@@ -38,8 +38,8 @@ public class OutMod extends LineOut {
 
     /**
      * Modifie le signal
-     * @param start
-     * @param limit
+     * @param start début de modification
+     * @param limit fin de modification
      */
     @Override
     public void generate(int start, int limit) {
