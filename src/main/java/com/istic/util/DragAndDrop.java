@@ -11,7 +11,11 @@ public class DragAndDrop {
 	
     private static final DataFormat nodeFormat = new DataFormat("MyNode");
     private static Node draggingNode;
-	
+
+    /**
+     * permet le drag sur le Node
+     * @param b
+     */
     public static void dragNode(Node b) {
         b.setOnDragDetected(e -> {
             Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
@@ -22,7 +26,11 @@ public class DragAndDrop {
             draggingNode = b;
         });
     }
-    
+
+    /**
+     * evenement sur le node
+     * @param pane
+     */
     public static void addDropHandling(StackPane pane) {
         // onDragOver
         pane.setOnDragOver(e -> {

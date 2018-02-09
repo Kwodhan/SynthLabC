@@ -84,7 +84,6 @@ public class REPLICATORModuleController extends ModuleController implements Init
     @Override
     public Port getCurrentPort() {
         switch (currentPort) {
-
             case 0:
                 return rep.getInput();
             case 1:
@@ -101,7 +100,7 @@ public class REPLICATORModuleController extends ModuleController implements Init
     @Override
     public Map<ImageView, Port> getAllPorts() {
         Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(inPort, rep.getPortInput());
+        hashMap.put(inPort, rep.getInput());
         hashMap.put(outPort1, rep.getOutput1());
         hashMap.put(outPort2, rep.getOutput2());
         hashMap.put(outPort3, rep.getOutput3());

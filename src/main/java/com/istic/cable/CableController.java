@@ -33,11 +33,16 @@ public class CableController {
             pane.getChildren().remove(line);
     }
 
-    public void updatePosition() {
-        line.setStartX(mc1.getX());
-        line.setStartY(mc1.getY());
-        line.setEndX(mc2.getX());
-        line.setEndY(mc2.getY());
+    public void updatePosition(int i) {
+        if(i==1){
+            line.setStartX(mc1.getX());
+            line.setStartY(mc1.getY());
+        }else {
+            line.setEndX(mc2.getX());
+            line.setEndY(mc2.getY());
+        }
+
+
     }
 
     public void drawCable(ModuleController moduleController1, ModuleController moduleController2,Integer id) {

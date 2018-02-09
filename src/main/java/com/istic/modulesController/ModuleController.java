@@ -85,10 +85,9 @@ public abstract class ModuleController {
             portOne = cableController.getCable().getPortOne();
             portTwo = cableController.getCable().getPortTwo();
             if (portOne.equals(port)) {
-                cableController.updatePosition();
-            }
-            if (portTwo.equals(port)) {
-                cableController.updatePosition();
+                cableController.updatePosition(1);
+            }else if (portTwo.equals(port)) {
+                cableController.updatePosition(2);
             }
         }
     }
