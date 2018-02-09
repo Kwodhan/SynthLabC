@@ -43,6 +43,8 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
     @FXML
     Pane paneOscilloscope;
 
+    SwingNode swingNode;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -127,6 +129,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         audioScopeView.setMaximumSize(d);
         audioScopeView.setMinimumSize(d);
         audioScopeView.setPreferredSize(d);
+        this.swingNode = swingNode;
         SwingUtilities.invokeLater(() -> swingNode.setContent(audioScopeView));
     }
 
@@ -150,6 +153,11 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+    }
+    @Override
+    public void updateCablesPosition() {
+       super.updateCablesPosition();
+        createSwingContent(swingNode, oscilloscope.getView());
     }
 
 }
