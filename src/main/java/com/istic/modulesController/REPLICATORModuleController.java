@@ -37,6 +37,12 @@ public class REPLICATORModuleController extends ModuleController implements Init
 
     }
 
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller
+     */
     public void init(Controller controller) {
         super.init(controller);
         this.rep = new REP();
@@ -44,6 +50,9 @@ public class REPLICATORModuleController extends ModuleController implements Init
 
     }
 
+    /**
+     * Connecte le port d'entrée pour tracer le cable
+     */
     public void connectInPort() {
         if(!this.rep.getInput().isConnected()) {
             currentPort = 0;
@@ -84,7 +93,10 @@ public class REPLICATORModuleController extends ModuleController implements Init
         }
     }
 
-
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
         switch (currentPort) {

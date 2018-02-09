@@ -29,12 +29,18 @@ public class OutMod extends LineOut {
 
 	}
 
-
+    /**
+     * Coupe le son de sortie
+     */
 	public void toggleMute() {
 		this.mute = (this.mute == 1) ? 0 : 1;
 	}
 
-
+    /**
+     * Modifie le signal
+     * @param start
+     * @param limit
+     */
     @Override
     public void generate(int start, int limit) {
         double[] inputs0 = input.getValues(0);
