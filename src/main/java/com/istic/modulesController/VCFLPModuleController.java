@@ -14,6 +14,7 @@ import vcflp.VCFLP;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -72,8 +73,11 @@ public class VCFLPModuleController extends ModuleController implements Initializ
 
     @Override
     public Map<ImageView, Port> getAllPorts() {
-        return null;
-    }
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(outPort, vcflp.getOutput());
+        hashMap.put(fmPort, vcflp.getFm());
+        hashMap.put(inPort, vcflp.getInput());
+        return hashMap;    }
 
     /**
      * Supprime le module du Board ainsi que les cables
