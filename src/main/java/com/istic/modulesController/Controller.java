@@ -4,20 +4,22 @@ import com.istic.cable.Cable;
 import com.istic.cable.CableController;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class Controller implements Initializable {
+public class Controller implements Initializable  {
 
     @FXML
     AnchorPane pane;
@@ -41,6 +43,8 @@ public class Controller implements Initializable {
 	private List<ModuleController> moduleControllers;
     private List<CableController> cables;
     private Synthesizer synth;
+
+    private Line mouseLine;
 
     /**
      * Module temporaire pour le cablage
@@ -68,10 +72,17 @@ public class Controller implements Initializable {
 		coralMenuItem.setToggleGroup(group);
 		darkMenuItem.setToggleGroup(group);
 		woodMenuItem.setToggleGroup(group);
-
+		this.mouseLine = new Line();
+		this.mouseLine.setVisible(false);
 		this.moduleControllers = new ArrayList<>();
         this.cables = new ArrayList<>();
-
+		pane.getChildren().add(mouseLine);
+		pane.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
+			int x = (this.mouseLine.getStartX()>event.getX()?2:-2);
+			int y = (this.mouseLine.getStartY()>event.getY()?2:-2);
+			this.mouseLine.setEndX(event.getX()+x);
+			this.mouseLine.setEndY(event.getY()+y);
+        });
 		try {
 			addOutput();
 
@@ -355,4 +366,7 @@ public class Controller implements Initializable {
         return cables;
     }
 
+	public Line getMouseLine() {
+		return mouseLine;
+	}
 }
