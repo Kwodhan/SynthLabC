@@ -42,11 +42,25 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
     @FXML
     Pane paneOscilloscope;
 
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller controleur général
+     */
     public void init(Controller controller) {
         super.init(controller);
         this.oscilloscope = new Oscilloscope(controller.getSynth());
@@ -58,6 +72,10 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
 
     }
 
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
         if (currentPort == 0) {
@@ -103,9 +121,15 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         SwingUtilities.invokeLater(() -> swingNode.setContent(audioScopeView));
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException si deconnexion impossible
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
-        //Deconnexion cable
+    public void removeModule() throws IOException {
+        //Deconnexion cables
         Port in = oscilloscope.getInput();
         Port out = oscilloscope.getOutput();
         super.disconnect(in);

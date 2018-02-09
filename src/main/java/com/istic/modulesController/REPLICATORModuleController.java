@@ -37,6 +37,12 @@ public class REPLICATORModuleController extends ModuleController implements Init
 
     }
 
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller controleur general
+     */
     public void init(Controller controller) {
         super.init(controller);
         this.rep = new REP();
@@ -44,6 +50,9 @@ public class REPLICATORModuleController extends ModuleController implements Init
 
     }
 
+    /**
+     * Connecte le port d'entrée pour tracer le cable
+     */
     public void connectInPort() {
         if(!this.rep.getInput().isConnected()) {
             currentPort = 0;
@@ -84,7 +93,10 @@ public class REPLICATORModuleController extends ModuleController implements Init
         }
     }
 
-
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
         switch (currentPort) {
@@ -102,8 +114,14 @@ public class REPLICATORModuleController extends ModuleController implements Init
         }
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException si deconnexion impossible
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
+    public void removeModule() throws IOException {
         //Deconnexion cable
         Port in = rep.getInput();
         Port out1 = rep.getOutput1();

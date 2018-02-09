@@ -50,17 +50,24 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     }
 
 
-
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller controleur général
+     */
     public void init(Controller controller){
-
-            super.init(controller);
-            this.lineOut = new OutMod();
-            this.controller.getSynth().add(this.lineOut);
-            lineOut.start();
+        super.init(controller);
+        this.lineOut = new OutMod();
+        this.controller.getSynth().add(this.lineOut);
+        lineOut.start();
 
 
     }
 
+    /**
+     * Connecte le port d'entrée pour tracer le cable
+     */
     public void connect() {
         if(!this.lineOut.getPortInput().isConnected()) {
             super.getLayout(inPort);
@@ -68,24 +75,37 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         }
     }
 
-
+    /**
+     * Gère la fonctionnalité "Muet"
+     * Coupe le son
+     */
     public void toggleMute() {
+
         this.lineOut.toggleMute();
     }
 
 
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     public Port getCurrentPort(){
 
         if(!this.lineOut.getPortInput().isConnected()) {
             return lineOut.getPortInput();
         }
         return null;
-
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException si deconnexion impossible
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
-        //Deconnexion cable
+    public void removeModule() throws IOException {
+        //Deconnexion cables
         Port port = lineOut.getPortInput();
         super.disconnect(port);
         // Deconnexion du module Output du synthetizer

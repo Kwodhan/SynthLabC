@@ -9,6 +9,7 @@ import javafx.scene.shape.Line;
 import java.util.List;
 
 public abstract class ModuleController {
+
     protected Controller controller;
 
     protected double x = 0, y = 0;
@@ -16,15 +17,20 @@ public abstract class ModuleController {
     protected int currentPort = -1;
 
 
-
-
+    /**
+     * Lie le controller du module au controller général
+     *
+     * @param controller controller général
+     */
     public void init(Controller controller) {
 
         this.controller = controller;
-
-
     }
 
+    /**
+     * Crée un cable entre deux ports
+     *
+     */
     public void connect() {
 
         Line line = this.controller.getMouseLine();
@@ -50,8 +56,8 @@ public abstract class ModuleController {
     }
 
     /**
-     * Supprime le cable branché sur le port du module
-     * @param port port auquel on veut supprimer le cable
+     * Supprime le cable branché sur un port de module
+     * @param port port duquel on veut supprimer le cable
      */
     public void disconnect(Port port) {
         List<CableController> cables = this.controller.getCables();
@@ -86,9 +92,9 @@ public abstract class ModuleController {
 
     }
 
+    // Setters & Getters
 
     public abstract Port getCurrentPort();
-
 
     public double getX() {
         return x;

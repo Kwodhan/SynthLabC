@@ -30,14 +30,24 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 
     }
 
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
         return null;
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException si deconnexion impossible
+     */
     @FXML // A decommenter et adapter quand le model sequencer sera fait !
-    public void removeModule(InputEvent e) throws IOException {
-//        //Deconnexion cable
+    public void removeModule() throws IOException {
+//        //Deconnexion cables
 //        Port gate = seq.getGateInput();
 //        Port out = seq.getOutput();
 //        super.disconnect(gate);

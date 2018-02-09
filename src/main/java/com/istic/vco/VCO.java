@@ -89,7 +89,7 @@ public class VCO extends Circuit {
 
     /**
      * Choix de la forme du signal
-     * @param typeWave
+     * @param typeWave type de l'onde
      */
     public void changeShapeWave(int typeWave) {
         // on déconnecte

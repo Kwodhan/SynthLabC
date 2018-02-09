@@ -29,13 +29,23 @@ public class WHITENOISEModuleController extends ModuleController implements Init
 
     }
 
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
         return null;
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException si deconnexion impossible
+     */
     @FXML // A decommenter et adapter quand le model white noise sera fait !
-    public void removeModule(InputEvent e) throws IOException {
+    public void removeModule() throws IOException {
 //        //Deconnexion cable
 //        Port gate = whitenoise.getGateInput();
 //        Port out = whitenoise.getOutput();
