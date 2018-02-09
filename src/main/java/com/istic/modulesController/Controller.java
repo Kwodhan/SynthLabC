@@ -175,11 +175,12 @@ public class Controller implements Initializable {
 	public void addOscilloscope() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/oscilloscope.fxml"));
-		addMod(root);
+
 
 		OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
 		this.moduleControllers.add(oscilloscopeModuleController);
 		oscilloscopeModuleController.init(this);
+		addMod(root);
 	}
 
     /**
