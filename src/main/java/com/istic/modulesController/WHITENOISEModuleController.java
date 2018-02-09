@@ -1,6 +1,10 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortOutput;
+import com.istic.vco.VCO;
+import com.istic.whitenoise.BruitBlanc;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.InputEvent;
@@ -11,6 +15,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -18,6 +23,11 @@ public class WHITENOISEModuleController extends ModuleController implements Init
 
     @FXML
     AnchorPane pane;
+    
+    BruitBlanc bruitBlanc;
+    
+    @FXML
+    ImageView wn_outPort;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -29,22 +39,51 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+    	System.out.println("remove wn");
+    	pane.getChildren().remove(wn_outPort);
+    }
+    
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller controleur general
+     */
+    public void init(Controller controller) {
+        super.init(controller);
+        this.bruitBlanc = new BruitBlanc();
+        this.controller.getSynth().add(bruitBlanc);
     }
 
     /**
      * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
      * @return le port sur lequel l'utilisateur a cliqué côté IHM
      */
-    @Override
-    public Port getCurrentPort() {
+    public Port getCurrentPort(){
+        if(!this.bruitBlanc.getOutputPort().isConnected()) {
+            return bruitBlanc.getOutputPort();
+        }
         return null;
     }
 
     @Override
     public Map<ImageView, Port> getAllPorts() {
-        return null;
+    	Map<ImageView, Port> hm = new HashMap<>();
+    	hm.put(wn_outPort, bruitBlanc.getOutputPort());
+        return hm;
     }
+    
+    /**
+     * Connecting the outPort to draw the cable
+     */
+    public void connectOutPort() {
+
+        if(!this.bruitBlanc.getOutput().isConnected()) {
+            getLayout(wn_outPort);
+            super.connect();
+        }
+    }
+
 
     /**
      * Supprime le module du Board ainsi que les cables
@@ -67,4 +106,10 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
     }
+    
+    //Setters et Getters
+    public PortOutput getOutPort() {
+        return this.bruitBlanc.getOutputPort();
+    }
+
 }
