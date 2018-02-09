@@ -19,11 +19,10 @@ import static org.junit.Assert.assertNotNull;
 
 public class IHMTestSprint2 extends ApplicationTest {
 
-    private final App app = new App();
 
     @Override
     public void start (Stage stage) throws Exception {
-        Parent mainNode = FXMLLoader.load(App.class.getResource("../../sample_sprint1.fxml"));
+        Parent mainNode = FXMLLoader.load(App.class.getResource("../../main.fxml"));
         stage.setScene(new Scene(mainNode));
         stage.show();
         stage.toFront();
@@ -125,7 +124,9 @@ public class IHMTestSprint2 extends ApplicationTest {
         moveTo(vco2SliderFin);
         vco2SliderFin.setValue(2.2);
 
-        sleep(10000);
+        sleep(2000);
+
+        clickOn("#mute");
     }
 
 }

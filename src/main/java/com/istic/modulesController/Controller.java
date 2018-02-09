@@ -6,23 +6,25 @@ import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import javafx.event.EventHandler;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class Controller implements Initializable {
+public class Controller implements Initializable  {
 
 	@FXML
 	AnchorPane pane;
@@ -42,14 +44,18 @@ public class Controller implements Initializable {
 	@FXML
 	RadioButton sawRadio, triangleRadio, squareRadio;
 
+    @FXML
+    RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem;
 
-	private StackPane[] stacks;
+    final ToggleGroup group = new ToggleGroup();
+
+    private StackPane[] stacks;
 
 	private List<ModuleController> moduleControllers;
-	private List<CableController> cables;
-
+    private List<CableController> cables;
 
     private Synthesizer synth;
+    private Line mouseLine;
 
     /**
      * Module temporaire pour le cablage
@@ -64,18 +70,42 @@ public class Controller implements Initializable {
 
 	private boolean isPlugged = false;
 
-	public void initialize(URL location, ResourceBundle resources) {
+    /**
+     * Initialise les objets nécessaires à l'application
+     * et ajoute un module de sortie au board
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
+    public void initialize(URL location, ResourceBundle resources) {
 		this.synth = JSyn.createSynthesizer();
 		this.synth.start();
 
-		this.moduleControllers = new ArrayList<>();
-		this.cables = new ArrayList<>();
+		coralMenuItem.setToggleGroup(group);
+		darkMenuItem.setToggleGroup(group);
+		woodMenuItem.setToggleGroup(group);
 
-		stacks = new StackPane[]{ box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12};
-		//make stackpane handle drop
-		for (StackPane s : stacks) {
-			DragAndDrop.addDropHandling(s);
-		}
+		this.mouseLine = new Line();
+		this.mouseLine.setVisible(false);
+		this.mouseLine.setStrokeWidth(3);
+
+		this.moduleControllers = new ArrayList<>();
+        this.cables = new ArrayList<>();
+
+        pane.getChildren().add(mouseLine);
+		pane.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
+			int x = (this.mouseLine.getStartX()>event.getX()?2:-2);
+			int y = (this.mouseLine.getStartY()>event.getY()?2:-2);
+			this.mouseLine.setEndX(event.getX()+x);
+			this.mouseLine.setEndY(event.getY()+y);
+        });
+
+        stacks = new StackPane[]{ box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12};
+        //make stackpane handle drop
+        for (StackPane s : stacks) {
+            DragAndDrop.addDropHandling(s);
+        }
 
 		try {
 			addOutput();
@@ -85,6 +115,35 @@ public class Controller implements Initializable {
 		}
 	}
 
+    /**
+     * Change le thème en coral
+     */
+    public void coralTheme(){
+		pane.getStylesheets().clear();
+		pane.getStylesheets().add("/skins/coral.css");
+	}
+
+    /**
+     * Change le thème en dark
+     */
+	public void darkTheme(){
+		pane.getStylesheets().clear();
+		pane.getStylesheets().add("/skins/dark.css");
+	}
+
+    /**
+     * Change le thème en wood
+     */
+	public void woodTheme(){
+		pane.getStylesheets().clear();
+		pane.getStylesheets().add("/skins/wood.css");
+	}
+
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module VCO sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addVCO() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vco.fxml"));
@@ -94,12 +153,16 @@ public class Controller implements Initializable {
         vcoModuleController.init(this);
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Output sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addOutput() throws IOException {
 
 		// outputModuleController=new OUTPUTModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/output.fxml"));
-
 		addMod(root);
 
         OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
@@ -107,6 +170,11 @@ public class Controller implements Initializable {
         outputModuleController.init(this);
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Mixer sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addMixer() throws IOException {
 
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -118,6 +186,11 @@ public class Controller implements Initializable {
 		mixerModuleController.init(this);
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module EG sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addEG() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/eg.fxml"));
@@ -129,16 +202,26 @@ public class Controller implements Initializable {
 
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Oscilloscope sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addOscilloscope() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/oscilloscope.fxml"));
-		addMod(root);
 
 		OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
 		this.moduleControllers.add(oscilloscopeModuleController);
 		oscilloscopeModuleController.init(this);
+		addMod(root);
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Réplicateur sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addReplicator() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/replicator.fxml"));
@@ -150,6 +233,11 @@ public class Controller implements Initializable {
 
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Séquenceur sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addSequencer() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/sequencer.fxml"));
@@ -157,6 +245,11 @@ public class Controller implements Initializable {
 
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module VCA sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addVca() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vca.fxml"));
@@ -168,24 +261,43 @@ public class Controller implements Initializable {
 
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module VCF LP sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addVcfLp() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vcfLp.fxml"));
 		addMod(root);
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module VCF HP sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addVcfHp() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vcfHp.fxml"));
 		addMod(root);
 	}
 
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module bruit blanc sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
 	public void addWhiteNoise() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/whiteNoise.fxml"));
 		addMod(root);
 	}
 
+    /**
+     * Ajout d'un cable
+     * @param moduleController controleur du module qu'il faut connecter
+     */
 	public void connect(ModuleController moduleController) {
         Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
         if (cable.connect()) {
@@ -195,6 +307,11 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Supprime un module controller de la liste du controller
+     *
+     * @param moduleController controleur du module à supprimer
+     */
     public void disconnect(ModuleController moduleController) {
 	    for (ModuleController module: this.moduleControllers) {
 	    	if (module.equals(moduleController)) {
@@ -204,8 +321,12 @@ public class Controller implements Initializable {
 		}
     }
 
-
-	private void addMod(Node root) {
+    /**
+     * Ajoute un module sur le board
+     *
+     * @param root noeud du module à ajouter au board
+     */
+    public void addMod(Node root) {
 		root.setId("module-" + moduleId++);
 		for(StackPane s : stacks) {
 			if(s.getChildren().isEmpty()) {
@@ -257,4 +378,7 @@ public class Controller implements Initializable {
         return cables;
     }
 
+	public Line getMouseLine() {
+		return mouseLine;
+	}
 }

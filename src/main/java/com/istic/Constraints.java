@@ -8,9 +8,11 @@ public class Constraints {
     public static final Double MODULATION_VOLT = 10D;
 
 
-
     /**
+     * Verifie que l'amplitude respecte les seuils
      * Amplitude des signaux audio : −5 V à + 5V
+     * @param value amplitude
+     * @return la valeur initiale ou du seuil
      */
     public static double verifAmp(double value) {
         if(value > VOLT){
@@ -26,7 +28,10 @@ public class Constraints {
     }
 
     /**
+     * Verifie que l'amplitude respecte les seuils
      * Les signaux de modulation peuvent dépasser cette amplitude (de −10 V à +10 V)
+     * @param value amplitude
+     * @return la valeur initiale ou du seuil
      */
     public static double verifModAmp(double value) {
         if(value > MODULATION_VOLT){

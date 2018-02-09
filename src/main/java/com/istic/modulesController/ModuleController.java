@@ -4,12 +4,14 @@ import com.istic.cable.CableController;
 import com.istic.port.Port;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Line;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public abstract class ModuleController {
+
     protected Controller controller;
 
     protected double x = 0, y = 0;
@@ -17,32 +19,45 @@ public abstract class ModuleController {
     protected int currentPort = -1;
 
 
-
-
+    /**
+     * Lie le controller du module au controller général
+     *
+     * @param controller controller général
+     */
     public void init(Controller controller) {
-
         this.controller = controller;
-
-
     }
 
+    /**
+     * Crée un cable entre deux ports
+     *
+     */
     public void connect() {
-
+        Line line = this.controller.getMouseLine();
+        // si il y a déja une connection, on connect
         if (this.controller.isPlugged() && !this.controller.getTemporaryCableModuleController().equals(this)) {
             this.controller.connect(this);
             this.controller.setTemporaryCableModuleController(null);
             this.controller.setPlugged(false);
+            line.setVisible(false);
 
-        } else {
+        } else if (this.controller.isPlugged()) {  // si c'est le même module
+            this.controller.setTemporaryCableModuleController(null);
+            this.controller.setPlugged(false);
+            line.setVisible(false);
 
+        } else { // si c'est le premier port
+            line.setStartX(this.getX());
+            line.setStartY(this.getY());
+            line.setVisible(true);
             this.controller.setPlugged(true);
             this.controller.setTemporaryCableModuleController(this);
         }
     }
 
     /**
-     * Supprime le cable branché sur le port du module
-     * @param port port auquel on veut supprimer le cable
+     * Supprime le cable branché sur un port de module
+     * @param port port duquel on veut supprimer le cable
      */
     public void disconnect(Port port) {
         List<CableController> cables = this.controller.getCables();
@@ -74,7 +89,6 @@ public abstract class ModuleController {
         y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
     }
 
-
     public abstract Port getCurrentPort();
 
     public void updateCablesPositionFromPort(Port port) {
@@ -91,6 +105,8 @@ public abstract class ModuleController {
             }
         }
     }
+
+    // Setters & Getters
 
     /**
      * Redéfinis dans chaque module

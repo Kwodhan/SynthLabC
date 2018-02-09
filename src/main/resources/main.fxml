@@ -42,8 +42,9 @@
             </Menu>
             <MenuItem mnemonicParsing="false" text="Drop" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <RadioMenuItem mnemonicParsing="false" text="Metal Skin" />
-            <RadioMenuItem mnemonicParsing="false" text="Wood Skin" />
+            <RadioMenuItem fx:id="coralMenuItem" mnemonicParsing="false" onAction="#coralTheme" text="Coral Skin" />
+            <RadioMenuItem fx:id="darkMenuItem" mnemonicParsing="false" onAction="#darkTheme" text="Dark Skin" />
+            <RadioMenuItem fx:id="woodMenuItem" mnemonicParsing="false" onAction="#woodTheme" text="Wood" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

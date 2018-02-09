@@ -11,7 +11,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.EGModuleController">
+<?import javafx.scene.control.Button?>
+<AnchorPane fx:id="pane" maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.EGModuleController">
    <userData>
       <fx:reference source="controller" />
    </userData>
@@ -57,6 +58,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SUSTAIN" textAlignment="CENTER" wrappingWidth="64.12158203125" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Slider fx:id="releaseSlider" blockIncrement="0.001" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RELEASE" textAlignment="CENTER" wrappingWidth="66.12158203125" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </children>

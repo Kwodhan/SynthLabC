@@ -6,13 +6,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 public class VCAModuleController extends ModuleController implements Initializable {
+
+    @FXML
+    AnchorPane pane;
+    @FXML
+    Slider amplitudeSlider;
+    @FXML
+    ImageView outPort,inPort,amPort;
+    protected VCA vca;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -21,11 +35,6 @@ public class VCAModuleController extends ModuleController implements Initializab
      *                  <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
-    @FXML
-    Slider amplitudeSlider;
-    @FXML
-    ImageView outPort,inPort,amPort;
-    protected VCA vca;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         amplitudeSlider.valueProperty().addListener((ov, old_val, new_val) -> {
@@ -34,9 +43,14 @@ public class VCAModuleController extends ModuleController implements Initializab
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
-
     }
 
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller controleur général
+     */
     public void init(Controller controller) {
         super.init(controller);
         this.vca = new VCA();
@@ -76,7 +90,10 @@ public class VCAModuleController extends ModuleController implements Initializab
         }
     }
 
-
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
         switch (currentPort) {
@@ -90,6 +107,30 @@ public class VCAModuleController extends ModuleController implements Initializab
 
             default: return null;
         }
+    }
+
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException si deconnexion impossible
+     */
+    @FXML
+    public void removeModule() throws IOException {
+        //Deconnexion cables
+        Port am = vca.getAm();
+        Port in = vca.getInput();
+        Port out = vca.getOutput();
+        super.disconnect(am);
+        super.disconnect(in);
+        super.disconnect(out);
+        // Deconnexion du module Output du synthetizer
+        this.controller.getSynth().remove(vca);
+        // Get parent node of pane corresponding to OutMod
+        // Recupere le noeud parent fxml du outmod
+        StackPane stackPane = (StackPane) pane.getParent();
+        // supprime le mod niveau ihm
+        stackPane.getChildren().remove(pane);
     }
 
     @Override

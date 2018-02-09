@@ -5,7 +5,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class CableController {
+    List<Color> color;
     /**
      *
      */
@@ -25,6 +30,15 @@ public class CableController {
     public CableController(AnchorPane pane, Cable cable) {
         this.cable = cable;
         this.pane = pane;
+        this.color = new ArrayList<>();
+        this.color.add(Color.GOLD);
+        this.color.add(Color.BLUEVIOLET);
+        this.color.add(Color.RED);
+        this.color.add(Color.OLIVE);
+        this.color.add(Color.SALMON);
+        this.color.add(Color.SILVER);
+        this.color.add(Color.MEDIUMAQUAMARINE);
+
     }
 
 
@@ -53,8 +67,9 @@ public class CableController {
         line = new Line(moduleController1.getX(),
                 moduleController1.getY(), moduleController2.getX(),
                 moduleController2.getY());
-        line.setStrokeWidth(5);
-        line.setStroke(Color.BLUEVIOLET);
+        line.setStrokeWidth(3);
+        Random r = new Random();
+        line.setStroke(this.color.get(r.nextInt(this.color.size())));
         line.setId("cable-"+id);
         pane.getChildren().add(line);
         line.setOnMouseClicked(event -> {

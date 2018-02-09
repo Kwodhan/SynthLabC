@@ -23,14 +23,7 @@ import java.net.URL;
 import java.util.*;
 
 public class VCOModuleController extends ModuleController implements Initializable {
-    /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     * <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
-     */
+
     @FXML
     AnchorPane pane;
     @FXML
@@ -44,13 +37,19 @@ public class VCOModuleController extends ModuleController implements Initializab
     ImageView outPort;
     @FXML
     ImageView fmPort;
-
     @FXML
     Label txtHertz;
 
     protected VCO vco;
 
-
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     * <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -76,13 +75,12 @@ public class VCOModuleController extends ModuleController implements Initializab
 
     }
 
-
-    public PortOutput getOutPort() {
-
-        return this.vco.getOutput();
-
-    }
-
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller controleur general
+     */
     public void init(Controller controller) {
         super.init(controller);
         this.vco = new VCO();
@@ -114,6 +112,12 @@ public class VCOModuleController extends ModuleController implements Initializab
         }
     }
 
+
+
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     public Port getCurrentPort() {
         if (currentPort == 0) {
             return vco.getOutput();
@@ -123,20 +127,35 @@ public class VCOModuleController extends ModuleController implements Initializab
         return null;
     }
 
+    /**
+     * Change la forme du signal en onde carrée
+     */
     public void squareSound() {
         vco.changeShapeWave(VCO.SQUAREWAVE);
     }
 
+    /**
+     * Change la forme du signal en onde dent de scie
+     */
     public void sawSound() {
         vco.changeShapeWave(VCO.SAWWAVE);
 
     }
 
+    /**
+     * Change la forme du signal en onde triangle
+     */
     public void triangleSound() {
         vco.changeShapeWave(VCO.TRIANGLEWAVE);
 
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException si deconnexion impossible
+     */
     @Override
     public Map<ImageView, Port> getAllPorts() {
         Map<ImageView, Port> hashMap = new HashMap<>();
@@ -146,7 +165,7 @@ public class VCOModuleController extends ModuleController implements Initializab
     }
 
     @FXML
-    public void removeOutput(InputEvent e) throws IOException {
+    public void removeModule() throws IOException {
         //Deconnexion cable
         Port fm = vco.getFm();
         Port out = vco.getOutput();
@@ -159,6 +178,11 @@ public class VCOModuleController extends ModuleController implements Initializab
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+    }
+
+    //Setters et Getters
+    public PortOutput getOutPort() {
+        return this.vco.getOutput();
     }
 
 }

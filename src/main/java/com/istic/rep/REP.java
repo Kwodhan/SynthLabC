@@ -80,7 +80,4 @@ public class REP  extends Circuit{
      public PortInput getInput(){
          return portInput;
      }
-
-
-	 
 }

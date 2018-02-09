@@ -19,7 +19,7 @@ public class OutMod extends LineOut {
 	private int mute = 1;
 
 	/**
-	 * entré du signal audio
+	 * entrée du signal audio
 	 */
 	private PortInput portInput;
 
@@ -29,15 +29,18 @@ public class OutMod extends LineOut {
 
 	}
 
-
+    /**
+     * Coupe le son de sortie
+     */
 	public void toggleMute() {
 		this.mute = (this.mute == 1) ? 0 : 1;
 	}
 
-	public void setAttenuation(double att){
-		this.attenuation = att;
-	}
-	
+    /**
+     * Modifie le signal
+     * @param start début de modification
+     * @param limit fin de modification
+     */
     @Override
     public void generate(int start, int limit) {
         double[] inputs0 = input.getValues(0);
@@ -46,14 +49,19 @@ public class OutMod extends LineOut {
         double[] buffer1 = synthesisEngine.getOutputBuffer(1);
         double fromDCBL ;
         for (int i = start; i < limit; i++) {
-
         	fromDCBL = AudioMath.semitonesToFrequencyScaler(this.attenuation);
             buffer0[i] += inputs0[i]*mute*fromDCBL;
             buffer1[i] += inputs1[i]*mute*fromDCBL;
         }
     }
 
+    //Setters & Getters
+
 	public PortInput getPortInput() {
 		return this.portInput;
+	}
+
+	public void setAttenuation(double att){
+		this.attenuation = att;
 	}
 }
