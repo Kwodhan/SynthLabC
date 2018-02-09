@@ -311,6 +311,9 @@ public class Controller implements Initializable  {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/whiteNoise.fxml"));
 		addMod(root);
+		WHITENOISEModuleController whiteModuleController = (WHITENOISEModuleController) root.getUserData();
+        this.moduleControllers.add(whiteModuleController);
+        whiteModuleController.init(this);
 	}
 
 	/**
