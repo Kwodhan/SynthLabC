@@ -11,7 +11,9 @@ import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-import static org.junit.Assert.assertNull;
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 public class IHMTestDragDrop extends ApplicationTest {
 
@@ -24,26 +26,49 @@ public class IHMTestDragDrop extends ApplicationTest {
     }
 
     @Test
-    public void testDragDrop() {
-        // get output module
+    public void testDragDropSimple() {
         AnchorPane output = lookup("#module-1").query();
-
+        StackPane box1 = lookup("#box1").query();
         StackPane box4 = lookup("#box4").query();
-        StackPane box6 = lookup("#box6").query();
-        StackPane box12 = lookup("#box12").query();
 
+        // Drag&Drop
         drag(output, MouseButton.PRIMARY);
         dropTo(box4);
 
-        drag(output, MouseButton.PRIMARY);
-        dropTo(box12);
+        // box1 should be empty
+        assertEquals(new ArrayList(), box1.getChildren());
 
-        drag(output, MouseButton.PRIMARY);
-        dropTo(box6);
+        // box 8 y'a un anchor pane avec l'id
+        assertNotNull(box4.lookup("#module-1"));
+        assertEquals(box4.getChildren().get(0).getId(), "module-1");
+    }
 
-        // add modules
+    @Test
+    public void testDragDropWithCable() {
+        AnchorPane output = lookup("#module-1").query();
+
         clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
         AnchorPane vco1 = lookup("#module-2").query();
+
+        clickOn(output.lookup("#inPort"));
+        clickOn(vco1.lookup("#outPort"));
+
+        Line cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+
+        double oldStartX = cable1.getStartX();
+        double oldStartY = cable1.getStartY();
+        double oldEndX = cable1.getEndX();
+        double oldEndY = cable1.getEndY();
+
+        StackPane box8 = lookup("#box8").query();
+        drag(vco1.localToScene(vco1.getLayoutBounds()), MouseButton.PRIMARY);
+        dropTo(box8);
+
+        assertEquals(oldStartX, cable1.getStartX(), 0.01);
+        assertEquals(oldStartY, cable1.getStartY(), 0.01);
+        assertNotEquals(oldEndX, cable1.getEndX(), 0.01);
+        assertNotEquals(oldEndY, cable1.getEndY(), 0.01);
     }
 
 
