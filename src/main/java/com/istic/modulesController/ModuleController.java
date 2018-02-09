@@ -24,8 +24,6 @@ public abstract class ModuleController {
     public void init(Controller controller) {
 
         this.controller = controller;
-
-
     }
 
     /**
