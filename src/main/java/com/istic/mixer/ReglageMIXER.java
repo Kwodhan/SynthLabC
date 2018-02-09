@@ -4,7 +4,6 @@ import com.istic.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
-import com.softsynth.math.AudioMath;
 
 public class ReglageMIXER extends UnitGenerator {
 

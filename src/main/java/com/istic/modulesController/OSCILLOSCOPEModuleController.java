@@ -7,9 +7,7 @@ import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -44,6 +42,8 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
 
     @FXML
     Pane paneOscilloscope;
+
+    SwingNode swingNode;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -129,6 +129,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         audioScopeView.setMaximumSize(d);
         audioScopeView.setMinimumSize(d);
         audioScopeView.setPreferredSize(d);
+        this.swingNode = swingNode;
         SwingUtilities.invokeLater(() -> swingNode.setContent(audioScopeView));
     }
 
@@ -152,6 +153,11 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+    }
+    @Override
+    public void updateCablesPosition() {
+       super.updateCablesPosition();
+        createSwingContent(swingNode, oscilloscope.getView());
     }
 
 }

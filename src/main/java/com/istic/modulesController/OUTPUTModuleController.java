@@ -2,16 +2,12 @@ package com.istic.modulesController;
 
 import com.istic.out.OutMod;
 import com.istic.port.Port;
-import com.sun.javafx.font.freetype.HBGlyphLayout;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;

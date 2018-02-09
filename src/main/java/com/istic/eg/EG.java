@@ -2,7 +2,8 @@ package com.istic.eg;
 
 import com.istic.port.PortGate;
 import com.istic.port.PortOutput;
-import com.jsyn.unitgen.*;
+import com.jsyn.unitgen.Circuit;
+import com.jsyn.unitgen.EnvelopeDAHDSR;
 
 public class EG extends Circuit {
 

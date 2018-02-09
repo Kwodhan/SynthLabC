@@ -6,7 +6,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,9 @@ public abstract class ModuleController {
 
     protected Controller controller;
 
+    /**
+     * valeur de la position du port
+     */
     protected double x = 0, y = 0;
 
     protected int currentPort = -1;
@@ -46,7 +48,7 @@ public abstract class ModuleController {
             this.controller.setPlugged(false);
             line.setVisible(false);
 
-        } else { // si c'est le premier port
+        } else { // si c'est le premier port, on le garde en variable temporaire
             line.setStartX(this.getX());
             line.setStartY(this.getY());
             line.setVisible(true);
@@ -69,15 +71,13 @@ public abstract class ModuleController {
              if (portOne.equals(port)) {
                  cableController.disconnect();
              }
-            if (portTwo.equals(port)) {
+             if (portTwo.equals(port)) {
                 cableController.disconnect();
-            }
+             }
         }
     }
 
-//    public void deleteModuleControllerFromController(){
-//        this.controller.disconnect(this);
-//    }
+
 
     /**
      * Get the layout of the port on the UI
@@ -89,8 +89,13 @@ public abstract class ModuleController {
         y=(boundsInScene.getMaxY()+boundsInScene.getMinY())/2.0;
     }
 
+
     public abstract Port getCurrentPort();
 
+    /**
+     * met à jour le cables du port lors d'un dragAndDrop
+     * @param port le port à mettre un jour
+     */
     public void updateCablesPositionFromPort(Port port) {
         List<CableController> cables = this.controller.getCables();
         Port portOne;
