@@ -73,6 +73,12 @@ public class MIXERModuleController extends ModuleController implements Initializ
             default: return null;
         }
     }
+
+    @Override
+    public void updateCablesPosition() {
+
+    }
+
     /**
      * Connecting the outPort to draw the cable
      */

@@ -24,4 +24,9 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     public Port getCurrentPort() {
         return null;
     }
+
+    @Override
+    public void updateCablesPosition() {
+
+    }
 }

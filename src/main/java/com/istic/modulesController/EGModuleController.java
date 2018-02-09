@@ -67,6 +67,11 @@ public class EGModuleController extends ModuleController implements Initializabl
         return null;
     }
 
+    @Override
+    public void updateCablesPosition() {
+
+    }
+
     public void init(Controller controller) {
         super.init(controller);
         this.eg = new EG();

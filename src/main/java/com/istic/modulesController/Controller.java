@@ -204,6 +204,7 @@ public class Controller implements Initializable {
 		}
     }
 
+
 	private void addMod(Node root) {
 		root.setId("module-" + moduleId++);
 		for(StackPane s : stacks) {

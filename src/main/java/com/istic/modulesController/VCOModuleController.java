@@ -136,6 +136,16 @@ public class VCOModuleController extends ModuleController implements Initializab
 
     }
 
+    @Override
+    public void updateCablesPosition() {
+        getLayout(outPort);
+        getLayout(fmPort);
+        Port fm = vco.getFm();
+        Port out = vco.getOutput();
+        super.test(fm);
+        super.test(out);
+    }
+
     @FXML
     public void removeOutput(InputEvent e) throws IOException {
         //Deconnexion cable

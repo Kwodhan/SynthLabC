@@ -95,4 +95,9 @@ public class REPLICATORModuleController extends ModuleController implements Init
             default: return null;
         }
     }
+
+    @Override
+    public void updateCablesPosition() {
+
+    }
 }

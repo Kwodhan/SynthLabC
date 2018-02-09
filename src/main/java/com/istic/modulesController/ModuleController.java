@@ -78,6 +78,27 @@ public abstract class ModuleController {
 
     public abstract Port getCurrentPort();
 
+    public void test(Port port) {
+        List<CableController> cables = this.controller.getCables();
+        Port portOne;
+        Port portTwo;
+        for (CableController cableController : cables) {
+            portOne = cableController.getCable().getPortOne();
+            portTwo = cableController.getCable().getPortTwo();
+            if (portOne.equals(port)) {
+                cableController.updatePosition(1, 1, 300, 300);
+            }
+            if (portTwo.equals(port)) {
+                cableController.updatePosition(1, 1, 300, 300);
+            }
+        }
+    }
+
+    /**
+     * Redéfinis dans chaque module
+     * Met à jour la position des cables liés au module
+     */
+    public abstract void updateCablesPosition();
 
     public double getX() {
         return x;

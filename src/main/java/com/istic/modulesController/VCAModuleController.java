@@ -89,4 +89,9 @@ public class VCAModuleController extends ModuleController implements Initializab
             default: return null;
         }
     }
+
+    @Override
+    public void updateCablesPosition() {
+
+    }
 }

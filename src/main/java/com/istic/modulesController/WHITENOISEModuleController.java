@@ -24,4 +24,9 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     public Port getCurrentPort() {
         return null;
     }
+
+    @Override
+    public void updateCablesPosition() {
+
+    }
 }

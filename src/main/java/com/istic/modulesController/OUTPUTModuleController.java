@@ -81,6 +81,11 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
     }
 
+    @Override
+    public void updateCablesPosition() {
+
+    }
+
     @FXML
     public void removeOutput(InputEvent e) throws IOException {
         //Deconnexion cable

@@ -24,4 +24,9 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     public Port getCurrentPort() {
         return null;
     }
+
+    @Override
+    public void updateCablesPosition() {
+
+    }
 }

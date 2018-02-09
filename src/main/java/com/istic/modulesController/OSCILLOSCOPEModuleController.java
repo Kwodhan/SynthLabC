@@ -59,6 +59,11 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         return null;
     }
 
+    @Override
+    public void updateCablesPosition() {
+
+    }
+
     /**
      * Connecting the inPort to draw the cable
      */

@@ -35,8 +35,8 @@ public class Oscilloscope {
      */
     public Oscilloscope(Synthesizer synth) {
         scope = new AudioScope(synth);
-        scope.setViewMode(AudioScope.ViewMode.SPECTRUM);
-        scope.setTriggerMode(AudioScope.TriggerMode.NORMAL);
+        scope.setViewMode(AudioScope.ViewMode.WAVEFORM);
+        scope.setTriggerMode(AudioScope.TriggerMode.AUTO);
 
         OscilloscopePassThrough oscilloscopePassThrough = new OscilloscopePassThrough();
         portInput = new PortInput(oscilloscopePassThrough.getInputPort());
