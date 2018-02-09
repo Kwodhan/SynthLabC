@@ -2,27 +2,26 @@ package com.istic.modulesController;
 
 import com.istic.cable.Cable;
 import com.istic.cable.CableController;
-import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import javafx.event.EventHandler;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class Controller implements Initializable  {
 
@@ -30,20 +29,9 @@ public class Controller implements Initializable  {
 	AnchorPane pane;
 	@FXML
 	MenuItem vcoMenuItem;
-	@FXML
-	HBox hBox1, hBox2, hBox3;
+
 	@FXML
 	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
-
-	@FXML
-	Button startVCOButton, stopVCOButton;
-	@FXML
-	Slider frequencySlider;
-	@FXML
-	Slider frequencyFineSlider;
-	@FXML
-	RadioButton sawRadio, triangleRadio, squareRadio;
-
     @FXML
     RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem;
 
@@ -55,7 +43,11 @@ public class Controller implements Initializable  {
     private List<CableController> cables;
 
     private Synthesizer synth;
-    private Line mouseLine;
+
+	/**
+	 * droite qui suit le curseur lors d'un cablage
+	 */
+	private Line mouseLine;
 
     /**
      * Module temporaire pour le cablage
@@ -68,6 +60,9 @@ public class Controller implements Initializable  {
 	private Integer cableId = 1;
 	private Integer moduleId = 1;
 
+	/**
+	 * si on a déja chosie un port lors d'un cablage
+	 */
 	private boolean isPlugged = false;
 
     /**
@@ -337,16 +332,6 @@ public class Controller implements Initializable  {
 		}
 	}
 
-
-//    public void removeMod(){
-// 		  old code to get parent hbox1 : not necessary anymore
-//        SplitPane splitPane= (SplitPane) pane.getChildren().get(1);
-//        AnchorPane anch = (AnchorPane) splitPane.getItems().get(1);
-//        GridPane grid = (GridPane) anch.getChildren().get(0);
-//        //grid.getChildren().get(0).toString()
-//        HBox hbox1 = (HBox) grid.getChildren().get(0);
-//        System.out.println(hbox1.toString());
-//    }
 
 
 	// Setters & Getters
