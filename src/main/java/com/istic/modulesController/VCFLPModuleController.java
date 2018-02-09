@@ -34,8 +34,14 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         return null;
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML // A decommenter et adapter quand le model vcf LP sera fait !
-    public void removeModule(InputEvent e) throws IOException {
+    public void removeModule() throws IOException {
 //        //Deconnexion cable
 //        Port gate = vcflp.getGateInput();
 //        Port out = vcflp.getOutput();
@@ -43,7 +49,7 @@ public class VCFLPModuleController extends ModuleController implements Initializ
 //        super.disconnect(out);
 //        // Deconnexion du module Output du synthetizer
 //        this.controller.getSynth().remove(vcflp);
-//        // Get parent node of pane corresponding to OutMod
+        // Get parent node of pane corresponding to OutMod
         // Recupere le noeud parent fxml du outmod
         HBox hbox1= (HBox) pane.getParent();
         // supprime le mod niveau ihm

@@ -102,8 +102,14 @@ public class REPLICATORModuleController extends ModuleController implements Init
         }
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
+    public void removeModule() throws IOException {
         //Deconnexion cable
         Port in = rep.getInput();
         Port out1 = rep.getOutput1();

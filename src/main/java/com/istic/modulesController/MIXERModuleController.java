@@ -135,9 +135,16 @@ public class MIXERModuleController extends ModuleController implements Initializ
 
 
     }
+
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
-        //Deconnexion cable
+    public void removeModule() throws IOException {
+        //Deconnexion cables
         Port in1 = mixer.getInput1();
         Port in2 = mixer.getInput2();
         Port in3 = mixer.getInput3();

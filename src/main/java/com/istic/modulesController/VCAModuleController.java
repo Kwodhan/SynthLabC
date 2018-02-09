@@ -98,9 +98,15 @@ public class VCAModuleController extends ModuleController implements Initializab
         }
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
-        //Deconnexion cable
+    public void removeModule() throws IOException {
+        //Deconnexion cables
         Port am = vca.getAm();
         Port in = vca.getInput();
         Port out = vca.getOutput();

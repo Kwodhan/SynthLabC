@@ -21,14 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class VCOModuleController extends ModuleController implements Initializable {
-    /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     * <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
-     */
+
     @FXML
     AnchorPane pane;
     @FXML
@@ -42,13 +35,19 @@ public class VCOModuleController extends ModuleController implements Initializab
     ImageView outPort;
     @FXML
     ImageView fmPort;
-
     @FXML
     Label txtHertz;
 
     protected VCO vco;
 
-
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     * <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -135,8 +134,14 @@ public class VCOModuleController extends ModuleController implements Initializab
 
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
+    public void removeModule() throws IOException {
         //Deconnexion cable
         Port fm = vco.getFm();
         Port out = vco.getOutput();

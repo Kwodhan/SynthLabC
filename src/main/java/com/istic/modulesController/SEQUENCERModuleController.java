@@ -35,9 +35,15 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         return null;
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML // A decommenter et adapter quand le model sequencer sera fait !
-    public void removeModule(InputEvent e) throws IOException {
-//        //Deconnexion cable
+    public void removeModule() throws IOException {
+//        //Deconnexion cables
 //        Port gate = seq.getGateInput();
 //        Port out = seq.getOutput();
 //        super.disconnect(gate);

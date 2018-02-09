@@ -101,9 +101,15 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         SwingUtilities.invokeLater(() -> swingNode.setContent(audioScopeView));
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
-        //Deconnexion cable
+    public void removeModule() throws IOException {
+        //Deconnexion cables
         Port in = oscilloscope.getInput();
         Port out = oscilloscope.getOutput();
         super.disconnect(in);

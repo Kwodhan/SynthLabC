@@ -33,6 +33,7 @@ public class EGModuleController extends ModuleController implements Initializabl
     Slider sustainSlider;
     @FXML
     Slider releaseSlider;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -98,8 +99,15 @@ public class EGModuleController extends ModuleController implements Initializabl
             super.connect();
         }
     }
+
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
+    public void removeModule() throws IOException {
         //Deconnexion cable
         Port gate = eg.getGateInput();
         Port out = eg.getOutput();

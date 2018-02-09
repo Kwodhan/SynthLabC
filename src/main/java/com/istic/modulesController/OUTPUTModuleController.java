@@ -80,9 +80,15 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML
-    public void removeModule(InputEvent e) throws IOException {
-        //Deconnexion cable
+    public void removeModule() throws IOException {
+        //Deconnexion cables
         Port port = lineOut.getPortInput();
         super.disconnect(port);
         // Deconnexion du module Output du synthetizer

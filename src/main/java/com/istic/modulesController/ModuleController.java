@@ -39,8 +39,8 @@ public abstract class ModuleController {
     }
 
     /**
-     * Supprime le cable branché sur le port du module
-     * @param port port auquel on veut supprimer le cable
+     * Supprime le cable branché sur un port de module
+     * @param port port duquel on veut supprimer le cable
      */
     public void disconnect(Port port) {
         List<CableController> cables = this.controller.getCables();
@@ -77,7 +77,6 @@ public abstract class ModuleController {
 
 
     public abstract Port getCurrentPort();
-
 
     public double getX() {
         return x;

@@ -34,16 +34,22 @@ public class VCFHPModuleController extends ModuleController implements Initializ
         return null;
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     *
+     * @throws IOException
+     */
     @FXML // A decommenter et adapter quand le model vcf HP sera fait !
-    public void removeModule(InputEvent e) throws IOException {
-//        //Deconnexion cable
+    public void removeModule() throws IOException {
+//        //Deconnexion cables
 //        Port gate = vcfhp.getGateInput();
 //        Port out = vcfhp.getOutput();
 //        super.disconnect(gate);
 //        super.disconnect(out);
 //        // Deconnexion du module Output du synthetizer
 //        this.controller.getSynth().remove(vcfhp);
-//        // Get parent node of pane corresponding to OutMod
+        // Get parent node of pane corresponding to OutMod
         // Recupere le noeud parent fxml du outmod
         HBox hbox1= (HBox) pane.getParent();
         // supprime le mod niveau ihm
