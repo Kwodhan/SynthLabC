@@ -18,7 +18,7 @@ public class IHMTestBadConnect extends ApplicationTest {
 
     @Override
     public void start (Stage stage) throws Exception {
-        Parent mainNode = FXMLLoader.load(App.class.getResource("../../sample_sprint1.fxml"));
+        Parent mainNode = FXMLLoader.load(App.class.getResource("../../main.fxml"));
         stage.setScene(new Scene(mainNode));
         stage.show();
         stage.toFront();
