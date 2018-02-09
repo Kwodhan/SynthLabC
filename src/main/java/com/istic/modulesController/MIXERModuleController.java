@@ -23,7 +23,6 @@ public class MIXERModuleController extends ModuleController implements Initializ
     AnchorPane pane;
 
 
-
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -66,11 +65,13 @@ public class MIXERModuleController extends ModuleController implements Initializ
 
     }
 
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     @Override
     public Port getCurrentPort() {
-
         switch (currentPort) {
-
             case 0:
                 return mixer.getOutput();
             case 1:
@@ -97,6 +98,10 @@ public class MIXERModuleController extends ModuleController implements Initializ
             super.connect();
         }
     }
+
+    /**
+     * Connecte le port d'entrée 1 pour tracer le cable
+     */
     public void connectInPort1() {
         if(!this.mixer.getInput1().isConnected()) {
             currentPort = 1;
@@ -104,6 +109,10 @@ public class MIXERModuleController extends ModuleController implements Initializ
             super.connect();
         }
     }
+
+    /**
+     * Connecte le port d'entrée 2 pour tracer le cable
+     */
     public void connectInPort2() {
 
         if(!this.mixer.getInput2().isConnected()) {
@@ -112,6 +121,10 @@ public class MIXERModuleController extends ModuleController implements Initializ
             super.connect();
         }
     }
+
+    /**
+     * Connecte le port d'entrée 3 pour tracer le cable
+     */
     public void connectInPort3() {
 
         if(!this.mixer.getInput3().isConnected()) {
@@ -120,6 +133,10 @@ public class MIXERModuleController extends ModuleController implements Initializ
             super.connect();
         }
     }
+
+    /**
+     * Connecte le port d'entrée 4 pour tracer le cable
+     */
     public void connectInPort4() {
 
         if(!this.mixer.getInput4().isConnected()) {
@@ -128,12 +145,17 @@ public class MIXERModuleController extends ModuleController implements Initializ
             super.connect();
         }
     }
+
+    /**
+     * Initialise le contrôleur du module et
+     * ajoute le module au synthétiseur
+     *
+     * @param controller
+     */
     public void init(Controller controller) {
         super.init(controller);
         this.mixer = new MIXER();
         this.controller.getSynth().add(mixer);
-
-
     }
 
     /**
