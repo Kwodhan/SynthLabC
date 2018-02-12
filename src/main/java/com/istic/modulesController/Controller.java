@@ -457,12 +457,13 @@ public class Controller implements Initializable  {
 
             CableController cableController=null;
             switch (result.get().getText()){
-                case "GOLD" :                  cableController = new CableController(pane,cable, Color.GOLD);
-                case "BLUEVIOLET" :                 cableController = new CableController(pane,cable, Color.BLUEVIOLET);
-                case "RED" :                  cableController = new CableController(pane,cable, Color.RED);
-                case "OLIVE" :                 cableController = new CableController(pane,cable, Color.OLIVE);
-                case "SALMON" :                 cableController = new CableController(pane,cable, Color.SALMON);
-                case "MEDIUMAQUAMARINE" :                 cableController = new CableController(pane,cable, Color.MEDIUMAQUAMARINE);
+                case "GOLD" :                  cableController = new CableController(pane,cable, Color.GOLD);break;
+                case "BLUEVIOLET" :                 cableController = new CableController(pane,cable, Color.BLUEVIOLET);break;
+                case "RED" :                  cableController = new CableController(pane,cable, Color.RED);break;
+                case "OLIVE" :                 cableController = new CableController(pane,cable, Color.OLIVE);break;
+                case "SALMON" :                 cableController = new CableController(pane,cable, Color.SALMON);break;
+                case "SILVER" :                 cableController = new CableController(pane,cable, Color.SILVER);break;
+                case "MEDIUMAQUAMARINE" :                 cableController = new CableController(pane,cable, Color.MEDIUMAQUAMARINE);break;
                 default : break;
             }
 
