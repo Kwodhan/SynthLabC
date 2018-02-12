@@ -66,15 +66,20 @@ public abstract class ModuleController {
         List<CableController> cables = this.controller.getCables();
         Port portOne;
         Port portTwo;
+        CableController removeCable = null;
         for (CableController cableController : cables) {
              portOne = cableController.getCable().getPortOne();
              portTwo = cableController.getCable().getPortTwo();
              if (portOne.equals(port)) {
                  cableController.disconnect();
+                 removeCable = cableController;
              }
              if (portTwo.equals(port)) {
                 cableController.disconnect();
              }
+        }
+        if(removeCable!=null) {
+            this.controller.getCables().remove(removeCable);
         }
     }
 

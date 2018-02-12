@@ -49,7 +49,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         sleep(2000);
 
 
-        clickOn("#sawRadio");
+        clickOn("#triangleRadio");
 
         // Fin slider
         moveTo("#frequencyFineSlider");
@@ -65,7 +65,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         assertEquals(cable1.getId(), "cable-1");
 
         // deconnexion
-        clickOn("#cable-1");
+        clickOn("#inPort");
 
         cable1 = lookup("#cable-1").query();
         assertNull(cable1);
@@ -126,26 +126,10 @@ public class IHMTestDeleteCable extends ApplicationTest {
 
         sleep(2000);
 
-        // Octave slider
-        moveTo("#frequencySlider");
-        Slider octave = lookup("#frequencySlider").query();
-        octave.setValue(1);
-        sleep(1000);
-        octave.setValue(-2);
-        sleep(1000);
-        octave.setValue(0);
-        sleep(2000);
-
-        // Fin slider
-        moveTo("#frequencyFineSlider");
-        Slider fin = lookup("#frequencyFineSlider").query();
-        fin.setValue(-7);
-        sleep(1000);
-        fin.setValue(2);
-        sleep(1000);
 
 
-        clickOn("#cable-1");
+
+        clickOn(vco.lookup("#outPort"));
         cable1 = lookup("#cable-1").query();
         assertNull(cable1);
 
@@ -245,7 +229,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
 
         sleep(2000);
 
-        clickOn("#cable-2");
+        clickOn(eg.lookup("#outPort"));
         cable2 = lookup("#cable-2").query();
         assertNull(cable2);
 

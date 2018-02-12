@@ -81,7 +81,8 @@ public class CableController {
                 , x2, y2+getCurve(x1,y1,x2,y2), x2, y2);
 
         line.setFill( null);
-        line.setStrokeWidth(3);
+        line.setStrokeWidth(5);
+
         Random r = new Random();
         line.setStroke(this.color.get(r.nextInt(this.color.size())));
         line.setId("cable-"+id);
