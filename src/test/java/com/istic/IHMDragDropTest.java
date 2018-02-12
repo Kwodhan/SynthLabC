@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class IHMTestDragDrop extends ApplicationTest {
+public class IHMDragDropTest extends ApplicationTest {
 
     @Override
     public void start (Stage stage) throws Exception {

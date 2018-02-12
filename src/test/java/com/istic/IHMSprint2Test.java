@@ -13,7 +13,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class IHMTestSprint2 extends ApplicationTest {
+public class IHMSprint2Test extends ApplicationTest {
 
 
     @Override

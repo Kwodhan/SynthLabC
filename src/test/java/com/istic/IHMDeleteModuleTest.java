@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public class IHMTestDeleteModule extends ApplicationTest {
+public class IHMDeleteModuleTest extends ApplicationTest {
 
     Stage stage;
 
