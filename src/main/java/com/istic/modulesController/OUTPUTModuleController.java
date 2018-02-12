@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -24,11 +25,12 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     AnchorPane pane;
     @FXML
     public Button closeButton;
-
+    @FXML
+    ToggleButton mute;
     private OutMod lineOut;
 
     @FXML
-    private Slider attenuationSlider;
+    protected Slider attenuationSlider;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -119,4 +121,11 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         stackPane.getChildren().remove(pane);
     }
 
+    public OutMod getLineOut() {
+        return lineOut;
+    }
+
+    public ToggleButton getMute() {
+        return mute;
+    }
 }

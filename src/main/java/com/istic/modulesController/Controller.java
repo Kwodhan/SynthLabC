@@ -1,5 +1,6 @@
 package com.istic.modulesController;
 
+import com.google.gson.Gson;
 import com.istic.cable.Cable;
 import com.istic.cable.CableController;
 import com.istic.port.Port;
@@ -20,10 +21,13 @@ import javafx.scene.shape.Line;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller implements Initializable  {
 
@@ -118,14 +122,104 @@ public class Controller implements Initializable  {
 	 * Open a configuration
 	 */
 	public void openConfig(){
+        FileChooser fileChooser = new FileChooser();
 
-	}
+
+
+        fileChooser.setTitle("Open Configuration File");
+        //Show open file dialog
+        File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
+        if(file != null){
+            try {
+                FileReader fileReader;
+                List<String> records = new ArrayList<String>();
+                fileReader = new FileReader(file);
+                BufferedReader reader = new BufferedReader(fileReader);
+                String line;
+                dropAll();
+                while ((line = reader.readLine()) != null)
+                {
+
+                    String[] strings = line.split(",");
+
+                        if(strings!=null)
+                        {
+                            //System.out.println(strings[0]);
+                            switch (strings[0]){
+                                case "out" :
+                                    //System.out.println("4");
+                                    Node root = FXMLLoader.load(getClass().getResource(
+                                            "../../../modules/output.fxml"));
+                                    addMod(root);
+
+                                    OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
+                                    this.moduleControllers.add(outputModuleController);
+                                    outputModuleController.init(this);
+                                    double d =Double.parseDouble(strings[1]);
+                                    int i =Integer.parseInt(strings[2]);
+                                    System.out.println(i);
+                                    outputModuleController.getLineOut().setAttenuation(d);
+                                    outputModuleController.getLineOut().setMute(i);
+                                    outputModuleController.attenuationSlider.setValue(d);
+                                    if(i==0)
+                                    outputModuleController.getMute().setSelected(true);
+                            }
+                        }
+
+                    records.add(line);
+
+                }
+                reader.close();
+            } catch (IOException ex) {
+                Logger.getLogger(this.getClass()
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
 	/**
 	 * Save a configuration
 	 */
 	public void saveConfig(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Configuration File");
 
-	}
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(pane.getScene().getWindow());
+
+        if(file != null){
+            try {
+                FileWriter fileWriter;
+
+                fileWriter = new FileWriter(file);
+                for(ModuleController moduleController: moduleControllers) {
+                    //if(moduleController.getClass().(OUTPUTModuleController))
+                    String line = moduleController.getClass().getName();
+                    switch (line){
+                        case "com.istic.modulesController.OUTPUTModuleController" :
+                           OUTPUTModuleController out=(OUTPUTModuleController)moduleController;
+
+                           line="out,"+out.getLineOut().getAttenuation()
+                                   +","+out.getLineOut().getMute()+"\n";
+                            fileWriter.write(line);
+
+                           default:break;
+                    }
+                    System.out.println(line);
+                	//fileWriter.write(json);
+                }
+                fileWriter.close();
+            } catch (IOException ex) {
+                Logger.getLogger(this.getClass()
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
 	/**
 	 * Save as MP3 file
 	 */
@@ -356,7 +450,7 @@ public class Controller implements Initializable  {
                 default : break;
             }
 
-                if (cableController!=null) {
+            if (cableController!=null) {
                     cableController.drawCable(this.temporaryCableModuleController,moduleController,cableId++);
                     this.cables.add(cableController);
             } else {

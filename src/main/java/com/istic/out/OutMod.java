@@ -64,4 +64,16 @@ public class OutMod extends LineOut {
 	public void setAttenuation(double att){
 		this.attenuation = att;
 	}
+
+	public double getAttenuation() {
+		return attenuation;
+	}
+
+	public int getMute() {
+		return mute;
+	}
+
+	public void setMute(int mute) {
+		this.mute = mute;
+	}
 }
