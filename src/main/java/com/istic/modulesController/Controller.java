@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -323,9 +324,46 @@ public class Controller implements Initializable  {
 	public void connect(ModuleController moduleController) {
 		Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
 		if (cable.connect()) {
-			CableController cableController = new CableController(pane,cable);
-			cableController.drawCable(this.temporaryCableModuleController,moduleController,cableId++);
-			this.cables.add(cableController);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Color choice");
+            alert.setHeaderText("Please choose a color");
+
+            ButtonType buttonGOLD = new ButtonType("GOLD");
+            ButtonType buttonBLUEVIOLET = new ButtonType("BLUEVIOLET");
+            ButtonType buttonRED = new ButtonType("RED");
+            ButtonType buttonOLIVE = new ButtonType("OLIVE");
+            ButtonType buttonSALMON = new ButtonType("SALMON");
+            ButtonType buttonSILVER = new ButtonType("SILVER");
+            ButtonType buttonMEDIUMAQUAMARINE = new ButtonType("MEDIUMAQUAMARINE");
+
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonGOLD,
+                    buttonBLUEVIOLET, buttonRED,buttonOLIVE,
+                    buttonSALMON,buttonSILVER
+                    ,buttonMEDIUMAQUAMARINE, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            CableController cableController=null;
+            switch (result.get().getText()){
+                case "GOLD" :                  cableController = new CableController(pane,cable, Color.GOLD);
+                case "BLUEVIOLET" :                 cableController = new CableController(pane,cable, Color.BLUEVIOLET);
+                case "RED" :                  cableController = new CableController(pane,cable, Color.RED);
+                case "OLIVE" :                 cableController = new CableController(pane,cable, Color.OLIVE);
+                case "SALMON" :                 cableController = new CableController(pane,cable, Color.SALMON);
+                case "MEDIUMAQUAMARINE" :                 cableController = new CableController(pane,cable, Color.MEDIUMAQUAMARINE);
+                default : break;
+            }
+
+                if (cableController!=null) {
+                    cableController.drawCable(this.temporaryCableModuleController,moduleController,cableId++);
+                    this.cables.add(cableController);
+            } else {
+                cable.disconnect();
+                // ... user chose CANCEL or closed the dialog
+            }
+
 		}
 	}
 

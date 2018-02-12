@@ -3,10 +3,7 @@ package com.istic.cable;
 import com.istic.modulesController.ModuleController;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
 import javafx.scene.shape.CubicCurve;
-import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,18 +27,20 @@ public class CableController {
     ModuleController mc1;
     ModuleController mc2;
 
-    public CableController(AnchorPane pane, Cable cable) {
+    public CableController(AnchorPane pane, Cable cable,Color color) {
         this.cable = cable;
         this.pane = pane;
         this.color = new ArrayList<>();
-        this.color.add(Color.GOLD);
+        this.color.add(color);
+
+        /*this.color.add(Color.GOLD);
         this.color.add(Color.BLUEVIOLET);
         this.color.add(Color.RED);
         this.color.add(Color.OLIVE);
         this.color.add(Color.SALMON);
         this.color.add(Color.SILVER);
         this.color.add(Color.MEDIUMAQUAMARINE);
-
+*/
     }
 
 
@@ -56,10 +55,14 @@ public class CableController {
             line.setStartY(mc1.getY());
             line.setControlX1(mc1.getX());
             line.setControlY1(mc1.getY()+getCurve(mc1.getX(),mc1.getY(),mc2.getX(),mc2.getY()));
+            line.setControlX2(mc2.getX());
+            line.setControlY2(mc2.getY()+getCurve(mc1.getX(),mc1.getY(),mc2.getX(),mc2.getY()));
 
         }else {
             line.setEndX(mc2.getX());
             line.setEndY(mc2.getY());
+            line.setControlX1(mc1.getX());
+            line.setControlY1(mc1.getY()+getCurve(mc1.getX(),mc1.getY(),mc2.getX(),mc2.getY()));
             line.setControlX2(mc2.getX());
             line.setControlY2(mc2.getY()+getCurve(mc1.getX(),mc1.getY(),mc2.getX(),mc2.getY()));
 
@@ -102,7 +105,7 @@ public class CableController {
         double x=Math.abs(x1-x2);
         double y=Math.abs(y1-y2);
         return x/6+y/2;
-        
+
     }
 
 }
