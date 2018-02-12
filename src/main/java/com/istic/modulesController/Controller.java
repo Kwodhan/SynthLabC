@@ -374,9 +374,6 @@ public class Controller implements Initializable  {
 
 
 	// Setters & Getters
-	public AnchorPane getPane() {
-		return pane;
-	}
 
 	public boolean isPlugged() {
 		return isPlugged;

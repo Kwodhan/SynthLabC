@@ -182,9 +182,5 @@ public class VCOModuleController extends ModuleController implements Initializab
         }
     }
 
-    //Setters et Getters
-    public PortOutput getOutPort() {
-        return this.vco.getOutput();
-    }
 
 }
