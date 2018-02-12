@@ -6,6 +6,7 @@ import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import javafx.fxml.FXML;
@@ -35,7 +36,7 @@ public class Controller implements Initializable  {
 	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
 
 	@FXML
-	RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem;
+	RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem,defaultMenuItem;
 
 	final ToggleGroup group = new ToggleGroup();
 
@@ -79,6 +80,8 @@ public class Controller implements Initializable  {
 		coralMenuItem.setToggleGroup(group);
 		darkMenuItem.setToggleGroup(group);
 		woodMenuItem.setToggleGroup(group);
+		defaultMenuItem.setToggleGroup(group);
+		group.selectToggle(defaultMenuItem);
 
 		this.dragAndDrop = new DragAndDrop(this);
 
@@ -143,6 +146,13 @@ public class Controller implements Initializable  {
 	public void coralTheme(){
 		pane.getStylesheets().clear();
 		pane.getStylesheets().add("/skins/coral.css");
+	}
+
+	/**
+	 * Change le thème en default
+	 */
+	public void defaultTheme() {
+		pane.getStylesheets().clear();
 	}
 
 	/**
@@ -395,4 +405,6 @@ public class Controller implements Initializable  {
 	public Line getMouseLine() {
 		return mouseLine;
 	}
+
+
 }
