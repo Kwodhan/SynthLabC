@@ -1,9 +1,9 @@
-language: java
-
-jdk:
-  - oraclejdk8
-
-sudo: false
+#language: java
+#
+#jdk:
+#  - oraclejdk8
+#
+#sudo: false
 
 #matrix:
 #  include:
@@ -14,14 +14,47 @@ sudo: false
 #        env:
 #          - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
 
-before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+#before_install:
+#  - "export DISPLAY=:99.0"
+#  - "sh -e /etc/init.d/xvfb start"
+#
+#addons:
+#  apt:
+#    packages:
+#      - oracle-java8-installer
+
+
+
+
+language: java
+
+sudo: false   # Linux OS: run in container
+
+matrix:
+  include:
+#    # Headed Linux
+#    - os: linux
+#      dist: trusty
+#      jdk: oraclejdk8
+    # Headless Linux
+    - os: linux
+      dist: trusty
+      jdk: oraclejdk8
+      env:
+        - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
 
 addons:
   apt:
     packages:
       - oracle-java8-installer
+
+before_install:
+  - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start; fi
+
+install: true
+
+before_script:
+  - if [[ "${TRAVIS_OS_NAME}" == osx ]]; then brew update; brew cask reinstall caskroom/versions/java8; fi
 
 script:
 - mvn clean verify
