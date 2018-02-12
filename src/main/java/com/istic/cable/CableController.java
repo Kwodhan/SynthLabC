@@ -3,6 +3,9 @@ package com.istic.cable;
 import com.istic.modulesController.ModuleController;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class CableController {
     /**
      * Ligne graphique
      */
-    Line line;
+    CubicCurve line;
 
     ModuleController mc1;
     ModuleController mc2;
@@ -51,9 +54,15 @@ public class CableController {
         if(i==1){
             line.setStartX(mc1.getX());
             line.setStartY(mc1.getY());
+            line.setControlX1(mc1.getX());
+            line.setControlY1(mc1.getY()+getCurve(mc1.getX(),mc1.getY(),mc2.getX(),mc2.getY()));
+
         }else {
             line.setEndX(mc2.getX());
             line.setEndY(mc2.getY());
+            line.setControlX2(mc2.getX());
+            line.setControlY2(mc2.getY()+getCurve(mc1.getX(),mc1.getY(),mc2.getX(),mc2.getY()));
+
         }
 
 
@@ -63,15 +72,23 @@ public class CableController {
 
         mc1 = moduleController1;
         mc2 = moduleController2;
+        double x1,x2,y1,y2;
+        x1=mc1.getX();
+        x2=mc2.getX();
+        y1=mc1.getY();
+        y2=mc2.getY();
+        line = new CubicCurve( x1,y1, x1, y1+getCurve(x1,y1,x2,y2)
+                , x2, y2+getCurve(x1,y1,x2,y2), x2, y2);
 
-        line = new Line(moduleController1.getX(),
-                moduleController1.getY(), moduleController2.getX(),
-                moduleController2.getY());
+        line.setFill( null);
         line.setStrokeWidth(3);
         Random r = new Random();
         line.setStroke(this.color.get(r.nextInt(this.color.size())));
         line.setId("cable-"+id);
+
+
         pane.getChildren().add(line);
+
         line.setOnMouseClicked(event -> {
             this.disconnect();
         });
@@ -79,6 +96,13 @@ public class CableController {
 
     public Cable getCable() {
         return cable;
+    }
+
+    public double getCurve(double x1,double y1,double x2,double y2){
+        double x=Math.abs(x1-x2);
+        double y=Math.abs(y1-y2);
+        return x/6+y/2;
+        
     }
 
 }
