@@ -52,6 +52,7 @@ public class IHMSprint2Test extends ApplicationTest {
         // la sortie `out` du VCO n°2 est reliée à l’entrée `in` du VCA ;
         clickOn(vco2.lookup("#outPort"));
         clickOn(vca.lookup("#inPort"));
+        clickOn("GOLD");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -62,6 +63,7 @@ public class IHMSprint2Test extends ApplicationTest {
         // on passe par le replicator pour sortir la sortie out du VCO à deux endroits !
         clickOn(vco1.lookup("#outPort"));
         clickOn(replicator.lookup("#inPort"));
+        clickOn("GOLD");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -69,6 +71,7 @@ public class IHMSprint2Test extends ApplicationTest {
 
         clickOn(replicator.lookup("#outPort1"));
         clickOn(vco2.lookup("#fmPort"));
+        clickOn("GOLD");
 
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
@@ -76,6 +79,7 @@ public class IHMSprint2Test extends ApplicationTest {
 
         clickOn(replicator.lookup("#outPort2"));
         clickOn(eg.lookup("#gatePort"));
+        clickOn("GOLD");
 
         CubicCurve cable4 = lookup("#cable-4").query();
         assertNotNull(cable4);
@@ -85,6 +89,7 @@ public class IHMSprint2Test extends ApplicationTest {
         // la sortie `out` du VCA est reliée  à l’entrée `in` du module de sortie son.
         clickOn(vca.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
+        clickOn("GOLD");
 
         CubicCurve cable5 = lookup("#cable-5").query();
         assertNotNull(cable5);
@@ -93,6 +98,7 @@ public class IHMSprint2Test extends ApplicationTest {
         // la sortie `out` de l’EG est reliée à l’entrée `am` du VCA.
         clickOn(eg.lookup("#outPort"));
         clickOn(vca.lookup("#amPort"));
+        clickOn("GOLD");
 
         CubicCurve cable6 = lookup("#cable-6").query();
         assertNotNull(cable6);
