@@ -26,7 +26,7 @@ public class DragAndDrop {
         b.setOnDragDetected(e -> {
                     if(controller.getTemporaryCableModuleController() == null) {
                         Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
-                        db.setDragView(b.snapshot(null, null));
+                        db.setDragView(b.snapshot(null, null),e.getX(),e.getY());
                         ClipboardContent cc = new ClipboardContent();
                         cc.put(nodeFormat, " ");
                         db.setContent(cc);
