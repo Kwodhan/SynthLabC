@@ -11,7 +11,7 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import static org.junit.Assert.assertNull;
 
-public class IHMTestBadConnect extends ApplicationTest {
+public class IHMBadConnectTest extends ApplicationTest {
 
     @Override
     public void start (Stage stage) throws Exception {
