@@ -1,5 +1,6 @@
 package com.istic.util;
 
+import com.istic.modulesController.Controller;
 import com.istic.modulesController.ModuleController;
 import javafx.scene.Node;
 import javafx.scene.input.*;
@@ -11,19 +12,26 @@ public class DragAndDrop {
 	
     private static final DataFormat nodeFormat = new DataFormat("MyNode");
     private static Node draggingNode;
+    private Controller controller;
+
+    public DragAndDrop(Controller controller) {
+        this.controller = controller;
+    }
 
     /**
      * permet le drag sur le Node
      * @param b
      */
-    public static void dragNode(Node b) {
+    public void dragNode(Node b) {
         b.setOnDragDetected(e -> {
-            Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
-            db.setDragView(b.snapshot(null, null));
-            ClipboardContent cc = new ClipboardContent();
-            cc.put(nodeFormat, " ");
-            db.setContent(cc);
-            draggingNode = b;
+                    if(controller.getTemporaryCableModuleController() == null) {
+                        Dragboard db = b.startDragAndDrop(TransferMode.MOVE);
+                        db.setDragView(b.snapshot(null, null));
+                        ClipboardContent cc = new ClipboardContent();
+                        cc.put(nodeFormat, " ");
+                        db.setContent(cc);
+                        draggingNode = b;
+                    }
         });
     }
 
@@ -31,7 +39,7 @@ public class DragAndDrop {
      * evenement sur le node
      * @param pane
      */
-    public static void addDropHandling(StackPane pane) {
+    public void addDropHandling(StackPane pane) {
         // onDragOver
         pane.setOnDragOver(e -> {
             Dragboard db = e.getDragboard();
@@ -56,6 +64,8 @@ public class DragAndDrop {
             AnchorPane p = (AnchorPane) e.getGestureSource();
             ModuleController moduleController = (ModuleController) p.getUserData();
             moduleController.updateCablesPosition();
+
         });
+
     }
 }

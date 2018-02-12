@@ -58,7 +58,11 @@ public class Controller implements Initializable  {
 	private Integer cableId = 1;
 	private Integer moduleId = 1;
 
+	private DragAndDrop dragAndDrop;
+
 	private boolean isPlugged = false;
+
+
 
 	/**
 	 * Initialise les objets nécessaires à l'application
@@ -75,6 +79,8 @@ public class Controller implements Initializable  {
 		coralMenuItem.setToggleGroup(group);
 		darkMenuItem.setToggleGroup(group);
 		woodMenuItem.setToggleGroup(group);
+
+		this.dragAndDrop = new DragAndDrop(this);
 
 		this.mouseLine = new Line();
 		this.mouseLine.setVisible(false);
@@ -94,7 +100,7 @@ public class Controller implements Initializable  {
 		stacks = new StackPane[]{ box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12};
 		//make stackpane handle drop
 		for (StackPane s : stacks) {
-			DragAndDrop.addDropHandling(s);
+			this.dragAndDrop.addDropHandling(s);
 		}
 
 		try {
@@ -348,7 +354,7 @@ public class Controller implements Initializable  {
 		for(StackPane s : stacks) {
 			if(s.getChildren().isEmpty()) {
 				s.getChildren().add(root);
-				DragAndDrop.dragNode(root);
+				this.dragAndDrop.dragNode(root);
 				return;
 			}
 		}
