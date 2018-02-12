@@ -45,6 +45,8 @@ public class IHMDragDropTest extends ApplicationTest {
         // box 4 y'a un anchor pane avec l'id
         assertNotNull(box4.lookup("#module-1"));
         assertEquals(box4.getChildren().get(0).getId(), "module-1");
+
+        clickOn("#mute");
     }
 
     /**
@@ -86,6 +88,8 @@ public class IHMDragDropTest extends ApplicationTest {
         // and box 7 should always contain output module-1
         assertNotNull(box7.lookup("#module-1"));
         assertEquals(box7.getChildren().get(0).getId(), "module-1");
+
+        clickOn("#mute");
     }
 
     /**
@@ -119,6 +123,8 @@ public class IHMDragDropTest extends ApplicationTest {
         assertEquals(oldStartY, cable1.getStartY(), 0.01);
         assertNotEquals(oldEndX, cable1.getEndX(), 0.01);
         assertNotEquals(oldEndY, cable1.getEndY(), 0.01);
+
+        clickOn("#mute");
     }
 
     /**
@@ -156,6 +162,60 @@ public class IHMDragDropTest extends ApplicationTest {
         assertNotEquals(oldStartY, cable1.getStartY(), 0.01);
         assertNotEquals(oldEndX, cable1.getEndX(), 0.01);
         assertNotEquals(oldEndY, cable1.getEndY(), 0.01);
+
+        clickOn("#mute");
+    }
+
+
+    /**
+     * Déplace le module Oscillo d'une box à une autre
+     * et vérifie que le module à bien changé de place
+     */
+    @Test
+    public void testDragDropOscilloSimple() {
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane oscilloscope = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco = lookup("#module-3").query();
+
+        clickOn(oscilloscope.lookup("#inPort"));
+        clickOn(vco.lookup("#outPort"));
+
+        StackPane box2 = lookup("#box2").query();
+        StackPane box4 = lookup("#box4").query();
+
+        // Drag&Drop
+        drag(oscilloscope, MouseButton.PRIMARY);
+        dropTo(box4);
+
+        // box2 should be empty
+        assertEquals(new ArrayList(), box2.getChildren());
+
+        // box 4 y'a un anchor pane avec l'id
+        assertNotNull(box4.lookup("#module-2"));
+        assertEquals(box4.getChildren().get(0).getId(), "module-2");
+
+
+        clickOn(vco.lookup("#squareRadio"));
+
+
+        // Drag&Drop
+        drag(oscilloscope, MouseButton.PRIMARY);
+        dropTo(box2);
+
+        // box2 should be empty
+        assertEquals(new ArrayList(), box4.getChildren());
+
+        // box 4 y'a un anchor pane avec l'id
+        assertNotNull(box2.lookup("#module-2"));
+        assertEquals(box2.getChildren().get(0).getId(), "module-2");
+
+        clickOn(vco.lookup("#sawRadio"));
+
+        clickOn("#mute");
     }
 
 }
