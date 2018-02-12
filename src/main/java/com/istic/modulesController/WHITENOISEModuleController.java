@@ -37,8 +37,6 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	System.out.println("remove wn");
-    	pane.getChildren().remove(wn_outPort);
     }
     
     /**
@@ -90,19 +88,19 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      * @throws IOException si deconnexion impossible
      */
     @FXML // A decommenter et adapter quand le model white noise sera fait !
-    public void removeModule() throws IOException {
-//        //Deconnexion cable
-//        Port gate = whitenoise.getGateInput();
-//        Port out = whitenoise.getOutput();
-//        super.disconnect(gate);
-//        super.disconnect(out);
-//        // Deconnexion du module Output du synthetizer
-//        this.controller.getSynth().remove(whitenoise);
-//        // Get parent node of pane corresponding to OutMod
-//        // Recupere le noeud parent fxml du outmod
-        StackPane stackPane = (StackPane) pane.getParent();
-        // supprime le mod niveau ihm
-        stackPane.getChildren().remove(pane);
+    public void removeModule() {
+        if(this.controller.getTemporaryCableModuleController()==null) {
+            Port port = bruitBlanc.getOutputPort();
+            super.disconnect(port);
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(bruitBlanc);
+            // Get parent node of pane corresponding to OutMod
+            // Recupere le noeud parent fxml du outmod
+            StackPane stackPane = (StackPane) pane.getParent();
+            // supprime le mod niveau ihm
+            stackPane.getChildren().remove(pane);
+            this.controller.disconnect(this);
+        }
     }
     
     //Setters et Getters

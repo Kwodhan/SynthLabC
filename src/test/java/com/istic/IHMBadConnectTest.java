@@ -3,18 +3,15 @@ package com.istic;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public class IHMTestBadConnect extends ApplicationTest {
+public class IHMBadConnectTest extends ApplicationTest {
 
     @Override
     public void start (Stage stage) throws Exception {
@@ -49,7 +46,7 @@ public class IHMTestBadConnect extends ApplicationTest {
         clickOn(vco2.lookup("#fmPort"));
         clickOn(vco2.lookup("#outPort"));
 
-        Line cable1 = lookup("#cable-1").query();
+        CubicCurve cable1 = lookup("#cable-1").query();
         assertNull(cable1);
 
         // la sortie `out` du VCO n°2 est reliée à la sortie `out` du VCO n°1 ;

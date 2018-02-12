@@ -6,6 +6,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -65,15 +66,20 @@ public abstract class ModuleController {
         List<CableController> cables = this.controller.getCables();
         Port portOne;
         Port portTwo;
+        CableController removeCable = null;
         for (CableController cableController : cables) {
              portOne = cableController.getCable().getPortOne();
              portTwo = cableController.getCable().getPortTwo();
              if (portOne.equals(port)) {
                  cableController.disconnect();
+                 removeCable = cableController;
              }
              if (portTwo.equals(port)) {
                 cableController.disconnect();
              }
+        }
+        if(removeCable != null) {
+            this.controller.getCables().remove(removeCable);
         }
     }
 
@@ -124,22 +130,17 @@ public abstract class ModuleController {
         }
     }
 
+    public abstract void removeModule();
+
     public abstract Map<ImageView, Port> getAllPorts();
 
     public double getX() {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
     }
 
-    public void setY(double y) {
-        this.y = y;
-    }
 
 }

@@ -52,7 +52,8 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
      * @throws IOException si deconnexion impossible
      */
     @FXML // A decommenter et adapter quand le model sequencer sera fait !
-    public void removeModule() throws IOException {
+    public void removeModule() {
+        if(this.controller.getTemporaryCableModuleController()==null) {
 //        //Deconnexion cables
 //        Port gate = seq.getGateInput();
 //        Port out = seq.getOutput();
@@ -61,9 +62,11 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 //        // Deconnexion du module Output du synthetizer
 //        this.controller.getSynth().remove(seq);
 //        // Get parent node of pane corresponding to OutMod
-        // Recupere le noeud parent fxml du outmod
-        StackPane stackPane = (StackPane) pane.getParent();
-        // supprime le mod niveau ihm
-        stackPane.getChildren().remove(pane);
+            // Recupere le noeud parent fxml du outmod
+            StackPane stackPane = (StackPane) pane.getParent();
+            // supprime le mod niveau ihm
+            stackPane.getChildren().remove(pane);
+            this.controller.disconnect(this);
+        }
     }
 }

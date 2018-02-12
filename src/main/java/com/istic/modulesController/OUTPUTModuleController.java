@@ -108,17 +108,20 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
      * @throws IOException si deconnexion impossible
      */
     @FXML
-    public void removeModule() throws IOException {
+    public void removeModule() {
         //Deconnexion cables
-        Port port = lineOut.getPortInput();
-        super.disconnect(port);
-        // Deconnexion du module Output du synthetizer
-        this.controller.getSynth().remove(lineOut);
-        // Get parent node of pane corresponding to OutMod
-        // Recupere le noeud parent fxml du outmod
-        StackPane stackPane = (StackPane) pane.getParent();
-        // supprime le mod niveau ihm
-        stackPane.getChildren().remove(pane);
+        if(this.controller.getTemporaryCableModuleController()==null) {
+            Port port = lineOut.getPortInput();
+            super.disconnect(port);
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(lineOut);
+            // Get parent node of pane corresponding to OutMod
+            // Recupere le noeud parent fxml du outmod
+            StackPane stackPane = (StackPane) pane.getParent();
+            // supprime le mod niveau ihm
+            stackPane.getChildren().remove(pane);
+            this.controller.disconnect(this);
+        }
     }
 
     public OutMod getLineOut() {

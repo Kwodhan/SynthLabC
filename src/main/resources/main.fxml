@@ -45,6 +45,7 @@
             <RadioMenuItem fx:id="coralMenuItem" mnemonicParsing="false" onAction="#coralTheme" text="Coral Skin" />
             <RadioMenuItem fx:id="darkMenuItem" mnemonicParsing="false" onAction="#darkTheme" text="Dark Skin" />
             <RadioMenuItem fx:id="woodMenuItem" mnemonicParsing="false" onAction="#woodTheme" text="Wood" />
+            <RadioMenuItem fx:id="defaultMenuItem" mnemonicParsing="false" onAction="#defaultTheme" text="Default" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

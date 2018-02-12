@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-public class IHMTestSprint1 extends ApplicationTest {
+public class IHMSprint1Test extends ApplicationTest {
 
     Stage stage;
 

@@ -7,6 +7,7 @@ import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ public class Controller implements Initializable  {
 	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
 
 	@FXML
-	RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem;
+	RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem,defaultMenuItem;
 
 	final ToggleGroup group = new ToggleGroup();
 
@@ -63,7 +64,11 @@ public class Controller implements Initializable  {
 	private Integer cableId = 1;
 	private Integer moduleId = 1;
 
+	private DragAndDrop dragAndDrop;
+
 	private boolean isPlugged = false;
+
+
 
 	/**
 	 * Initialise les objets nécessaires à l'application
@@ -80,6 +85,10 @@ public class Controller implements Initializable  {
 		coralMenuItem.setToggleGroup(group);
 		darkMenuItem.setToggleGroup(group);
 		woodMenuItem.setToggleGroup(group);
+		defaultMenuItem.setToggleGroup(group);
+		group.selectToggle(defaultMenuItem);
+
+		this.dragAndDrop = new DragAndDrop(this);
 
 		this.mouseLine = new Line();
 		this.mouseLine.setVisible(false);
@@ -99,7 +108,7 @@ public class Controller implements Initializable  {
 		stacks = new StackPane[]{ box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12};
 		//make stackpane handle drop
 		for (StackPane s : stacks) {
-			DragAndDrop.addDropHandling(s);
+			this.dragAndDrop.addDropHandling(s);
 		}
 
 		try {
@@ -113,9 +122,9 @@ public class Controller implements Initializable  {
 	 * Drop all the modules
 	 */
 	public void dropAll(){
-		for(StackPane s : stacks) {
-			s.getChildren().clear();
-		}
+
+
+
 	}
 
 	/**
@@ -232,6 +241,13 @@ public class Controller implements Initializable  {
 	public void coralTheme(){
 		pane.getStylesheets().clear();
 		pane.getStylesheets().add("/skins/coral.css");
+	}
+
+	/**
+	 * Change le thème en default
+	 */
+	public void defaultTheme() {
+		pane.getStylesheets().clear();
 	}
 
 	/**
@@ -467,12 +483,7 @@ public class Controller implements Initializable  {
 	 * @param moduleController controleur du module à supprimer
 	 */
 	public void disconnect(ModuleController moduleController) {
-		for (ModuleController module: this.moduleControllers) {
-			if (module.equals(moduleController)) {
-				this.moduleControllers.remove(module);
-				moduleController = null;
-			}
-		}
+		this.moduleControllers.remove(moduleController);
 	}
 
 	/**
@@ -485,7 +496,7 @@ public class Controller implements Initializable  {
 		for(StackPane s : stacks) {
 			if(s.getChildren().isEmpty()) {
 				s.getChildren().add(root);
-				DragAndDrop.dragNode(root);
+				this.dragAndDrop.dragNode(root);
 				return;
 			}
 		}
@@ -495,9 +506,6 @@ public class Controller implements Initializable  {
 
 
 	// Setters & Getters
-	public AnchorPane getPane() {
-		return pane;
-	}
 
 	public boolean isPlugged() {
 		return isPlugged;
@@ -526,4 +534,6 @@ public class Controller implements Initializable  {
 	public Line getMouseLine() {
 		return mouseLine;
 	}
+
+
 }
