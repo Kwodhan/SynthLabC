@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CableController {
-    List<Color> color;
+    Color color;
     /**
      *
      */
@@ -30,17 +30,10 @@ public class CableController {
     public CableController(AnchorPane pane, Cable cable,Color color) {
         this.cable = cable;
         this.pane = pane;
-        this.color = new ArrayList<>();
-        this.color.add(color);
+        this.color=color;
+        System.out.println(color);
 
-        /*this.color.add(Color.GOLD);
-        this.color.add(Color.BLUEVIOLET);
-        this.color.add(Color.RED);
-        this.color.add(Color.OLIVE);
-        this.color.add(Color.SALMON);
-        this.color.add(Color.SILVER);
-        this.color.add(Color.MEDIUMAQUAMARINE);
-*/
+
     }
 
 
@@ -86,8 +79,7 @@ public class CableController {
         line.setFill( null);
         line.setStrokeWidth(5);
 
-        Random r = new Random();
-        line.setStroke(this.color.get(r.nextInt(this.color.size())));
+        line.setStroke(color);
         line.setId("cable-"+id);
 
 
