@@ -46,7 +46,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
      * @throws IOException si deconnexion impossible
      */
     @FXML // A decommenter et adapter quand le model vcf HP sera fait !
-    public void removeModule() throws IOException {
+    public void removeModule() {
 //        //Deconnexion cables
 //        Port gate = vcfhp.getGateInput();
 //        Port out = vcfhp.getOutput();
@@ -59,6 +59,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
 
     @Override

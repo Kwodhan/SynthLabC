@@ -6,6 +6,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -123,6 +124,8 @@ public abstract class ModuleController {
             this.updateCablesPositionFromPort(entry.getValue());
         }
     }
+
+    public abstract void removeModule();
 
     public abstract Map<ImageView, Port> getAllPorts();
 

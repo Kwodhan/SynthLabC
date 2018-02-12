@@ -129,7 +129,7 @@ public class EGModuleController extends ModuleController implements Initializabl
      * @throws IOException si deconnexion impossible
      */
     @FXML
-    public void removeModule() throws IOException {
+    public void removeModule() {
         //Deconnexion cable
         Port gate = eg.getGateInput();
         Port out = eg.getOutput();
@@ -142,6 +142,7 @@ public class EGModuleController extends ModuleController implements Initializabl
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
 
 }

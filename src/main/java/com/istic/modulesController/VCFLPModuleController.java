@@ -83,7 +83,7 @@ public class VCFLPModuleController extends ModuleController implements Initializ
      * @throws IOException si deconnexion impossible
      */
     @FXML // A decommenter et adapter quand le model vcf LP sera fait !
-    public void removeModule() throws IOException {
+    public void removeModule() {
 //        //Deconnexion cable
 //        Port gate = vcflp.getGateInput();
 //        Port out = vcflp.getOutput();
@@ -96,6 +96,7 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
     public void init(Controller controller) {
         super.init(controller);

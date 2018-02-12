@@ -121,7 +121,7 @@ public class REPLICATORModuleController extends ModuleController implements Init
      * @throws IOException si deconnexion impossible
      */
     @FXML
-    public void removeModule() throws IOException {
+    public void removeModule() {
         //Deconnexion cable
         Port in = rep.getInput();
         Port out1 = rep.getOutput1();
@@ -138,6 +138,7 @@ public class REPLICATORModuleController extends ModuleController implements Init
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
 
     @Override

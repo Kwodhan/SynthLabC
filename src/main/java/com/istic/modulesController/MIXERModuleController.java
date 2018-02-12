@@ -167,7 +167,7 @@ public class MIXERModuleController extends ModuleController implements Initializ
      * @throws IOException si deconnexion impossible
      */
     @FXML
-    public void removeModule() throws IOException {
+    public void removeModule() {
         //Deconnexion cables
         Port in1 = mixer.getInput1();
         Port in2 = mixer.getInput2();
@@ -186,6 +186,7 @@ public class MIXERModuleController extends ModuleController implements Initializ
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
 
 }

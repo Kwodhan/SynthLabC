@@ -52,7 +52,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
      * @throws IOException si deconnexion impossible
      */
     @FXML // A decommenter et adapter quand le model sequencer sera fait !
-    public void removeModule() throws IOException {
+    public void removeModule() {
 //        //Deconnexion cables
 //        Port gate = seq.getGateInput();
 //        Port out = seq.getOutput();
@@ -65,5 +65,6 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
 }

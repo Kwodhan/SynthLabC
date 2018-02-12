@@ -108,9 +108,9 @@ public class Controller implements Initializable  {
 	 * Drop all the modules
 	 */
 	public void dropAll(){
-		for(StackPane s : stacks) {
-			s.getChildren().clear();
-		}
+
+
+
 	}
 
 	/**
@@ -335,12 +335,7 @@ public class Controller implements Initializable  {
 	 * @param moduleController controleur du module à supprimer
 	 */
 	public void disconnect(ModuleController moduleController) {
-		for (ModuleController module: this.moduleControllers) {
-			if (module.equals(moduleController)) {
-				this.moduleControllers.remove(module);
-				moduleController = null;
-			}
-		}
+		this.moduleControllers.remove(moduleController);
 	}
 
 	/**

@@ -90,7 +90,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      * @throws IOException si deconnexion impossible
      */
     @FXML // A decommenter et adapter quand le model white noise sera fait !
-    public void removeModule() throws IOException {
+    public void removeModule() {
 //        //Deconnexion cable
 //        Port gate = whitenoise.getGateInput();
 //        Port out = whitenoise.getOutput();
@@ -103,6 +103,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
     
     //Setters et Getters

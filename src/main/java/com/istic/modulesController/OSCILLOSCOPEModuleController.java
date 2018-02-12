@@ -140,7 +140,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
      * @throws IOException si deconnexion impossible
      */
     @FXML
-    public void removeModule() throws IOException {
+    public void removeModule() {
         //Deconnexion cables
         Port in = oscilloscope.getInput();
         Port out = oscilloscope.getOutput();
@@ -153,6 +153,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
     @Override
     public void updateCablesPosition() {

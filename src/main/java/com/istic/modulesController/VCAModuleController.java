@@ -114,7 +114,7 @@ public class VCAModuleController extends ModuleController implements Initializab
      * @throws IOException si deconnexion impossible
      */
     @FXML
-    public void removeModule() throws IOException {
+    public void removeModule() {
         //Deconnexion cables
         Port am = vca.getAm();
         Port in = vca.getInput();
@@ -129,6 +129,7 @@ public class VCAModuleController extends ModuleController implements Initializab
         StackPane stackPane = (StackPane) pane.getParent();
         // supprime le mod niveau ihm
         stackPane.getChildren().remove(pane);
+        this.controller.disconnect(this);
     }
 
     @Override
