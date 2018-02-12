@@ -115,21 +115,23 @@ public class VCAModuleController extends ModuleController implements Initializab
      */
     @FXML
     public void removeModule() {
-        //Deconnexion cables
-        Port am = vca.getAm();
-        Port in = vca.getInput();
-        Port out = vca.getOutput();
-        super.disconnect(am);
-        super.disconnect(in);
-        super.disconnect(out);
-        // Deconnexion du module Output du synthetizer
-        this.controller.getSynth().remove(vca);
-        // Get parent node of pane corresponding to OutMod
-        // Recupere le noeud parent fxml du outmod
-        StackPane stackPane = (StackPane) pane.getParent();
-        // supprime le mod niveau ihm
-        stackPane.getChildren().remove(pane);
-        this.controller.disconnect(this);
+        if(this.controller.getTemporaryCableModuleController()==null) {
+            //Deconnexion cables
+            Port am = vca.getAm();
+            Port in = vca.getInput();
+            Port out = vca.getOutput();
+            super.disconnect(am);
+            super.disconnect(in);
+            super.disconnect(out);
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(vca);
+            // Get parent node of pane corresponding to OutMod
+            // Recupere le noeud parent fxml du outmod
+            StackPane stackPane = (StackPane) pane.getParent();
+            // supprime le mod niveau ihm
+            stackPane.getChildren().remove(pane);
+            this.controller.disconnect(this);
+        }
     }
 
     @Override

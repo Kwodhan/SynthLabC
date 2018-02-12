@@ -123,22 +123,24 @@ public class REPLICATORModuleController extends ModuleController implements Init
     @FXML
     public void removeModule() {
         //Deconnexion cable
-        Port in = rep.getInput();
-        Port out1 = rep.getOutput1();
-        Port out2 = rep.getOutput2();
-        Port out3 = rep.getOutput3();
-        super.disconnect(in);
-        super.disconnect(out1);
-        super.disconnect(out2);
-        super.disconnect(out3);
-        // Deconnexion du module Output du synthetizer
-        this.controller.getSynth().remove(rep);
-        // Get parent node of pane corresponding to OutMod
-        // Recupere le noeud parent fxml du outmod
-        StackPane stackPane = (StackPane) pane.getParent();
-        // supprime le mod niveau ihm
-        stackPane.getChildren().remove(pane);
-        this.controller.disconnect(this);
+        if(this.controller.getTemporaryCableModuleController()==null) {
+            Port in = rep.getInput();
+            Port out1 = rep.getOutput1();
+            Port out2 = rep.getOutput2();
+            Port out3 = rep.getOutput3();
+            super.disconnect(in);
+            super.disconnect(out1);
+            super.disconnect(out2);
+            super.disconnect(out3);
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(rep);
+            // Get parent node of pane corresponding to OutMod
+            // Recupere le noeud parent fxml du outmod
+            StackPane stackPane = (StackPane) pane.getParent();
+            // supprime le mod niveau ihm
+            stackPane.getChildren().remove(pane);
+            this.controller.disconnect(this);
+        }
     }
 
     @Override

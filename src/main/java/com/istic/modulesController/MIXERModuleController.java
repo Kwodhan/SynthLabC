@@ -168,25 +168,27 @@ public class MIXERModuleController extends ModuleController implements Initializ
      */
     @FXML
     public void removeModule() {
-        //Deconnexion cables
-        Port in1 = mixer.getInput1();
-        Port in2 = mixer.getInput2();
-        Port in3 = mixer.getInput3();
-        Port in4 = mixer.getInput4();
-        Port out = mixer.getOutput();
-        super.disconnect(in1);
-        super.disconnect(in2);
-        super.disconnect(in3);
-        super.disconnect(in4);
-        super.disconnect(out);
-        // Deconnexion du module Output du synthetizer
-        this.controller.getSynth().remove(mixer);
-        // Get parent node of pane corresponding to OutMod
-        // Recupere le noeud parent fxml du outmod
-        StackPane stackPane = (StackPane) pane.getParent();
-        // supprime le mod niveau ihm
-        stackPane.getChildren().remove(pane);
-        this.controller.disconnect(this);
+        if(this.controller.getTemporaryCableModuleController()==null) {
+            //Deconnexion cables
+            Port in1 = mixer.getInput1();
+            Port in2 = mixer.getInput2();
+            Port in3 = mixer.getInput3();
+            Port in4 = mixer.getInput4();
+            Port out = mixer.getOutput();
+            super.disconnect(in1);
+            super.disconnect(in2);
+            super.disconnect(in3);
+            super.disconnect(in4);
+            super.disconnect(out);
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(mixer);
+            // Get parent node of pane corresponding to OutMod
+            // Recupere le noeud parent fxml du outmod
+            StackPane stackPane = (StackPane) pane.getParent();
+            // supprime le mod niveau ihm
+            stackPane.getChildren().remove(pane);
+            this.controller.disconnect(this);
+        }
     }
 
 }

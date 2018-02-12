@@ -78,7 +78,7 @@ public abstract class ModuleController {
                 cableController.disconnect();
              }
         }
-        if(removeCable!=null) {
+        if(removeCable != null) {
             this.controller.getCables().remove(removeCable);
         }
     }

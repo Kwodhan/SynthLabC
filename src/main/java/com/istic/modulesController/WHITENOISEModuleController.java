@@ -91,6 +91,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      */
     @FXML // A decommenter et adapter quand le model white noise sera fait !
     public void removeModule() {
+        if(this.controller.getTemporaryCableModuleController()==null) {
 //        //Deconnexion cable
 //        Port gate = whitenoise.getGateInput();
 //        Port out = whitenoise.getOutput();
@@ -100,10 +101,11 @@ public class WHITENOISEModuleController extends ModuleController implements Init
 //        this.controller.getSynth().remove(whitenoise);
 //        // Get parent node of pane corresponding to OutMod
 //        // Recupere le noeud parent fxml du outmod
-        StackPane stackPane = (StackPane) pane.getParent();
-        // supprime le mod niveau ihm
-        stackPane.getChildren().remove(pane);
-        this.controller.disconnect(this);
+            StackPane stackPane = (StackPane) pane.getParent();
+            // supprime le mod niveau ihm
+            stackPane.getChildren().remove(pane);
+            this.controller.disconnect(this);
+        }
     }
     
     //Setters et Getters
