@@ -1,16 +1,12 @@
 package com.istic;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -57,7 +53,7 @@ public class IHMTestSprint2 extends ApplicationTest {
         clickOn(vco2.lookup("#outPort"));
         clickOn(vca.lookup("#inPort"));
 
-        Line cable1 = lookup("#cable-1").query();
+        CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
         assertEquals(cable1.getId(), "cable-1");
 
@@ -67,21 +63,21 @@ public class IHMTestSprint2 extends ApplicationTest {
         clickOn(vco1.lookup("#outPort"));
         clickOn(replicator.lookup("#inPort"));
 
-        Line cable2 = lookup("#cable-2").query();
+        CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
         assertEquals(cable2.getId(), "cable-2");
 
         clickOn(replicator.lookup("#outPort1"));
         clickOn(vco2.lookup("#fmPort"));
 
-        Line cable3 = lookup("#cable-3").query();
+        CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
         assertEquals(cable3.getId(), "cable-3");
 
         clickOn(replicator.lookup("#outPort2"));
         clickOn(eg.lookup("#gatePort"));
 
-        Line cable4 = lookup("#cable-4").query();
+        CubicCurve cable4 = lookup("#cable-4").query();
         assertNotNull(cable4);
         assertEquals(cable4.getId(), "cable-4");
 
@@ -90,7 +86,7 @@ public class IHMTestSprint2 extends ApplicationTest {
         clickOn(vca.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
 
-        Line cable5 = lookup("#cable-5").query();
+        CubicCurve cable5 = lookup("#cable-5").query();
         assertNotNull(cable5);
         assertEquals(cable5.getId(), "cable-5");
 
@@ -98,7 +94,7 @@ public class IHMTestSprint2 extends ApplicationTest {
         clickOn(eg.lookup("#outPort"));
         clickOn(vca.lookup("#amPort"));
 
-        Line cable6 = lookup("#cable-6").query();
+        CubicCurve cable6 = lookup("#cable-6").query();
         assertNotNull(cable6);
         assertEquals(cable6.getId(), "cable-6");
 

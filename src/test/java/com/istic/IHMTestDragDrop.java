@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
@@ -53,7 +53,7 @@ public class IHMTestDragDrop extends ApplicationTest {
         clickOn(output.lookup("#inPort"));
         clickOn(vco1.lookup("#outPort"));
 
-        Line cable1 = lookup("#cable-1").query();
+        CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
 
         double oldStartX = cable1.getStartX();
