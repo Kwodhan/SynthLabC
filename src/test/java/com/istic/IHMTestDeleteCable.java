@@ -5,9 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
-import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -61,7 +60,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         sleep(1000);
 
 
-        Line cable1 = lookup("#cable-1").query();
+        CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
         assertEquals(cable1.getId(), "cable-1");
 
@@ -76,7 +75,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
 
         clickOn("#outPort");
         clickOn("#inPort");
-        Line cable2 = lookup("#cable-2").query();
+        CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
         assertEquals(cable2.getId(), "cable-2");
 
@@ -103,7 +102,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         clickOn(vco.lookup("#outPort"));
         clickOn(repli.lookup("#inPort"));
 
-        Line cable1 = lookup("#cable-1").query();
+        CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
         assertEquals(cable1.getId(), "cable-1");
 
@@ -113,7 +112,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         clickOn(oscillo.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
 
-        Line cable2 = lookup("#cable-2").query();
+        CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
         assertEquals(cable2.getId(), "cable-2");
 
@@ -121,7 +120,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         clickOn(repli.lookup("#outPort1"));
         clickOn(oscillo.lookup("#inPort"));
 
-        Line cable3 = lookup("#cable-3").query();
+        CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
         assertEquals(cable3.getId(), "cable-3");
 
@@ -176,7 +175,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         clickOn(vco1.lookup("#outPort"));
         clickOn(eg.lookup("#gatePort"));
 
-        Line cable1 = lookup("#cable-1").query();
+        CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
         assertEquals(cable1.getId(), "cable-1");
 
@@ -184,7 +183,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         clickOn(eg.lookup("#outPort"));
         clickOn(vco2.lookup("#fmPort"));
 
-        Line cable2 = lookup("#cable-2").query();
+        CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
         assertEquals(cable2.getId(), "cable-2");
 
@@ -192,7 +191,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         clickOn(vco2.lookup("#outPort"));
         clickOn(oscillo.lookup("#inPort"));
 
-        Line cable3 = lookup("#cable-3").query();
+        CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
         assertEquals(cable3.getId(), "cable-3");
 
@@ -200,7 +199,7 @@ public class IHMTestDeleteCable extends ApplicationTest {
         clickOn(oscillo.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
 
-        Line cable4 = lookup("#cable-4").query();
+        CubicCurve cable4 = lookup("#cable-4").query();
         assertNotNull(cable4);
         assertEquals(cable4.getId(), "cable-4");
 
