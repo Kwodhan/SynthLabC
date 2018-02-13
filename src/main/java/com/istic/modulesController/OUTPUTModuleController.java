@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 import com.istic.out.OutMod;
 import com.istic.port.Port;
+import com.istic.recorder.EnregistreurWave;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -28,6 +31,8 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     @FXML
     ToggleButton mute;
     private OutMod lineOut;
+
+    private EnregistreurWave recorder;
 
     @FXML
     protected Slider attenuationSlider;
@@ -62,6 +67,12 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         this.lineOut = new OutMod();
         this.controller.getSynth().add(this.lineOut);
         lineOut.start();
+        File file = new File("/home/jnsll/Documents/file.wav");
+        try {
+            this.recorder = new EnregistreurWave(this.controller.getSynth(),file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -80,6 +91,14 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
      */
     public void toggleMute() {
         this.lineOut.toggleMute();
+    }
+
+    /**
+     * Gère la fonctionnalité "Muet"
+     * Coupe le son
+     */
+    public void toggleRecord() {
+        this.recorder.toggleRecord();
     }
 
 
