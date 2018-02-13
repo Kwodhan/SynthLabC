@@ -38,7 +38,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Slider fx:id="frequencySlider" max="21000.0" value="21000.0" min="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider" max="14.36" value="14.36" min="0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FM" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
             <ImageView fx:id="fmPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectFmPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <image>

@@ -29,6 +29,7 @@ public class ReglageVCFLP extends VariableRateMonoReader {
         this.fm.setMaximum(2);
         this.f0.setMaximum(21000);
 
+
     }
 
     @Override

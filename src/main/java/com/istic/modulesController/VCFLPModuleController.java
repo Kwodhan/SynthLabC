@@ -44,7 +44,8 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         });
 
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.vcflp.setF0(frequencySlider.getValue());
+            System.out.println(frequencySlider.getValue());
+            this.vcflp.setF0(Math.pow(2,frequencySlider.getValue()));
 
         });
 
