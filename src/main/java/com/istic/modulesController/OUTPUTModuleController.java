@@ -131,4 +131,8 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     public ToggleButton getMute() {
         return mute;
     }
+
+    public Slider getAttenuationSlider() {
+        return attenuationSlider;
+    }
 }
