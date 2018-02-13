@@ -2,6 +2,8 @@ package com.istic.keyboard;
 
 import com.istic.Constraints;
 import com.istic.port.PortOutput;
+import com.jsyn.JSyn;
+import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.LineOut;
@@ -16,7 +18,10 @@ public class ReglageKB extends UnitGenerator{
 boolean notes[]= new boolean[13];
 //int notes_index[] = {-9,-7,-5,-4,-2,0,1,2,3,4,5,6};//do re mi fa sol la si do
 double notes_hz[]= new double[13];
-private SineOscillator[] oscillators= new SineOscillator[13] ;
+String notes_descr []= {
+		"DO","DOd","RE","REd","MI","FA","FAd","SOL","SOLd","LA","LAd","SI","DO2"};
+
+private SineOscillator[] oscillators;
 
 public   ReglageKB() {
 	for (boolean n : notes) {
@@ -37,20 +42,36 @@ public   ReglageKB() {
 	}
 	public void update_ouput_signal() {
 	for (int i =0;i< 13;i++) {
+		oscillators[i].stop();
 		if (notes[i]== true) {
-			//notes_hz[i]; //push effect to output
-		}
+			oscillators[i]=new SineOscillator(notes_hz[i]); 
+			oscillators[i].start();
+ 		}
 	}
 }
     public static void main(String[] args) {
 		ReglageKB rkb =  new ReglageKB();
-		SineOscillator sineOsc = new SineOscillator();
+		Synthesizer synth = JSyn.createSynthesizer();
+		SineOscillator sineOsc = new SineOscillator(300);
+		SineOscillator sineOsc2 = new SineOscillator(440); 
 		LineOut  lineOut = new LineOut();
+		synth.add(lineOut );
+		synth.add(sineOsc2 );
+				synth.add(sineOsc );				
+
+
+
+		
+
 		sineOsc.output.connect( 0, lineOut.input, 0 );   // connect to left channel
 		sineOsc.output.connect( 0, lineOut.input, 1 );   // connect to right channel
 		lineOut.start();
+		synth.start();
 	}
 	/////////////////////////////////////////////////////////////////:
+    private void print_frequencies () {
+    	
+    }
 	private void compute_frequency(int index) {
 		//		notes_hz[note]=  octave*0; //la formule...
 		notes_hz[index]= formule_frequency_note(this.octave, index);
