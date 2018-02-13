@@ -401,6 +401,9 @@ public class Controller implements Initializable  {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vcfHp.fxml"));
 		addMod(root);
+		VCFHPModuleController vcfhpModuleController = (VCFHPModuleController) root.getUserData();
+		this.moduleControllers.add(vcfhpModuleController);
+		vcfhpModuleController.init(this);
 	}
 
 	/**
