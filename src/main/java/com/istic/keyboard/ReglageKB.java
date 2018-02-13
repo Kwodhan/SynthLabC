@@ -1,16 +1,22 @@
 package com.istic.keyboard;
 
+import com.istic.Constraints;
 import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.LineOut;
+import com.jsyn.unitgen.SineOscillator;
 import com.jsyn.unitgen.UnitGenerator;
 
 public class ReglageKB extends UnitGenerator{
 	int octave_min=0;
 	int octave=0;
 	int octave_max=0;
+	final int Vo=1;
 boolean notes[]= new boolean[13];
+//int notes_index[] = {-9,-7,-5,-4,-2,0,1,2,3,4,5,6};//do re mi fa sol la si do
 double notes_hz[]= new double[13];
+private SineOscillator[] oscillators= new SineOscillator[13] ;
 
 public   ReglageKB() {
 	for (boolean n : notes) {
@@ -29,153 +35,126 @@ public   ReglageKB() {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	void add_frequency(int note ) {
-		notes_hz[note]=  octave*0; //la formule...
-	}
-public void update_signal() {
+	public void update_ouput_signal() {
 	for (int i =0;i< 13;i++) {
 		if (notes[i]== true) {
 			//notes_hz[i]; //push effect to output
 		}
 	}
 }
+    public static void main(String[] args) {
+		ReglageKB rkb =  new ReglageKB();
+		SineOscillator sineOsc = new SineOscillator();
+		LineOut  lineOut = new LineOut();
+		sineOsc.output.connect( 0, lineOut.input, 0 );   // connect to left channel
+		sineOsc.output.connect( 0, lineOut.input, 1 );   // connect to right channel
+		lineOut.start();
+	}
+	/////////////////////////////////////////////////////////////////:
+	private void compute_frequency(int index) {
+		//		notes_hz[note]=  octave*0; //la formule...
+		notes_hz[index]= formule_frequency_note(this.octave, index);
+
+	}
+	private double formule_frequency_note(int octave, int index ) {//r=1.05946f
+		return this.Vo*Math.pow(2,octave)*Math.pow(2,index/12);
+
+	}
+
 private void toggle (int note) {
 	this.notes[note]=  ! this.notes[note];
 }
-	public void onpressDO() {
-		toggle(0);		
-	}
+	
+public void onpressDO() {
+	toggle(0);		this.compute_frequency(0);this.update_ouput_signal();
+}
+public void onpressDOd() {
+	toggle(1);		this.compute_frequency(1);this.update_ouput_signal();
+}
+public void onpressRE() {
+	toggle(2);		this.compute_frequency(2);this.update_ouput_signal();
+}
+public void onpressREd() {
+	toggle(3);		this.compute_frequency(3);this.update_ouput_signal();
+}
+public void onpressMI() {
+	toggle(4);		this.compute_frequency(4);this.update_ouput_signal();
+	
+}
+public void onpressFA() {
+	toggle(5); this.compute_frequency(5);		this.update_ouput_signal();
+}
+public void onpressFAd() {
+	toggle(6);		this.compute_frequency(6);this.update_ouput_signal();
+}
+public void onpressSOL() {
+	toggle(7);		this.compute_frequency(7);this.update_ouput_signal();
+}
+public void onpressSOLd() {
+	toggle(8);		this.compute_frequency(8);this.update_ouput_signal();
+}
+public void onpressLA() {
+	toggle(9);		this.compute_frequency(9);this.update_ouput_signal();
+}
+public void onpressLAd() {
+	toggle(10);		this.compute_frequency(10);this.update_ouput_signal();
+}
+public void onpressSI() {
+	toggle(11);		this.compute_frequency(11);this.update_ouput_signal();
+}
+public void onpressDO2() {
+	toggle(12);		this.compute_frequency(12);this.update_ouput_signal();
+	
+}
 
-
-	public void onpressRE() {
-		toggle(1);		
-		
-	}
-
-	public void onpressMI() {
-		toggle(2);		
-		
-	}
-
-	public void onpressFA() {
-		toggle(3);		
-		
-	}
-
-	public void onpressSOL() {
-		toggle(4);		
-		
-	}
-
-	public void onpressLA() {
-		toggle(5);		
-		
-	}
-
-	public void onpressSI() {
-		toggle(6);		
-		
-	}
-
-	public void onpressDO2() {
-		toggle(7);		
-		
-	}
-
-	public void onpressDOd() {
-		toggle(8);		
-		
-	}
-
-	public void onpressREd() {
-		toggle(9);		
-		
-	}
-
-	public void onpressFAd() {
-		toggle(10);		
-		
-	}
-
-	public void onpressSOLd() {
-		toggle(11);		
-		
-	}
-	public void onpressLAd() {
-		toggle(12);		
-		
-	}
 	public void onpressOctaveUP() {
-if (this.octave< this.octave_max) octave ++;		
+if (this.octave< this.octave_max) octave ++;		this.update_ouput_signal();
 	}
 
 	public void onpressOctaveDOWN() {
-		if (this.octave> this.octave_min) octave --;		
+		if (this.octave> this.octave_min) octave --;	this.update_ouput_signal();	
 		
 	}
-
 	public void onreleaseDO() {
-		toggle(0);		
-		
+		toggle(0);		this.update_ouput_signal();
 	}
-
+	public void onreleaseDOd() {
+		toggle(1);		this.update_ouput_signal();
+	}
 	public void onreleaseRE() {
-		toggle(1);		
-		
+		toggle(2);		this.update_ouput_signal();
 	}
-
+	public void onreleaseREd() {
+		toggle(3);		this.update_ouput_signal();
+	}
 	public void onreleaseMI() {
-		toggle(2);		
+		toggle(4);		this.update_ouput_signal();
 		
 	}
 
 	public void onreleaseFA() {
-		toggle(3);		
-		
+		toggle(5);		this.update_ouput_signal();
 	}
-
-	public void onreleaseSOL() {
-		toggle(4);		
-		
-	}
-
-	public void onreleaseLA() {
-		toggle(5);		
-		
-	}
-
-	public void onreleaseSI() {
-		toggle(6);		
-		
-	}
-
-	public void onreleaseDO2() {
-		toggle(7);		
-		
-	}
-
-	public void onreleaseDOd() {
-		toggle(8);		
-		
-	}
-
-	public void onreleaseREd() {
-		toggle(9);		
-		
-	}
-
 	public void onreleaseFAd() {
-		toggle(10);		
-		
+		toggle(6);		this.update_ouput_signal();
+	}
+	public void onreleaseSOL() {
+		toggle(7);		this.update_ouput_signal();
 	}
 	public void onreleaseSOLd() {
-		toggle(11);		
-		
+		toggle(8);		this.update_ouput_signal();
 	}
-
+	public void onreleaseLA() {
+		toggle(9);		this.update_ouput_signal();
+	}
 	public void onreleaseLAd() {
-		toggle(12);		
+		toggle(10);		this.update_ouput_signal();
+	}
+	public void onreleaseSI() {
+		toggle(11);		this.update_ouput_signal();
+	}
+	public void onreleaseDO2() {
+		toggle(12);		this.update_ouput_signal();
 		
 	}
 

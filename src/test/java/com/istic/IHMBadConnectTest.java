@@ -1,14 +1,17 @@
 package com.istic;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class IHMBadConnectTest extends ApplicationTest {
@@ -22,7 +25,7 @@ public class IHMBadConnectTest extends ApplicationTest {
     }
 
     @Test
-    public void testSprint2() {
+    public void testBadConnect() {
         // get output module
         AnchorPane output = lookup("#module-1").query();
 
@@ -157,6 +160,39 @@ public class IHMBadConnectTest extends ApplicationTest {
         clickOn("#mute");
     }
 
+    /**
+     * essayer de connecter un cable sur un port qui a déjà un cable
+     * TO FIX !
+     */
+    @Test
+    @Ignore
+    public void testBadConnectPortAlreadyUsed() {
+        // get output module
+        AnchorPane output = lookup("#module-1").query();
 
+        // add modules
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco1 = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco2 = lookup("#module-3").query();
+
+        // CONNECTING CABLE
+
+        clickOn(vco1.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+        clickOn("RED");
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+
+        // réussir à cliquer un peu au dessus du port
+        // pour pas supprimer le cable alors qu'on essaye
+        // enfaite de connecter un deuxième cable sur le port
+        // pour vérifier que ce n'est pas possible.
+
+        //clickOn(vco2.lookup("#outPort"));
+        //clickOn(output.lookup("#inPort"));
+    }
 
 }
