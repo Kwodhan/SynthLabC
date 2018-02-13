@@ -3,11 +3,13 @@ package com.istic.mixer;
 import com.istic.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.Multiply;
 import com.jsyn.unitgen.UnitGenerator;
+import com.jsyn.unitgen.UnitVoice;
 
 public class ReglageMIXER extends UnitGenerator {
 
-
+    private Multiply multiply;
     private UnitInputPort in1,in2,in3,in4;
     private UnitInputPort in1Att,in2Att,in3Att,in4Att;
     private UnitOutputPort out;
@@ -45,40 +47,24 @@ public class ReglageMIXER extends UnitGenerator {
 
         for (int i = start; i < limit; i++) {
 
-            if(inputs1[i]==0 ) {
-                inputs1Att[i]=0;
-                in1=0;
-            }else{
+
                 in1=inputs1[i]+inputs1Att[i];
 
-            }
-            if(inputs2[i]==0 ) {
-                inputs2Att[i]=0;
-                in2=0;
-            }else{
+
                 in2=inputs2[i]+inputs2Att[i];
 
-            }
-            if(inputs3[i]==0 ) {
-                inputs1Att[i]=0;
-                in3=0;
-            }else{
+
                 in3=inputs3[i]+inputs3Att[i];
 
-            }
-            if(inputs4[i]==0 ) {
-                inputs4Att[i]=0;
-                in4=0;
-            }else{
+
                 in4=inputs4[i]+inputs4Att[i];
 
-            }
+
            if(in1<=0) in1=0;
            if(in1<=0) in2=0;
            if(in1<=0) in3=0;
            if(in1<=0) in4=0;
-            outputs[i] = Constraints.verifAmp(in1+in2+in3+in4);
-
+            outputs[i] = Constraints.verifAmp(in1*in2*in3*in4);
         }
     }
 

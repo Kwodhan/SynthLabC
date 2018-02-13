@@ -1,14 +1,11 @@
 package com.istic.modulesController;
 
-import com.google.gson.Gson;
 import com.istic.cable.Cable;
 import com.istic.cable.CableController;
-import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
+import com.istic.util.Files;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +17,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 
 import java.io.*;
@@ -46,9 +41,9 @@ public class Controller implements Initializable  {
 	final ToggleGroup group = new ToggleGroup();
 
 	private StackPane[] stacks;
-
-	private List<ModuleController> moduleControllers;
-	private List<CableController> cables;
+    private Files files=new Files();
+	private ArrayList<ModuleController> moduleControllers;
+	private ArrayList<CableController> cables;
 
 	private Synthesizer synth;
 	private Line mouseLine;
@@ -118,14 +113,19 @@ public class Controller implements Initializable  {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Drop all the modules
-	 */
+    /**
+     * Supprime tous les modules sur le board
+     *
+     */
 	public void dropAll(){
 
+    ArrayList<ModuleController> mod= (ArrayList<ModuleController>) moduleControllers.clone();
+    for(ModuleController moduleController : mod){
+        moduleController.removeModule();
+    }
 
-
-	}
+    moduleControllers.clear();
+    }
 
 	/**
 	 * Open a configuration
@@ -156,22 +156,8 @@ public class Controller implements Initializable  {
                             //System.out.println(strings[0]);
                             switch (strings[0]){
                                 case "out" :
-                                    //System.out.println("4");
-                                    Node root = FXMLLoader.load(getClass().getResource(
-                                            "../../../modules/output.fxml"));
-                                    addMod(root);
-
-                                    OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
-                                    this.moduleControllers.add(outputModuleController);
-                                    outputModuleController.init(this);
-                                    double d =Double.parseDouble(strings[1]);
-                                    int i =Integer.parseInt(strings[2]);
-                                    System.out.println(i);
-                                    outputModuleController.getLineOut().setAttenuation(d);
-                                    outputModuleController.getLineOut().setMute(i);
-                                    outputModuleController.attenuationSlider.setValue(d);
-                                    if(i==0)
-                                    outputModuleController.getMute().setSelected(true);
+                                    OUTPUTModuleController outputModuleController=addOutput();
+                                    files.openOut(file,strings,outputModuleController);
                             }
                         }
 
@@ -285,7 +271,7 @@ public class Controller implements Initializable  {
 	 *
 	 * @throws IOException si ajout impossible
 	 */
-	public void addOutput() throws IOException {
+	public OUTPUTModuleController addOutput() throws IOException {
 
 		// outputModuleController=new OUTPUTModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -295,6 +281,7 @@ public class Controller implements Initializable  {
 		OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
 		this.moduleControllers.add(outputModuleController);
 		outputModuleController.init(this);
+		return outputModuleController;
 	}
 
 	/**
@@ -502,6 +489,8 @@ public class Controller implements Initializable  {
 			}
 		}
 	}
+
+
 
 
 
