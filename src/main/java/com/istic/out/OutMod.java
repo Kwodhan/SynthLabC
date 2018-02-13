@@ -5,8 +5,6 @@ import com.jsyn.unitgen.LineOut;
 import com.jsyn.util.WaveFileWriter;
 import com.softsynth.math.AudioMath;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -37,11 +35,11 @@ public class OutMod extends LineOut {
 
 	public OutMod() {
 		portInput =  new PortInput(this.getInput());
-		try {
-			writer = new WaveFileWriter(new File("./src/main/resources/sound/savedSound.wav"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			writer = new WaveFileWriter(new File("./src/main/resources/sound/savedSound.wav"));
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
@@ -68,9 +66,9 @@ public class OutMod extends LineOut {
         	fromDCBL = AudioMath.semitonesToFrequencyScaler(this.attenuation);
             buffer0[i] += inputs0[i]*mute*fromDCBL;
             buffer1[i] += inputs1[i]*mute*fromDCBL;
-            if (record && locationSelected) {
+            if (record && (this.writer != null)) {
 				try {
-					writer.write(buffer0[i]);
+					this.writer.write(buffer0[i]);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
