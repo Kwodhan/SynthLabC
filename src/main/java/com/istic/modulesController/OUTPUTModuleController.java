@@ -198,7 +198,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     public Slider getAttenuationSlider() {
         return attenuationSlider;
     }
-
+    @Override
     public void restore(JSONObject jsonObjectModule) {
         setJsonModuleObject(jsonObjectModule);
         double attenuation = (double) jsonObjectModule.get("attenuation");
