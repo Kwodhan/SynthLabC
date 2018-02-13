@@ -1,5 +1,8 @@
 package com.istic.keyboard;
 
+import com.istic.port.PortOutput;
+import com.jsyn.ports.UnitInputPort;
+import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
 
 public class ReglageKB extends UnitGenerator{
@@ -9,5 +12,6 @@ public class ReglageKB extends UnitGenerator{
 		// TODO Auto-generated method stub
 		
 	}
-
+ 
+	 
 }
