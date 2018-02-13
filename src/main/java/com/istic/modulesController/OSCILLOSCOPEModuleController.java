@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -95,6 +96,16 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         hashMap.put(outPort, oscilloscope.getOutput());
         hashMap.put(inPort, oscilloscope.getInput());
         return hashMap;
+    }
+
+    @Override
+    public void serialize() {
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
     }
 
     /**

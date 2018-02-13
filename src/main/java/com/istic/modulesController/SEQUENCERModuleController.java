@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,6 +44,16 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     @Override
     public Map<ImageView, Port> getAllPorts() {
         return null;
+    }
+
+    @Override
+    public void serialize() {
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
     }
 
     /**

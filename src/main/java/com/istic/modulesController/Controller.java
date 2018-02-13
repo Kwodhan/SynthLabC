@@ -18,6 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.URL;
@@ -44,8 +45,10 @@ public class Controller implements Initializable  {
 	final ToggleGroup group = new ToggleGroup();
 
 	private StackPane[] stacks;
-    private Files files=new Files();
-	private ArrayList<ModuleController> moduleControllers;
+    private Files files;
+
+
+    private ArrayList<ModuleController> moduleControllers;
 	private ArrayList<CableController> cables;
 
 	private Synthesizer synth;
@@ -77,7 +80,8 @@ public class Controller implements Initializable  {
 	 * @param resources The resources used to localize the root object, or <tt>null</tt> if
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		this.synth = JSyn.createSynthesizer();
+	    //files.parseJSON();
+	    this.synth = JSyn.createSynthesizer();
 		this.synth.start();
 
 		coralMenuItem.setToggleGroup(group);
@@ -126,6 +130,7 @@ public class Controller implements Initializable  {
     for(ModuleController moduleController : mod){
         moduleController.removeModule();
     }
+    //files.parseJSON();
 
     moduleControllers.clear();
     }
@@ -133,88 +138,38 @@ public class Controller implements Initializable  {
 	/**
 	 * Open a configuration
 	 */
-	public void openConfig(){
+	public void openConfig() throws IOException, ParseException {
         FileChooser fileChooser = new FileChooser();
-
-
-
         fileChooser.setTitle("Open Configuration File");
         //Show open file dialog
         File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
         if(file != null){
-            try {
-                FileReader fileReader;
-                List<String> records = new ArrayList<String>();
-                fileReader = new FileReader(file);
-                BufferedReader reader = new BufferedReader(fileReader);
-                String line;
+
                 dropAll();
-                while ((line = reader.readLine()) != null)
-                {
-
-                    String[] strings = line.split(",");
-
-                        if(strings!=null)
-                        {
-                            //System.out.println(strings[0]);
-                            switch (strings[0]){
-                                case "out" :
-                                    OUTPUTModuleController outputModuleController=addOutput();
-                                    files.openOut(file,strings,outputModuleController);
-                            }
-                        }
-
-                    records.add(line);
-
-                }
-                reader.close();
-            } catch (IOException ex) {
-                Logger.getLogger(this.getClass()
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
+                files=new Files(file,this);
+                files.open();
         }
+
 
     }
 	/**
 	 * Save a configuration
 	 */
-	public void saveConfig(){
+	public void saveConfig() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Configuration File");
 
         //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(extFilter);
-
+        fileChooser.setInitialFileName("*.json");
         //Show save file dialog
         File file = fileChooser.showSaveDialog(pane.getScene().getWindow());
 
         if(file != null){
-            try {
-                FileWriter fileWriter;
+            files = new Files(file,this);
+            files.save();
 
-                fileWriter = new FileWriter(file);
-                for(ModuleController moduleController: moduleControllers) {
-                    //if(moduleController.getClass().(OUTPUTModuleController))
-                    String line = moduleController.getClass().getName();
-                    switch (line){
-                        case "com.istic.modulesController.OUTPUTModuleController" :
-                           OUTPUTModuleController out=(OUTPUTModuleController)moduleController;
-
-                           line="out,"+out.getLineOut().getAttenuation()
-                                   +","+out.getLineOut().getMute()+"\n";
-                            fileWriter.write(line);
-
-                           default:break;
-                    }
-                    System.out.println(line);
-                	//fileWriter.write(json);
-                }
-                fileWriter.close();
-            } catch (IOException ex) {
-                Logger.getLogger(this.getClass()
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
     }
@@ -308,7 +263,7 @@ public class Controller implements Initializable  {
 	 *
 	 * @throws IOException si ajout impossible
 	 */
-	public void addEG() throws IOException {
+	public EGModuleController addEG() throws IOException {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/eg.fxml"));
 		addMod(root);
@@ -316,6 +271,7 @@ public class Controller implements Initializable  {
 		EGModuleController egModuleController = (EGModuleController) root.getUserData();
 		this.moduleControllers.add(egModuleController);
 		egModuleController.init(this);
+		return egModuleController;
 
 	}
 
@@ -519,5 +475,11 @@ public class Controller implements Initializable  {
 		return mouseLine;
 	}
 
+    public StackPane[] getStacks() {
+        return stacks;
+    }
 
+    public ArrayList<ModuleController> getModuleControllers() {
+        return moduleControllers;
+    }
 }

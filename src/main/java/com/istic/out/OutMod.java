@@ -4,10 +4,12 @@ import com.istic.port.PortInput;
 import com.jsyn.unitgen.LineOut;
 import com.softsynth.math.AudioMath;
 
+import java.io.Serializable;
+
 /**
  * Module de sortie
  */
-public class OutMod extends LineOut {
+public class OutMod extends LineOut implements Serializable {
 	/**
 	 * permet d'eviter la saturation
 	 */

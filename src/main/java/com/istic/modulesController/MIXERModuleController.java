@@ -8,6 +8,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -99,6 +100,16 @@ public class MIXERModuleController extends ModuleController implements Initializ
     @Override
     public Map<ImageView, Port> getAllPorts() {
         return null;
+    }
+
+    @Override
+    public void serialize() {
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
     }
 
     /**

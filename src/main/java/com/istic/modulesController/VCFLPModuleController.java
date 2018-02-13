@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import com.istic.vcflp.VCFLP;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -80,6 +81,16 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         hashMap.put(fmPort, vcflp.getFm());
         hashMap.put(inPort, vcflp.getInput());
         return hashMap;    }
+
+    @Override
+    public void serialize() {
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
+    }
 
     /**
      * Supprime le module du Board ainsi que les cables
