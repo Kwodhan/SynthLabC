@@ -74,8 +74,8 @@ public class VCFHPModuleController extends ModuleController implements Initializ
     @Override
     public Map<ImageView, Port> getAllPorts() {
         Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, vcfhp.getOutput());
         hashMap.put(fmPort, vcfhp.getFm());
+        hashMap.put(outPort, vcfhp.getOutput());
         hashMap.put(inPort, vcfhp.getInput());
         return hashMap;    }
 
@@ -147,11 +147,19 @@ public class VCFHPModuleController extends ModuleController implements Initializ
 
     @Override
     public void serialize() {
+    super.serialize();
+        jsonModuleObject.put("frequencySlider", Math.pow(2,frequencySlider.getValue()));
+
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-
+    setJsonModuleObject(jsonObjectModule);
+        double frequency = (double) jsonObjectModule.get("frequencySlider");
+        //model
+        vcfhp.setF0(frequency);
+        //graphique
+        frequencySlider.setValue(frequency);
     }
 }

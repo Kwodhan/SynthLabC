@@ -156,11 +156,11 @@ public class REPLICATORModuleController extends ModuleController implements Init
 
     @Override
     public void serialize() {
-
+        super.serialize();
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-
+        setJsonModuleObject(jsonObjectModule);
     }
 }
