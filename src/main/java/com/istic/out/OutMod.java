@@ -17,6 +17,7 @@ public class OutMod extends LineOut {
 	 * permet d'eviter la saturation
 	 */
 	private double attenuation = 0.;
+
 	private WaveFileWriter writer;
 
 	private boolean record = false;
@@ -99,6 +100,9 @@ public class OutMod extends LineOut {
 
 	public WaveFileWriter getWriter() {
 		return writer;
+	}
+	public void setWriter(WaveFileWriter writer) {
+		this.writer = writer;
 	}
 
 	public boolean isRecord() {
