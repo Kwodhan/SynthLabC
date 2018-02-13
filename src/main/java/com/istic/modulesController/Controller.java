@@ -376,6 +376,10 @@ public class Controller implements Initializable  {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/sequencer.fxml"));
 		addMod(root);
+		
+		SEQUENCERModuleController seqModuleController = (SEQUENCERModuleController) root.getUserData();
+		this.moduleControllers.add(seqModuleController);
+		seqModuleController.init(this);
 
 	}
 
