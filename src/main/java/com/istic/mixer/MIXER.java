@@ -5,6 +5,8 @@ import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
+import com.jsyn.unitgen.MixerMono;
+import com.jsyn.unitgen.MixerMonoRamped;
 
 public class MIXER  extends Circuit {
     private UnitInputPort in1,in2,in3,in4;
@@ -51,7 +53,7 @@ public class MIXER  extends Circuit {
 
     public PortInput getInput3() {
 
-        return portInput4;
+        return portInput3;
     }
 
     public PortInput getInput4() {

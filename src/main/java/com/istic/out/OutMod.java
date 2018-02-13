@@ -2,18 +2,26 @@ package com.istic.out;
 
 import com.istic.port.PortInput;
 import com.jsyn.unitgen.LineOut;
+import com.jsyn.util.WaveFileWriter;
 import com.softsynth.math.AudioMath;
 
-import java.io.Serializable;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Module de sortie
  */
-public class OutMod extends LineOut implements Serializable {
+public class OutMod extends LineOut {
 	/**
 	 * permet d'eviter la saturation
 	 */
 	private double attenuation = 0.;
+
+	private WaveFileWriter writer;
+
+	private boolean record = false;
+
 
 	/**
 	 * 0 la sortie audio est null | 1 on entend la sortie audio
@@ -27,7 +35,11 @@ public class OutMod extends LineOut implements Serializable {
 
 	public OutMod() {
 		portInput =  new PortInput(this.getInput());
-
+		try {
+			writer = new WaveFileWriter(new File("./src/main/resources/sound/savedSound.wav"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -54,7 +66,14 @@ public class OutMod extends LineOut implements Serializable {
         	fromDCBL = AudioMath.semitonesToFrequencyScaler(this.attenuation);
             buffer0[i] += inputs0[i]*mute*fromDCBL;
             buffer1[i] += inputs1[i]*mute*fromDCBL;
-        }
+            if (record) {
+				try {
+					writer.write(buffer0[i]);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     //Setters & Getters
@@ -77,5 +96,19 @@ public class OutMod extends LineOut implements Serializable {
 
 	public void setMute(int mute) {
 		this.mute = mute;
+	}
+
+	public WaveFileWriter getWriter() {
+		return writer;
+	}
+	public void setWriter(WaveFileWriter writer) {
+		this.writer = writer;
+	}
+
+	public boolean isRecord() {
+		return record;
+	}
+	public void setRecord(boolean record) {
+		this.record = record;
 	}
 }

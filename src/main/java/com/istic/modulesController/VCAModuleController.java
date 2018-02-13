@@ -42,6 +42,8 @@ public class VCAModuleController extends ModuleController implements Initializab
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
+
+
     }
 
     /**
@@ -54,6 +56,8 @@ public class VCAModuleController extends ModuleController implements Initializab
         super.init(controller);
         this.vca = new VCA();
         this.controller.getSynth().add(vca);
+
+        vca.changeA0(amplitudeSlider.getValue());
 
 
     }

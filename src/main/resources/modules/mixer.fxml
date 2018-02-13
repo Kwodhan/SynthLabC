@@ -68,10 +68,10 @@
             </ImageView>
              <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-            <Slider fx:id="amplitudeSlider1" blockIncrement="1.0" majorTickUnit="1.0" max="0" min="-10" minorTickCount="1" prefHeight="18.0" prefWidth="87.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="amplitudeSlider2" blockIncrement="1.0" majorTickUnit="1.0" max="0" min="-10" minorTickCount="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="amplitudeSlider3" blockIncrement="1.0" majorTickUnit="1.0" max="0" min="-10" minorTickCount="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="amplitudeSlider4" blockIncrement="1.0" majorTickUnit="1.0" max="0" min="-10" minorTickCount="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="amplitudeSlider1"  max="1" min="0" value="1" prefHeight="18.0" prefWidth="87.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="amplitudeSlider2"  max="1" min="0" value="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="amplitudeSlider3"  max="1" min="0" value="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="amplitudeSlider4"  max="1" min="0" value="1" prefHeight="38.0" prefWidth="143.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
    </children>

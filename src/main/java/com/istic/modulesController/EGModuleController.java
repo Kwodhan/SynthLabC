@@ -48,25 +48,22 @@ public class EGModuleController extends ModuleController implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
 
         attackSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.eg.setAttack(4*Math.exp(attackSlider.getValue()-9));
+            this.eg.setAttack(sliderFormule(attackSlider.getValue()));
         });
 
         releaseSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.eg.setRelease(4*Math.exp(releaseSlider.getValue()-9));
+            this.eg.setRelease(sliderFormule(releaseSlider.getValue()));
         });
 
         decaySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.eg.setDecay(4*Math.exp(decaySlider.getValue()-9));
+            this.eg.setDecay(sliderFormule(decaySlider.getValue()));
         });
 
         sustainSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             this.eg.setSustain(sustainSlider.getValue()/10);
         });
 
-        attackSlider.setValue(attackSlider.getMin());
-        releaseSlider.setValue(releaseSlider.getMin());
-        decaySlider.setValue(decaySlider.getMin());
-        sustainSlider.setValue(sustainSlider.getMin());
+
 
     }
 
@@ -80,6 +77,11 @@ public class EGModuleController extends ModuleController implements Initializabl
         super.init(controller);
         this.eg = new EG();
         this.controller.getSynth().add(eg);
+
+        this.eg.setAttack(sliderFormule(attackSlider.getValue()));
+        this.eg.setRelease(sliderFormule(releaseSlider.getValue()));
+        this.eg.setDecay(sliderFormule(decaySlider.getValue()));
+        this.eg.setSustain(sustainSlider.getValue()/10);
 
     }
 
@@ -179,6 +181,11 @@ public class EGModuleController extends ModuleController implements Initializabl
             stackPane.getChildren().remove(pane);
             this.controller.disconnect(this);
         }
+    }
+
+    private double sliderFormule (double view){
+        return 4*Math.exp(view-9);
+
     }
 
     public EG getEg() {

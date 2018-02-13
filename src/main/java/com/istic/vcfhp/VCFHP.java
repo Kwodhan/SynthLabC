@@ -1,4 +1,4 @@
-package com.istic.vcflp;
+package com.istic.vcfhp;
 
 import com.istic.port.PortFm;
 import com.istic.port.PortInput;
@@ -6,20 +6,16 @@ import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
+import com.jsyn.unitgen.FilterHighPass;
 import com.jsyn.unitgen.FilterLowPass;
 
-import java.util.ArrayList;
-import java.util.List;
+public class VCFHP extends Circuit {
 
-public class VCFLP extends Circuit {
-    /**
-     * Port de sortie du VCF LP
-     */
     private UnitOutputPort out;
 
     private UnitInputPort in;
 
-    private FilterLowPass filterLowPass;
+    private FilterHighPass filterHighPass;
 
     private PortOutput portOutput;
 
@@ -30,19 +26,19 @@ public class VCFLP extends Circuit {
     /**
      * reglage fm, f0, resonance
      */
-    private ReglageVCFLP vcflp;
+    private ReglageVCFHP vcflp;
 
-    public VCFLP() {
+    public VCFHP() {
 
-        add(filterLowPass = new FilterLowPass());
-        add(vcflp = new ReglageVCFLP());
+        add(filterHighPass = new FilterHighPass());
+        add(vcflp = new ReglageVCFHP());
 
-        addPortAlias(out = filterLowPass.getOutput(), "out");
-        addPortAlias(in = filterLowPass.getInput(), "in");
+        addPortAlias(out = filterHighPass.getOutput(), "out");
+        addPortAlias(in = filterHighPass.getInput(), "in");
 
         vcflp.getF0().set(22);
 
-        vcflp.getOut().connect(filterLowPass.frequency);
+        vcflp.getOut().connect(filterHighPass.frequency);
 
         portOutput = new PortOutput(out);
         portInput = new PortInput(in);
@@ -60,7 +56,7 @@ public class VCFLP extends Circuit {
     }
 
     public void setResonance(double resonnance){
-        this.filterLowPass.Q.set(resonnance);
+        this.filterHighPass.Q.set(resonnance);
     }
 
     public void setF0(double fo){

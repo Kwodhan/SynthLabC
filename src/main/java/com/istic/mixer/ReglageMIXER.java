@@ -7,25 +7,39 @@ import com.jsyn.unitgen.Multiply;
 import com.jsyn.unitgen.UnitGenerator;
 import com.jsyn.unitgen.UnitVoice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReglageMIXER extends UnitGenerator {
 
-    private Multiply multiply;
-    private UnitInputPort in1,in2,in3,in4;
-    private UnitInputPort in1Att,in2Att,in3Att,in4Att;
+    List<UnitInputPort> inputs;
+    List<UnitInputPort> inAtts;
+
     private UnitOutputPort out;
 
     public ReglageMIXER() {
+        this.inAtts = new ArrayList<>();
+        this.inputs = new ArrayList<>();
+
+        this.inputs.add(new UnitInputPort("in1"));
+        this.inputs.add(new UnitInputPort("in2"));
+        this.inputs.add(new UnitInputPort("in3"));
+        this.inputs.add(new UnitInputPort("in4"));
+
+        this.inAtts.add(new UnitInputPort("in1Att"));
+        this.inAtts.add(new UnitInputPort("in2Att"));
+        this.inAtts.add(new UnitInputPort("in3Att"));
+        this.inAtts.add(new UnitInputPort("in3Att"));
 
 
-        addPort(this.in1  = new UnitInputPort("in1"));
-        addPort(this.in2  = new UnitInputPort("in2"));
-        addPort(this.in3  = new UnitInputPort("in3"));
-        addPort(this.in4  = new UnitInputPort("in4"));
-        addPort(this.in1Att  = new UnitInputPort("in1Att"));
-        addPort(this.in2Att  = new UnitInputPort("in2Att"));
-        addPort(this.in3Att  = new UnitInputPort("in3Att"));
-        addPort(this.in4Att  = new UnitInputPort("in4Att"));
-        addPort(this.out = new UnitOutputPort("out1"));
+        for(UnitInputPort unitInputPort : this.inputs){
+            addPort(unitInputPort);
+        }
+        for(UnitInputPort unitInputPort : this.inAtts){
+            addPort(unitInputPort);
+        }
+
+        addPort(this.out = new UnitOutputPort("out"),"out");
 
 
     }
@@ -34,54 +48,39 @@ public class ReglageMIXER extends UnitGenerator {
 
     @Override
     public void generate(int start, int limit) {
-        double[] inputs1 = in1.getValues();
-        double[] inputs2 = in2.getValues();
-        double[] inputs3 = in3.getValues();
-        double[] inputs4 = in4.getValues();
-        double[] inputs1Att = in1Att.getValues();
-        double[] inputs2Att = in2Att.getValues();
-        double[] inputs3Att = in3Att.getValues();
-        double[] inputs4Att = in4Att.getValues();
+
+
         double[] outputs= out.getValues();
-        double in1,in2,in3,in4;
-
-        for (int i = start; i < limit; i++) {
 
 
-                in1=inputs1[i]+inputs1Att[i];
+        for(int i = start; i < limit; ++i) {
+            double deb = 0.0D;
 
+            for(int j = 0; j < 4; ++j) {
+                double[] in = this.inputs.get(j).getValues();
+                double[] att = this.inAtts.get(j).getValues();
 
-                in2=inputs2[i]+inputs2Att[i];
+                deb += in[i] * att[i];
+            }
+            outputs[i] = Constraints.verifAmp(deb);
 
-
-                in3=inputs3[i]+inputs3Att[i];
-
-
-                in4=inputs4[i]+inputs4Att[i];
-
-
-           if(in1<=0) in1=0;
-           if(in1<=0) in2=0;
-           if(in1<=0) in3=0;
-           if(in1<=0) in4=0;
-            outputs[i] = Constraints.verifAmp(in1*in2*in3*in4);
         }
     }
 
     public UnitInputPort getIn1() {
-        return in1;
+        return this.inputs.get(0);
     }
 
     public UnitInputPort getIn2() {
-        return in2;
+        return this.inputs.get(1);
     }
 
     public UnitInputPort getIn3() {
-        return in3;
+        return this.inputs.get(2);
     }
 
     public UnitInputPort getIn4() {
-        return in4;
+        return this.inputs.get(3);
     }
 
     public UnitOutputPort getOut() {
@@ -89,23 +88,23 @@ public class ReglageMIXER extends UnitGenerator {
     }
 
     public UnitInputPort getIn1Att() {
-        return in1Att;
+        return this.inAtts.get(0);
     }
 
 
     public UnitInputPort getIn2Att() {
-        return in2Att;
+        return this.inAtts.get(1);
     }
 
 
 
     public UnitInputPort getIn3Att() {
-        return in3Att;
+        return this.inAtts.get(2);
     }
 
 
     public UnitInputPort getIn4Att() {
-        return in4Att;
+        return this.inAtts.get(3);
     }
 
 

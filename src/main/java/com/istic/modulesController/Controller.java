@@ -6,7 +6,6 @@ import com.istic.util.DragAndDrop;
 import com.istic.util.Files;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import org.json.simple.parser.ParseException;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.net.URL;
@@ -178,6 +178,23 @@ public class Controller implements Initializable  {
 	 */
 	public void saveToMP3(){
 
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save Sound File");
+
+		//Set extension filter
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
+		fileChooser.getExtensionFilters().add(extFilter);
+
+		//Show save file dialog
+		File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
+
+		//Copy
+        File source = new File("./src/main/resources/sound/savedSound.wav");
+        try {
+            FileUtils.copyFile(source, dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 	/**
 	 * Change le thème en coral
@@ -316,6 +333,10 @@ public class Controller implements Initializable  {
 				"../../../modules/sequencer.fxml"));
 		addMod(root);
 
+		SEQUENCERModuleController seqModuleController = (SEQUENCERModuleController) root.getUserData();
+		this.moduleControllers.add(seqModuleController);
+		seqModuleController.init(this);
+
 	}
 
 	/**
@@ -357,6 +378,9 @@ public class Controller implements Initializable  {
 		Node root = FXMLLoader.load(getClass().getResource(
 				"../../../modules/vcfHp.fxml"));
 		addMod(root);
+		VCFHPModuleController vcfhpModuleController = (VCFHPModuleController) root.getUserData();
+		this.moduleControllers.add(vcfhpModuleController);
+		vcfhpModuleController.init(this);
 	}
 
 	/**

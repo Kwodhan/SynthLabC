@@ -30,6 +30,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     @FXML
     ToggleButton mute;
     private OutMod lineOut;
+    
 
     @FXML
     protected Slider attenuationSlider;
@@ -64,6 +65,13 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         this.lineOut = new OutMod();
         this.controller.getSynth().add(this.lineOut);
         lineOut.start();
+//        File file = new File("/home/jnsll/Documents/file.wav");
+//        try {
+//            this.recorder = new EnregistreurWave(file);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     /**
@@ -84,6 +92,29 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         this.lineOut.toggleMute();
         serialize();
 
+    }
+
+    /**
+     * Gère la fonctionnalité "Muet"
+     * Coupe le son
+     */
+    public void toggleRecord() throws IOException {
+//        double[] inputs0 = lineOut.getInput().getValues(0);
+//        double[] data = this.lineOut.getSynthesisEngine().getOutputBuffer(1);
+//        try {
+//            this.recorder.toggleRecord();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        this.lineOut.setRecord(!this.lineOut.isRecord());
+
+        if (!this.lineOut.isRecord()) {
+            this.lineOut.getWriter().close();
+        } else {
+            if (this.lineOut.getWriter() == null) {
+                //choose emplacement file wave
+            }
+        }
     }
 
 

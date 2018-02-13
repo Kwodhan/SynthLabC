@@ -3,6 +3,8 @@
 playlist.txt
 /data/*.mp4
 
+/src/main/resources/sound/*.wav
+
 ######################
 # Project Specific
 ######################

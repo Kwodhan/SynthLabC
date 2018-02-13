@@ -8,7 +8,7 @@ public class Constraints {
     public static final Double MODULATION_VOLT = 10D;
 
 
-    public static final Double FREQUENCE_MAX = 22000D;
+    public static final Double FREQUENCE_MAX = 21000D;
 
 
     /**

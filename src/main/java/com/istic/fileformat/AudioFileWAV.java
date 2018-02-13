@@ -35,6 +35,8 @@ public class AudioFileWAV extends AudioFile{
 			
 			DoubleTable myTable;
 			WaveRecorder wr;
+			float frameRate =44100.0f;
+			int nbChannels=2;
 	public AudioFileWAV(String path) {
 		super(path);
 		// TODO Auto-generated constructor stub

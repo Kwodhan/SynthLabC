@@ -30,8 +30,6 @@ public class IHMSprint1Test extends ApplicationTest {
         clickOn("#outPort");
         clickOn("#inPort");
         clickOn("GOLD");
-
-
     }
 
     @Test
@@ -42,14 +40,6 @@ public class IHMSprint1Test extends ApplicationTest {
         sleep(2000);
         clickOn("#mute");
         sleep(2000);
-
-        // Type de signal
-//        clickOn("#triangleRadio");
-//        sleep(2000);
-//        clickOn("#sawRadio");
-//        sleep(1000);
-//        clickOn("#squareRadio");
-//        sleep(1000);
 
         // Octave slider
         moveTo("#frequencySlider");
@@ -83,7 +73,6 @@ public class IHMSprint1Test extends ApplicationTest {
         sleep(2000);
 
         clickOn("#mute");
-
     }
 
 
