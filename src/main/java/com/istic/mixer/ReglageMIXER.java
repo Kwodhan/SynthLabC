@@ -62,9 +62,8 @@ public class ReglageMIXER extends UnitGenerator {
 
                 deb += in[i] * att[i];
             }
-
             outputs[i] = Constraints.verifAmp(deb);
-            System.out.println(outputs);
+
         }
     }
 

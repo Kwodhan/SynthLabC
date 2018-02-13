@@ -26,8 +26,8 @@ public class ReglageVCFLP extends VariableRateMonoReader {
         addPort(this.f0 = new UnitInputPort("f0"));
         addPort(this.fm = new UnitInputPort("fm"));
         addPort(this.out = new UnitOutputPort("out"));
-        this.fm.setMaximum(2);
-        this.f0.setMaximum(21000);
+
+        this.f0.setMaximum(20000);
 
     }
 
@@ -38,9 +38,8 @@ public class ReglageVCFLP extends VariableRateMonoReader {
         double[] outputs = out.getValues();
 
         for (int i = start; i < limit ; i++) {
-
             outputs[i] = Constraints.verifFrequenceMax(f0s[i] * Math.pow(2,Constraints.verifModFreq(Math.abs(fms[i])*Constraints.VOLT)));
-
+            System.out.println(outputs[i]);
         }
 
 

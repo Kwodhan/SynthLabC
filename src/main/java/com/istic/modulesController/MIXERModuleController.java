@@ -36,7 +36,6 @@ public class MIXERModuleController extends ModuleController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         amplitudeSlider1.valueProperty().addListener((ov, old_val, new_val) -> {
-            System.out.println(mixer);
             mixer.changeAtt1( amplitudeSlider1.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
@@ -71,10 +70,11 @@ public class MIXERModuleController extends ModuleController implements Initializ
         super.init(controller);
         this.mixer = new MIXER();
         this.controller.getSynth().add(mixer);
-        amplitudeSlider1.setValue(1D);
-        amplitudeSlider2.setValue(1D);
-        amplitudeSlider3.setValue(1D);
-        amplitudeSlider4.setValue(1D);
+
+        mixer.changeAtt1(amplitudeSlider1.getValue());
+        mixer.changeAtt2(amplitudeSlider2.getValue());
+        mixer.changeAtt3(amplitudeSlider3.getValue());
+        mixer.changeAtt4(amplitudeSlider4.getValue());
     }
 
     /**

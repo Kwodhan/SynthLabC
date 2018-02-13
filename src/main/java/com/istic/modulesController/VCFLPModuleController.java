@@ -45,11 +45,9 @@ public class VCFLPModuleController extends ModuleController implements Initializ
 
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             this.vcflp.setF0(frequencySlider.getValue());
-            //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
+
         });
 
-        resonanceSlider.setValue(resonanceSlider.getMin());
-        frequencySlider.setValue(frequencySlider.getMin());
 
 
     }
@@ -111,6 +109,11 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         super.init(controller);
         this.vcflp = new VCFLP();
         this.controller.getSynth().add(vcflp);
+        frequencySlider.setValue(frequencySlider.getMax());
+
+        this.vcflp.setF0(frequencySlider.getValue());
+        this.vcflp.setResonance(resonanceSlider.getValue());
+
 
 
     }

@@ -26,9 +26,8 @@ public class VCFLP extends Circuit {
     private PortInput portInput;
 
     private PortFm portFm;
-
     /**
-     * reglage fm, f0, resonance
+     * reglage fm, f0, filter
      */
     private ReglageVCFLP vcflp;
 
@@ -40,7 +39,7 @@ public class VCFLP extends Circuit {
         addPortAlias(out = filterLowPass.getOutput(), "out");
         addPortAlias(in = filterLowPass.getInput(), "in");
 
-        vcflp.getF0().set(22);
+        vcflp.getF0().set(440);
 
         vcflp.getOut().connect(filterLowPass.frequency);
 
