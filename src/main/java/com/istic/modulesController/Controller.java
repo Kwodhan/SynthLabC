@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller implements Initializable {
 
@@ -176,6 +178,10 @@ public class Controller implements Initializable {
      * Save as MP3 file
      */
     public void saveToMP3() {
+	/**
+	 * Save as MP3 file
+	 */
+	public File saveToMP3(){
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Sound File");
@@ -187,22 +193,22 @@ public class Controller implements Initializable {
         //Show save file dialog
         File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
 
-        //Copy
-        File source = new File("./src/main/resources/sound/savedSound.wav");
-        try {
-            FileUtils.copyFile(source, dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Change le thème en coral
-     */
-    public void coralTheme() {
-        pane.getStylesheets().clear();
-        pane.getStylesheets().add("/skins/coral.css");
-    }
+//		//Copy
+//        File source = new File("./src/main/resources/sound/savedSound.wav");
+//        try {
+//            FileUtils.copyFile(source, dest);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        return dest;
+	}
+	/**
+	 * Change le thème en coral
+	 */
+	public void coralTheme(){
+		pane.getStylesheets().clear();
+		pane.getStylesheets().add("/skins/coral.css");
+	}
 
     /**
      * Change le thème en default
