@@ -19,11 +19,14 @@ public class VCFLPModuleController extends ModuleController implements Initializ
 
     @FXML
     AnchorPane pane;
+
     protected VCFLP vcflp;
+
     @FXML
     ImageView outPort,inPort,fmPort;
+
     @FXML
-    Slider filterSlider,frequencySlider;
+    Slider resonanceSlider,frequencySlider;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -35,18 +38,20 @@ public class VCFLPModuleController extends ModuleController implements Initializ
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        filterSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            filterSlider.setValue(Math.round(filterSlider.getValue()));
-            vcflp.changeFilter((int) filterSlider.getValue());
-            //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
+        resonanceSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            this.vcflp.setResonance(resonanceSlider.getValue());
 
         });
+
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            frequencySlider.setValue(Math.round(frequencySlider.getValue()));
-            vcflp.changeF0((int) frequencySlider.getValue());
+            this.vcflp.setF0(frequencySlider.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
-
         });
+
+        resonanceSlider.setValue(resonanceSlider.getMin());
+        frequencySlider.setValue(frequencySlider.getMin());
+
+
     }
 
     /**
@@ -85,13 +90,15 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     @FXML // A decommenter et adapter quand le model vcf LP sera fait !
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
-//        //Deconnexion cable
-//        Port gate = vcflp.getGateInput();
-//        Port out = vcflp.getOutput();
-//        super.disconnect(gate);
-//        super.disconnect(out);
-//        // Deconnexion du module Output du synthetizer
-//        this.controller.getSynth().remove(vcflp);
+            //Deconnexion cable
+            Port fm = this.vcflp.getFm();
+            Port out = this.vcflp.getOutput();
+            Port in = this.vcflp.getInput();
+            super.disconnect(fm);
+            super.disconnect(out);
+            super.disconnect(in);
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(vcflp);
             // Get parent node of pane corresponding to OutMod
             // Recupere le noeud parent fxml du outmod
             StackPane stackPane = (StackPane) pane.getParent();

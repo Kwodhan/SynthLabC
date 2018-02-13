@@ -38,8 +38,8 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Slider fx:id="filterSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="frequencySlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="resonanceSlider"  majorTickUnit="1.0" max="10.0" min="0.01" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider"   max="22000" min="20" minorTickCount="1"   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IN" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <ImageView fx:id="inPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectInPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <image>
@@ -59,7 +59,7 @@
                </image>
             </ImageView>
              <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
-            <Label text="Filtre" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <Label text="Résonance" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Label text="Frequence" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
          </children>
       </GridPane>
