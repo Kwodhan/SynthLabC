@@ -103,8 +103,13 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 //            e.printStackTrace();
 //        }
         this.lineOut.setRecord(!this.lineOut.isRecord());
+
         if (!this.lineOut.isRecord()) {
             this.lineOut.getWriter().close();
+        } else {
+            if (this.lineOut.getWriter() == null) {
+                //choose emplacement file wave
+            }
         }
     }
 
