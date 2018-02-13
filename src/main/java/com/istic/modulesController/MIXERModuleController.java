@@ -22,6 +22,7 @@ public class MIXERModuleController extends ModuleController implements Initializ
     ImageView inPort1,inPort2,inPort3,inPort4,outPort;
     @FXML
     Slider amplitudeSlider1,amplitudeSlider2,amplitudeSlider3,amplitudeSlider4;
+
     MIXER mixer;
 
     /**
@@ -35,29 +36,28 @@ public class MIXERModuleController extends ModuleController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         amplitudeSlider1.valueProperty().addListener((ov, old_val, new_val) -> {
-            amplitudeSlider1.setValue(Math.round(amplitudeSlider1.getValue()));
-            mixer.changeAtt1((int) amplitudeSlider1.getValue());
+            System.out.println(mixer);
+            mixer.changeAtt1( amplitudeSlider1.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
         amplitudeSlider2.valueProperty().addListener((ov, old_val, new_val) -> {
-            amplitudeSlider2.setValue(Math.round(amplitudeSlider2.getValue()));
-            mixer.changeAtt2((int) amplitudeSlider2.getValue());
+            mixer.changeAtt2( amplitudeSlider2.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
         amplitudeSlider3.valueProperty().addListener((ov, old_val, new_val) -> {
-            amplitudeSlider3.setValue(Math.round(amplitudeSlider3.getValue()));
-            mixer.changeAtt3((int) amplitudeSlider3.getValue());
+            mixer.changeAtt3( amplitudeSlider3.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
         amplitudeSlider4.valueProperty().addListener((ov, old_val, new_val) -> {
-            amplitudeSlider4.setValue(Math.round(amplitudeSlider4.getValue()));
-            mixer.changeAtt4((int) amplitudeSlider4.getValue());
+            mixer.changeAtt4( amplitudeSlider4.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
+
+
 
     }
 
@@ -71,6 +71,10 @@ public class MIXERModuleController extends ModuleController implements Initializ
         super.init(controller);
         this.mixer = new MIXER();
         this.controller.getSynth().add(mixer);
+        amplitudeSlider1.setValue(1D);
+        amplitudeSlider2.setValue(1D);
+        amplitudeSlider3.setValue(1D);
+        amplitudeSlider4.setValue(1D);
     }
 
     /**
@@ -175,11 +179,13 @@ public class MIXERModuleController extends ModuleController implements Initializ
             Port in3 = mixer.getInput3();
             Port in4 = mixer.getInput4();
             Port out = mixer.getOutput();
+
             super.disconnect(in1);
             super.disconnect(in2);
             super.disconnect(in3);
             super.disconnect(in4);
             super.disconnect(out);
+
             // Deconnexion du module Output du synthetizer
             this.controller.getSynth().remove(mixer);
             // Get parent node of pane corresponding to OutMod

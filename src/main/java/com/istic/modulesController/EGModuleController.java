@@ -62,10 +62,7 @@ public class EGModuleController extends ModuleController implements Initializabl
             this.eg.setSustain(sustainSlider.getValue()/10);
         });
 
-        attackSlider.setValue(attackSlider.getMin());
-        releaseSlider.setValue(releaseSlider.getMin());
-        decaySlider.setValue(decaySlider.getMin());
-        sustainSlider.setValue(sustainSlider.getMin());
+
 
     }
 
@@ -79,6 +76,11 @@ public class EGModuleController extends ModuleController implements Initializabl
         super.init(controller);
         this.eg = new EG();
         this.controller.getSynth().add(eg);
+
+        attackSlider.setValue(attackSlider.getMin());
+        releaseSlider.setValue(releaseSlider.getMin());
+        decaySlider.setValue(decaySlider.getMin());
+        sustainSlider.setValue(sustainSlider.getMin());
 
     }
 
