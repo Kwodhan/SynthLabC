@@ -5,14 +5,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 public class IHMDeleteModuleTest extends ApplicationTest {
 
@@ -673,5 +674,44 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         assertNull(cable5);
 
         clickOn("#mute");
+    }
+
+    /**
+     * Remove un module en mode "creation de cable"
+     */
+    @Test
+    public void testRemoveModuleWithCableStartConnect() {
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco1 = lookup("#module-2").query();
+
+        StackPane box1 = lookup("#box1").query();
+        StackPane box2 = lookup("#box2").query();
+
+        clickOn(vco1.lookup("#outPort"));
+
+        // try click on close button another module
+        clickOn(output.lookup("#closeButton"));
+
+        assertNotEquals(new ArrayList(), box1.getChildren());
+        assertNotEquals(new ArrayList(), box2.getChildren());
+        assertNull(lookup("#cable-1").query());
+
+        // try click on close button self module
+        clickOn(vco1.lookup("#closeButton"));
+
+        assertNotEquals(new ArrayList(), box1.getChildren());
+        assertNotEquals(new ArrayList(), box2.getChildren());
+        assertNull(lookup("#cable-1").query());
+
+        // try click on fmPort him self module to cancel cable
+        clickOn(vco1.lookup("#fmPort"));
+
+        assertNotEquals(new ArrayList(), box1.getChildren());
+        assertNotEquals(new ArrayList(), box2.getChildren());
+        assertNull(lookup("#cable-1").query());
+
+        sleep(2000);
     }
 }

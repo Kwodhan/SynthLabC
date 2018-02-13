@@ -221,4 +221,38 @@ public class IHMDragDropTest extends ApplicationTest {
         clickOn("#mute");
     }
 
+    /**
+     * Essayer de Drag & Drop un module en mode "creation de cable"
+     */
+    @Test
+    public void testDragDropWithCableStartConnect() {
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane oscilloscope = lookup("#module-3").query();
+
+        StackPane box1 = lookup("#box1").query();
+        StackPane box2 = lookup("#box2").query();
+        StackPane box3 = lookup("#box3").query();
+        StackPane box9 = lookup("#box9").query();
+
+        // must not drag&drop when cable creating is start
+        clickOn(vco.lookup("#outPort"));
+        drag(oscilloscope, MouseButton.PRIMARY);
+        dropTo(box9);
+
+        assertEquals(box1.getChildren().get(0).getId(), "module-1");
+        assertEquals(box2.getChildren().get(0).getId(), "module-2");
+        assertEquals(box3.getChildren().get(0).getId(), "module-3");
+        assertEquals(new ArrayList(), box9.getChildren());
+
+        clickOn(vco.lookup("#fmPort"));
+        assertNull(lookup("#cable-1").query());
+
+        sleep(2000);
+    }
+
 }
