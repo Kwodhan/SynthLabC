@@ -8,6 +8,7 @@ import com.istic.port.Port;
 
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import org.json.simple.JSONObject;
 
 public class KBModuleController  extends ModuleController implements Initializable {
 
@@ -33,6 +34,11 @@ public class KBModuleController  extends ModuleController implements Initializab
 	public Map<ImageView, Port> getAllPorts() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void restore(JSONObject jsonObjectModule) {
+
 	}
 
 }

@@ -49,6 +49,15 @@ public class Files {
             switch (jsonObjectModule.get("type").toString()){
                 case "OUTPUTModuleController" : this.controller.addOutput().restore(jsonObjectModule);break;
                 case "EGModuleController" : this.controller.addEG().restore(jsonObjectModule);break;
+                case "MIXERModuleController" : this.controller.addMixer().restore(jsonObjectModule);break;
+                case "OSCILLOSCOPEModuleController" : this.controller.addOscilloscope().restore(jsonObjectModule);break;
+                case "REPLICATORModuleController" : this.controller.addReplicator().restore(jsonObjectModule);break;
+                case "SEQUENCERModuleController" : this.controller.addSequencer().restore(jsonObjectModule);break;
+                case "VCAModuleController" : this.controller.addVca().restore(jsonObjectModule);break;
+                case "VCFHPModuleController" : this.controller.addVcfHp().restore(jsonObjectModule);break;
+                case "VCFLPModuleController" : this.controller.addVcfLp().restore(jsonObjectModule);break;
+                case "VCOModuleController" : this.controller.addVCO().restore(jsonObjectModule);break;
+                case "WHITENOISEModuleController" : this.controller.addWhiteNoise().restore(jsonObjectModule);break;
 
 
             }
