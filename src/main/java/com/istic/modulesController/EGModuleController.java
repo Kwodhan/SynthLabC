@@ -45,24 +45,27 @@ public class EGModuleController extends ModuleController implements Initializabl
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         attackSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-
-
-
-            this.eg.setAttack(8*Math.exp(attackSlider.getValue()-10));
+            this.eg.setAttack(4*Math.exp(attackSlider.getValue()-9));
         });
 
         releaseSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.eg.setRelease(8*Math.exp(releaseSlider.getValue()-10));
+            this.eg.setRelease(4*Math.exp(releaseSlider.getValue()-9));
         });
 
         decaySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.eg.setDecay(8*Math.exp(decaySlider.getValue()-10));
+            this.eg.setDecay(4*Math.exp(decaySlider.getValue()-9));
         });
 
         sustainSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             this.eg.setSustain(sustainSlider.getValue()/10);
         });
+
+        attackSlider.setValue(attackSlider.getMin());
+        releaseSlider.setValue(releaseSlider.getMin());
+        decaySlider.setValue(decaySlider.getMin());
+        sustainSlider.setValue(sustainSlider.getMin());
 
     }
 

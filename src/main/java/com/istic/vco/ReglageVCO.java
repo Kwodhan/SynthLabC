@@ -48,7 +48,7 @@ public class ReglageVCO extends UnitGenerator {
         double[] outputs = out.getValues();
 
         for (int i = start; i < limit; i++) {
-            outputs[i] = f0s[i] * Math.pow(2,octaves[i] + Constraints.verifModFreq(fms[i]*5)) * Math.pow(1.05946f,fins[i]);
+            outputs[i] = f0s[i] * Math.pow(2,octaves[i] + Constraints.verifModFreq(fms[i]*Constraints.VOLT)) * Math.pow(1.05946f,fins[i]);
 
         }
     }
