@@ -50,13 +50,13 @@
                </image>
             </ImageView>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Slider fx:id="attackSlider" blockIncrement="0.001" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true" centerShape="false" prefHeight="16.0" prefWidth="57.0" GridPane.rowIndex="2" />
+            <Slider fx:id="attackSlider" blockIncrement="0.001" value="5.34" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true" centerShape="false" prefHeight="16.0" prefWidth="57.0" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ATTACK" textAlignment="CENTER" wrappingWidth="64.12158203125" GridPane.rowIndex="1" />
-            <Slider fx:id="decaySlider" blockIncrement="0.001" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Slider fx:id="decaySlider" blockIncrement="0.001" value="6.03" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DECAY" textAlignment="CENTER" wrappingWidth="65.12158203125" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Slider fx:id="sustainSlider" blockIncrement="0.001" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true"  GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Slider fx:id="sustainSlider" blockIncrement="0.001" value="5" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true"  GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SUSTAIN" textAlignment="CENTER" wrappingWidth="64.12158203125" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Slider fx:id="releaseSlider" blockIncrement="0.001" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Slider fx:id="releaseSlider" blockIncrement="0.001" value="6.42" max="10" min="0.0001" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RELEASE" textAlignment="CENTER" wrappingWidth="66.12158203125" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
          </children>

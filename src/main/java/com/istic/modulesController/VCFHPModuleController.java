@@ -1,14 +1,18 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.vcfhp.VCFHP;
+import com.istic.vcflp.VCFLP;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -16,6 +20,14 @@ public class VCFHPModuleController extends ModuleController implements Initializ
 
     @FXML
     AnchorPane pane;
+
+    protected VCFHP vcfhp;
+
+    @FXML
+    ImageView outPort,inPort,fmPort;
+
+    @FXML
+    Slider frequencySlider;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -28,6 +40,16 @@ public class VCFHPModuleController extends ModuleController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+        frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            this.vcfhp.setF0(frequencySlider.getValue());
+            //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
+        });
+
+//        resonanceSlider.setValue(resonanceSlider.getMin());
+
+
+
     }
 
     /**
@@ -36,8 +58,25 @@ public class VCFHPModuleController extends ModuleController implements Initializ
      */
     @Override
     public Port getCurrentPort() {
-        return null;
+        switch (currentPort) {
+            case 0:
+                return vcfhp.getOutput();
+            case 1:
+                return vcfhp.getInput();
+            case 2 :
+                return vcfhp.getFm();
+            default: return null;
+        }
     }
+
+
+    @Override
+    public Map<ImageView, Port> getAllPorts() {
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(outPort, vcfhp.getOutput());
+        hashMap.put(fmPort, vcfhp.getFm());
+        hashMap.put(inPort, vcfhp.getInput());
+        return hashMap;    }
 
     /**
      * Supprime le module du Board ainsi que les cables
@@ -45,16 +84,18 @@ public class VCFHPModuleController extends ModuleController implements Initializ
      *
      * @throws IOException si deconnexion impossible
      */
-    @FXML // A decommenter et adapter quand le model vcf HP sera fait !
+    @FXML // A decommenter et adapter quand le model vcf LP sera fait !
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
-//        //Deconnexion cables
-//        Port gate = vcfhp.getGateInput();
-//        Port out = vcfhp.getOutput();
-//        super.disconnect(gate);
-//        super.disconnect(out);
-//        // Deconnexion du module Output du synthetizer
-//        this.controller.getSynth().remove(vcfhp);
+            //Deconnexion cable
+            Port fm = this.vcfhp.getFm();
+            Port out = this.vcfhp.getOutput();
+            Port in = this.vcfhp.getInput();
+            super.disconnect(fm);
+            super.disconnect(out);
+            super.disconnect(in);
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(vcfhp);
             // Get parent node of pane corresponding to OutMod
             // Recupere le noeud parent fxml du outmod
             StackPane stackPane = (StackPane) pane.getParent();
@@ -63,9 +104,43 @@ public class VCFHPModuleController extends ModuleController implements Initializ
             this.controller.disconnect(this);
         }
     }
+    public void init(Controller controller) {
+        super.init(controller);
+        this.vcfhp = new VCFHP();
+        this.controller.getSynth().add(vcfhp);
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        return null;
+
+        this.vcfhp.setF0(frequencySlider.getValue());
+
+    }
+    /**
+     * Connecting the outPort to draw the cable
+     */
+    public void connectOutPort() {
+        if(!this.vcfhp.getOutput().isConnected()) {
+            currentPort = 0;
+            getLayout(outPort);
+            super.connect();
+        }
+    }
+    /**
+     * Connecting the inPort to draw the cable
+     */
+    public void connectInPort() {
+        if(!this.vcfhp.getInput().isConnected()) {
+            currentPort = 1;
+            getLayout(inPort);
+            super.connect();
+        }
+    }
+    /**
+     * Connecting the fmPort to draw the cable
+     */
+    public void connectFmPort() {
+        if(!this.vcfhp.getFm().isConnected()) {
+            currentPort = 2;
+            getLayout(fmPort);
+            super.connect();
+        }
     }
 }
