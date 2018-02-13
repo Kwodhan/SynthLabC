@@ -39,7 +39,7 @@
                </font>
             </Text>
             <Slider fx:id="resonanceSlider"   value ="10.0" majorTickUnit="1.0" max="10.0" min="0.01" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="frequencySlider"  max="21000.0" value="21000.0" min="20" minorTickCount="1"   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider"  max="14.36" value="14.36" min="0" minorTickCount="1"   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IN" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM"/>
             <ImageView fx:id="inPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectInPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" >
                <image>

@@ -43,7 +43,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
 
 
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.vcfhp.setF0(frequencySlider.getValue());
+            this.vcfhp.setF0(Math.pow(2,frequencySlider.getValue()));
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
         });
 
