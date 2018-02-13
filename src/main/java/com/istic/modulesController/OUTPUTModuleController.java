@@ -10,10 +10,11 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,9 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     @FXML
     ToggleButton mute;
     private OutMod lineOut;
-    
+
+    private File dest;
+    private File source = new File("./src/main/resources/sound/savedSound.wav");
 
     @FXML
     protected Slider attenuationSlider;
@@ -110,10 +113,25 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
         if (!this.lineOut.isRecord()) {
             this.lineOut.getWriter().close();
+            try {
+            FileUtils.copyFile(source, dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         } else {
-            if (this.lineOut.getWriter() == null) {
+//            if (this.lineOut.getWriter() == null) {
                 //choose emplacement file wave
+            this.dest = null;
+            this.dest = this.controller.saveToMP3();
+            if (this.dest != null) {
+                this.lineOut.setLocationSelected(true);
+            } else {
+                this.lineOut.setRecord(false);
             }
+
+
+//            }
         }
     }
 
@@ -180,7 +198,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     public Slider getAttenuationSlider() {
         return attenuationSlider;
     }
-
+    @Override
     public void restore(JSONObject jsonObjectModule) {
         setJsonModuleObject(jsonObjectModule);
         double attenuation = (double) jsonObjectModule.get("attenuation");
