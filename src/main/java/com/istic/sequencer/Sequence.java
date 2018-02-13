@@ -25,7 +25,7 @@ public class Sequence extends UnitGate {
 	private double values[];
 	private int step = 0;
 	private double threshold;
-	private boolean exceeded;
+	private boolean exceeded ;
 
 	public Sequence() {
 		step = 0;
