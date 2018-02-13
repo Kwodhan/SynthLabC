@@ -13,15 +13,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -271,7 +274,7 @@ public class Controller implements Initializable  {
 	 *
 	 * @throws IOException si ajout impossible
 	 */
-	public OUTPUTModuleController addOutput() throws IOException {
+	public void addOutput() throws IOException {
 
 		// outputModuleController=new OUTPUTModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
@@ -425,35 +428,26 @@ public class Controller implements Initializable  {
             alert.setTitle("Color choice");
             alert.setHeaderText("Please choose a color");
 
-            ButtonType buttonGOLD = new ButtonType("GOLD");
-            ButtonType buttonBLUEVIOLET = new ButtonType("BLUEVIOLET");
-            ButtonType buttonRED = new ButtonType("RED");
-            ButtonType buttonOLIVE = new ButtonType("OLIVE");
-            ButtonType buttonSALMON = new ButtonType("SALMON");
-            ButtonType buttonSILVER = new ButtonType("SILVER");
-            ButtonType buttonMEDIUMAQUAMARINE = new ButtonType("MEDIUMAQUAMARINE");
+            List<ButtonType> buttonTypes = new ArrayList<>();
+
+			buttonTypes.add(new ButtonType("GOLD"));
+			buttonTypes.add(new ButtonType("BLUEVIOLET"));
+			buttonTypes.add(new ButtonType("RED"));
+			buttonTypes.add(new ButtonType("OLIVE"));
+			buttonTypes.add(new ButtonType("SALMON"));
+			buttonTypes.add(new ButtonType("SILVER"));
+			buttonTypes.add(new ButtonType("MEDIUMAQUAMARINE"));
 
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE.CANCEL_CLOSE);
 
-            alert.getButtonTypes().setAll(buttonGOLD,
-                    buttonBLUEVIOLET, buttonRED,buttonOLIVE,
-                    buttonSALMON,buttonSILVER
-                    ,buttonMEDIUMAQUAMARINE, buttonTypeCancel);
+            alert.getButtonTypes().setAll(buttonTypes);
+            alert.getButtonTypes().add(buttonTypeCancel);
 
             Optional<ButtonType> result = alert.showAndWait();
-
-            CableController cableController=null;
-            switch (result.get().getText()){
-                case "GOLD" :                  cableController = new CableController(pane,cable, Color.GOLD);break;
-                case "BLUEVIOLET" :                 cableController = new CableController(pane,cable, Color.BLUEVIOLET);break;
-                case "RED" :                  cableController = new CableController(pane,cable, Color.RED);break;
-                case "OLIVE" :                 cableController = new CableController(pane,cable, Color.OLIVE);break;
-                case "SALMON" :                 cableController = new CableController(pane,cable, Color.SALMON);break;
-                case "SILVER" :                 cableController = new CableController(pane,cable, Color.SILVER);break;
-                case "MEDIUMAQUAMARINE" :                 cableController = new CableController(pane,cable, Color.MEDIUMAQUAMARINE);break;
-                default : break;
-            }
-
+			CableController cableController =null;
+			if(!result.get().getText().equals(buttonTypeCancel.getText())) {
+				cableController = new CableController(pane, cable, Color.valueOf(result.get().getText()));
+			}
             if (cableController!=null) {
                     cableController.drawCable(this.temporaryCableModuleController,moduleController,cableId++);
                     this.cables.add(cableController);

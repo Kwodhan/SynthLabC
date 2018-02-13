@@ -55,14 +55,14 @@
                   <Image url="@../img/in.png" />
                </image>
             </ImageView>
-            <Slider fx:id="frequencySlider31" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" />
-            <Slider fx:id="frequencySlider311" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="1" />
-            <Slider fx:id="frequencySlider312" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="2" />
-            <Slider fx:id="frequencySlider313" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" />
-            <Slider fx:id="frequencySlider314" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Slider fx:id="frequencySlider315" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Slider fx:id="frequencySlider316" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Slider fx:id="frequencySlider317" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Slider fx:id="frequencySlider31" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider311" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider312" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider313" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider314" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider315" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider316" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider317" blockIncrement="1.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
              <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
          </children>
       </GridPane>

@@ -106,6 +106,7 @@ public class IHMDragDropTest extends ApplicationTest {
 
         clickOn(output.lookup("#inPort"));
         clickOn(vco1.lookup("#outPort"));
+        clickOn("MEDIUMAQUAMARINE");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -141,6 +142,7 @@ public class IHMDragDropTest extends ApplicationTest {
 
         clickOn(output.lookup("#inPort"));
         clickOn(vco1.lookup("#outPort"));
+        clickOn("MEDIUMAQUAMARINE");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -183,6 +185,7 @@ public class IHMDragDropTest extends ApplicationTest {
 
         clickOn(oscilloscope.lookup("#inPort"));
         clickOn(vco.lookup("#outPort"));
+        clickOn("MEDIUMAQUAMARINE");
 
         StackPane box2 = lookup("#box2").query();
         StackPane box4 = lookup("#box4").query();

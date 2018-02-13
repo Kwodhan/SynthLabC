@@ -24,6 +24,6 @@ addons:
       - oracle-java8-installer
 
 script:
-- mvn clean verify
+- mvn clean verify -Dtest=GlobalTest,CableTest,VcoTest
 - mvn cobertura:clean
 - mvn cobertura:cobertura
