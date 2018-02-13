@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Slider?>
@@ -42,7 +43,10 @@
                </cursor>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Atténuation" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IN" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IN" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin></Text>
             <ImageView fx:id="inPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../img/in.png" />
