@@ -190,7 +190,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         this.getLineOut().setMute(mute);
         //graphique
         this.getAttenuationSlider().setValue(attenuation);
-
         if (mute == 0)
             this.getMute().setSelected(true);
 

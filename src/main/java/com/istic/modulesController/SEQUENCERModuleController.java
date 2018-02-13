@@ -35,7 +35,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     @FXML
     Slider sliderSeq1,sliderSeq2,sliderSeq3,sliderSeq4,sliderSeq5,sliderSeq6,sliderSeq7,sliderSeq8;
     
-    
+    Slider[] sliders;
     
     Sequence sequence;
 
@@ -50,7 +50,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     	
-        Slider[] sliders = new Slider[]{ sliderSeq1, sliderSeq2,sliderSeq3,sliderSeq4,sliderSeq5
+        sliders = new Slider[]{ sliderSeq1, sliderSeq2,sliderSeq3,sliderSeq4,sliderSeq5
         		,sliderSeq6,sliderSeq7,sliderSeq8};
     	
     	for(int i =0 ;i<sliders.length;i++){
@@ -128,11 +128,22 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 
     @Override
     public void serialize() {
+    	super.serialize();
+    	for (int i = 0; i<sliders.length;i++){
+    		jsonModuleObject.put("sliderseq"+(i+1), sliders[i].getValue());
+    	}
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
+        setJsonModuleObject(jsonObjectModule);
+        double val;
+    	for (int i = 0; i<8;i++){
+    		val = (double) jsonObjectModule.get("sliderseq"+(i+1));
+    		sliders[i].setValue(val);
+    		sequence.setValue(val,i);
+    	}
 
     }
 
