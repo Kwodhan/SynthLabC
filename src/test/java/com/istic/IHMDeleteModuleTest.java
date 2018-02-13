@@ -712,6 +712,156 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         assertNotEquals(new ArrayList(), box2.getChildren());
         assertNull(lookup("#cable-1").query());
 
-        sleep(2000);
     }
+
+    @Test
+    public void testDeleteWhiteNoise() {
+
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#whiteNoiseMenuItem");
+        AnchorPane whiteNoise = lookup("#module-2").query();
+
+
+
+        // out vco2 --> fm vco1
+        clickOn(whiteNoise.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+        clickOn("OLIVE");
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
+
+
+
+        clickOn(whiteNoise.lookup("#closeButton"));
+
+        // verif cable
+        cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+
+        //verif module
+
+        whiteNoise = lookup("#module-2").query();
+        assertNull(whiteNoise);
+
+        output = lookup("#module-1").query();
+        assertNotNull(output);
+
+
+        clickOn("#mute");
+
+    }
+
+    @Test
+    public void testDeleteMixer() {
+
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#mixerMenuItem");
+        AnchorPane mixer = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco1 = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco2 = lookup("#module-4").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco3 = lookup("#module-5").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco4 = lookup("#module-6").query();
+
+
+        // out vco1 --> in1 mixer
+        clickOn(vco1.lookup("#outPort"));
+        clickOn(mixer.lookup("#inPort1"));
+        clickOn("OLIVE");
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
+
+        // out vco2--> in2 mixer
+        clickOn(vco2.lookup("#outPort"));
+        clickOn(mixer.lookup("#inPort2"));
+        clickOn("OLIVE");
+
+        CubicCurve cable2 = lookup("#cable-2").query();
+        assertNotNull(cable2);
+        assertEquals(cable2.getId(), "cable-2");
+
+        // out vco3 --> in3 mixer
+        clickOn(vco3.lookup("#outPort"));
+        clickOn(mixer.lookup("#inPort3"));
+        clickOn("OLIVE");
+
+        CubicCurve cable3 = lookup("#cable-3").query();
+        assertNotNull(cable3);
+        assertEquals(cable3.getId(), "cable-3");
+
+        // out vco4 --> in4 mixer
+        clickOn(vco4.lookup("#outPort"));
+        clickOn(mixer.lookup("#inPort4"));
+        clickOn("OLIVE");
+
+        CubicCurve cable4 = lookup("#cable-4").query();
+        assertNotNull(cable4);
+        assertEquals(cable4.getId(), "cable-4");
+
+        // out mixer --> in output
+        clickOn(mixer.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+        clickOn("OLIVE");
+
+        CubicCurve cable5 = lookup("#cable-5").query();
+        assertNotNull(cable5);
+        assertEquals(cable5.getId(), "cable-5");
+
+        clickOn(mixer.lookup("#closeButton"));
+
+        // verif cable
+        cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+
+        cable1 = lookup("#cable-2").query();
+        assertNull(cable1);
+
+        cable1 = lookup("#cable-3").query();
+        assertNull(cable1);
+
+        cable1 = lookup("#cable-4").query();
+        assertNull(cable1);
+
+        cable1 = lookup("#cable-5").query();
+        assertNull(cable1);
+
+        //verif module
+
+        mixer = lookup("#module-2").query();
+        assertNull(mixer);
+
+        output = lookup("#module-1").query();
+        assertNotNull(output);
+
+        vco1 = lookup("#module-3").query();
+        assertNotNull(vco1);
+
+        vco2 = lookup("#module-4").query();
+        assertNotNull(vco2);
+
+        vco3 = lookup("#module-5").query();
+        assertNotNull(vco3);
+
+        vco4 = lookup("#module-6").query();
+        assertNotNull(vco4);
+
+
+
+        clickOn("#mute");
+
+    }
+
 }
