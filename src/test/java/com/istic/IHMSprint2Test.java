@@ -15,7 +15,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class IHMSprint2Test extends ApplicationTest {
 
-
     @Override
     public void start (Stage stage) throws Exception {
         Parent mainNode = FXMLLoader.load(App.class.getResource("../../main.fxml"));
