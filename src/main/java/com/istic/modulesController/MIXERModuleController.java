@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -102,7 +103,15 @@ public class MIXERModuleController extends ModuleController implements Initializ
 
     @Override
     public Map<ImageView, Port> getAllPorts() {
-        return null;
+
+        Map<ImageView, Port> hashMap = new HashMap<>();
+        hashMap.put(outPort, mixer.getOutput());
+        hashMap.put(inPort1, mixer.getInput1());
+        hashMap.put(inPort2, mixer.getInput2());
+        hashMap.put(inPort3, mixer.getInput3());
+        hashMap.put(inPort4, mixer.getInput4());
+
+        return hashMap;
     }
 
     /**
