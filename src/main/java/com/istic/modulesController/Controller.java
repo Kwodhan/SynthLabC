@@ -18,16 +18,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import org.json.simple.parser.ParseException;
-import org.apache.commons.io.FileUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Controller implements Initializable {
 
@@ -174,10 +172,7 @@ public class Controller implements Initializable {
 
     }
 
-    /**
-     * Save as MP3 file
-     */
-    public void saveToMP3() {
+
 	/**
 	 * Save as MP3 file
 	 */
@@ -192,14 +187,6 @@ public class Controller implements Initializable {
 
         //Show save file dialog
         File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
-
-//		//Copy
-//        File source = new File("./src/main/resources/sound/savedSound.wav");
-//        try {
-//            FileUtils.copyFile(source, dest);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         return dest;
 	}
 	/**

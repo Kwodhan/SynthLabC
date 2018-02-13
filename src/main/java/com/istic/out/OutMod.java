@@ -22,6 +22,8 @@ public class OutMod extends LineOut {
 
 	private boolean record = false;
 
+	private boolean locationSelected = false;
+
 
 	/**
 	 * 0 la sortie audio est null | 1 on entend la sortie audio
@@ -66,7 +68,7 @@ public class OutMod extends LineOut {
         	fromDCBL = AudioMath.semitonesToFrequencyScaler(this.attenuation);
             buffer0[i] += inputs0[i]*mute*fromDCBL;
             buffer1[i] += inputs1[i]*mute*fromDCBL;
-            if (record) {
+            if (record && locationSelected) {
 				try {
 					writer.write(buffer0[i]);
 				} catch (IOException e) {
@@ -110,5 +112,13 @@ public class OutMod extends LineOut {
 	}
 	public void setRecord(boolean record) {
 		this.record = record;
+	}
+
+	public boolean isLocationSelected() {
+		return locationSelected;
+	}
+
+	public void setLocationSelected(boolean locationSelected) {
+		this.locationSelected = locationSelected;
 	}
 }

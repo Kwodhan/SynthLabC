@@ -122,7 +122,13 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         } else {
 //            if (this.lineOut.getWriter() == null) {
                 //choose emplacement file wave
+            this.dest = null;
             this.dest = this.controller.saveToMP3();
+            if (this.dest != null) {
+                this.lineOut.setLocationSelected(true);
+            } else {
+                this.lineOut.setRecord(false);
+            }
 
 
 //            }
