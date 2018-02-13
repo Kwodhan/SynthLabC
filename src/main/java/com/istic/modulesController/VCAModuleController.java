@@ -8,6 +8,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -145,5 +146,15 @@ public class VCAModuleController extends ModuleController implements Initializab
         hashMap.put(inPort, vca.getInput());
         hashMap.put(amPort, vca.getAm());
         return hashMap;
+    }
+
+    @Override
+    public void serialize() {
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
     }
 }

@@ -27,7 +27,7 @@ public class ReglageVCFHP extends VariableRateMonoReader {
         addPort(this.fm = new UnitInputPort("fm"));
         addPort(this.out = new UnitOutputPort("out"));
 
-        this.f0.setMaximum(22000);
+        this.f0.setMaximum(21000);
 
     }
 

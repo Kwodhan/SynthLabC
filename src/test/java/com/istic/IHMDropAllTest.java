@@ -95,6 +95,11 @@ public class IHMDropAllTest extends ApplicationTest {
         }
     }
 
+    /**
+     * Add modules and cables
+     * drop !
+     * verify all are dropped !
+     */
     @Test
     public void testDropWithCables() {
         // get output module
@@ -146,6 +151,122 @@ public class IHMDropAllTest extends ApplicationTest {
 
         assertNull(lookup("#cable-1").query());
         assertNull(lookup("#cable-2").query());
+    }
+
+    /**
+     * Supprimer un module à la mano avant de faire un dropAll
+     */
+    @Test
+    public void testDeleteModuleBeforeDropAll() {
+        // get output module
+        AnchorPane output = lookup("#module-1").query();
+
+        // add modules
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco1 = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane oscillo = lookup("#module-3").query();
+
+        StackPane box1 = lookup("#box1").query();
+        StackPane box2 = lookup("#box2").query();
+        StackPane box3 = lookup("#box3").query();
+
+        clickOn(vco1.lookup("#closeButton"));
+
+        assertNotEquals(new ArrayList(), box1.getChildren());
+        assertEquals(new ArrayList(), box2.getChildren());
+        assertNotEquals(new ArrayList(), box3.getChildren());
+
+        // DROP !
+        clickOn("#display").clickOn("#dropAllMenuItem");
+
+        assertEquals(new ArrayList(), box1.getChildren());
+        assertEquals(new ArrayList(), box2.getChildren());
+        assertEquals(new ArrayList(), box3.getChildren());
+    }
+
+    @Test
+    public void testDropAllAndAdd() {
+        StackPane panes[] = new StackPane[13];
+
+        // add box
+        for (int i = 1; i <= 12; i++) {
+            panes[i] = lookup("#box" + i).query();
+        }
+
+        // get output module
+        AnchorPane output = lookup("#module-1").query();
+
+        // add modules
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco1 = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco2 = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#egMenuItem");
+        AnchorPane eg = lookup("#module-4").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcaMenuItem");
+        AnchorPane vca = lookup("#module-5").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#replicatorMenuItem");
+        AnchorPane replicator = lookup("#module-6").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcfLpMenuItem");
+        AnchorPane vcfLp = lookup("#module-7").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco3 = lookup("#module-8").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco4 = lookup("#module-9").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco5 = lookup("#module-10").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#whiteNoiseMenuItem");
+        AnchorPane whiteNoise = lookup("#module-11").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#oscilloscopeMenuItem");
+        AnchorPane oscillo = lookup("#module-12").query();
+
+        // check all box are not empty
+        for (int i = 1; i <= 12; i++) {
+            assertNotEquals(new ArrayList(), panes[i].getChildren());
+        }
+
+        // DROP !
+        clickOn("#display").clickOn("#dropAllMenuItem");
+
+        // check all box are empty
+        for (int i = 1; i <= 12; i++) {
+            assertEquals(new ArrayList(), panes[i].getChildren());
+        }
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco6 = lookup("#module-13").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#outputMenuItem");
+        AnchorPane output2 = lookup("#module-14").query();
+
+        assertNotNull(output2);
+        assertNotNull(vco6);
+
+        clickOn("#inPort");
+        clickOn("#outPort");
+        clickOn("GOLD");
+
+
+
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
+
+        clickOn("#mute");
+
     }
 
 }

@@ -17,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
+import org.json.simple.parser.ParseException;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
@@ -25,438 +26,404 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class Controller implements Initializable  {
+public class Controller implements Initializable {
 
-	@FXML
-	AnchorPane pane;
-	@FXML
-	MenuItem vcoMenuItem,saveConfigMenuItem,openConfigMenuItem,saveToMP3MenuItem,dropAllMenuItem;
+    @FXML
+    AnchorPane pane;
+    @FXML
+    MenuItem vcoMenuItem, saveConfigMenuItem, openConfigMenuItem, saveToMP3MenuItem, dropAllMenuItem;
 
-	@FXML
-	StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
+    @FXML
+    StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
 
-	@FXML
-	RadioMenuItem woodMenuItem,darkMenuItem,coralMenuItem,defaultMenuItem;
+    @FXML
+    RadioMenuItem woodMenuItem, darkMenuItem, coralMenuItem, defaultMenuItem;
 
-	final ToggleGroup group = new ToggleGroup();
+    final ToggleGroup group = new ToggleGroup();
 
-	private StackPane[] stacks;
-    private Files files=new Files();
-	private ArrayList<ModuleController> moduleControllers;
-	private ArrayList<CableController> cables;
-
-	private Synthesizer synth;
-	private Line mouseLine;
-
-	/**
-	 * Module temporaire pour le cablage
-	 */
-	private ModuleController temporaryCableModuleController;
-
-	/**
-	 * valeur incrementale pour chaque id
-	 */
-	private Integer cableId = 1;
-	private Integer moduleId = 1;
-
-	private DragAndDrop dragAndDrop;
-
-	private boolean isPlugged = false;
+    private StackPane[] stacks;
+    private Files files;
 
 
+    private ArrayList<ModuleController> moduleControllers;
+    private ArrayList<CableController> cables;
 
-	/**
-	 * Initialise les objets nécessaires à l'application
-	 * et ajoute un module de sortie au board
-	 *
-	 * @param location  The location used to resolve relative paths for the root object, or
-	 *                  <tt>null</tt> if the location is not known.
-	 * @param resources The resources used to localize the root object, or <tt>null</tt> if
-	 */
-	public void initialize(URL location, ResourceBundle resources) {
-		this.synth = JSyn.createSynthesizer();
-		this.synth.start();
+    private Synthesizer synth;
+    private Line mouseLine;
 
-		coralMenuItem.setToggleGroup(group);
-		darkMenuItem.setToggleGroup(group);
-		woodMenuItem.setToggleGroup(group);
-		defaultMenuItem.setToggleGroup(group);
-		group.selectToggle(defaultMenuItem);
+    /**
+     * Module temporaire pour le cablage
+     */
+    private ModuleController temporaryCableModuleController;
 
-		this.dragAndDrop = new DragAndDrop(this);
+    /**
+     * valeur incrementale pour chaque id
+     */
+    private Integer cableId = 1;
+    private Integer moduleId = 1;
 
-		this.mouseLine = new Line();
-		this.mouseLine.setVisible(false);
-		this.mouseLine.setStrokeWidth(3);
+    private DragAndDrop dragAndDrop;
 
-		this.moduleControllers = new ArrayList<>();
-		this.cables = new ArrayList<>();
+    private boolean isPlugged = false;
 
-		pane.getChildren().add(mouseLine);
-		pane.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
-			int x = (this.mouseLine.getStartX()>event.getX()?2:-2);
-			int y = (this.mouseLine.getStartY()>event.getY()?2:-2);
-			this.mouseLine.setEndX(event.getX()+x);
-			this.mouseLine.setEndY(event.getY()+y);
-		});
 
-		stacks = new StackPane[]{ box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12};
-		//make stackpane handle drop
-		for (StackPane s : stacks) {
-			this.dragAndDrop.addDropHandling(s);
-		}
+    /**
+     * Initialise les objets nécessaires à l'application
+     * et ajoute un module de sortie au board
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
+    public void initialize(URL location, ResourceBundle resources) {
+        //files.parseJSON();
+        this.synth = JSyn.createSynthesizer();
+        this.synth.start();
 
-		try {
-			addOutput();
+        coralMenuItem.setToggleGroup(group);
+        darkMenuItem.setToggleGroup(group);
+        woodMenuItem.setToggleGroup(group);
+        defaultMenuItem.setToggleGroup(group);
+        group.selectToggle(defaultMenuItem);
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        this.dragAndDrop = new DragAndDrop(this);
+
+        this.mouseLine = new Line();
+        this.mouseLine.setVisible(false);
+        this.mouseLine.setStrokeWidth(3);
+
+        this.moduleControllers = new ArrayList<>();
+        this.cables = new ArrayList<>();
+
+        pane.getChildren().add(mouseLine);
+        pane.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
+            int x = (this.mouseLine.getStartX() > event.getX() ? 2 : -2);
+            int y = (this.mouseLine.getStartY() > event.getY() ? 2 : -2);
+            this.mouseLine.setEndX(event.getX() + x);
+            this.mouseLine.setEndY(event.getY() + y);
+        });
+
+        stacks = new StackPane[]{box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12};
+        //make stackpane handle drop
+        for (StackPane s : stacks) {
+            this.dragAndDrop.addDropHandling(s);
+        }
+
+        try {
+            addOutput();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Supprime tous les modules sur le board
-     *
      */
-	public void dropAll(){
+    public void dropAll() {
 
-    ArrayList<ModuleController> mod= (ArrayList<ModuleController>) moduleControllers.clone();
-    for(ModuleController moduleController : mod){
-        moduleController.removeModule();
+        ArrayList<ModuleController> mod = (ArrayList<ModuleController>) moduleControllers.clone();
+        for (ModuleController moduleController : mod) {
+            moduleController.removeModule();
+        }
+        //files.parseJSON();
+
+        moduleControllers.clear();
     }
 
-    moduleControllers.clear();
-    }
-
-	/**
-	 * Open a configuration
-	 */
-	public void openConfig(){
+    /**
+     * Open a configuration
+     */
+    public void openConfig() throws IOException, ParseException {
         FileChooser fileChooser = new FileChooser();
-
-
-
         fileChooser.setTitle("Open Configuration File");
         //Show open file dialog
         File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
-        if(file != null){
-            try {
-                FileReader fileReader;
-                List<String> records = new ArrayList<String>();
-                fileReader = new FileReader(file);
-                BufferedReader reader = new BufferedReader(fileReader);
-                String line;
-                dropAll();
-                while ((line = reader.readLine()) != null)
-                {
+        if (file != null) {
 
-                    String[] strings = line.split(",");
-
-                        if(strings!=null)
-                        {
-                            //System.out.println(strings[0]);
-                            switch (strings[0]){
-                                case "out" :
-                                    OUTPUTModuleController outputModuleController=addOutput();
-                                    files.openOut(file,strings,outputModuleController);
-                            }
-                        }
-
-                    records.add(line);
-
-                }
-                reader.close();
-            } catch (IOException ex) {
-                Logger.getLogger(this.getClass()
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
+            dropAll();
+            files = new Files(file, this);
+            files.open();
         }
 
+
     }
-	/**
-	 * Save a configuration
-	 */
-	public void saveConfig(){
+
+    /**
+     * Save a configuration
+     */
+    public void saveConfig() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Configuration File");
 
         //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(extFilter);
-
+        fileChooser.setInitialFileName("*.json");
         //Show save file dialog
         File file = fileChooser.showSaveDialog(pane.getScene().getWindow());
 
-        if(file != null){
-            try {
-                FileWriter fileWriter;
+        if (file != null) {
+            files = new Files(file, this);
+            files.save();
 
-                fileWriter = new FileWriter(file);
-                for(ModuleController moduleController: moduleControllers) {
-                    //if(moduleController.getClass().(OUTPUTModuleController))
-                    String line = moduleController.getClass().getName();
-                    switch (line){
-                        case "com.istic.modulesController.OUTPUTModuleController" :
-                           OUTPUTModuleController out=(OUTPUTModuleController)moduleController;
-
-                           line="out,"+out.getLineOut().getAttenuation()
-                                   +","+out.getLineOut().getMute()+"\n";
-                            fileWriter.write(line);
-
-                           default:break;
-                    }
-                    System.out.println(line);
-                	//fileWriter.write(json);
-                }
-                fileWriter.close();
-            } catch (IOException ex) {
-                Logger.getLogger(this.getClass()
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
     }
-	/**
-	 * Save as MP3 file
-	 */
-	public void saveToMP3(){
 
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Save Sound File");
+    /**
+     * Save as MP3 file
+     */
+    public void saveToMP3() {
 
-		//Set extension filter
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
-		fileChooser.getExtensionFilters().add(extFilter);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Sound File");
 
-		//Show save file dialog
-		File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
+        fileChooser.getExtensionFilters().add(extFilter);
 
-		//Copy
+        //Show save file dialog
+        File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
+
+        //Copy
         File source = new File("./src/main/resources/sound/savedSound.wav");
         try {
             FileUtils.copyFile(source, dest);
         } catch (IOException e) {
             e.printStackTrace();
         }
-	}
-	/**
-	 * Change le thème en coral
-	 */
-	public void coralTheme(){
-		pane.getStylesheets().clear();
-		pane.getStylesheets().add("/skins/coral.css");
-	}
+    }
 
-	/**
-	 * Change le thème en default
-	 */
-	public void defaultTheme() {
-		pane.getStylesheets().clear();
-	}
+    /**
+     * Change le thème en coral
+     */
+    public void coralTheme() {
+        pane.getStylesheets().clear();
+        pane.getStylesheets().add("/skins/coral.css");
+    }
 
-	/**
-	 * Change le thème en dark
-	 */
-	public void darkTheme(){
-		pane.getStylesheets().clear();
-		pane.getStylesheets().add("/skins/dark.css");
-	}
+    /**
+     * Change le thème en default
+     */
+    public void defaultTheme() {
+        pane.getStylesheets().clear();
+    }
 
-	/**
-	 * Change le thème en wood
-	 */
-	public void woodTheme(){
-		pane.getStylesheets().clear();
-		pane.getStylesheets().add("/skins/wood.css");
-	}
+    /**
+     * Change le thème en dark
+     */
+    public void darkTheme() {
+        pane.getStylesheets().clear();
+        pane.getStylesheets().add("/skins/dark.css");
+    }
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module VCO sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addVCO() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/vco.fxml"));
-		addMod(root);
-		VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
-		this.moduleControllers.add(vcoModuleController);
-		vcoModuleController.init(this);
-	}
+    /**
+     * Change le thème en wood
+     */
+    public void woodTheme() {
+        pane.getStylesheets().clear();
+        pane.getStylesheets().add("/skins/wood.css");
+    }
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module Output sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public OUTPUTModuleController addOutput() throws IOException {
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module VCO sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public VCOModuleController addVCO() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/vco.fxml"));
+        addMod(root);
+        VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
+        this.moduleControllers.add(vcoModuleController);
+        vcoModuleController.init(this);
+        return vcoModuleController;
+    }
 
-		// outputModuleController=new OUTPUTModuleController();
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/output.fxml"));
-		addMod(root);
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Output sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public OUTPUTModuleController addOutput() throws IOException {
 
-		OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
-		this.moduleControllers.add(outputModuleController);
-		outputModuleController.init(this);
-		return outputModuleController;
-	}
+        // outputModuleController=new OUTPUTModuleController();
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/output.fxml"));
+        addMod(root);
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module Mixer sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addMixer() throws IOException {
+        OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
+        this.moduleControllers.add(outputModuleController);
+        outputModuleController.init(this);
+        return outputModuleController;
+    }
 
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/mixer.fxml"));
-		addMod(root);
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Mixer sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public MIXERModuleController addMixer() throws IOException {
 
-		MIXERModuleController mixerModuleController= (MIXERModuleController) root.getUserData();
-		this.moduleControllers.add(mixerModuleController);
-		mixerModuleController.init(this);
-	}
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/mixer.fxml"));
+        addMod(root);
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module EG sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addEG() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/eg.fxml"));
-		addMod(root);
+        MIXERModuleController mixerModuleController = (MIXERModuleController) root.getUserData();
+        this.moduleControllers.add(mixerModuleController);
+        mixerModuleController.init(this);
+        return mixerModuleController;
+    }
 
-		EGModuleController egModuleController = (EGModuleController) root.getUserData();
-		this.moduleControllers.add(egModuleController);
-		egModuleController.init(this);
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module EG sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public EGModuleController addEG() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/eg.fxml"));
+        addMod(root);
 
-	}
+        EGModuleController egModuleController = (EGModuleController) root.getUserData();
+        this.moduleControllers.add(egModuleController);
+        egModuleController.init(this);
+        return egModuleController;
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module Oscilloscope sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addOscilloscope() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/oscilloscope.fxml"));
+    }
 
-		OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
-		this.moduleControllers.add(oscilloscopeModuleController);
-		oscilloscopeModuleController.init(this);
-		addMod(root);
-	}
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Oscilloscope sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public OSCILLOSCOPEModuleController addOscilloscope() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/oscilloscope.fxml"));
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module Réplicateur sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addReplicator() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/replicator.fxml"));
-		addMod(root);
+        OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
+        this.moduleControllers.add(oscilloscopeModuleController);
+        oscilloscopeModuleController.init(this);
+        addMod(root);
+        return oscilloscopeModuleController;
+    }
 
-		REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root.getUserData();
-		this.moduleControllers.add(replicatorModuleController);
-		replicatorModuleController.init(this);
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Réplicateur sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public REPLICATORModuleController addReplicator() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/replicator.fxml"));
+        addMod(root);
 
-	}
+        REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root.getUserData();
+        this.moduleControllers.add(replicatorModuleController);
+        replicatorModuleController.init(this);
+        return replicatorModuleController;
+    }
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module Séquenceur sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addSequencer() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/sequencer.fxml"));
-		addMod(root);
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module Séquenceur sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public SEQUENCERModuleController addSequencer() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/sequencer.fxml"));
+        addMod(root);
 
-	}
+        SEQUENCERModuleController seqModuleController = (SEQUENCERModuleController) root.getUserData();
+        this.moduleControllers.add(seqModuleController);
+        seqModuleController.init(this);
+        return seqModuleController;
+    }
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module VCA sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addVca() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/vca.fxml"));
-		addMod(root);
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module VCA sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public VCAModuleController addVca() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/vca.fxml"));
+        addMod(root);
 
-		VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
-		this.moduleControllers.add(vcaModuleController);
-		vcaModuleController.init(this);
+        VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
+        this.moduleControllers.add(vcaModuleController);
+        vcaModuleController.init(this);
+        return vcaModuleController;
+    }
 
-	}
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module VCF LP sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public VCFLPModuleController addVcfLp() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/vcfLp.fxml"));
+        addMod(root);
+        VCFLPModuleController vcflpModuleController = (VCFLPModuleController) root.getUserData();
+        this.moduleControllers.add(vcflpModuleController);
+        vcflpModuleController.init(this);
+        return vcflpModuleController;
+    }
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module VCF LP sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addVcfLp() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/vcfLp.fxml"));
-		addMod(root);
-		VCFLPModuleController vcflpModuleController = (VCFLPModuleController) root.getUserData();
-		this.moduleControllers.add(vcflpModuleController);
-		vcflpModuleController.init(this);
-	}
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module VCF HP sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public VCFHPModuleController addVcfHp() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/vcfHp.fxml"));
+        addMod(root);
+        VCFHPModuleController vcfhpModuleController = (VCFHPModuleController) root.getUserData();
+        this.moduleControllers.add(vcfhpModuleController);
+        vcfhpModuleController.init(this);
+        return vcfhpModuleController;
+    }
 
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module VCF HP sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addVcfHp() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/vcfHp.fxml"));
-		addMod(root);
-		VCFHPModuleController vcfhpModuleController = (VCFHPModuleController) root.getUserData();
-		this.moduleControllers.add(vcfhpModuleController);
-		vcfhpModuleController.init(this);
-	}
-
-	/**
-	 * Crée les objets nécessaires pour l'apparition d'un module bruit blanc sur le board
-	 *
-	 * @throws IOException si ajout impossible
-	 */
-	public void addWhiteNoise() throws IOException {
-		Node root = FXMLLoader.load(getClass().getResource(
-				"../../../modules/whiteNoise.fxml"));
-		addMod(root);
-		WHITENOISEModuleController whiteModuleController = (WHITENOISEModuleController) root.getUserData();
+    /**
+     * Crée les objets nécessaires pour l'apparition d'un module bruit blanc sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public WHITENOISEModuleController addWhiteNoise() throws IOException {
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/whiteNoise.fxml"));
+        addMod(root);
+        WHITENOISEModuleController whiteModuleController = (WHITENOISEModuleController) root.getUserData();
         this.moduleControllers.add(whiteModuleController);
         whiteModuleController.init(this);
-	}
+        return whiteModuleController;
+    }
 
-	/**
-	 * Ajout d'un cable
-	 * @param moduleController controleur du module qu'il faut connecter
-	 */
-	public void connect(ModuleController moduleController) {
-		Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
-		if (cable.connect()) {
+    /**
+     * Ajout d'un cable
+     *
+     * @param moduleController controleur du module qu'il faut connecter
+     */
+    public void connect(ModuleController moduleController) {
+        Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(), moduleController.getCurrentPort());
+        if (cable.connect()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Color choice");
             alert.setHeaderText("Please choose a color");
 
             List<ButtonType> buttonTypes = new ArrayList<>();
 
-			buttonTypes.add(new ButtonType("GOLD"));
-			buttonTypes.add(new ButtonType("BLUEVIOLET"));
-			buttonTypes.add(new ButtonType("RED"));
-			buttonTypes.add(new ButtonType("OLIVE"));
-			buttonTypes.add(new ButtonType("SALMON"));
-			buttonTypes.add(new ButtonType("SILVER"));
-			buttonTypes.add(new ButtonType("MEDIUMAQUAMARINE"));
+            buttonTypes.add(new ButtonType("GOLD"));
+            buttonTypes.add(new ButtonType("BLUEVIOLET"));
+            buttonTypes.add(new ButtonType("RED"));
+            buttonTypes.add(new ButtonType("OLIVE"));
+            buttonTypes.add(new ButtonType("SALMON"));
+            buttonTypes.add(new ButtonType("SILVER"));
+            buttonTypes.add(new ButtonType("MEDIUMAQUAMARINE"));
 
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE.CANCEL_CLOSE);
 
@@ -464,80 +431,83 @@ public class Controller implements Initializable  {
             alert.getButtonTypes().add(buttonTypeCancel);
 
             Optional<ButtonType> result = alert.showAndWait();
-			CableController cableController =null;
-			if(!result.get().getText().equals(buttonTypeCancel.getText())) {
-				cableController = new CableController(pane, cable, Color.valueOf(result.get().getText()));
-			}
-            if (cableController!=null) {
-                    cableController.drawCable(this.temporaryCableModuleController,moduleController,cableId++);
-                    this.cables.add(cableController);
+            CableController cableController = null;
+            if (!result.get().getText().equals(buttonTypeCancel.getText())) {
+                cableController = new CableController(pane, cable, Color.valueOf(result.get().getText()));
+            }
+            if (cableController != null) {
+                cableController.drawCable(this.temporaryCableModuleController, moduleController, cableId++);
+                this.cables.add(cableController);
             } else {
                 cable.disconnect();
                 // ... user chose CANCEL or closed the dialog
             }
 
-		}
-	}
+        }
+    }
 
-	/**
-	 * Supprime un module controller de la liste du controller
-	 *
-	 * @param moduleController controleur du module à supprimer
-	 */
-	public void disconnect(ModuleController moduleController) {
-		this.moduleControllers.remove(moduleController);
-	}
+    /**
+     * Supprime un module controller de la liste du controller
+     *
+     * @param moduleController controleur du module à supprimer
+     */
+    public void disconnect(ModuleController moduleController) {
+        this.moduleControllers.remove(moduleController);
+    }
 
-	/**
-	 * Ajoute un module sur le board
-	 *
-	 * @param root noeud du module à ajouter au board
-	 */
-	public void addMod(Node root) {
-		root.setId("module-" + moduleId++);
-		for(StackPane s : stacks) {
-			if(s.getChildren().isEmpty()) {
-				s.getChildren().add(root);
-				this.dragAndDrop.dragNode(root);
-				return;
-			}
-		}
-	}
-
-
+    /**
+     * Ajoute un module sur le board
+     *
+     * @param root noeud du module à ajouter au board
+     */
+    public void addMod(Node root) {
+        root.setId("module-" + moduleId++);
+        for (StackPane s : stacks) {
+            if (s.getChildren().isEmpty()) {
+                s.getChildren().add(root);
+                this.dragAndDrop.dragNode(root);
+                return;
+            }
+        }
+    }
 
 
+    // Setters & Getters
+
+    public boolean isPlugged() {
+        return isPlugged;
+    }
+
+    public void setPlugged(boolean plugged) {
+        isPlugged = plugged;
+    }
 
 
-	// Setters & Getters
+    public ModuleController getTemporaryCableModuleController() {
+        return temporaryCableModuleController;
+    }
 
-	public boolean isPlugged() {
-		return isPlugged;
-	}
+    public void setTemporaryCableModuleController(ModuleController temporaryCableModuleController) {
+        this.temporaryCableModuleController = temporaryCableModuleController;
+    }
 
-	public void setPlugged(boolean plugged) {
-		isPlugged = plugged;
-	}
+    public Synthesizer getSynth() {
+        return synth;
+    }
 
+    public List<CableController> getCables() {
+        return cables;
+    }
 
-	public ModuleController getTemporaryCableModuleController() {
-		return temporaryCableModuleController;
-	}
+    public Line getMouseLine() {
+        return mouseLine;
+    }
 
-	public void setTemporaryCableModuleController(ModuleController temporaryCableModuleController) {
-		this.temporaryCableModuleController = temporaryCableModuleController;
-	}
-	public Synthesizer getSynth() {
-		return synth;
-	}
+    public StackPane[] getStacks() {
+        return stacks;
+    }
 
-	public List<CableController> getCables() {
-		return cables;
-	}
-
-	public Line getMouseLine() {
-		return mouseLine;
-	}
-
-
+    public ArrayList<ModuleController> getModuleControllers() {
+        return moduleControllers;
+    }
 }

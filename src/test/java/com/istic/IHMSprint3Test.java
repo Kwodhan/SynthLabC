@@ -110,7 +110,7 @@ public class IHMSprint3Test extends ApplicationTest {
 
         CubicCurve cable6 = lookup("#cable-6").query();
         assertNotNull(cable6);
-        sleep(2000000000);
+
         assertEquals(cable6.getId(), "cable-6");
 
         // la sortie `out` de l’EG est reliée à l’entrée `am` du VCA.

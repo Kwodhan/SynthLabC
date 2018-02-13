@@ -9,6 +9,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +43,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
 
 
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.vcfhp.setF0(frequencySlider.getValue());
+            this.vcfhp.setF0(Math.pow(2,frequencySlider.getValue()));
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
         });
 
@@ -142,5 +143,15 @@ public class VCFHPModuleController extends ModuleController implements Initializ
             getLayout(fmPort);
             super.connect();
         }
+    }
+
+    @Override
+    public void serialize() {
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
     }
 }

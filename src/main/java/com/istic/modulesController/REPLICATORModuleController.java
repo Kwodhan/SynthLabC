@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -151,5 +152,15 @@ public class REPLICATORModuleController extends ModuleController implements Init
         hashMap.put(outPort2, rep.getOutput2());
         hashMap.put(outPort3, rep.getOutput3());
         return hashMap;
+    }
+
+    @Override
+    public void serialize() {
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
     }
 }

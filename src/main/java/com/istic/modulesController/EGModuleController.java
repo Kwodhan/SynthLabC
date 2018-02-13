@@ -8,6 +8,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -104,7 +105,36 @@ public class EGModuleController extends ModuleController implements Initializabl
         hashMap.put(gatePort, eg.getGateInput());
         return hashMap;
     }
-    
+
+    @Override
+    public void serialize() {
+        super.serialize();
+        jsonModuleObject.put("attack",eg.getAttack() );
+        jsonModuleObject.put("decay", eg.getDecay());
+        jsonModuleObject.put("sustain",eg.getSustain() );
+        jsonModuleObject.put("release", eg.getRelease());
+
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+        double attack = (double) jsonObjectModule.get("attack");
+        double decay = (double) jsonObjectModule.get("decay");
+        double sustain = (double) jsonObjectModule.get("sustain");
+        double release = (double) jsonObjectModule.get("release");
+        //model
+        this.getEg().setAttack(attack);
+        this.getEg().setDecay(decay);
+        this.getEg().setSustain(sustain);
+        this.getEg().setRelease(release);
+        //ui
+        attackSlider.setValue(attack);
+        decaySlider.setValue(decay);
+        sustainSlider.setValue(sustain);
+        releaseSlider.setValue(release);
+    }
+
     /**
      * Connecte le port Gate pour tracer le cable
      */
@@ -114,6 +144,7 @@ public class EGModuleController extends ModuleController implements Initializabl
             getLayout(gatePort);
             super.connect();
         }
+        serialize();
     }
 
     /**
@@ -157,4 +188,7 @@ public class EGModuleController extends ModuleController implements Initializabl
 
     }
 
+    public EG getEg() {
+        return eg;
+    }
 }

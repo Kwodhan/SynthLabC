@@ -14,6 +14,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -161,6 +162,16 @@ public class VCOModuleController extends ModuleController implements Initializab
         hashMap.put(outPort, vco.getOutput());
         hashMap.put(fmPort, vco.getFm());
         return hashMap;
+    }
+
+    @Override
+    public void serialize() {
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
     }
 
     @FXML

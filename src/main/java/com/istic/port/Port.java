@@ -1,9 +1,11 @@
 package com.istic.port;
 
+import java.io.Serializable;
+
 /**
  * Correspond à un port d'un module
  */
-public abstract class Port {
+public abstract class Port implements Serializable {
 
 
     /**
