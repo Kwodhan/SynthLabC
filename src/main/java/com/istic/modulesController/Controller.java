@@ -274,7 +274,7 @@ public class Controller implements Initializable  {
 	 *
 	 * @throws IOException si ajout impossible
 	 */
-	public void addOutput() throws IOException {
+	public OUTPUTModuleController addOutput() throws IOException {
 
 		// outputModuleController=new OUTPUTModuleController();
 		Node root = FXMLLoader.load(getClass().getResource(
