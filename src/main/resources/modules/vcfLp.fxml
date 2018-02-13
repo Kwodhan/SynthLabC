@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="pane" maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.VCFLPModuleController">
-    <userData>
-        <fx:reference source="controller" />
-    </userData>
+    <!--<userData>-->
+        <!--<fx:reference source="controller" />-->
+    <!--</userData>-->
 
     <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0c" height="210.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="270.0" />
@@ -38,10 +38,10 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Slider fx:id="filterSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="frequencySlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="-5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IN" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <ImageView fx:id="inPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectInPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Slider fx:id="resonanceSlider"  majorTickUnit="1.0" max="10.0" min="0.01" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Slider fx:id="frequencySlider"   max="22000" min="20" minorTickCount="1"   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IN" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM"/>
+            <ImageView fx:id="inPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectInPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" >
                <image>
                   <Image url="@../img/in.png" />
                </image>
@@ -59,7 +59,7 @@
                </image>
             </ImageView>
              <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
-            <Label text="Filtre" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <Label text="Résonance" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Label text="Frequence" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
          </children>
       </GridPane>

@@ -8,6 +8,22 @@ public class Constraints {
     public static final Double MODULATION_VOLT = 10D;
 
 
+    public static final Double FREQUENCE_MAX = 22000D;
+
+
+    /**
+     *
+     * @param value
+     * @return
+     */
+    public static double verifFrequenceMax(double value) {
+        if(value > FREQUENCE_MAX) {
+            return FREQUENCE_MAX;
+        }
+        return value;
+    }
+
+
     /**
      * Verifie que l'amplitude respecte les seuils
      * Amplitude des signaux audio : −5 V à + 5V

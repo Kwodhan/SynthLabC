@@ -31,7 +31,7 @@ public class CableController {
         this.cable = cable;
         this.pane = pane;
         this.color=color;
-        System.out.println(color);
+
 
 
     }
