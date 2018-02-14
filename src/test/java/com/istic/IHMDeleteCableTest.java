@@ -35,9 +35,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
 
         clickOn("#outPort");
         clickOn("#inPort");
-        clickOn("BLUEVIOLET");
-
-
 
         // Octave slider
         moveTo("#frequencySlider");
@@ -49,7 +46,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         octave.setValue(0);
         sleep(2000);
 
-
         clickOn("#triangleRadio");
 
         // Fin slider
@@ -59,7 +55,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         sleep(1000);
         fin.setValue(2);
         sleep(1000);
-
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -71,12 +66,10 @@ public class IHMDeleteCableTest extends ApplicationTest {
         cable1 = lookup("#cable-1").query();
         assertNull(cable1);
 
-
         sleep(2000);
 
         clickOn("#outPort");
         clickOn("#inPort");
-        clickOn("BLUEVIOLET");
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
         assertEquals(cable2.getId(), "cable-2");
@@ -84,7 +77,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         sleep(2000);
 
         clickOn("#mute");
-
     }
 
     @Test
@@ -103,18 +95,15 @@ public class IHMDeleteCableTest extends ApplicationTest {
         // out vco --> in rep
         clickOn(vco.lookup("#outPort"));
         clickOn(repli.lookup("#inPort"));
-        clickOn("BLUEVIOLET");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
         assertEquals(cable1.getId(), "cable-1");
 
 
-
         // out oscillo --> in oscillo
         clickOn(oscillo.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
-        clickOn("BLUEVIOLET");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -123,7 +112,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         // out1 rep --> in oscillo
         clickOn(repli.lookup("#outPort1"));
         clickOn(oscillo.lookup("#inPort"));
-        clickOn("BLUEVIOLET");
 
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
@@ -131,17 +119,12 @@ public class IHMDeleteCableTest extends ApplicationTest {
 
         sleep(2000);
 
-
-
-
         clickOn(vco.lookup("#outPort"));
         cable1 = lookup("#cable-1").query();
         assertNull(cable1);
 
         sleep(1000);
         clickOn("#mute");
-
-
     }
 
     @Test
@@ -163,7 +146,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         // out vco1 --> in eg
         clickOn(vco1.lookup("#outPort"));
         clickOn(eg.lookup("#gatePort"));
-        clickOn("RED");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -172,7 +154,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         // out eg --> fm vco2
         clickOn(eg.lookup("#outPort"));
         clickOn(vco2.lookup("#fmPort"));
-        clickOn("RED");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -181,7 +162,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         // out vco2 --> in oscillo
         clickOn(vco2.lookup("#outPort"));
         clickOn(oscillo.lookup("#inPort"));
-        clickOn("RED");
 
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
@@ -190,7 +170,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         // out oscillo --> in sortie
         clickOn(oscillo.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
-        clickOn("RED");
 
         CubicCurve cable4 = lookup("#cable-4").query();
         assertNotNull(cable4);
@@ -245,8 +224,6 @@ public class IHMDeleteCableTest extends ApplicationTest {
         sleep(2000);
 
         clickOn("#mute");
-
-
     }
 
 

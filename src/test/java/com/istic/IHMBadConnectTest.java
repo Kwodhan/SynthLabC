@@ -181,7 +181,6 @@ public class IHMBadConnectTest extends ApplicationTest {
 
         clickOn(vco1.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
-        clickOn("RED");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);

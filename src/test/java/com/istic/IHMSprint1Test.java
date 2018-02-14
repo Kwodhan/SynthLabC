@@ -29,7 +29,6 @@ public class IHMSprint1Test extends ApplicationTest {
 
         clickOn("#outPort");
         clickOn("#inPort");
-        clickOn("GOLD");
     }
 
     @Test
