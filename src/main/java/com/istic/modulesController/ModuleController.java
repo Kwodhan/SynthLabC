@@ -169,7 +169,7 @@ public abstract class ModuleController implements Serializable {
         }
         return null;
     }
-    
+
     public void launching(ImageView imageView){
         Event.fireEvent(imageView, new MouseEvent(MouseEvent.MOUSE_CLICKED,
                 imageView.getX(), imageView.getY(),
