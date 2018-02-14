@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 import com.istic.out.OutMod;
 import com.istic.port.Port;
+import com.jsyn.util.WaveFileWriter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,7 +11,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -30,10 +30,13 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     public Button closeButton;
     @FXML
     ToggleButton mute;
+    @FXML
+    ToggleButton recordButton;
+
     private OutMod lineOut;
 
     private File dest;
-    private File source = new File("./src/main/resources/sound/savedSound.wav");
+
 
     @FXML
     protected Slider attenuationSlider;
@@ -102,36 +105,22 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
      * Coupe le son
      */
     public void toggleRecord() throws IOException {
-//        double[] inputs0 = lineOut.getInput().getValues(0);
-//        double[] data = this.lineOut.getSynthesisEngine().getOutputBuffer(1);
-//        try {
-//            this.recorder.toggleRecord();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        // true if first click , false else
         this.lineOut.setRecord(!this.lineOut.isRecord());
 
-        if (!this.lineOut.isRecord()) {
-            this.lineOut.getWriter().close();
-            try {
-            FileUtils.copyFile(source, dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        } else {
-//            if (this.lineOut.getWriter() == null) {
-                //choose emplacement file wave
+        if (this.lineOut.isRecord()) { // si premier click
             this.dest = null;
             this.dest = this.controller.saveToMP3();
             if (this.dest != null) {
-                this.lineOut.setLocationSelected(true);
+                this.lineOut.setWriter(new WaveFileWriter(new File(this.dest.getPath())));
             } else {
                 this.lineOut.setRecord(false);
+                this.recordButton.setSelected(false);
+
             }
-
-
-//            }
+        } else { // deuxieme click
+            this.lineOut.getWriter().close();
+            this.lineOut.setWriter(null);
         }
     }
 
@@ -208,7 +197,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         this.getLineOut().setMute(mute);
         //graphique
         this.getAttenuationSlider().setValue(attenuation);
-
         if (mute == 0)
             this.getMute().setSelected(true);
 
