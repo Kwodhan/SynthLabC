@@ -11,12 +11,17 @@ import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.SineOscillator;
 import com.jsyn.unitgen.UnitOscillator;
 
+import javafx.scene.control.TextArea;
+
 public class KB  extends Circuit {
     private PortOutput portCv; // +1V par octave ???
     private PortGate portGate; //+5V par octave ???
-    ReglageKB reglageKB = new ReglageKB();
+    public ReglageKB reglageKB ;
+   public KBListener kblistener;
 
-    public KB() {
+    public KB(TextArea displayArea) {
+    	reglageKB = new ReglageKB( displayArea);
+    	kblistener=  new KBListener(this.reglageKB);
     	add(reglageKB);
     	this.portGate = new PortGate(this.reglageKB.getPortGate());
 		this.portCv = new PortOutput(this.reglageKB.getPortCv());
