@@ -2,7 +2,6 @@ package com.istic.modulesController;
 
 import com.istic.cable.Cable;
 import com.istic.cable.CableController;
-import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
 import com.istic.util.Files;
 import com.jsyn.JSyn;
@@ -47,8 +46,8 @@ public class Controller implements Initializable {
     @FXML
 	RadioMenuItem cableColorGoldMenuItem, cableColorRedMenuItem, cableColorLightGreenMenuItem, cableColorBluevioletMenuItem;
 
-	final ToggleGroup group = new ToggleGroup();
-	final ToggleGroup groupToggleCableColor = new ToggleGroup();
+	private final ToggleGroup group;
+	private final ToggleGroup groupToggleCableColor = new ToggleGroup();
 
     private StackPane[] stacks;
     private Files files;
@@ -69,16 +68,19 @@ public class Controller implements Initializable {
     /**
      * valeur incrementale pour chaque id
      */
-    public Integer cableId = 1;
+    private Integer cableId = 1;
     private Integer moduleId = 1;
 
     private DragAndDrop dragAndDrop;
 
     private boolean isPlugged = false;
 
+    public Controller() {
+        group = new ToggleGroup();
+    }
 
 
-	/**
+    /**
 	 * Initialise les objets nécessaires à l'application
 	 * et ajoute un module de sortie au board
 	 *
@@ -139,9 +141,11 @@ public class Controller implements Initializable {
     /**
      * Supprime tous les modules sur le board
      */
+    @SuppressWarnings("unchecked")
     public void dropAll() {
 
-        ArrayList<ModuleController> mod = (ArrayList<ModuleController>) moduleControllers.clone();
+        ArrayList<ModuleController> mod;
+        mod = (ArrayList<ModuleController>) moduleControllers.clone();
         for (ModuleController moduleController : mod) {
             moduleController.removeModule();
         }
@@ -472,7 +476,7 @@ public class Controller implements Initializable {
      *
      * @param root noeud du module à ajouter au board
      */
-    public void addMod(Node root) {
+    private void addMod(Node root) {
         root.setId("module-" + moduleId++);
         for (StackPane s : stacks) {
             if (s.getChildren().isEmpty()) {
@@ -536,7 +540,7 @@ public class Controller implements Initializable {
 	/**
 	 * @return Color for cable
 	 */
-	public Color getCableColor() {
+    private Color getCableColor() {
 		return cableColor;
 	}
 

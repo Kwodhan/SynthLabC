@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Files {
-    File file;
-    Controller controller;
+    private File file;
+    private Controller controller;
 
     public Files(File file, Controller controller) {
         this.file = file;
@@ -25,39 +25,44 @@ public class Files {
 
     /**
      * Open a file and get the modules and cables and draw them
-     * @throws IOException
-     * @throws ParseException
+     *
+     * @throws IOException    In and out exceptions
+     * @throws ParseException parsing of hte object exceptions
      */
     public void open() throws IOException, ParseException {
         FileReader fileReader = new FileReader(file);
         JSONParser parser = new JSONParser();
         Object object = parser.parse(fileReader);
+
+
         //convert Object to JSONObject
         JSONObject jsonObject = (JSONObject) object;
 
         //Reading the array for the modules
         JSONArray jsonArrayModules = (JSONArray) jsonObject.get("modules");
 
+        //Adding the modules
         openModules(jsonArrayModules);
 
 
-        //Reading the array for the modules
+        //Reading the array for the cables
         JSONArray jsonArrayCables = (JSONArray) jsonObject.get("cables");
-        //Adding the cables
 
+        //Adding the cables
         openCables(jsonArrayCables);
 
     }
 
     /**
      * open and add the modules
-     * @param jsonArrayModules
-     * @throws IOException
+     *
+     * @param jsonArrayModules the modules in json format
+     * @throws IOException In and out exceptions
      */
-    public void openModules(JSONArray jsonArrayModules) throws IOException {
-        //Adding the modules
+    private void openModules(JSONArray jsonArrayModules) throws IOException {
+
+        //Adding the modules to the controller and UI
         for (Object module : jsonArrayModules) {
-            //System.out.println("\n" + module.toString());
             JSONObject jsonObjectModule = (JSONObject) module;
             switch (jsonObjectModule.get("type").toString()) {
                 case "OUTPUTModuleController":
@@ -99,15 +104,24 @@ public class Files {
         }
     }
 
-    public void openCables(JSONArray jsonArrayCables) {
+    /**
+     * Manage the cables from the json file
+     *
+     * @param jsonArrayCables the cables in json format
+     */
+    private void openCables(JSONArray jsonArrayCables) {
         ModuleController mc1;
         ModuleController mc2;
         ArrayList<ArrayList<Double>> linesData;
-        int i=0;
-        linesData=new ArrayList<>();
+        int i = 0;
+        linesData = new ArrayList<>();
+
+        //Adding the cables to the controller and the UI
+
         for (Object cable : jsonArrayCables) {
             JSONObject jsonObjectCable = (JSONObject) cable;
             linesData.add(new ArrayList<>());
+
             //attaching the modules for the connexion
 
             mc1 = (ModuleController) this.controller
@@ -116,39 +130,35 @@ public class Files {
                     .get(0)
                     .getUserData();
 
-            System.out.println("m1 :"+mc1.getClass().getSimpleName());
             mc2 = (ModuleController) this.controller
                     .getStacks()[((Long) jsonObjectCable.get("positionM2")).intValue()]
                     .getChildren()
                     .get(0)
                     .getUserData();
 
-            System.out.println("m2 :"+mc2.getClass().getSimpleName());
 
             //attaching the modules ports
+
             String portOne = (String) jsonObjectCable.get("portM1");
             String portTwo = (String) jsonObjectCable.get("portM2");
 
             mc1.launchConnection(portOne);
             mc2.launchConnection(portTwo);
 
+            //getting the lines data to draw on the UI
 
             linesData.get(i).add((Double) jsonObjectCable.get("StartX"));
             linesData.get(i).add((Double) jsonObjectCable.get("EndX"));
             linesData.get(i).add((Double) jsonObjectCable.get("StartY"));
             linesData.get(i).add((Double) jsonObjectCable.get("EndY"));
-            System.out.println("data at :"+linesData.get(i));
-            /*linesData.get(i).add((Double) jsonObjectCable.get("ControlX1"));
-            linesData.get(i).add((Double) jsonObjectCable.get("ControlX2"));
-            linesData.get(i).add((Double) jsonObjectCable.get("ControlY1"));
-            linesData.get(i).add((Double) jsonObjectCable.get("ControlY2"));*/
+            System.out.println("data at :" + linesData.get(i));
             i++;
 
         }
-        i=0;
-        for (CableController cableController:this.controller.getCables()){
+        //  Redrawing the new lines with the correct coordination
+        i = 0;
+        for (CableController cableController : this.controller.getCables()) {
             cableController.restoreLine(linesData.get(i));
-            //System.out.println(linesData.get(i).get(2));
             i++;
         }
 
@@ -157,9 +167,10 @@ public class Files {
 
     /**
      * save the cureent configuration into a JSON file
-     * @throws IOException
+     *
+     * @throws IOException In and out exceptions
      */
-    @SuppressWarnings({"unchecked", "JavaDoc"})
+    @SuppressWarnings("unchecked")
     public void save() throws IOException {
 
         FileWriter fileWriter = new FileWriter(file);
@@ -173,26 +184,28 @@ public class Files {
             moduleController.serialize();
             objectsModules.add(moduleController.getJsonModuleObject());
         }
+
         //puttin the modules in the final file configuration
         finalJsonObject.put("modules", objectsModules);
 
-        //Getting the modules
+        //Getting the cables
         JSONArray objectsCables = new JSONArray();
-        JSONObject objectCable ;
+        JSONObject objectCable;
         for (CableController cableController : this.controller.getCables()) {
-            if(cableController.serialize()){
+            if (cableController.serialize()) {
                 System.out.println("ok one");
-                objectCable=cableController.getJsonCableObject();
+                objectCable = cableController.getJsonCableObject();
                 objectsCables.add(objectCable);
                 //System.out.println(objectsCables);
                 cableController.setJsonCableObject(objectCable);
             }
 
         }
-        //puttin the modules in the final file configuration
+        //puttin the cables in the final file configuration
         finalJsonObject.put("cables", objectsCables);
-        System.out.println(finalJsonObject);
-        //System.out.println(finalJsonObject);
+
+
+        //writing the json file
         finalJsonObject.writeJSONString(fileWriter);
         fileWriter.close();
 

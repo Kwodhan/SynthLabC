@@ -41,13 +41,14 @@ public class CableController {
 
     /**
      * Serialize the cable controller for a json specification
+     *
      * @return false if already serialized
      */
     @SuppressWarnings({"unchecked", "JavaDoc"})
     public boolean serialize() {
-        if(jsonCableObject !=null) {
+        if (jsonCableObject != null) {
             return false;
-        }else{
+        } else {
 
             jsonCableObject = new JSONObject();
             jsonCableObject.put("type", this.getClass().getSimpleName());
@@ -69,11 +70,12 @@ public class CableController {
 
     /**
      * restore the cable from a Json Object
+     *
      * @param jsonObjectCable specification of the cable
      */
     public void restore(JSONObject jsonObjectCable) {
         setJsonCableObject(jsonObjectCable);
-        this.color=Color.BLUE;
+        this.color = Color.BLUE;
         //this.color = (Color) jsonObjectCable.get("color");
 
     }
@@ -84,13 +86,14 @@ public class CableController {
      */
     public void disconnect() {
         this.controller.getCables().remove(this);
-        jsonCableObject =null;
+        jsonCableObject = null;
         pane.getChildren().remove(line);
         cable.disconnect();
     }
 
     /**
      * update the cable when changing the module on the UI
+     *
      * @param i the new position
      */
     public void updatePosition(int i) {
@@ -117,9 +120,10 @@ public class CableController {
 
     /**
      * Draw tha cable on the UI connecting two modules
+     *
      * @param moduleController1 the first module
      * @param moduleController2 the second module
-     * @param id the id of the cable to be drawn
+     * @param id                the id of the cable to be drawn
      */
     public void drawCable(ModuleController moduleController1, ModuleController moduleController2, Integer id) {
 
@@ -148,16 +152,17 @@ public class CableController {
 
     /**
      * Restore the line after opening a configuration on the ui
+     *
      * @param lineData the data of the cable to draw
      */
-    public void restoreLine(ArrayList<Double> lineData){
+    public void restoreLine(ArrayList<Double> lineData) {
 
         double x1, x2, y1, y2;
         x1 = lineData.get(0);
         x2 = lineData.get(1);
         y1 = lineData.get(2);
         y2 = lineData.get(3);
-        String lineId =line.getId();
+        String lineId = line.getId();
         pane.getChildren().remove(line);
 
         line.setOnMouseClicked(null);
@@ -180,6 +185,7 @@ public class CableController {
 
     /**
      * Return the cable
+     *
      * @return cable connecting the two port
      */
     public Cable getCable() {
@@ -187,7 +193,8 @@ public class CableController {
     }
 
     /**
-     *  Get the curve to apply on the cable on the UI
+     * Get the curve to apply on the cable on the UI
+     *
      * @param x1 startX
      * @param y1 startY
      * @param x2 endX
@@ -201,34 +208,20 @@ public class CableController {
 
     }
 
-    /**
-     * return the json object for the serialization
-     * @return the json object of this class
-     */
     public JSONObject getJsonCableObject() {
         return jsonCableObject;
     }
 
-    /**
-     * Setter of the json object
-     * @param jsonCableObject new json object to be set
-     */
     public void setJsonCableObject(JSONObject jsonCableObject) {
         this.jsonCableObject = jsonCableObject;
     }
 
-    /**
-     * Get the first module connected
-     * @return the first module
-     */
+
     public ModuleController getMc1() {
         return mc1;
     }
 
-    /**
-     * Get the second module connected
-     * @return the second module
-     */
+
     public ModuleController getMc2() {
         return mc2;
     }
