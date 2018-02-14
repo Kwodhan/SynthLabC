@@ -65,7 +65,10 @@
             </ImageView>
             
              <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
-            <TextArea fx:id="displayArea" prefHeight="151.0" prefWidth="181.0" GridPane.rowIndex="1">
+            <TextArea fx:id="displayArea" prefHeight="151.0" prefWidth="181.0" GridPane.rowIndex="1" >
+             <font>
+                <Font name="Arial" size="8.0" />
+            </font>
                <GridPane.margin>
                   <Insets left="1.0" />
                </GridPane.margin>

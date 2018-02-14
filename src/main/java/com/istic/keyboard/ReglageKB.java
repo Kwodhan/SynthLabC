@@ -80,23 +80,23 @@ public class ReglageKB extends UnitGenerator {
         sineOsc2.output.connect(0, lineOut.input, 1);   // connect to right channel
         lineOut.start();
         synth.start();
+        
     }
 
     /////////////////////////////////////////////////////////////////:
     private String print_frequencies() {
-        String result="";
+        String res="";
         for (int i = 0; i < 13; i++) {
             if (notes[i] == true) {
-                result += this.format_double(this.notes_hz[i]);
+               String  result = this.format_double(this.notes_hz[i]);
 
-                System.out.print("(" + this.notes_descr[i] + " " + result + ") ");
+                res+="(" + this.notes_descr[i] + " " + result + "hz ) "+" //with octave=" + this.octave+"\n";
             } else {
-                System.out.print(this.notes_descr[i] + " ");
+                res+="(" + this.notes_descr[i] + " "  + ") "+" //with octave=" + this.octave+"\n";
 
             }
         }
-        System.out.println(" //with octave=" + this.octave);
-        return  result;
+         return  res;
     }
 
     private String format_double(double d) {

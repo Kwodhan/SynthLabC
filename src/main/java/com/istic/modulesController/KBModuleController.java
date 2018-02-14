@@ -25,6 +25,7 @@ public class KBModuleController  extends ModuleController implements Initializab
         this.kbListener = new KBListener();
         //listener
         //displayArea.addEventHandler(kbListener);
+        displayArea.setStyle("-fx-line-spacing: 2em;");
         displayArea.setText(kbListener.getReglageKB().update_ouput_signal());
 	}
 
