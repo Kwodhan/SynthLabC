@@ -10,24 +10,24 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class CableController {
-    Color color;
+    private Color color;
 
     /**
      *
      */
-    AnchorPane pane;
+    private AnchorPane pane;
     /**
      * Cable entre deux ports
      */
-    Cable cable;
+    private Cable cable;
     /**
      * Ligne graphique
      */
-    CubicCurve line;
-    JSONObject jsonCableObject =null;
-    Controller controller;
-    ModuleController mc1;
-    ModuleController mc2;
+    private CubicCurve line;
+    private JSONObject jsonCableObject;
+    private Controller controller;
+    private ModuleController mc1;
+    private ModuleController mc2;
 
     public CableController(Controller controller, AnchorPane pane, Cable cable, Color color) {
         this.cable = cable;
@@ -36,8 +36,14 @@ public class CableController {
         this.controller = controller;
 
 
+        jsonCableObject = null;
     }
 
+    /**
+     * Serialize the cable controller for a json specification
+     * @return false if already serialized
+     */
+    @SuppressWarnings({"unchecked", "JavaDoc"})
     public boolean serialize() {
         if(jsonCableObject !=null) {
             return false;
@@ -47,10 +53,6 @@ public class CableController {
             jsonCableObject.put("type", this.getClass().getSimpleName());
             jsonCableObject.put("color", color.toString());
 
-            String portOne = "";
-            String portTwo = "";
-            //recuperer un port
-            //mc1.getAllPorts()
             jsonCableObject.put("positionM1", mc1.getPosition(this.controller.getStacks()));
             jsonCableObject.put("positionM2", mc2.getPosition(this.controller.getStacks()));
             jsonCableObject.put("portM1", cable.portOne.getClass().getSimpleName());
@@ -65,6 +67,10 @@ public class CableController {
         }
     }
 
+    /**
+     * restore the cable from a Json Object
+     * @param jsonObjectCable specification of the cable
+     */
     public void restore(JSONObject jsonObjectCable) {
         setJsonCableObject(jsonObjectCable);
         this.color=Color.BLUE;
@@ -72,6 +78,10 @@ public class CableController {
 
     }
 
+    /**
+     * Disconnect a cable from the UI
+     * Listener to the click on the cable
+     */
     public void disconnect() {
         this.controller.getCables().remove(this);
         jsonCableObject =null;
@@ -79,6 +89,10 @@ public class CableController {
         cable.disconnect();
     }
 
+    /**
+     * update the cable when changing the module on the UI
+     * @param i the new position
+     */
     public void updatePosition(int i) {
         if (i == 1) {
             line.setStartX(mc1.getX());
@@ -101,6 +115,12 @@ public class CableController {
 
     }
 
+    /**
+     * Draw tha cable on the UI connecting two modules
+     * @param moduleController1 the first module
+     * @param moduleController2 the second module
+     * @param id the id of the cable to be drawn
+     */
     public void drawCable(ModuleController moduleController1, ModuleController moduleController2, Integer id) {
 
         mc1 = moduleController1;
@@ -123,11 +143,13 @@ public class CableController {
 
         pane.getChildren().add(line);
 
-        line.setOnMouseClicked(event -> {
-            this.disconnect();
-        });
+        line.setOnMouseClicked(event -> this.disconnect());
     }
 
+    /**
+     * Restore the line after opening a configuration on the ui
+     * @param lineData the data of the cable to draw
+     */
     public void restoreLine(ArrayList<Double> lineData){
 
         double x1, x2, y1, y2;
@@ -152,35 +174,61 @@ public class CableController {
 
         pane.getChildren().add(line);
 
-        line.setOnMouseClicked(event -> {
-            this.disconnect();
-        });
+        line.setOnMouseClicked(event -> this.disconnect());
 
     }
 
+    /**
+     * Return the cable
+     * @return cable connecting the two port
+     */
     public Cable getCable() {
         return cable;
     }
 
-    public double getCurve(double x1, double y1, double x2, double y2) {
+    /**
+     *  Get the curve to apply on the cable on the UI
+     * @param x1 startX
+     * @param y1 startY
+     * @param x2 endX
+     * @param y2 endY
+     * @return the value of the curve
+     */
+    private double getCurve(double x1, double y1, double x2, double y2) {
         double x = Math.abs(x1 - x2);
         double y = Math.abs(y1 - y2);
         return x / 6 + y / 2;
 
     }
 
+    /**
+     * return the json object for the serialization
+     * @return the json object of this class
+     */
     public JSONObject getJsonCableObject() {
         return jsonCableObject;
     }
 
+    /**
+     * Setter of the json object
+     * @param jsonCableObject new json object to be set
+     */
     public void setJsonCableObject(JSONObject jsonCableObject) {
         this.jsonCableObject = jsonCableObject;
     }
 
+    /**
+     * Get the first module connected
+     * @return the first module
+     */
     public ModuleController getMc1() {
         return mc1;
     }
 
+    /**
+     * Get the second module connected
+     * @return the second module
+     */
     public ModuleController getMc2() {
         return mc2;
     }
