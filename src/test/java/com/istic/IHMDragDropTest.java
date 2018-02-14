@@ -234,19 +234,19 @@ public class IHMDragDropTest extends ApplicationTest {
 
         clickOn(mixer.lookup("#inPort1"));
         clickOn(replicator.lookup("#outPort1"));
-        clickOn("MEDIUMAQUAMARINE");
+        ;
 
         clickOn(mixer.lookup("#inPort2"));
         clickOn(replicator.lookup("#outPort2"));
-        clickOn("MEDIUMAQUAMARINE");
+
 
         clickOn(mixer.lookup("#inPort3"));
         clickOn(replicator.lookup("#outPort3"));
-        clickOn("MEDIUMAQUAMARINE");
+
 
         clickOn(mixer.lookup("#outPort"));
         clickOn(replicator.lookup("#inPort"));
-        clickOn("MEDIUMAQUAMARINE");
+
 
         StackPane box2 = lookup("#box2").query();
         StackPane box3 = lookup("#box3").query();

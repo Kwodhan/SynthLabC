@@ -47,8 +47,7 @@ public class VCFLP extends Circuit {
 
         filterLowPass1.frequency.connect(vcflp.getOut());
         filterLowPass2.frequency.connect(vcflp.getOut());
-        vcflp.getOut().connect(filterLowPass1.frequency);
-        vcflp.getOut().connect(filterLowPass2.frequency);
+
 
         portOutput = new PortOutput(out);
         portInput = new PortInput(in);
