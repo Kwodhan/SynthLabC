@@ -62,13 +62,15 @@ public class OutMod extends LineOut {
         double[] buffer0 = synthesisEngine.getOutputBuffer(0);
         double[] buffer1 = synthesisEngine.getOutputBuffer(1);
         double fromDCBL ;
+        double value0;
         for (int i = start; i < limit; i++) {
         	fromDCBL = AudioMath.semitonesToFrequencyScaler(this.attenuation);
-            buffer0[i] += inputs0[i]*mute*fromDCBL;
+        	value0 = inputs0[i]*mute*fromDCBL;
+            buffer0[i] += value0;
             buffer1[i] += inputs1[i]*mute*fromDCBL;
             if (record && (this.writer != null)) {
 				try {
-					this.writer.write(buffer0[i]);
+					this.writer.write(value0);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
