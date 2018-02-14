@@ -38,6 +38,7 @@
                 <MenuItem fx:id="vcfHpMenuItem" mnemonicParsing="false" onAction="#addVcfHp" text="VCF HP" />
                 <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVCO" text="VCO" />
                 <MenuItem fx:id="whiteNoiseMenuItem" mnemonicParsing="false" onAction="#addWhiteNoise" text="White Noise" />
+                <MenuItem fx:id="keyBoardMenuItem" mnemonicParsing="false" onAction="#addKeyBoard" text="KeyBoard" />
               </items>
             </Menu>
             <MenuItem fx:id="dropAllMenuItem" mnemonicParsing="false" onAction="#dropAll" text="Drop All" />

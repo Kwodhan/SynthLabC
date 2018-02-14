@@ -21,9 +21,11 @@ public class App extends Application {
         stage.setTitle("SynthLabC");
         stage.setScene(scene);
         stage.show();
+        
 		ReglageKB rkb =  new ReglageKB();
 KBListener kbl = new KBListener(rkb);
 kbl.add_listener(scene);
+
     }
 
     public static void main(String[] args) {
