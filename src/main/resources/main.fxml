@@ -48,7 +48,7 @@
             <RadioMenuItem fx:id="defaultMenuItem" mnemonicParsing="false" onAction="#defaultTheme" text="Default" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Cable color">
+        <Menu fx:id="cableColorMenu" mnemonicParsing="false" text="Cable color">
           <items>
             <RadioMenuItem fx:id="cableColorGoldMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="GOLD" text="Gold" />
             <RadioMenuItem fx:id="cableColorRedMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="RED" text="Red" />
