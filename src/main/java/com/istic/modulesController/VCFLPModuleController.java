@@ -3,6 +3,7 @@ package com.istic.modulesController;
 import com.istic.port.Port;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.ImageView;
@@ -29,6 +30,9 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     @FXML
     Slider resonanceSlider,frequencySlider;
 
+    @FXML
+    Label frequence;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -45,8 +49,8 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         });
 
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            System.out.println(frequencySlider.getValue());
             this.vcflp.setF0(Math.pow(2,frequencySlider.getValue()));
+            this.frequence.setText((Math.round(this.vcflp.getFrequence()*100.0) / 100.0) + " Hz");
 
         });
 
@@ -133,12 +137,12 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         super.init(controller);
         this.vcflp = new VCFLP();
         this.controller.getSynth().add(vcflp);
-        frequencySlider.setValue(frequencySlider.getMax());
+        this.frequencySlider.setValue(frequencySlider.getMax());
 
         this.vcflp.setF0(Math.pow(2,frequencySlider.getValue()));
         this.vcflp.setResonance(resonanceSlider.getValue());
 
-
+        this.frequence.setText((Math.round(this.vcflp.getFrequence()*100.0) / 100.0) + " Hz");
 
     }
     /**
