@@ -28,9 +28,10 @@ public class IHMRecordTest extends ApplicationTest {
     /**
      * Test simple, enregistre le son d'un vco
      * pendant 5s dans un fichier
+     * au format WAV
      */
     @Test
-    public void testRecordSimple() {
+    public void testRecordSimpleWAV() {
         // get output module
         AnchorPane output = lookup("#module-1").query();
 
@@ -45,6 +46,49 @@ public class IHMRecordTest extends ApplicationTest {
 
         // START RECORDING for 5s
         clickOn(output.lookup("#recordButton"));
+        press(KeyCode.ENTER);
+        sleep(5000);
+
+        // STOP RECORDING
+        clickOn(output.lookup("#recordButton"));
+
+        File file = new File(filePath);
+        assertNotNull(file);
+        assertNotEquals(0, file.getTotalSpace());
+
+        // DELETE FILE
+        assertTrue(file.delete());
+        assertFalse(file.exists());
+
+        clickOn(output.lookup("#closeButton"));
+        sleep(1000);
+    }
+
+    /**
+     * Test simple, enregistre le son d'un vco
+     * pendant 5s dans un fichier
+     * au format MP3
+     */
+    @Test
+    public void testRecordSimpleMP3() {
+        // get output module
+        AnchorPane output = lookup("#module-1").query();
+
+        // add modules
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco1 = lookup("#module-2").query();
+
+        // CONNECTING CABLES
+
+        clickOn(vco1.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+
+        // START RECORDING for 5s
+        clickOn(output.lookup("#recordButton"));
+
+        clickOn(1000, 680);
+        clickOn(1000, 700);
+
         press(KeyCode.ENTER);
         sleep(5000);
 
