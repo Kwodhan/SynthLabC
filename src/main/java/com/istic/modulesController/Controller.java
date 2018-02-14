@@ -517,7 +517,7 @@ public class Controller implements Initializable {
     public ArrayList<ModuleController> getModuleControllers() {
         return moduleControllers;
     }
-    
+
     /**
      * Change cable color
      * @param event listener clicking on menu to select color
