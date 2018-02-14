@@ -3,9 +3,7 @@ package com.istic.mixer;
 import com.istic.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
-import com.jsyn.unitgen.Multiply;
 import com.jsyn.unitgen.UnitGenerator;
-import com.jsyn.unitgen.UnitVoice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +18,10 @@ public class ReglageMIXER extends UnitGenerator {
     public ReglageMIXER() {
         this.inAtts = new ArrayList<>();
         this.inputs = new ArrayList<>();
-
         this.inputs.add(new UnitInputPort("in1"));
         this.inputs.add(new UnitInputPort("in2"));
         this.inputs.add(new UnitInputPort("in3"));
         this.inputs.add(new UnitInputPort("in4"));
-
         this.inAtts.add(new UnitInputPort("in1Att"));
         this.inAtts.add(new UnitInputPort("in2Att"));
         this.inAtts.add(new UnitInputPort("in3Att"));
@@ -38,10 +34,7 @@ public class ReglageMIXER extends UnitGenerator {
         for(UnitInputPort unitInputPort : this.inAtts){
             addPort(unitInputPort);
         }
-
         addPort(this.out = new UnitOutputPort("out"),"out");
-
-
     }
 
 
@@ -63,7 +56,6 @@ public class ReglageMIXER extends UnitGenerator {
                 deb += in[i] * att[i];
             }
             outputs[i] = Constraints.verifAmp(deb);
-
         }
     }
 
