@@ -64,8 +64,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
             lineOut.setAttenuation(newAttenuation);
         });
     }
-
-
     /**
      * Initialise le contrôleur du module et
      * ajoute le module au synthétiseur
@@ -111,8 +109,10 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         if (this.lineOut.isRecord()) { // si premier click
             this.dest = null;
             Pair infos = this.controller.saveSound();
+
             this.dest = (File) infos.getKey();
             this.extension = (String) infos.getValue();
+
            // cas où l'utilisateur renseigne bien le nom du fichier et path
             if (this.dest != null) {
                 this.lineOut.setWriter(new WaveFileWriter(new File(this.dest.getPath())));

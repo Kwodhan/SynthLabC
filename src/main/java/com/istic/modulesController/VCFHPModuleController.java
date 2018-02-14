@@ -2,6 +2,8 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import com.istic.vcfhp.VCFHP;
+import com.istic.vcflp.VCFLP;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -46,7 +48,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
 
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             this.vcfhp.setF0(Math.pow(2,frequencySlider.getValue()));
-            this.frequence.setText((Math.round(this.vcfhp.getFrequence()*100.0) / 100.0) + " Hz");
+            Platform.runLater(() ->this.frequence.setText((Math.round(this.vcfhp.getFrequence()*100.0) / 100.0) + " Hz"));
 
         });
 

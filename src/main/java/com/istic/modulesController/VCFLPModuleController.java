@@ -1,6 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -44,13 +45,13 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         resonanceSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.vcflp.setResonance(resonanceSlider.getValue());
+            Platform.runLater(() ->this.vcflp.setResonance(resonanceSlider.getValue()));
 
         });
 
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             this.vcflp.setF0(Math.pow(2,frequencySlider.getValue()));
-            this.frequence.setText((Math.round(this.vcflp.getFrequence()*100.0) / 100.0) + " Hz");
+            Platform.runLater(() ->this.frequence.setText((Math.round(this.vcflp.getFrequence()*100.0) / 100.0) + " Hz"));
 
         });
 
