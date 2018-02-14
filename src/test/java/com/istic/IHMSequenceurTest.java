@@ -1,24 +1,17 @@
 package com.istic;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
-import javafx.scene.control.Slider;
-
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.service.query.NodeQuery;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class IHMSequenceurTest extends ApplicationTest {
 
@@ -47,12 +40,22 @@ public class IHMSequenceurTest extends ApplicationTest {
 
         clickOn(output.lookup("#inPort"));
         clickOn(vco1.lookup("#outPort"));
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
         
         clickOn(vco1.lookup("#fmPort"));
         clickOn(seq.lookup("#out"));
+        CubicCurve cable2 = lookup("#cable-2").query();
+        assertNotNull(cable2);
+        assertEquals(cable2.getId(), "cable-2");
         
         clickOn(vco2.lookup("#outPort"));
         clickOn(seq.lookup("#gate"));
+        CubicCurve cable3 = lookup("#cable-3").query();
+        assertNotNull(cable3);
+        assertEquals(cable3.getId(), "cable-3");
+
         Slider frequencySlider;
         Slider slider;
         slider = (Slider) vco2.lookup("#frequencySlider");
