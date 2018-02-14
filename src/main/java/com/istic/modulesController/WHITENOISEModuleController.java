@@ -72,12 +72,12 @@ public class WHITENOISEModuleController extends ModuleController implements Init
 
     @Override
     public void serialize() {
-
+        super.serialize();
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-
+    setJsonModuleObject(jsonObjectModule);
     }
 
     /**
@@ -113,7 +113,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
             this.controller.disconnect(this);
         }
     }
-    
+
     //Setters et Getters
     public PortOutput getOutPort() {
         return this.bruitBlanc.getOutputPort();

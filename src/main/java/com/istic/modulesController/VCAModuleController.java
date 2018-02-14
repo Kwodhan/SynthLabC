@@ -150,11 +150,20 @@ public class VCAModuleController extends ModuleController implements Initializab
 
     @Override
     public void serialize() {
+    super.serialize();
+
+        jsonModuleObject.put("amplitudeSlider", amplitudeSlider.getValue());
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
+
+        double amplitude = (double) jsonObjectModule.get("amplitudeSlider");
+        //model
+        vca.changeA0(amplitude);
+        //graphique
+        amplitudeSlider.setValue(Math.round(amplitude));
 
     }
 }

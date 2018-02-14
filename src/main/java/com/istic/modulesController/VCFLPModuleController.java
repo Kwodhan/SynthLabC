@@ -61,11 +61,10 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     @Override
     public Port getCurrentPort() {
         switch (currentPort) {
-
-            case 0:
-                return vcflp.getOutput();
             case 1:
                 return vcflp.getInput();
+            case 0:
+                return vcflp.getOutput();
             case 2 :
                 return vcflp.getFm();
             default: return null;
@@ -83,11 +82,24 @@ public class VCFLPModuleController extends ModuleController implements Initializ
 
     @Override
     public void serialize() {
+        super.serialize();
+        jsonModuleObject.put("frequencySlider", Math.pow(2,frequencySlider.getValue()));
+        jsonModuleObject.put("resonanceSlider", resonanceSlider.getValue());
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
+    setJsonModuleObject(jsonObjectModule);
+        double frequency = (double) jsonObjectModule.get("frequencySlider");
+        double resonance = (double) jsonObjectModule.get("resonanceSlider");
+        //model
+        this.vcflp.setF0(frequency);
+        this.vcflp.setResonance(resonance);
+
+        //graphique
+        frequencySlider.setValue(frequency);
+        resonanceSlider.setValue(resonance);
 
     }
 

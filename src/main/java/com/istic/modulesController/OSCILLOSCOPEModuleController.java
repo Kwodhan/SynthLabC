@@ -100,12 +100,12 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
 
     @Override
     public void serialize() {
-
+    super.serialize();
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-
+        setJsonModuleObject(jsonObjectModule);
     }
 
     /**

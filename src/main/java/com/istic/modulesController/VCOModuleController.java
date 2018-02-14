@@ -166,12 +166,37 @@ public class VCOModuleController extends ModuleController implements Initializab
 
     @Override
     public void serialize() {
+    	super.serialize();
+    	jsonModuleObject.put("frequencySlider", frequencySlider.getValue() );
+    	jsonModuleObject.put("frequencyFineSlider", frequencyFineSlider.getValue());
+    	jsonModuleObject.put("squareRadio", squareRadio.isSelected());
+    	jsonModuleObject.put("sawRadio", sawRadio.isSelected());
+    	jsonModuleObject.put("triangleRadio", triangleRadio.isSelected());
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-
+        setJsonModuleObject(jsonObjectModule);
+        double frequencySlider_ = (double) jsonObjectModule.get("frequencySlider");
+        double frequencyFineSlider_ = (double) jsonObjectModule.get("frequencyFineSlider");
+        boolean squareRadio_ = (boolean) jsonObjectModule.get("squareRadio");
+        boolean sawRadio_ = (boolean) jsonObjectModule.get("sawRadio");
+        boolean triangleRadio_ = (boolean) jsonObjectModule.get("triangleRadio");
+        
+        
+        frequencySlider.setValue(frequencySlider_);
+        frequencyFineSlider.setValue(frequencyFineSlider_);
+        squareRadio.setSelected(squareRadio_);
+        sawRadio.setSelected(sawRadio_);
+        triangleRadio.setSelected(triangleRadio_);
+        
+        this.vco.changeOctave(frequencySlider_);
+        this.vco.changeFin(frequencyFineSlider_);
+        int wave = (squareRadio_)? VCO.SQUAREWAVE : (sawRadio_)? VCO.SAWWAVE: VCO.TRIANGLEWAVE;
+        this.vco.changeShapeWave(wave);
+        
+        
     }
 
     @FXML
