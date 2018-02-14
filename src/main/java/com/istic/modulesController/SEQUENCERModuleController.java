@@ -23,10 +23,10 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     AnchorPane pane;
     
     @FXML
-    ImageView gate;
+    ImageView gatePort;
     
     @FXML
-    ImageView out;
+    ImageView outPort;
     
     @FXML
     Slider sliderSeq1,sliderSeq2,sliderSeq3,sliderSeq4,sliderSeq5,sliderSeq6,sliderSeq7,sliderSeq8;
@@ -90,8 +90,8 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     @Override
     public Map<ImageView, Port> getAllPorts() {
     	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(out, sequenceur.getOutputPort());
-    	hm.put(gate, sequenceur.getGatePort());
+    	hm.put(outPort, sequenceur.getOutputPort());
+    	hm.put(gatePort, sequenceur.getGatePort());
         return hm;
     }
     
@@ -103,7 +103,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 
         if(!this.sequenceur.getOutput().isConnected()) {
         	currentPort = 0;
-            getLayout(out);
+            getLayout(outPort);
             super.connect();
         }
     }
@@ -115,7 +115,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 
         if(!this.sequenceur.getGatePort().isConnected()) {
         	currentPort = 1;
-            getLayout(gate);
+            getLayout(gatePort);
             super.connect();
         }
     }

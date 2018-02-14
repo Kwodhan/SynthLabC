@@ -203,13 +203,13 @@ public class Controller implements Initializable {
         //Show save file dialog
         File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
         String ext;
-        //System.out.println("extension : " +fileChooser.getSelectedExtensionFilter().getExtensions());
+        //System.outPort.println("extension : " +fileChooser.getSelectedExtensionFilter().getExtensions());
         if (fileChooser.getSelectedExtensionFilter() != null) {
             ext = fileChooser.getSelectedExtensionFilter().getExtensions().get(0);
         } else {
             ext = null;
         }
-        //System.out.println(ext);
+        //System.outPort.println(ext);
         Pair<File, String> info_dest = new Pair<>(dest, ext);
         return info_dest;
     }

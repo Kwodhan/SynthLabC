@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 
 public class AudioFile {
 String path;
-byte [] raw_data;
 
 
 public AudioFile (String path) {
