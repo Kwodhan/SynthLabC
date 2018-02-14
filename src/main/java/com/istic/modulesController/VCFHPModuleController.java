@@ -2,7 +2,6 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import com.istic.vcfhp.VCFHP;
-import com.istic.vcflp.VCFLP;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -156,14 +155,14 @@ public class VCFHPModuleController extends ModuleController implements Initializ
     @Override
     public void serialize() {
     super.serialize();
-        jsonCableObject.put("frequencySlider", Math.pow(2,frequencySlider.getValue()));
+        jsonModuleObject.put("frequencySlider", Math.pow(2,frequencySlider.getValue()));
 
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-    setJsonCableObject(jsonObjectModule);
+    setJsonModuleObject(jsonObjectModule);
         double frequency = (double) jsonObjectModule.get("frequencySlider");
         //model
         vcfhp.setF0(frequency);

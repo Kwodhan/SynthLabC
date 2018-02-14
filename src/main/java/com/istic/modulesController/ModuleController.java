@@ -26,7 +26,7 @@ public abstract class ModuleController implements Serializable {
 
     protected int currentPort = -1;
 
-    JSONObject jsonCableObject;
+    JSONObject jsonModuleObject;
 
     /**
      * Lie le controller du module au controller général
@@ -215,20 +215,20 @@ public abstract class ModuleController implements Serializable {
      * Sauvegarde l'etat courant du module dans un objet  json
      */
     public void serialize() {
-        jsonCableObject = new JSONObject();
-        jsonCableObject.put("type", this.getClass().getSimpleName());
-        jsonCableObject.put("position", getPosition(this.controller.getStacks()));
+        jsonModuleObject = new JSONObject();
+        jsonModuleObject.put("type", this.getClass().getSimpleName());
+        jsonModuleObject.put("position", getPosition(this.controller.getStacks()));
 
 
     }
 
-    public JSONObject getJsonCableObject() {
-        return jsonCableObject;
+    public JSONObject getJsonModuleObject() {
+        return jsonModuleObject;
     }
 
-    public void setJsonCableObject(JSONObject jsonCableObject) {
+    public void setJsonModuleObject(JSONObject jsonModuleObject) {
 
-        this.jsonCableObject = jsonCableObject;
+        this.jsonModuleObject = jsonModuleObject;
     }
 
     /**

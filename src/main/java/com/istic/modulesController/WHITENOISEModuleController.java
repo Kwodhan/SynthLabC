@@ -9,10 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -78,7 +76,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-    setJsonCableObject(jsonObjectModule);
+    setJsonModuleObject(jsonObjectModule);
     }
 
     /**

@@ -163,9 +163,7 @@ public class Controller implements Initializable {
             files = new Files(file, this);
             files.open();
         }
-        for(ModuleController moduleController:moduleControllers){
-            moduleController.updateCablesPosition();
-        }
+
     }
 
     /**
@@ -461,6 +459,12 @@ public class Controller implements Initializable {
      */
     public void disconnect(ModuleController moduleController) {
         this.moduleControllers.remove(moduleController);
+        for(CableController cableController : cables){
+            if(cableController.getMc1().equals(moduleController)
+                    ||cableController.getMc2().equals(moduleController)){
+                cables.remove(cableController);
+            }
+        }
     }
 
     /**

@@ -105,7 +105,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
     }
 
     /**

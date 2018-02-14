@@ -109,10 +109,10 @@ public class EGModuleController extends ModuleController implements Initializabl
     @Override
     public void serialize() {
         super.serialize();
-        jsonCableObject.put("attack",eg.getAttack() );
-        jsonCableObject.put("decay", eg.getDecay());
-        jsonCableObject.put("sustain",eg.getSustain() );
-        jsonCableObject.put("release", eg.getRelease());
+        jsonModuleObject.put("attack",eg.getAttack() );
+        jsonModuleObject.put("decay", eg.getDecay());
+        jsonModuleObject.put("sustain",eg.getSustain() );
+        jsonModuleObject.put("release", eg.getRelease());
 
 
     }
