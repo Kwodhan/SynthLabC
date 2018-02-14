@@ -48,29 +48,35 @@ public   ReglageKB() {
 			oscillators[i].start();
  		}
 	}
+	this.print_frequencies();
+
 }
     public static void main(String[] args) {
 		ReglageKB rkb =  new ReglageKB();
-		Synthesizer synth = JSyn.createSynthesizer();
-		SineOscillator sineOsc = new SineOscillator(300);
-		SineOscillator sineOsc2 = new SineOscillator(440); 
-		LineOut  lineOut = new LineOut();
-		synth.add(lineOut );
-		synth.add(sineOsc2 );
-				synth.add(sineOsc );				
-
-
-
 		
-
-		sineOsc.output.connect( 0, lineOut.input, 0 );   // connect to left channel
-		sineOsc.output.connect( 0, lineOut.input, 1 );   // connect to right channel
-		lineOut.start();
-		synth.start();
+//		Synthesizer synth = JSyn.createSynthesizer();
+//		SineOscillator sineOsc = new SineOscillator(300);
+//		SineOscillator sineOsc2 = new SineOscillator(440); 
+//		LineOut  lineOut = new LineOut();
+//		synth.add(lineOut );
+//		synth.add(sineOsc2 );
+//				synth.add(sineOsc );				
+//		sineOsc.output.connect( 0, lineOut.input, 0 );   // connect to left channel
+//		sineOsc.output.connect( 0, lineOut.input, 1 );   // connect to right channel
+//		lineOut.start();
+//		synth.start();
 	}
 	/////////////////////////////////////////////////////////////////:
     private void print_frequencies () {
-    	
+    	for (int i =0;i< 13;i++) {
+    		if (notes[i]== true) {
+    			System.out.println(this.notes_descr[i]+this.notes_hz[i]+" ");
+     		}
+    		else {
+    			System.out.println(this.notes_descr[i]+" ");
+
+    		}
+    	}
     }
 	private void compute_frequency(int index) {
 		//		notes_hz[note]=  octave*0; //la formule...
