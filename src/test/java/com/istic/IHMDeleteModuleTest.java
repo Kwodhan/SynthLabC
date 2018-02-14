@@ -43,7 +43,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out vco2 --> fm vco1
         clickOn(vco2.lookup("#outPort"));
         clickOn(vco1.lookup("#fmPort"));
-        clickOn("OLIVE");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -52,7 +51,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out vco1 --> in output
         clickOn(vco1.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
-        clickOn("OLIVE");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -134,7 +132,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out vco --> in rep
         clickOn(vco.lookup("#outPort"));
         clickOn(repli.lookup("#inPort"));
-        clickOn("OLIVE");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -143,7 +140,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out1 rep --> in osc1
         clickOn(repli.lookup("#outPort1"));
         clickOn(osc1.lookup("#inPort"));
-        clickOn("OLIVE");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -153,7 +149,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out2 rep --> in osc2
         clickOn(repli.lookup("#outPort2"));
         clickOn(osc2.lookup("#inPort"));
-        clickOn("OLIVE");
 
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
@@ -162,7 +157,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out3 rep --> in osc3
         clickOn(repli.lookup("#outPort3"));
         clickOn(osc3.lookup("#inPort"));
-        clickOn("OLIVE");
 
         CubicCurve cable4 = lookup("#cable-4").query();
         assertNotNull(cable4);
@@ -222,7 +216,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out vco --> in rep
         clickOn(vco.lookup("#outPort"));
         clickOn(repli.lookup("#inPort"));
-        clickOn("SALMON");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -231,7 +224,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out1 rep --> in osc1
         clickOn(repli.lookup("#outPort1"));
         clickOn(osc1.lookup("#inPort"));
-        clickOn("SALMON");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -241,7 +233,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out2 rep --> in osc2
         clickOn(repli.lookup("#outPort2"));
         clickOn(osc2.lookup("#inPort"));
-        clickOn("SALMON");
 
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
@@ -250,7 +241,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out3 rep --> in output
         clickOn(repli.lookup("#outPort3"));
         clickOn(output.lookup("#inPort"));
-        clickOn("SALMON");
 
         CubicCurve cable4 = lookup("#cable-4").query();
         assertNotNull(cable4);
@@ -305,7 +295,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out vco1 --> in eg
         clickOn(vco1.lookup("#outPort"));
         clickOn(eg.lookup("#gatePort"));
-        clickOn("SALMON");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -314,7 +303,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out eg --> fm vco2
         clickOn(eg.lookup("#outPort"));
         clickOn(vco2.lookup("#fmPort"));
-        clickOn("SALMON");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -323,7 +311,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out vco2 --> in oscillo
         clickOn(vco2.lookup("#outPort"));
         clickOn(oscillo.lookup("#inPort"));
-        clickOn("SALMON");
 
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
@@ -331,7 +318,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out oscillo --> in sortie
         clickOn(oscillo.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
-        clickOn("SALMON");
 
 
         CubicCurve cable4 = lookup("#cable-4").query();
@@ -443,7 +429,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // la sortie `out` du VCO n°2 est reliée à l’entrée `in` du VCA ;
         clickOn(vco2.lookup("#outPort"));
         clickOn(vca.lookup("#inPort"));
-        clickOn("SILVER");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -454,7 +439,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // on passe par le replicator pour sortir la sortie out du VCO à deux endroits !
         clickOn(vco1.lookup("#outPort"));
         clickOn(replicator.lookup("#inPort"));
-        clickOn("SILVER");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -462,7 +446,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
 
         clickOn(replicator.lookup("#outPort1"));
         clickOn(vco2.lookup("#fmPort"));
-        clickOn("SILVER");
 
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
@@ -470,7 +453,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
 
         clickOn(replicator.lookup("#outPort2"));
         clickOn(eg.lookup("#gatePort"));
-        clickOn("SILVER");
 
         CubicCurve cable4 = lookup("#cable-4").query();
         assertNotNull(cable4);
@@ -480,7 +462,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // la sortie `out` du VCA est reliée  à l’entrée `in` du module de sortie son.
         clickOn(vca.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
-        clickOn("SILVER");
 
         CubicCurve cable5 = lookup("#cable-5").query();
         assertNotNull(cable5);
@@ -489,7 +470,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // la sortie `out` de l’EG est reliée à l’entrée `am` du VCA.
         clickOn(eg.lookup("#outPort"));
         clickOn(vca.lookup("#amPort"));
-        clickOn("SILVER");
 
         CubicCurve cable6 = lookup("#cable-6").query();
         assertNotNull(cable6);
@@ -562,7 +542,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out vco --> in rep
         clickOn(vco.lookup("#outPort"));
         clickOn(repli.lookup("#inPort"));
-        clickOn("SILVER");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -571,7 +550,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out1 rep --> in osc1
         clickOn(repli.lookup("#outPort1"));
         clickOn(osc1.lookup("#inPort"));
-        clickOn("SILVER");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -581,7 +559,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out2 rep --> in osc2
         clickOn(repli.lookup("#outPort2"));
         clickOn(osc2.lookup("#inPort"));
-        clickOn("SILVER");
 
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
@@ -590,7 +567,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out3 rep --> in osc3
         clickOn(repli.lookup("#outPort3"));
         clickOn(osc3.lookup("#inPort"));
-        clickOn("SILVER");
 
         CubicCurve cable4 = lookup("#cable-4").query();
         assertNotNull(cable4);
@@ -599,7 +575,6 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         // out osc1 --> in output
         clickOn(osc1.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
-        clickOn("SILVER");
 
         CubicCurve cable5 = lookup("#cable-5").query();
         assertNotNull(cable5);
@@ -712,6 +687,156 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         assertNotEquals(new ArrayList(), box2.getChildren());
         assertNull(lookup("#cable-1").query());
 
-        sleep(2000);
     }
+
+    @Test
+    public void testDeleteWhiteNoise() {
+
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#whiteNoiseMenuItem");
+        AnchorPane whiteNoise = lookup("#module-2").query();
+
+
+
+        // out vco2 --> fm vco1
+        clickOn(whiteNoise.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
+
+
+
+        clickOn(whiteNoise.lookup("#closeButton"));
+
+        // verif cable
+        cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+
+        //verif module
+
+        whiteNoise = lookup("#module-2").query();
+        assertNull(whiteNoise);
+
+        output = lookup("#module-1").query();
+        assertNotNull(output);
+
+
+        clickOn("#mute");
+
+    }
+
+    @Test
+    public void testDeleteMixer() {
+
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#mixerMenuItem");
+        AnchorPane mixer = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco1 = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco2 = lookup("#module-4").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco3 = lookup("#module-5").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco4 = lookup("#module-6").query();
+
+
+        // out vco1 --> in1 mixer
+        clickOn(vco1.lookup("#outPort"));
+        clickOn(mixer.lookup("#inPort1"));
+
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
+
+        // out vco2--> in2 mixer
+        clickOn(vco2.lookup("#outPort"));
+        clickOn(mixer.lookup("#inPort2"));
+
+
+        CubicCurve cable2 = lookup("#cable-2").query();
+        assertNotNull(cable2);
+        assertEquals(cable2.getId(), "cable-2");
+
+        // out vco3 --> in3 mixer
+        clickOn(vco3.lookup("#outPort"));
+        clickOn(mixer.lookup("#inPort3"));
+
+
+        CubicCurve cable3 = lookup("#cable-3").query();
+        assertNotNull(cable3);
+        assertEquals(cable3.getId(), "cable-3");
+
+        // out vco4 --> in4 mixer
+        clickOn(vco4.lookup("#outPort"));
+        clickOn(mixer.lookup("#inPort4"));
+
+
+        CubicCurve cable4 = lookup("#cable-4").query();
+        assertNotNull(cable4);
+        assertEquals(cable4.getId(), "cable-4");
+
+        // out mixer --> in output
+        clickOn(mixer.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+
+
+        CubicCurve cable5 = lookup("#cable-5").query();
+        assertNotNull(cable5);
+        assertEquals(cable5.getId(), "cable-5");
+
+        clickOn(mixer.lookup("#closeButton"));
+
+        // verif cable
+        cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+
+        cable1 = lookup("#cable-2").query();
+        assertNull(cable1);
+
+        cable1 = lookup("#cable-3").query();
+        assertNull(cable1);
+
+        cable1 = lookup("#cable-4").query();
+        assertNull(cable1);
+
+        cable1 = lookup("#cable-5").query();
+        assertNull(cable1);
+
+        //verif module
+
+        mixer = lookup("#module-2").query();
+        assertNull(mixer);
+
+        output = lookup("#module-1").query();
+        assertNotNull(output);
+
+        vco1 = lookup("#module-3").query();
+        assertNotNull(vco1);
+
+        vco2 = lookup("#module-4").query();
+        assertNotNull(vco2);
+
+        vco3 = lookup("#module-5").query();
+        assertNotNull(vco3);
+
+        vco4 = lookup("#module-6").query();
+        assertNotNull(vco4);
+
+
+
+        clickOn("#mute");
+
+    }
+
 }

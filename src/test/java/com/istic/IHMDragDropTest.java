@@ -106,7 +106,6 @@ public class IHMDragDropTest extends ApplicationTest {
 
         clickOn(output.lookup("#inPort"));
         clickOn(vco1.lookup("#outPort"));
-        clickOn("MEDIUMAQUAMARINE");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -142,7 +141,6 @@ public class IHMDragDropTest extends ApplicationTest {
 
         clickOn(output.lookup("#inPort"));
         clickOn(vco1.lookup("#outPort"));
-        clickOn("MEDIUMAQUAMARINE");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -185,7 +183,6 @@ public class IHMDragDropTest extends ApplicationTest {
 
         clickOn(oscilloscope.lookup("#inPort"));
         clickOn(vco.lookup("#outPort"));
-        clickOn("MEDIUMAQUAMARINE");
 
         StackPane box2 = lookup("#box2").query();
         StackPane box4 = lookup("#box4").query();
@@ -217,6 +214,67 @@ public class IHMDragDropTest extends ApplicationTest {
         assertEquals(box2.getChildren().get(0).getId(), "module-2");
 
         clickOn(vco.lookup("#sawRadio"));
+
+        clickOn("#mute");
+    }
+
+    /**
+     * Déplace le module Oscillo d'une box à une autre
+     * et vérifie que le module à bien changé de place
+     */
+    @Test
+    public void testDragDropMixer() {
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#mixerMenuItem");
+        AnchorPane mixer = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#replicatorMenuItem");
+        AnchorPane replicator = lookup("#module-3").query();
+
+        clickOn(mixer.lookup("#inPort1"));
+        clickOn(replicator.lookup("#outPort1"));
+        ;
+
+        clickOn(mixer.lookup("#inPort2"));
+        clickOn(replicator.lookup("#outPort2"));
+
+
+        clickOn(mixer.lookup("#inPort3"));
+        clickOn(replicator.lookup("#outPort3"));
+
+
+        clickOn(mixer.lookup("#outPort"));
+        clickOn(replicator.lookup("#inPort"));
+
+
+        StackPane box2 = lookup("#box2").query();
+        StackPane box3 = lookup("#box3").query();
+        StackPane box4 = lookup("#box4").query();
+
+        // Drag&Drop
+        drag(mixer, MouseButton.PRIMARY);
+        dropTo(box4);
+
+        // box2 should be empty
+        assertEquals(new ArrayList(), box2.getChildren());
+
+        // box 4 y'a un anchor pane avec l'id
+        assertNotNull(box4.lookup("#module-2"));
+        assertEquals(box4.getChildren().get(0).getId(), "module-2");
+
+
+
+        // Drag&Drop
+        drag(replicator, MouseButton.PRIMARY);
+        dropTo(box2);
+
+        // box3 should be empty
+        assertEquals(new ArrayList(), box3.getChildren());
+
+        // box 4 y'a un anchor pane avec l'id
+        assertNotNull(box2.lookup("#module-3"));
+        assertEquals(box2.getChildren().get(0).getId(), "module-3");
 
         clickOn("#mute");
     }

@@ -7,7 +7,6 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.FilterHighPass;
-import com.jsyn.unitgen.FilterLowPass;
 
 public class VCFHP extends Circuit {
 
@@ -26,23 +25,22 @@ public class VCFHP extends Circuit {
     /**
      * reglage fm, f0, resonance
      */
-    private ReglageVCFHP vcflp;
+    private ReglageVCFHP vcfhp;
 
     public VCFHP() {
 
         add(filterHighPass = new FilterHighPass());
-        add(vcflp = new ReglageVCFHP());
+        add(vcfhp = new ReglageVCFHP());
 
         addPortAlias(out = filterHighPass.getOutput(), "out");
         addPortAlias(in = filterHighPass.getInput(), "in");
 
-        vcflp.getF0().set(22);
 
-        vcflp.getOut().connect(filterHighPass.frequency);
+        vcfhp.getOut().connect(filterHighPass.frequency);
 
         portOutput = new PortOutput(out);
         portInput = new PortInput(in);
-        portFm = new PortFm(this.vcflp.getFm());
+        portFm = new PortFm(this.vcfhp.getFm());
 
     }
     public PortOutput getOutput() {
@@ -60,9 +58,12 @@ public class VCFHP extends Circuit {
     }
 
     public void setF0(double fo){
-        this.vcflp.getF0().set(fo);
+        this.vcfhp.getF0().set(fo);
 
     }
 
+    public double getFrequence(){
+        return this.vcfhp.getFrequence();
+    }
 
 }

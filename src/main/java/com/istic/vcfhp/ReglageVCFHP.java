@@ -47,6 +47,11 @@ public class ReglageVCFHP extends VariableRateMonoReader {
 
     }
 
+    public double getFrequence(){
+        return this.f0.get();
+    }
+
+
     public UnitInputPort getF0() {
         return f0;
     }
