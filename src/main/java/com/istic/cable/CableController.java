@@ -2,6 +2,8 @@ package com.istic.cable;
 
 import com.istic.modulesController.Controller;
 import com.istic.modulesController.ModuleController;
+import com.istic.port.Port;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
@@ -9,6 +11,7 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class CableController {
@@ -32,11 +35,11 @@ public class CableController {
     ModuleController mc1;
     ModuleController mc2;
 
-    public CableController(Controller controller,AnchorPane pane, Cable cable, Color color) {
+    public CableController(Controller controller, AnchorPane pane, Cable cable, Color color) {
         this.cable = cable;
         this.pane = pane;
         this.color = color;
-        this.controller=controller;
+        this.controller = controller;
 
 
     }
@@ -46,21 +49,23 @@ public class CableController {
         jsonModuleObject = new JSONObject();
         jsonModuleObject.put("type", this.getClass().getSimpleName());
         jsonModuleObject.put("color", color.toString());
-        //System.out.println(color.);
+
+        String portOne = "";
+        String portTwo = "";
+        //recuperer un port
+        //mc1.getAllPorts()
         jsonModuleObject.put("positionM1", mc1.getPosition(this.controller.getStacks()));
         jsonModuleObject.put("positionM2", mc2.getPosition(this.controller.getStacks()));
-        jsonModuleObject.put("portM1", getCable().portOne.getClass().getSimpleName());
-        jsonModuleObject.put("portM2", getCable().portTwo.getClass().getSimpleName());
-
-
-
+        jsonModuleObject.put("portM1", cable.portOne.getClass().getSimpleName());
+        jsonModuleObject.put("portM2", cable.portTwo.getClass().getSimpleName());
 
 
     }
 
-    public void restore(JSONObject jsonObjectModule) {
-        setJsonModuleObject(jsonObjectModule);
-        this.color = (Color) jsonObjectModule.get("color");
+    public void restore(JSONObject jsonObjectCable) {
+        setJsonModuleObject(jsonObjectCable);
+        this.color=Color.BLUE;
+        //this.color = (Color) jsonObjectCable.get("color");
 
     }
 

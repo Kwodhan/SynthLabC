@@ -85,6 +85,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         if (!this.lineOut.getPortInput().isConnected()) {
             super.getLayout(inPort);
             super.connect();
+
         }
     }
 

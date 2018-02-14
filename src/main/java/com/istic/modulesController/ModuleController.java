@@ -2,8 +2,11 @@ package com.istic.modulesController;
 
 import com.istic.cable.CableController;
 import com.istic.port.Port;
+import javafx.event.Event;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import org.json.simple.JSONObject;
@@ -113,6 +116,7 @@ public abstract class ModuleController implements Serializable {
      * @param port the port clicked on the UI
      */
     public void getLayout(ImageView port) {
+
         Bounds boundsInScene = port.localToScene(port.getBoundsInLocal());
         x = (boundsInScene.getMaxX() + boundsInScene.getMinX()) / 2.0;
         y = (boundsInScene.getMaxY() + boundsInScene.getMinY()) / 2.0;
@@ -140,7 +144,43 @@ public abstract class ModuleController implements Serializable {
             }
         }
     }
+    public ImageView updateXandY(String port) {
 
+        for (Map.Entry<ImageView, Port> entry : getAllPorts().entrySet()) {
+            if(entry.getValue().getClass().getSimpleName().equals(port)){
+                   getLayout(entry.getKey());
+                Bounds boundsInScene = entry.getKey().localToScene(entry.getKey().getBoundsInLocal());
+                System.out.println("x image :"+boundsInScene);
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public ImageView launchConnection(String port) {
+
+        for (Map.Entry<ImageView, Port> entry : getAllPorts().entrySet()) {
+            if(entry.getValue().getClass().getSimpleName().equals(port)){
+
+                launching(entry.getKey());
+
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+    
+    public void launching(ImageView imageView){
+        Event.fireEvent(imageView, new MouseEvent(MouseEvent.MOUSE_CLICKED,
+                imageView.getX(), imageView.getY(),
+                imageView.getX(), imageView.getY(),
+                MouseButton.PRIMARY, 1,
+                true, true,
+                true, true,
+                true, true,
+                true, true, true,
+                true, null));
+    }
     // Setters & Getters
 
     /**
@@ -157,9 +197,11 @@ public abstract class ModuleController implements Serializable {
 
     /**
      * recupere les ports du module avec le composant javafx associé
-     * @return
+     *
+     * @return liste des ports, images
      */
     public abstract Map<ImageView, Port> getAllPorts();
+
 
     public double getX() {
         return x;
@@ -178,7 +220,6 @@ public abstract class ModuleController implements Serializable {
         jsonCableObject.put("position", getPosition(this.controller.getStacks()));
 
 
-
     }
 
     public JSONObject getJsonCableObject() {
@@ -192,11 +233,10 @@ public abstract class ModuleController implements Serializable {
 
     /**
      * Charge une configuration du plan de monatge depuis un objet json
+     *
      * @param jsonObjectModule
      */
     public abstract void restore(JSONObject jsonObjectModule);
 
-    public void setCurrentPort(int currentPort) {
-        this.currentPort = currentPort;
-    }
+
 }

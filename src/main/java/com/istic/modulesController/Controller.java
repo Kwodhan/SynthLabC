@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 import com.istic.cable.Cable;
 import com.istic.cable.CableController;
+import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
 import com.istic.util.Files;
 import com.jsyn.JSyn;
@@ -68,7 +69,7 @@ public class Controller implements Initializable {
     /**
      * valeur incrementale pour chaque id
      */
-    private Integer cableId = 1;
+    public Integer cableId = 1;
     private Integer moduleId = 1;
 
     private DragAndDrop dragAndDrop;
@@ -161,6 +162,9 @@ public class Controller implements Initializable {
             dropAll();
             files = new Files(file, this);
             files.open();
+        }
+        for(ModuleController moduleController:moduleControllers){
+            moduleController.updateCablesPosition();
         }
     }
 
@@ -532,5 +536,11 @@ public class Controller implements Initializable {
 		return cableColor;
 	}
 
+    public AnchorPane getPane() {
+        return pane;
+    }
 
+    public void setPane(AnchorPane pane) {
+        this.pane = pane;
+    }
 }
