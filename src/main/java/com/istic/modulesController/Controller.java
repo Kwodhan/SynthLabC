@@ -255,13 +255,14 @@ public class Controller implements Initializable {
      *
      * @throws IOException si ajout impossible
      */
-    public VCOModuleController addVCO() throws IOException {
+    public VCOModuleController addVco() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/vco.fxml"));
         addMod(root);
         VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
         this.moduleControllers.add(vcoModuleController);
         vcoModuleController.init(this);
+        vcoModuleController.setRoot(root);
         return vcoModuleController;
     }
 
@@ -280,6 +281,7 @@ public class Controller implements Initializable {
         OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
         this.moduleControllers.add(outputModuleController);
         outputModuleController.init(this);
+        outputModuleController.setRoot(root);
         return outputModuleController;
     }
 
@@ -297,6 +299,7 @@ public class Controller implements Initializable {
         MIXERModuleController mixerModuleController = (MIXERModuleController) root.getUserData();
         this.moduleControllers.add(mixerModuleController);
         mixerModuleController.init(this);
+        mixerModuleController.setRoot(root);
         return mixerModuleController;
     }
 
@@ -314,6 +317,7 @@ public class Controller implements Initializable {
         KBModuleController kbModuleController = (KBModuleController) root.getUserData();
         this.moduleControllers.add(kbModuleController);
         kbModuleController.init(this);
+        kbModuleController.setRoot(root);
         return kbModuleController;
     }
     /**
@@ -329,6 +333,7 @@ public class Controller implements Initializable {
         EGModuleController egModuleController = (EGModuleController) root.getUserData();
         this.moduleControllers.add(egModuleController);
         egModuleController.init(this);
+        egModuleController.setRoot(root);
         return egModuleController;
     }
 
@@ -345,6 +350,7 @@ public class Controller implements Initializable {
         this.moduleControllers.add(oscilloscopeModuleController);
         oscilloscopeModuleController.init(this);
         addMod(root);
+        oscilloscopeModuleController.setRoot(root);
         return oscilloscopeModuleController;
     }
 
@@ -361,6 +367,7 @@ public class Controller implements Initializable {
         REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root.getUserData();
         this.moduleControllers.add(replicatorModuleController);
         replicatorModuleController.init(this);
+        replicatorModuleController.setRoot(root);
         return replicatorModuleController;
     }
 
@@ -377,6 +384,7 @@ public class Controller implements Initializable {
         SEQUENCERModuleController seqModuleController = (SEQUENCERModuleController) root.getUserData();
         this.moduleControllers.add(seqModuleController);
         seqModuleController.init(this);
+        seqModuleController.setRoot(root);
         return seqModuleController;
     }
 
@@ -393,6 +401,7 @@ public class Controller implements Initializable {
         VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
         this.moduleControllers.add(vcaModuleController);
         vcaModuleController.init(this);
+        vcaModuleController.setRoot(root);
         return vcaModuleController;
     }
 
@@ -408,6 +417,7 @@ public class Controller implements Initializable {
         VCFLPModuleController vcflpModuleController = (VCFLPModuleController) root.getUserData();
         this.moduleControllers.add(vcflpModuleController);
         vcflpModuleController.init(this);
+        vcflpModuleController.setRoot(root);
         return vcflpModuleController;
     }
 
@@ -423,6 +433,7 @@ public class Controller implements Initializable {
         VCFHPModuleController vcfhpModuleController = (VCFHPModuleController) root.getUserData();
         this.moduleControllers.add(vcfhpModuleController);
         vcfhpModuleController.init(this);
+        vcfhpModuleController.setRoot(root);
         return vcfhpModuleController;
     }
 
@@ -438,6 +449,7 @@ public class Controller implements Initializable {
         WHITENOISEModuleController whiteModuleController = (WHITENOISEModuleController) root.getUserData();
         this.moduleControllers.add(whiteModuleController);
         whiteModuleController.init(this);
+        whiteModuleController.setRoot(root);
         return whiteModuleController;
     }
 
@@ -484,6 +496,21 @@ public class Controller implements Initializable {
                 this.dragAndDrop.dragNode(root);
                 return;
             }
+        }
+    }
+
+    public void addMod(int[] positions, ArrayList<ModuleController> moduleControllers) {
+        int i=0;
+        for (StackPane s : stacks) {
+            s.getChildren().clear();
+        }
+        for (ModuleController moduleController : moduleControllers) {
+
+            moduleController.getRoot().setId("module-" + moduleId++);
+            stacks[positions[i]].getChildren().clear();
+            stacks[positions[i]].getChildren().add(moduleController.getRoot());
+            this.dragAndDrop.dragNode(moduleController.getRoot());
+            i++;
         }
     }
 
@@ -551,4 +578,6 @@ public class Controller implements Initializable {
     public void setPane(AnchorPane pane) {
         this.pane = pane;
     }
+
+
 }

@@ -60,48 +60,81 @@ public class Files {
      * @throws IOException In and out exceptions
      */
     private void openModules(JSONArray jsonArrayModules) throws IOException {
-
+        ArrayList<ModuleController>moduleControllers=new ArrayList<>();
+        int[] positions=new int[12];
+        int i=0;
         //Adding the modules to the controller and UI
         for (Object module : jsonArrayModules) {
             JSONObject jsonObjectModule = (JSONObject) module;
             switch (jsonObjectModule.get("type").toString()) {
                 case "OUTPUTModuleController":
-                    this.controller.addOutput().restore(jsonObjectModule);
+                    moduleControllers.add(this.controller.addOutput());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;
                     break;
                 case "EGModuleController":
-                    this.controller.addEG().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addEG());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "MIXERModuleController":
-                    this.controller.addMixer().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addMixer());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "OSCILLOSCOPEModuleController":
-                    this.controller.addOscilloscope().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addOscilloscope());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "REPLICATORModuleController":
-                    this.controller.addReplicator().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addReplicator());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "SEQUENCERModuleController":
-                    this.controller.addSequencer().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addSequencer());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "VCAModuleController":
-                    this.controller.addVca().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addVca());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "VCFHPModuleController":
-                    this.controller.addVcfHp().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addVcfHp());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "VCFLPModuleController":
-                    this.controller.addVcfLp().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addVcfLp());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "VCOModuleController":
-                    this.controller.addVCO().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addVco());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
                 case "WHITENOISEModuleController":
-                    this.controller.addWhiteNoise().restore(jsonObjectModule);
-                    break;
+                    moduleControllers.add(this.controller.addWhiteNoise());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
+
+                case "KBModuleController":
+                    moduleControllers.add(this.controller.addKeyBoard());
+                    moduleControllers.get(i).restore(jsonObjectModule);
+                    positions[i]=( (Long)jsonObjectModule.get("position")).intValue();
+                    i++;                    break;
 
 
             }
         }
+        //
+         this.controller.addMod(positions,moduleControllers);
     }
 
     /**

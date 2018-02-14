@@ -4,6 +4,7 @@ import com.istic.cable.CableController;
 import com.istic.port.Port;
 import javafx.event.Event;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -18,7 +19,7 @@ import java.util.Map;
 public abstract class ModuleController implements Serializable {
 
     protected Controller controller;
-
+    Node root;
     /**
      * valeur de la position du port
      */
@@ -238,5 +239,11 @@ public abstract class ModuleController implements Serializable {
      */
     public abstract void restore(JSONObject jsonObjectModule);
 
+    public Node getRoot() {
+        return root;
+    }
 
+    public void setRoot(Node root) {
+        this.root = root;
+    }
 }

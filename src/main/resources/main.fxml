@@ -36,7 +36,7 @@
                 <MenuItem fx:id="vcaMenuItem" mnemonicParsing="false" onAction="#addVca" text="VCA" />
                 <MenuItem fx:id="vcfLpMenuItem" mnemonicParsing="false" onAction="#addVcfLp" text="VCF LP" />
                 <MenuItem fx:id="vcfHpMenuItem" mnemonicParsing="false" onAction="#addVcfHp" text="VCF HP" />
-                <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVCO" text="VCO" />
+                <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVco" text="VCO" />
                 <MenuItem fx:id="whiteNoiseMenuItem" mnemonicParsing="false" onAction="#addWhiteNoise" text="White Noise" />
                 <MenuItem fx:id="keyBoardMenuItem" mnemonicParsing="false" onAction="#addKeyBoard" text="KeyBoard" />
               </items>
