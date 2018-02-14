@@ -135,7 +135,7 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         this.controller.getSynth().add(vcflp);
         frequencySlider.setValue(frequencySlider.getMax());
 
-        this.vcflp.setF0(frequencySlider.getValue());
+        this.vcflp.setF0(Math.pow(2,frequencySlider.getValue()));
         this.vcflp.setResonance(resonanceSlider.getValue());
 
 
