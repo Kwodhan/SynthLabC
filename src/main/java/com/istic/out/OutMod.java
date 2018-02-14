@@ -20,8 +20,6 @@ public class OutMod extends LineOut {
 
 	private boolean record = false;
 
-	private boolean locationSelected = false;
-
 
 	/**
 	 * 0 la sortie audio est null | 1 on entend la sortie audio
@@ -114,11 +112,4 @@ public class OutMod extends LineOut {
 		this.record = record;
 	}
 
-	public boolean isLocationSelected() {
-		return locationSelected;
-	}
-
-	public void setLocationSelected(boolean locationSelected) {
-		this.locationSelected = locationSelected;
-	}
 }
