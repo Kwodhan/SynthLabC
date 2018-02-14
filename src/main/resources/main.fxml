@@ -18,7 +18,7 @@
             <MenuItem fx:id="openConfigMenuItem" mnemonicParsing="false" onAction="#openConfig" text="Open Configuration" />
             <MenuItem fx:id="saveConfigMenuItem" mnemonicParsing="false" onAction="#saveConfig" text="Save Configuration" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="saveToMP3MenuItem" mnemonicParsing="false" onAction="#saveToMP3" text="Save to MP3" />
+            <MenuItem fx:id="saveToMP3MenuItem" mnemonicParsing="false" onAction="#saveSound" text="Save to MP3" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Close" />
           </items>

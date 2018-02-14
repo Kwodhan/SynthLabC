@@ -11,14 +11,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
@@ -26,7 +28,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -185,20 +186,25 @@ public class Controller implements Initializable {
 	/**
 	 * Save as MP3 file
 	 */
-	public File saveToMP3(){
+	public Pair<File, String> saveSound(){
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Sound File");
 
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
+        FileChooser.ExtensionFilter extFiltermp3 = new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3");
         fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.getExtensionFilters().add(extFiltermp3);
 
         //Show save file dialog
         File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
-        return dest;
-	}
-
+        //System.out.println("extension : " +fileChooser.getSelectedExtensionFilter().getExtensions());
+        String ext = fileChooser.getSelectedExtensionFilter().getExtensions().get(0);
+        System.out.println(ext);
+        Pair<File, String> info_dest = new Pair<>(dest, ext);
+        return info_dest;
+    }
 	/**
 	 * Change le thème en coral
 	 */
