@@ -30,10 +30,13 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     public Button closeButton;
     @FXML
     ToggleButton mute;
+    @FXML
+    ToggleButton recordButton;
+
     private OutMod lineOut;
 
     private File dest;
-    private File source = new File("./src/main/resources/sound/savedSound.wav");
+
 
     @FXML
     protected Slider attenuationSlider;
@@ -112,6 +115,8 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
                 this.lineOut.setWriter(new WaveFileWriter(new File(this.dest.getPath())));
             } else {
                 this.lineOut.setRecord(false);
+                this.recordButton.setSelected(false);
+
             }
         } else { // deuxieme click
             this.lineOut.getWriter().close();
