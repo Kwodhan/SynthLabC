@@ -13,8 +13,8 @@ public class Constraints {
 
     /**
      *
-     * @param value
-     * @return
+     * @param value frequence à vérifier
+     * @return frequence vérifiée
      */
     public static double verifFrequenceMax(double value) {
         if(value > FREQUENCE_MAX) {

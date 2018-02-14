@@ -99,6 +99,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     /**
      * Gère la fonctionnalité "Muet"
      * Coupe le son
+     * @throws IOException in/out erreur
      */
     public void toggleRecord() throws IOException {
         // true if first click , false else
@@ -162,8 +163,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {

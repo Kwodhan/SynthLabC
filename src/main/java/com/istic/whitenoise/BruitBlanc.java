@@ -19,7 +19,7 @@ public class BruitBlanc extends WhiteNoise {
 
 	/**
 	 * getter pour le port de sortie
-	 * @return
+	 * @return port de sortie
 	 */
 	public PortOutput getOutputPort(){
 		return  out;
