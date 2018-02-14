@@ -8,7 +8,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ public abstract class ModuleController implements Serializable {
 
     protected int currentPort = -1;
 
-    JSONObject jsonModuleObject;
+    JSONObject jsonCableObject;
 
     /**
      * Lie le controller du module au controller général
@@ -174,26 +173,21 @@ public abstract class ModuleController implements Serializable {
      * Sauvegarde l'etat courant du module dans un objet  json
      */
     public void serialize() {
-        jsonModuleObject = new JSONObject();
-        jsonModuleObject.put("type", this.getClass().getSimpleName());
-        jsonModuleObject.put("position", getPosition(this.controller.getStacks()));
+        jsonCableObject = new JSONObject();
+        jsonCableObject.put("type", this.getClass().getSimpleName());
+        jsonCableObject.put("position", getPosition(this.controller.getStacks()));
+
+
+
     }
 
-    /**
-     * getter pour l'objet json de sauvegarde
-     * @return
-     */
-    public JSONObject getJsonModuleObject() {
-        return jsonModuleObject;
+    public JSONObject getJsonCableObject() {
+        return jsonCableObject;
     }
 
-    /**
-     * setter pour l'objet json de sauvegarde
-     * @param jsonModuleObject
-     */
-    public void setJsonModuleObject(JSONObject jsonModuleObject) {
+    public void setJsonCableObject(JSONObject jsonCableObject) {
 
-        this.jsonModuleObject = jsonModuleObject;
+        this.jsonCableObject = jsonCableObject;
     }
 
     /**
@@ -202,4 +196,7 @@ public abstract class ModuleController implements Serializable {
      */
     public abstract void restore(JSONObject jsonObjectModule);
 
+    public void setCurrentPort(int currentPort) {
+        this.currentPort = currentPort;
+    }
 }

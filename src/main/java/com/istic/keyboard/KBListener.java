@@ -3,16 +3,18 @@ import javafx.scene.Scene;
 
 import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode; 
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 
 public class KBListener implements EventHandler<KeyEvent> {
 	ReglageKB reglageKB;
-	public KBListener(ReglageKB rkb) {
-		this.reglageKB= rkb;
+	public KBListener()
+	{
+		this.reglageKB=new ReglageKB();
 	}
-	public void add_listener (Scene sc) {
-		sc.setOnKeyPressed(this);
-		sc.setOnKeyReleased(this);
+	public void add_listener (AnchorPane pane) {
+        pane.setOnKeyPressed(this);
+        pane.setOnKeyReleased(this);
 	}
 	@Override
 	public void handle(KeyEvent event) {
@@ -63,5 +65,12 @@ public class KBListener implements EventHandler<KeyEvent> {
 		}
 	}
 
+    public ReglageKB getReglageKB() {
+        return reglageKB;
+    }
+
+    public void setReglageKB(ReglageKB reglageKB) {
+        this.reglageKB = reglageKB;
+    }
 }
  

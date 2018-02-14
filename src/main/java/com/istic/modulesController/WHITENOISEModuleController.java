@@ -2,7 +2,6 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import com.istic.port.PortOutput;
-import com.istic.vco.VCO;
 import com.istic.whitenoise.BruitBlanc;
 
 import javafx.fxml.FXML;
@@ -79,7 +78,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-    setJsonModuleObject(jsonObjectModule);
+    setJsonCableObject(jsonObjectModule);
     }
 
     /**
