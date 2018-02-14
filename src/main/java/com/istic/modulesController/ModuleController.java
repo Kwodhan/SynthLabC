@@ -178,9 +178,7 @@ public abstract class ModuleController implements Serializable {
         jsonCableObject.put("position", getPosition(this.controller.getStacks()));
 
 
-        jsonModuleObject = new JSONObject();
-        jsonModuleObject.put("type", this.getClass().getSimpleName());
-        jsonModuleObject.put("position", getPosition(this.controller.getStacks()));
+
     }
 
     public JSONObject getJsonCableObject() {

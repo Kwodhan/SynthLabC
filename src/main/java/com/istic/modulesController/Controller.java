@@ -6,6 +6,7 @@ import com.istic.util.DragAndDrop;
 import com.istic.util.Files;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -433,15 +434,17 @@ public class Controller implements Initializable {
 
 	/**
 	 * Ajout d'un cable
-	 * @param moduleController controleur du module qu'il faut connecter
-	 */
-	public void connect(ModuleController moduleController) {
+     * @param moduleController controleur du module qu'il faut connecter
+     */
+	public CableController connect(ModuleController moduleController) {
 		Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
+        CableController cableController = null;
 		if (cable.connect()) {
-			CableController cableController = new CableController(pane, cable, getCableColor());
+			cableController = new CableController(this,pane, cable, getCableColor());
 			cableController.drawCable(this.temporaryCableModuleController, moduleController,cableId++);
 			this.cables.add(cableController);
 		}
+		return cableController;
 	}
 
     /**
