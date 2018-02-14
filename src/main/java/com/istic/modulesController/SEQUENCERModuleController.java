@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -146,10 +145,8 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
-    @FXML // A decommenter et adapter quand le model sequencer sera fait !
+    @FXML
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
         	Port port1 = sequenceur.getOutputPort();

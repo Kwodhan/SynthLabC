@@ -36,9 +36,9 @@ public abstract class ModuleController implements Serializable {
     }
 
     /**
-     * Get the position of the module on the UI
-     *
+     *  Get the position of the module on the UI
      * @param stacks the positions on the UI
+     * @return position du module
      */
     public int getPosition(StackPane[] stacks) {
         int position = -1, current = -1;
@@ -157,7 +157,7 @@ public abstract class ModuleController implements Serializable {
 
     /**
      * recupere les ports du module avec le composant javafx associé
-     * @return
+     * @return les ports
      */
     public abstract Map<ImageView, Port> getAllPorts();
 
@@ -191,8 +191,8 @@ public abstract class ModuleController implements Serializable {
     }
 
     /**
-     * Charge une configuration du plan de monatge depuis un objet json
-     * @param jsonObjectModule
+     * Charge une configuration du plan de montage depuis un objet json
+     * @param jsonObjectModule configuration à charger
      */
     public abstract void restore(JSONObject jsonObjectModule);
 

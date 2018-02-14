@@ -1,22 +1,11 @@
 package com.istic.sequencer;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.logging.Level;
-
 import com.istic.Constraints;
 import com.istic.port.PortGate;
-import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
-import com.jsyn.JSyn;
-import com.jsyn.Synthesizer;
-import com.jsyn.ports.UnitInputPort;
-import com.jsyn.ports.UnitOutputPort;
-import com.jsyn.ports.UnitPort;
-import com.jsyn.unitgen.LineOut;
-import com.jsyn.unitgen.SineOscillator;
-import com.jsyn.unitgen.SquareOscillator;
 import com.jsyn.unitgen.UnitGate;
+
+import java.util.Arrays;
 
 /**
  * Classe sequenceur  avec 8 pas
@@ -46,15 +35,15 @@ public class Sequenceur extends UnitGate {
 
 	/**
 	 * retourne le output du sequenceur 
-	 * @return
+	 * @return port de sortie
 	 */
 	public PortOutput getOutputPort() {
 		return out;
 	}
 
 	/**
-	 * retourne le inpput gate
-	 * @return
+	 * retourne le input gate
+	 * @return port gate
 	 */
 	public PortGate getGatePort() {
 		return gate;
@@ -62,8 +51,8 @@ public class Sequenceur extends UnitGate {
 
 	/**
 	 * Change la valeur du pas (ind+1) par d
-	 * @param d
-	 * @param ind
+	 * @param d valeur remplacement
+	 * @param ind valeur remplacée
 	 */
 	public void setValue(double d, int ind) {
 		values[ind] = d;
@@ -81,7 +70,7 @@ public class Sequenceur extends UnitGate {
 
 	/**
 	 * passer au pas suivant si front montant
-	 * @param v
+	 * @param v voltage
 	 */
 	private void nextStep(double v) {
 		if (v > threshold) {
