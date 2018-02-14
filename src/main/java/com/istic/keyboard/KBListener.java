@@ -8,9 +8,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class KBListener implements EventHandler<KeyEvent> {
 	ReglageKB reglageKB;
-	public KBListener()
+	public KBListener(ReglageKB reglageKB)
 	{
-		this.reglageKB=new ReglageKB();
+		this.reglageKB=reglageKB;
 	}
 	public void add_listener (AnchorPane pane) {
         pane.setOnKeyPressed(this);
@@ -38,6 +38,8 @@ public class KBListener implements EventHandler<KeyEvent> {
 
 		   case X:   reglageKB.onpressOctaveUP (); break;
 		   case W:   reglageKB.onpressOctaveDOWN (); break;
+		   default : reglageKB.ignore_key();break;
+
             }		
 		}
 		else if ( event.getEventType() == KeyEvent.KEY_RELEASED) {
@@ -60,9 +62,11 @@ public class KBListener implements EventHandler<KeyEvent> {
 
 			   case X:   reglageKB.onreleaseOctaveUP (); break;
 			   case W:   reglageKB.onreleaseOctaveDOWN (); break;
+			   default : reglageKB.ignore_key();break;
 	            }
 			
 		}
+		event.consume();
 	}
 
     public ReglageKB getReglageKB() {

@@ -8,6 +8,8 @@ import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.SineOscillator;
 import com.jsyn.unitgen.UnitGenerator;
 
+import javafx.scene.control.TextArea;
+
 public class ReglageKB extends UnitGenerator {
     int octave_min = 0;
     int octave = 0;
@@ -23,6 +25,7 @@ public class ReglageKB extends UnitGenerator {
 
     private UnitGatePort portGate;
     private UnitOutputPort portCv;
+	private TextArea displayArea;
 
     public UnitGatePort getPortGate() {
         return portGate;
@@ -32,7 +35,8 @@ public class ReglageKB extends UnitGenerator {
         return portCv;
     }
 
-    public ReglageKB() {
+    public ReglageKB(TextArea displayArea) {
+    	this.displayArea= displayArea;
         for (boolean n : notes) {
             n = false;
         }
@@ -59,12 +63,14 @@ public class ReglageKB extends UnitGenerator {
 //			oscillators[i].start();
             }
         }
-        return this.print_frequencies();
+        
+        this.displayArea.setText(this.print_frequencies());
+        return "";
 
     }
 
     public static void main(String[] args) {
-        ReglageKB rkb = new ReglageKB();
+        ReglageKB rkb = new ReglageKB(null);
 
         Synthesizer synth = JSyn.createSynthesizer();
         SineOscillator sineOsc = new SineOscillator(440);
@@ -120,6 +126,7 @@ public class ReglageKB extends UnitGenerator {
             this.compute_frequency(note);
             this.update_ouput_signal();
         } else {
+            this.update_ouput_signal();
 
         }
     }
@@ -130,6 +137,7 @@ public class ReglageKB extends UnitGenerator {
             this.notes[note] = false;
             this.update_ouput_signal();
         } else {
+            this.update_ouput_signal();
 
         }
     }
@@ -263,6 +271,10 @@ public class ReglageKB extends UnitGenerator {
         // TODO Auto-generated method stub
 
     }
+
+	public void ignore_key() {
+this.update_ouput_signal();		
+	}
 
 
 }
