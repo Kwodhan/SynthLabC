@@ -2,7 +2,6 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import com.istic.sequencer.Sequence;
-import com.istic.whitenoise.BruitBlanc;
 import javafx.scene.control.Slider;
 
 import javafx.fxml.FXML;
@@ -17,8 +16,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import javax.swing.plaf.SliderUI;
 
 public class SEQUENCERModuleController extends ModuleController implements Initializable {
 
@@ -130,14 +127,14 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     public void serialize() {
     	super.serialize();
     	for (int i = 0; i<sliders.length;i++){
-    		jsonModuleObject.put("sliderseq"+(i+1), sliders[i].getValue());
+    		jsonCableObject.put("sliderseq"+(i+1), sliders[i].getValue());
     	}
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonModuleObject(jsonObjectModule);
+        setJsonCableObject(jsonObjectModule);
         double val;
     	for (int i = 0; i<8;i++){
     		val = (double) jsonObjectModule.get("sliderseq"+(i+1));

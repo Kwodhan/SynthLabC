@@ -2,7 +2,6 @@ package com.istic.modulesController;
 
 
 import com.istic.port.Port;
-import com.istic.port.PortOutput;
 import com.istic.vco.VCO;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -167,17 +166,17 @@ public class VCOModuleController extends ModuleController implements Initializab
     @Override
     public void serialize() {
     	super.serialize();
-    	jsonModuleObject.put("frequencySlider", frequencySlider.getValue() );
-    	jsonModuleObject.put("frequencyFineSlider", frequencyFineSlider.getValue());
-    	jsonModuleObject.put("squareRadio", squareRadio.isSelected());
-    	jsonModuleObject.put("sawRadio", sawRadio.isSelected());
-    	jsonModuleObject.put("triangleRadio", triangleRadio.isSelected());
+    	jsonCableObject.put("frequencySlider", frequencySlider.getValue() );
+    	jsonCableObject.put("frequencyFineSlider", frequencyFineSlider.getValue());
+    	jsonCableObject.put("squareRadio", squareRadio.isSelected());
+    	jsonCableObject.put("sawRadio", sawRadio.isSelected());
+    	jsonCableObject.put("triangleRadio", triangleRadio.isSelected());
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonModuleObject(jsonObjectModule);
+        setJsonCableObject(jsonObjectModule);
         double frequencySlider_ = (double) jsonObjectModule.get("frequencySlider");
         double frequencyFineSlider_ = (double) jsonObjectModule.get("frequencyFineSlider");
         boolean squareRadio_ = (boolean) jsonObjectModule.get("squareRadio");

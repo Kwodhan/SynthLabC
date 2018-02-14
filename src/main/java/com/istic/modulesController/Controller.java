@@ -401,8 +401,9 @@ public class Controller implements Initializable {
      *
      * @param moduleController controleur du module qu'il faut connecter
      */
-    public void connect(ModuleController moduleController) {
+    public CableController connect(ModuleController moduleController) {
         Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(), moduleController.getCurrentPort());
+        CableController cableController = null;
         if (cable.connect()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Color choice");
@@ -424,9 +425,8 @@ public class Controller implements Initializable {
             alert.getButtonTypes().add(buttonTypeCancel);
 
             Optional<ButtonType> result = alert.showAndWait();
-            CableController cableController = null;
             if (!result.get().getText().equals(buttonTypeCancel.getText())) {
-                cableController = new CableController(pane, cable, Color.valueOf(result.get().getText()));
+                cableController = new CableController(this,pane, cable, Color.valueOf(result.get().getText()));
             }
             if (cableController != null) {
                 cableController.drawCable(this.temporaryCableModuleController, moduleController, cableId++);
@@ -437,6 +437,8 @@ public class Controller implements Initializable {
             }
 
         }
+        cableController.serialize();
+        return cableController;
     }
 
     /**
