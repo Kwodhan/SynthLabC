@@ -234,7 +234,7 @@ public class IHMDragDropTest extends ApplicationTest {
 
         clickOn(mixer.lookup("#inPort1"));
         clickOn(replicator.lookup("#outPort1"));
-        ;
+
 
         clickOn(mixer.lookup("#inPort2"));
         clickOn(replicator.lookup("#outPort2"));
@@ -252,29 +252,31 @@ public class IHMDragDropTest extends ApplicationTest {
         StackPane box3 = lookup("#box3").query();
         StackPane box4 = lookup("#box4").query();
 
-        // Drag&Drop
-        drag(mixer, MouseButton.PRIMARY);
-        dropTo(box4);
-
-        // box2 should be empty
-        assertEquals(new ArrayList(), box2.getChildren());
-
-        // box 4 y'a un anchor pane avec l'id
-        assertNotNull(box4.lookup("#module-2"));
-        assertEquals(box4.getChildren().get(0).getId(), "module-2");
-
-
 
         // Drag&Drop
         drag(replicator, MouseButton.PRIMARY);
-        dropTo(box2);
+        dropTo(box4);
 
         // box3 should be empty
         assertEquals(new ArrayList(), box3.getChildren());
 
         // box 4 y'a un anchor pane avec l'id
-        assertNotNull(box2.lookup("#module-3"));
-        assertEquals(box2.getChildren().get(0).getId(), "module-3");
+        assertNotNull(box4.lookup("#module-3"));
+        assertEquals(box4.getChildren().get(0).getId(), "module-3");
+        // Drag&Drop
+        drag(mixer, MouseButton.PRIMARY);
+        dropTo(box3);
+
+        // box2 should be empty
+        assertEquals(new ArrayList(), box2.getChildren());
+
+        // box 4 y'a un anchor pane avec l'id
+        assertNotNull(box3.lookup("#module-2"));
+        assertEquals(box3.getChildren().get(0).getId(), "module-2");
+
+
+
+
 
         clickOn("#mute");
     }
