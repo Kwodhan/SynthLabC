@@ -61,10 +61,6 @@ public class Oscilloscope {
         scope.start();
     }
 
-    public void stop() {
-        scope.stop();
-    }
-
     public PortOutput getOutput() {
         return portOutput;
     }

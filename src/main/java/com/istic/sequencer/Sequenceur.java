@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Level;
 
+import com.istic.Constraints;
 import com.istic.port.PortGate;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
@@ -74,7 +75,7 @@ public class Sequenceur extends UnitGate {
 		double[] outputs = output.getValues();
 		for (int i = start; i < limit; i++) {
 			nextStep(inputs[i]);
-			outputs[i] = inputs[i] * values[step];
+			outputs[i] = Constraints.verifAmp((inputs[i] * values[step])*5)/5;
 		}
 	}
 

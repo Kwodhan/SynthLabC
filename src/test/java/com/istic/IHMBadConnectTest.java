@@ -142,6 +142,14 @@ public class IHMBadConnectTest extends ApplicationTest {
         cable1 = lookup("#cable-1").query();
         assertNull(cable1);
 
+        // `gate` du EG est reliée à `vca` du Sortie ;
+        clickOn(vca.lookup("#inPort"));
+        clickOn(eg.lookup("#gatePort"));
+
+
+        cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+
 
         // `gate` du EG est reliée à `out` du vca ;
         clickOn(eg.lookup("#gatePort"));
