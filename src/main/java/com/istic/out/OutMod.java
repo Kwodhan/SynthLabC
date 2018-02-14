@@ -12,33 +12,32 @@ import java.io.IOException;
  */
 public class OutMod extends LineOut {
 	/**
-	 * permet d'eviter la saturation
+	 * Permet d'eviter la saturation
 	 */
 	private double attenuation = 0.;
 
+	/**
+	 * Permet d'enregistrer le son
+	 */
 	private WaveFileWriter writer;
 
+	/**
+	 * true : entrain d'enregister | false : n'est pas entrain d'enregister
+	 */
 	private boolean record = false;
 
-
 	/**
-	 * 0 la sortie audio est null | 1 on entend la sortie audio
+	 * 0 : la sortie audio est null | 1 : on entend la sortie audio
 	 */
 	private int mute = 1;
 
 	/**
-	 * entrée du signal audio
+	 * Port d'entrée
 	 */
-	private PortInput portInput;
+	private final PortInput portInput;
 
 	public OutMod() {
 		portInput =  new PortInput(this.getInput());
-//		try {
-//			writer = new WaveFileWriter(new File("./src/main/resources/sound/savedSound.wav"));
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-
 	}
 
     /**
@@ -48,11 +47,6 @@ public class OutMod extends LineOut {
 		this.mute = (this.mute == 1) ? 0 : 1;
 	}
 
-    /**
-     * Modifie le signal
-     * @param start début de modification
-     * @param limit fin de modification
-     */
     @Override
     public void generate(int start, int limit) {
         double[] inputs0 = input.getValues(0);
@@ -101,6 +95,7 @@ public class OutMod extends LineOut {
 	public WaveFileWriter getWriter() {
 		return writer;
 	}
+
 	public void setWriter(WaveFileWriter writer) {
 		this.writer = writer;
 	}
@@ -108,6 +103,7 @@ public class OutMod extends LineOut {
 	public boolean isRecord() {
 		return record;
 	}
+
 	public void setRecord(boolean record) {
 		this.record = record;
 	}

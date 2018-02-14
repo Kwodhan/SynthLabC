@@ -45,13 +45,13 @@ public class IHMSequenceurTest extends ApplicationTest {
         assertEquals(cable1.getId(), "cable-1");
         
         clickOn(vco1.lookup("#fmPort"));
-        clickOn(seq.lookup("#out"));
+        clickOn(seq.lookup("#outPort"));
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
         assertEquals(cable2.getId(), "cable-2");
         
         clickOn(vco2.lookup("#outPort"));
-        clickOn(seq.lookup("#gate"));
+        clickOn(seq.lookup("#gatePort"));
         CubicCurve cable3 = lookup("#cable-3").query();
         assertNotNull(cable3);
         assertEquals(cable3.getId(), "cable-3");

@@ -5,6 +5,9 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
 
+/**
+ * Réglage des entrées du VCO
+ */
 public class ReglageVCO extends UnitGenerator {
 
     /**
@@ -13,20 +16,23 @@ public class ReglageVCO extends UnitGenerator {
     private UnitInputPort f0;
 
     /**
-     * Changement d'octave
+     * Réglage manuel du changement d'octave
      */
     private UnitInputPort octave;
 
     /**
-     * Changement de note
+     * Réglage manuel du changement de note
      */
     private UnitInputPort fin;
 
     /**
-     * Signal de Modulation de fréquence Fm varie entre -5 et 5
+     * Entrée de modulation de fréquenceO
      */
     private UnitInputPort fm;
 
+    /**
+     * Sortie de signal
+     */
     private UnitOutputPort out;
 
     public ReglageVCO() {

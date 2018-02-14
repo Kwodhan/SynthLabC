@@ -7,7 +7,7 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.scope.AudioScope;
 import com.jsyn.scope.swing.AudioScopeView;
 
-/**
+/*
  *
  +----------------------------------------+
  |                                        |
@@ -22,11 +22,25 @@ import com.jsyn.scope.swing.AudioScopeView;
  +----------------------------------------+
 
  */
+
+/**
+ * Module oscilloscope afin d’afficher un signal
+ */
 public class Oscilloscope {
 
+    /**
+     * Affichage JSyn
+     */
     private AudioScope scope;
 
+    /**
+     * Port d'entrée
+     */
     private PortInput portInput;
+
+    /**
+     * Port de sortie
+     */
     private PortOutput portOutput;
 
     /**
@@ -35,6 +49,7 @@ public class Oscilloscope {
      */
     public Oscilloscope(Synthesizer synth) {
         scope = new AudioScope(synth);
+        // affichage de la ligne bleu dans le cas ou il n'y a pas de signal
         scope.setViewMode(AudioScope.ViewMode.WAVEFORM);
         scope.setTriggerMode(AudioScope.TriggerMode.AUTO);
 

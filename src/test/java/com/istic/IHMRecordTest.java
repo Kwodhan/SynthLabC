@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -69,7 +70,9 @@ public class IHMRecordTest extends ApplicationTest {
      * pendant 5s dans un fichier
      * au format MP3
      */
+
     @Test
+    @Ignore
     public void testRecordSimpleMP3() {
         // get output module
         AnchorPane output = lookup("#module-1").query();

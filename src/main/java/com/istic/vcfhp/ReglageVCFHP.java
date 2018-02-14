@@ -3,20 +3,26 @@ package com.istic.vcfhp;
 import com.istic.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.UnitGenerator;
 import com.jsyn.unitgen.VariableRateMonoReader;
 
-public class ReglageVCFHP extends VariableRateMonoReader {
+/**
+ * Reglage des entrées du VCFHP
+ */
+public class ReglageVCFHP extends UnitGenerator {
+
     /**
-     * Réglage manuel en façade de la fréquence
+     * Réglage manuel en façade de la fréquence de base
      */
     private UnitInputPort f0;
+
     /**
      *  Entrée de modulation de fréquence
      */
     private UnitInputPort fm;
 
     /**
-     * une sortie de signal
+     * Sortie de signal
      */
     private UnitOutputPort out;
 

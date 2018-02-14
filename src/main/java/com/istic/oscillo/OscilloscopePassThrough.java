@@ -4,10 +4,23 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
 
+/**
+ * Permet la sortie du signal d'entrée sans modification
+ */
 public class OscilloscopePassThrough extends UnitGenerator {
 
+    /**
+     * Signal d'entrée
+     */
     private UnitInputPort inputPort;
+    /**
+     * Signal de sortie
+     */
     private UnitOutputPort outputPort;
+
+    /**
+     * Signal de sortie reservé uniquement pour l'Oscilloscope
+     */
     private UnitOutputPort outputPortOscilloscope;
 
     public OscilloscopePassThrough() {

@@ -4,23 +4,19 @@ import com.istic.port.PortOutput;
 import com.jsyn.unitgen.WhiteNoise;
 
 /**
- *  Classe pour la creation du bruit blanc
+ *  module bruit blanc
  */
 public class BruitBlanc extends WhiteNoise {
-	
-	private PortOutput out;
-	
+
 	/**
-	 * Constructeur de la class BruitBlanc et son port de sortie
+	 * Port de sortie
 	 */
+	private final PortOutput out;
+
 	public BruitBlanc(){
 		this.out = new PortOutput(this.output);
 	}
 
-	/**
-	 * getter pour le port de sortie
-	 * @return
-	 */
 	public PortOutput getOutputPort(){
 		return  out;
 	}

@@ -10,29 +10,39 @@ import com.jsyn.unitgen.FilterLowPass;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * module Voltage Control Filter type Low Pass
+ */
 public class VCFLP extends Circuit {
     /**
-     * Port de sortie du VCF LP
+     * Filtre LP 1 JSyn
      */
-    private UnitOutputPort out;
+    private final FilterLowPass filterLowPass1;
 
-    private UnitInputPort in;
+    /**
+     * Filtre LP 2 JSyn
+     */
+    private final FilterLowPass filterLowPass2;
 
-    private FilterLowPass filterLowPass1;
+    /**
+     * Port de sortie
+     */
+    private final PortOutput portOutput;
 
-    private FilterLowPass filterLowPass2;
+    /**
+     * Port d'entrée
+     */
+    private final PortInput portInput;
 
-    private PortOutput portOutput;
-
-    private PortInput portInput;
-
-    private PortFm portFm;
+    /**
+     * Port FM
+     */
+    private final PortFm portFm;
 
     /**
      * reglage fm, f0, resonance
      */
-    private ReglageVCFLP vcflp;
+    private final ReglageVCFLP vcflp;
 
     public VCFLP() {
 
@@ -40,8 +50,8 @@ public class VCFLP extends Circuit {
         add(filterLowPass2 = new FilterLowPass());
         add(vcflp = new ReglageVCFLP());
 
-        addPortAlias(out = filterLowPass2.getOutput(), "out");
-        addPortAlias(in = filterLowPass1.getInput(), "in");
+        addPortAlias(filterLowPass2.getOutput(), "out");
+        addPortAlias(filterLowPass1.getInput(), "in");
 
         filterLowPass1.output.connect(filterLowPass2.input);
 
@@ -49,32 +59,36 @@ public class VCFLP extends Circuit {
         filterLowPass2.frequency.connect(vcflp.getOut());
 
 
-        portOutput = new PortOutput(out);
-        portInput = new PortInput(in);
+        portOutput = new PortOutput(filterLowPass2.getOutput());
+        portInput = new PortInput(filterLowPass1.getInput());
         portFm = new PortFm(this.vcflp.getFm());
 
     }
+
     public PortOutput getOutput() {
         return portOutput;
     }
+
     public PortInput getInput() {
         return portInput;
     }
+
     public PortFm getFm(){
         return portFm;
     }
 
     public void setResonance(double resonnance){
         this.filterLowPass2.Q.set(resonnance);
-
-
     }
 
     public void setF0(double fo){
         this.vcflp.getF0().set(fo);
-
     }
 
+    /**
+     *
+     * @return Fréquence de base du VCF LP
+     */
     public double getFrequence(){
         return this.vcflp.getFrequence();
     }
