@@ -17,7 +17,11 @@ import com.jsyn.unitgen.SineOscillator;
 import com.jsyn.unitgen.SquareOscillator;
 import com.jsyn.unitgen.UnitGate;
 
-public class Sequence extends UnitGate {
+/**
+ * Classe sequenceur  avec 8 pas
+ * 
+ */
+public class Sequenceur extends UnitGate {
 
 	private PortOutput out;
 	private PortGate gate;
@@ -27,7 +31,10 @@ public class Sequence extends UnitGate {
 	private double threshold;
 	private boolean exceeded ;
 
-	public Sequence() {
+	/**
+	 * creation du sequenceur et initialisation des attribues
+	 */
+	public Sequenceur() {
 		step = 0;
 		threshold = 0.0;
 		exceeded = false;
@@ -36,14 +43,27 @@ public class Sequence extends UnitGate {
 		gate = new PortGate(this.input);
 	}
 
+	/**
+	 * retourne le output du sequenceur 
+	 * @return
+	 */
 	public PortOutput getOutputPort() {
 		return out;
 	}
 
+	/**
+	 * retourne le inpput gate
+	 * @return
+	 */
 	public PortGate getGatePort() {
 		return gate;
 	}
 
+	/**
+	 * Change la valeur du pas (ind+1) par d
+	 * @param d
+	 * @param ind
+	 */
 	public void setValue(double d, int ind) {
 		values[ind] = d;
 	}
@@ -58,12 +78,15 @@ public class Sequence extends UnitGate {
 		}
 	}
 
+	/**
+	 * passer au pas suivant si front montant
+	 * @param v
+	 */
 	private void nextStep(double v) {
 		if (v > threshold) {
 			if (!exceeded) {
 				exceeded = true;
 				this.step = (this.step < 7) ? step + 1 : 0;
-				System.out.println(step);
 			}
 		}
 		else exceeded = false;

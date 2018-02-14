@@ -1,7 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
-import com.istic.sequencer.Sequence;
+import com.istic.sequencer.Sequenceur;
 import com.istic.whitenoise.BruitBlanc;
 import javafx.scene.control.Slider;
 
@@ -37,7 +37,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     
     Slider[] sliders;
     
-    Sequence sequence;
+    Sequenceur sequenceur;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -58,7 +58,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     		sliders[i].valueProperty().addListener((ov, old_val, new_val) -> {
             double value = sliders[j].getValue();
             sliders[j].setValue(value);
-            sequence.setValue(value,j);
+            sequenceur.setValue(value,j);
             System.out.println(j);
         });
     	}
@@ -73,8 +73,8 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
      */
     public void init(Controller controller) {
         super.init(controller);
-        this.sequence = new Sequence();
-        this.controller.getSynth().add(sequence);
+        this.sequenceur = new Sequenceur();
+        this.controller.getSynth().add(sequenceur);
     }
     
     /**
@@ -84,9 +84,9 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     @Override
     public Port getCurrentPort() {
         if (currentPort == 0) {
-            return sequence.getOutputPort();
+            return sequenceur.getOutputPort();
         } else if (currentPort == 1) {
-            return sequence.getGatePort();
+            return sequenceur.getGatePort();
         }
         return null;
     }
@@ -94,8 +94,8 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     @Override
     public Map<ImageView, Port> getAllPorts() {
     	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(out, sequence.getOutputPort());
-    	hm.put(gate, sequence.getGatePort());
+    	hm.put(out, sequenceur.getOutputPort());
+    	hm.put(gate, sequenceur.getGatePort());
         return hm;
     }
     
@@ -105,7 +105,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
      */
     public void connectOutPort() {
 
-        if(!this.sequence.getOutput().isConnected()) {
+        if(!this.sequenceur.getOutput().isConnected()) {
         	currentPort = 0;
             getLayout(out);
             super.connect();
@@ -113,11 +113,11 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     }
     
     /**
-     * Connecting the outPort to draw the cable
+     * Connecting the gatePort to draw the cable
      */
     public void connectGatePort() {
 
-        if(!this.sequence.getGatePort().isConnected()) {
+        if(!this.sequenceur.getGatePort().isConnected()) {
         	currentPort = 1;
             getLayout(gate);
             super.connect();
@@ -142,7 +142,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     	for (int i = 0; i<8;i++){
     		val = (double) jsonObjectModule.get("sliderseq"+(i+1));
     		sliders[i].setValue(val);
-    		sequence.setValue(val,i);
+    		sequenceur.setValue(val,i);
     	}
 
     }
@@ -156,12 +156,12 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     @FXML // A decommenter et adapter quand le model sequencer sera fait !
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
-        	Port port1 = sequence.getOutputPort();
-        	Port port2 = sequence.getGatePort();
+        	Port port1 = sequenceur.getOutputPort();
+        	Port port2 = sequenceur.getGatePort();
             super.disconnect(port1);
             super.disconnect(port2);
             // Deconnexion du module Output du synthetizer
-            this.controller.getSynth().remove(sequence);
+            this.controller.getSynth().remove(sequenceur);
             // Get parent node of pane corresponding to OutMod
             // Recupere le noeud parent fxml du outmod
             StackPane stackPane = (StackPane) pane.getParent();
