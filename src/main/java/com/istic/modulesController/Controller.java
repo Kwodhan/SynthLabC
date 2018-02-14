@@ -148,6 +148,8 @@ public class Controller implements Initializable {
 
     /**
      * Open a configuration
+     * @throws IOException erreur Input/Output fichier
+     * @throws ParseException erreur parsage fichier de config
      */
     public void openConfig() throws IOException, ParseException {
         FileChooser fileChooser = new FileChooser();
@@ -163,6 +165,7 @@ public class Controller implements Initializable {
 
     /**
      * Save a configuration
+     * @throws IOException In/Out erreur
      */
     public void saveConfig() throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -514,10 +517,11 @@ public class Controller implements Initializable {
     public ArrayList<ModuleController> getModuleControllers() {
         return moduleControllers;
     }
-
-	/**
-	 * Change cable color
-	 */
+    
+    /**
+     * Change cable color
+     * @param event listener clicking on menu to select color
+     */
 	public void selectCableColor(ActionEvent event) {
 		RadioMenuItem menu = (RadioMenuItem) event.getSource();
 		String color = (String) menu.getUserData();
