@@ -12,6 +12,7 @@ public class KBListener implements EventHandler<KeyEvent> {
 	}
 	public void add_listener (Scene sc) {
 		sc.setOnKeyPressed(this);
+		sc.setOnKeyReleased(this);
 	}
 	@Override
 	public void handle(KeyEvent event) {
@@ -33,8 +34,8 @@ public class KBListener implements EventHandler<KeyEvent> {
 		   case Y:   reglageKB.onpressSOLd (); break;
 		   case U:   reglageKB.onpressLAd (); break;
 
-		   case W:   reglageKB.onpressOctaveUP (); break;
-		   case X:   reglageKB.onpressOctaveDOWN (); break;
+		   case X:   reglageKB.onpressOctaveUP (); break;
+		   case W:   reglageKB.onpressOctaveDOWN (); break;
             }		
 		}
 		else if ( event.getEventType() == KeyEvent.KEY_RELEASED) {
@@ -55,8 +56,8 @@ public class KBListener implements EventHandler<KeyEvent> {
 			   case Y:   reglageKB.onreleaseSOLd (); break;
 			   case U:   reglageKB.onreleaseLAd (); break;
 
-			   case W:   reglageKB.onreleaseOctaveUP (); break;
-			   case X:   reglageKB.onreleaseOctaveDOWN (); break;
+			   case X:   reglageKB.onreleaseOctaveUP (); break;
+			   case W:   reglageKB.onreleaseOctaveDOWN (); break;
 	            }
 			
 		}

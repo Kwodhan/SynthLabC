@@ -122,7 +122,6 @@ public class IHMDropAllTest extends ApplicationTest {
 
         clickOn(vco1.lookup("#outPort"));
         clickOn(oscillo.lookup("#inPort"));
-        clickOn("RED");
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
@@ -130,7 +129,6 @@ public class IHMDropAllTest extends ApplicationTest {
 
         clickOn(oscillo.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
-        clickOn("GOLD");
 
         CubicCurve cable2 = lookup("#cable-2").query();
         assertNotNull(cable2);
@@ -256,17 +254,12 @@ public class IHMDropAllTest extends ApplicationTest {
 
         clickOn("#inPort");
         clickOn("#outPort");
-        clickOn("GOLD");
-
-
-
 
         CubicCurve cable1 = lookup("#cable-1").query();
         assertNotNull(cable1);
         assertEquals(cable1.getId(), "cable-1");
 
         clickOn("#mute");
-
     }
 
 }

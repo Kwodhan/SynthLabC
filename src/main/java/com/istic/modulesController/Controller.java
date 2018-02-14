@@ -10,13 +10,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
@@ -24,7 +27,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -40,11 +42,16 @@ public class Controller implements Initializable {
     @FXML
     RadioMenuItem woodMenuItem, darkMenuItem, coralMenuItem, defaultMenuItem;
 
-    final ToggleGroup group = new ToggleGroup();
+    @FXML
+	RadioMenuItem cableColorGoldMenuItem, cableColorRedMenuItem, cableColorLightGreenMenuItem, cableColorBluevioletMenuItem;
+
+	final ToggleGroup group = new ToggleGroup();
+	final ToggleGroup groupToggleCableColor = new ToggleGroup();
 
     private StackPane[] stacks;
     private Files files;
 
+    private Color cableColor = Color.BLUEVIOLET;
 
     private ArrayList<ModuleController> moduleControllers;
     private ArrayList<CableController> cables;
@@ -68,26 +75,35 @@ public class Controller implements Initializable {
     private boolean isPlugged = false;
 
 
-    /**
-     * Initialise les objets nécessaires à l'application
-     * et ajoute un module de sortie au board
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
-     */
-    public void initialize(URL location, ResourceBundle resources) {
-        //files.parseJSON();
-        this.synth = JSyn.createSynthesizer();
-        this.synth.start();
 
+	/**
+	 * Initialise les objets nécessaires à l'application
+	 * et ajoute un module de sortie au board
+	 *
+	 * @param location  The location used to resolve relative paths for the root object, or
+	 *                  <tt>null</tt> if the location is not known.
+	 * @param resources The resources used to localize the root object, or <tt>null</tt> if
+	 */
+	public void initialize(URL location, ResourceBundle resources) {
+	    //files.parseJSON();
+	    this.synth = JSyn.createSynthesizer();
+		this.synth.start();
+
+        // Skin
         coralMenuItem.setToggleGroup(group);
         darkMenuItem.setToggleGroup(group);
         woodMenuItem.setToggleGroup(group);
         defaultMenuItem.setToggleGroup(group);
         group.selectToggle(defaultMenuItem);
 
-        this.dragAndDrop = new DragAndDrop(this);
+        // Cable color
+		cableColorGoldMenuItem.setToggleGroup(groupToggleCableColor);
+		cableColorRedMenuItem.setToggleGroup(groupToggleCableColor);
+		cableColorLightGreenMenuItem.setToggleGroup(groupToggleCableColor);
+		cableColorBluevioletMenuItem.setToggleGroup(groupToggleCableColor);
+		groupToggleCableColor.selectToggle(cableColorBluevioletMenuItem);
+
+		this.dragAndDrop = new DragAndDrop(this);
 
         this.mouseLine = new Line();
         this.mouseLine.setVisible(false);
@@ -110,13 +126,12 @@ public class Controller implements Initializable {
             this.dragAndDrop.addDropHandling(s);
         }
 
-        try {
-            addOutput();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+		try {
+			addOutput();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
     /**
      * Supprime tous les modules sur le board
@@ -141,13 +156,10 @@ public class Controller implements Initializable {
         //Show open file dialog
         File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
         if (file != null) {
-
             dropAll();
             files = new Files(file, this);
             files.open();
         }
-
-
     }
 
     /**
@@ -167,28 +179,36 @@ public class Controller implements Initializable {
         if (file != null) {
             files = new Files(file, this);
             files.save();
-
         }
-
     }
-
 
 	/**
 	 * Save as MP3 file
 	 */
-	public File saveToMP3(){
+	public Pair<File, String> saveSound(){
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Sound File");
 
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
+        FileChooser.ExtensionFilter extFiltermp3 = new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3");
         fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.getExtensionFilters().add(extFiltermp3);
 
         //Show save file dialog
         File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
-        return dest;
-	}
+        String ext;
+        //System.out.println("extension : " +fileChooser.getSelectedExtensionFilter().getExtensions());
+        if (fileChooser.getSelectedExtensionFilter() != null) {
+            ext = fileChooser.getSelectedExtensionFilter().getExtensions().get(0);
+        } else {
+            ext = null;
+        }
+        //System.out.println(ext);
+        Pair<File, String> info_dest = new Pair<>(dest, ext);
+        return info_dest;
+    }
 	/**
 	 * Change le thème en coral
 	 */
@@ -271,6 +291,22 @@ public class Controller implements Initializable {
     }
 
     /**
+     * Crée les objets nécessaires pour l'apparition d'un module Mixer sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public KBModuleController addKeyBoard() throws IOException {
+
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/keyboard.fxml"));
+        addMod(root);
+
+        KBModuleController kbModuleController = (KBModuleController) root.getUserData();
+        this.moduleControllers.add(kbModuleController);
+        kbModuleController.init(this);
+        return kbModuleController;
+    }
+    /**
      * Crée les objets nécessaires pour l'apparition d'un module EG sur le board
      *
      * @throws IOException si ajout impossible
@@ -284,7 +320,6 @@ public class Controller implements Initializable {
         this.moduleControllers.add(egModuleController);
         egModuleController.init(this);
         return egModuleController;
-
     }
 
     /**
@@ -396,50 +431,18 @@ public class Controller implements Initializable {
         return whiteModuleController;
     }
 
-    /**
-     * Ajout d'un cable
-     *
-     * @param moduleController controleur du module qu'il faut connecter
-     */
-    public CableController connect(ModuleController moduleController) {
-        Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(), moduleController.getCurrentPort());
-        CableController cableController = null;
-        if (cable.connect()) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Color choice");
-            alert.setHeaderText("Please choose a color");
-
-            List<ButtonType> buttonTypes = new ArrayList<>();
-
-            buttonTypes.add(new ButtonType("GOLD"));
-            buttonTypes.add(new ButtonType("BLUEVIOLET"));
-            buttonTypes.add(new ButtonType("RED"));
-            buttonTypes.add(new ButtonType("OLIVE"));
-            buttonTypes.add(new ButtonType("SALMON"));
-            buttonTypes.add(new ButtonType("SILVER"));
-            buttonTypes.add(new ButtonType("MEDIUMAQUAMARINE"));
-
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE.CANCEL_CLOSE);
-
-            alert.getButtonTypes().setAll(buttonTypes);
-            alert.getButtonTypes().add(buttonTypeCancel);
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (!result.get().getText().equals(buttonTypeCancel.getText())) {
-                cableController = new CableController(this,pane, cable, Color.valueOf(result.get().getText()));
-            }
-            if (cableController != null) {
-                cableController.drawCable(this.temporaryCableModuleController, moduleController, cableId++);
-                this.cables.add(cableController);
-            } else {
-                cable.disconnect();
-                // ... user chose CANCEL or closed the dialog
-            }
-
-        }
-        cableController.serialize();
-        return cableController;
-    }
+	/**
+	 * Ajout d'un cable
+	 * @param moduleController controleur du module qu'il faut connecter
+	 */
+	public void connect(ModuleController moduleController) {
+		Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
+		if (cable.connect()) {
+			CableController cableController = new CableController(pane, cable, getCableColor());
+			cableController.drawCable(this.temporaryCableModuleController, moduleController,cableId++);
+			this.cables.add(cableController);
+		}
+	}
 
     /**
      * Supprime un module controller de la liste du controller
@@ -505,4 +508,23 @@ public class Controller implements Initializable {
     public ArrayList<ModuleController> getModuleControllers() {
         return moduleControllers;
     }
+
+	/**
+	 * Change cable color
+	 */
+	public void selectCableColor(ActionEvent event) {
+		RadioMenuItem menu = (RadioMenuItem) event.getSource();
+		String color = (String) menu.getUserData();
+		System.out.println(color);
+		cableColor = Color.valueOf(color.toUpperCase());
+	}
+
+	/**
+	 * @return Color for cable
+	 */
+	public Color getCableColor() {
+		return cableColor;
+	}
+
+
 }

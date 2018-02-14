@@ -19,7 +19,9 @@ public class VCFLP extends Circuit {
 
     private UnitInputPort in;
 
-    private FilterLowPass filterLowPass;
+    private FilterLowPass filterLowPass1;
+
+    private FilterLowPass filterLowPass2;
 
     private PortOutput portOutput;
 
@@ -34,15 +36,18 @@ public class VCFLP extends Circuit {
 
     public VCFLP() {
 
-        add(filterLowPass = new FilterLowPass());
+        add(filterLowPass1 = new FilterLowPass());
+        add(filterLowPass2 = new FilterLowPass());
         add(vcflp = new ReglageVCFLP());
 
-        addPortAlias(out = filterLowPass.getOutput(), "out");
-        addPortAlias(in = filterLowPass.getInput(), "in");
+        addPortAlias(out = filterLowPass2.getOutput(), "out");
+        addPortAlias(in = filterLowPass1.getInput(), "in");
 
-        vcflp.getF0().set(22);
+        filterLowPass1.output.connect(filterLowPass2.input);
 
-        vcflp.getOut().connect(filterLowPass.frequency);
+        filterLowPass1.frequency.connect(vcflp.getOut());
+        filterLowPass2.frequency.connect(vcflp.getOut());
+
 
         portOutput = new PortOutput(out);
         portInput = new PortInput(in);
@@ -60,12 +65,18 @@ public class VCFLP extends Circuit {
     }
 
     public void setResonance(double resonnance){
-        this.filterLowPass.Q.set(resonnance);
+        this.filterLowPass2.Q.set(resonnance);
+
+
     }
 
     public void setF0(double fo){
         this.vcflp.getF0().set(fo);
 
+    }
+
+    public double getFrequence(){
+        return this.vcflp.getFrequence();
     }
 
 

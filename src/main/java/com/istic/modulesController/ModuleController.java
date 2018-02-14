@@ -144,7 +144,6 @@ public abstract class ModuleController implements Serializable {
     // Setters & Getters
 
     /**
-     * Redéfinis dans chaque module
      * Met à jour la position des cables liés au module
      */
     public void updateCablesPosition() {
@@ -156,6 +155,10 @@ public abstract class ModuleController implements Serializable {
 
     public abstract void removeModule();
 
+    /**
+     * recupere les ports du module avec le composant javafx associé
+     * @return
+     */
     public abstract Map<ImageView, Port> getAllPorts();
 
     public double getX() {
@@ -166,12 +169,18 @@ public abstract class ModuleController implements Serializable {
         return y;
     }
 
+    /**
+     * Sauvegarde l'etat courant du module dans un objet  json
+     */
     public void serialize() {
         jsonCableObject = new JSONObject();
         jsonCableObject.put("type", this.getClass().getSimpleName());
         jsonCableObject.put("position", getPosition(this.controller.getStacks()));
 
 
+        jsonModuleObject = new JSONObject();
+        jsonModuleObject.put("type", this.getClass().getSimpleName());
+        jsonModuleObject.put("position", getPosition(this.controller.getStacks()));
     }
 
     public JSONObject getJsonCableObject() {
@@ -183,6 +192,10 @@ public abstract class ModuleController implements Serializable {
         this.jsonCableObject = jsonCableObject;
     }
 
+    /**
+     * Charge une configuration du plan de monatge depuis un objet json
+     * @param jsonObjectModule
+     */
     public abstract void restore(JSONObject jsonObjectModule);
 
     public void setCurrentPort(int currentPort) {

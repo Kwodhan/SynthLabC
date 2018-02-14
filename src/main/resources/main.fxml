@@ -18,7 +18,7 @@
             <MenuItem fx:id="openConfigMenuItem" mnemonicParsing="false" onAction="#openConfig" text="Open Configuration" />
             <MenuItem fx:id="saveConfigMenuItem" mnemonicParsing="false" onAction="#saveConfig" text="Save Configuration" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="saveToMP3MenuItem" mnemonicParsing="false" onAction="#saveToMP3" text="Save to MP3" />
+            <MenuItem fx:id="saveToMP3MenuItem" mnemonicParsing="false" onAction="#saveSound" text="Save to MP3" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Close" />
           </items>
@@ -38,6 +38,7 @@
                 <MenuItem fx:id="vcfHpMenuItem" mnemonicParsing="false" onAction="#addVcfHp" text="VCF HP" />
                 <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVCO" text="VCO" />
                 <MenuItem fx:id="whiteNoiseMenuItem" mnemonicParsing="false" onAction="#addWhiteNoise" text="White Noise" />
+                <MenuItem fx:id="keyBoardMenuItem" mnemonicParsing="false" onAction="#addKeyBoard" text="KeyBoard" />
               </items>
             </Menu>
             <MenuItem fx:id="dropAllMenuItem" mnemonicParsing="false" onAction="#dropAll" text="Drop All" />
@@ -46,6 +47,14 @@
             <RadioMenuItem fx:id="darkMenuItem" mnemonicParsing="false" onAction="#darkTheme" text="Dark Skin" />
             <RadioMenuItem fx:id="woodMenuItem" mnemonicParsing="false" onAction="#woodTheme" text="Wood" />
             <RadioMenuItem fx:id="defaultMenuItem" mnemonicParsing="false" onAction="#defaultTheme" text="Default" />
+          </items>
+        </Menu>
+        <Menu fx:id="cableColorMenu" mnemonicParsing="false" text="Cable color">
+          <items>
+            <RadioMenuItem fx:id="cableColorGoldMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="GOLD" text="Gold" />
+            <RadioMenuItem fx:id="cableColorRedMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="RED" text="Red" />
+            <RadioMenuItem fx:id="cableColorLightGreenMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="LIGHTGREEN" text="Green" />
+            <RadioMenuItem fx:id="cableColorBluevioletMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="BLUEVIOLET" text="Blue Violet" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

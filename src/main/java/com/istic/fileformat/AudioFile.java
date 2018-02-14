@@ -1,15 +1,11 @@
 package com.istic.fileformat;
 
+import it.sauronsoftware.jave.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import it.sauronsoftware.jave.AudioAttributes;
-import it.sauronsoftware.jave.Encoder;
-import it.sauronsoftware.jave.EncoderException;
-import it.sauronsoftware.jave.EncodingAttributes;
-import it.sauronsoftware.jave.InputFormatException;
 
 public abstract class AudioFile {
 String path;
@@ -38,7 +34,7 @@ public void save_raw_data() {
 		e.printStackTrace();
 	}
 }
-static void convert ( AudioFileWAV afw, AudioFileMP3 afm) {
+public static void convert ( AudioFileWAV afw, AudioFileMP3 afm) {
 	File source = new File(afw.path);
 	File target = new File(afm.path);
 	AudioAttributes audio = new AudioAttributes();

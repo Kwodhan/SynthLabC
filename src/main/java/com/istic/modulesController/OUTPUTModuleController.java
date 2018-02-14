@@ -1,5 +1,8 @@
 package com.istic.modulesController;
 
+import com.istic.fileformat.AudioFile;
+import com.istic.fileformat.AudioFileMP3;
+import com.istic.fileformat.AudioFileWAV;
 import com.istic.out.OutMod;
 import com.istic.port.Port;
 import com.jsyn.util.WaveFileWriter;
@@ -11,6 +14,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Pair;
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -30,10 +34,15 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     public Button closeButton;
     @FXML
     ToggleButton mute;
+    @FXML
+    ToggleButton recordButton;
+
     private OutMod lineOut;
 
     private File dest;
-    private File source = new File("./src/main/resources/sound/savedSound.wav");
+
+    private String extension;
+
 
     @FXML
     protected Slider attenuationSlider;
@@ -68,12 +77,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         this.lineOut = new OutMod();
         this.controller.getSynth().add(this.lineOut);
         lineOut.start();
-//        File file = new File("/home/jnsll/Documents/file.wav");
-//        try {
-//            this.recorder = new EnregistreurWave(file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
@@ -107,15 +110,26 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
         if (this.lineOut.isRecord()) { // si premier click
             this.dest = null;
-            this.dest = this.controller.saveToMP3();
+            Pair infos = this.controller.saveSound();
+            this.dest = (File) infos.getKey();
+            this.extension = (String) infos.getValue();
+           // cas où l'utilisateur renseigne bien le nom du fichier et path
             if (this.dest != null) {
                 this.lineOut.setWriter(new WaveFileWriter(new File(this.dest.getPath())));
-            } else {
+            } else { // cas où l'utilisateur appuie sur Annuler
                 this.lineOut.setRecord(false);
+                this.recordButton.setSelected(false);
+
             }
         } else { // deuxieme click
             this.lineOut.getWriter().close();
             this.lineOut.setWriter(null);
+            //Conversion du fichier en mp3 si extension correspondante choisie
+            if (this.extension.equals("*.mp3")) {
+                AudioFileWAV wavFile = new AudioFileWAV(this.dest.getPath());
+                AudioFileMP3 mp3File = new AudioFileMP3(this.dest.getPath());
+                AudioFile.convert(wavFile, mp3File);
+            }
         }
     }
 
@@ -171,17 +185,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         }
     }
 
-    public OutMod getLineOut() {
-        return lineOut;
-    }
-
-    public ToggleButton getMute() {
-        return mute;
-    }
-
-    public Slider getAttenuationSlider() {
-        return attenuationSlider;
-    }
     @Override
     public void restore(JSONObject jsonObjectModule) {
         setJsonCableObject(jsonObjectModule);
@@ -195,5 +198,27 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         if (mute == 0)
             this.getMute().setSelected(true);
 
+    }
+
+    //Setters & Getters
+
+    public OutMod getLineOut() {
+        return lineOut;
+    }
+
+    public ToggleButton getMute() {
+        return mute;
+    }
+
+    public Slider getAttenuationSlider() {
+        return attenuationSlider;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 }

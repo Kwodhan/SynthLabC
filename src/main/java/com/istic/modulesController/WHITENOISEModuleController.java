@@ -9,8 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import org.json.simple.JSONObject;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -25,7 +27,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     BruitBlanc bruitBlanc;
     
     @FXML
-    ImageView wn_outPort;
+    ImageView outPort;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -65,7 +67,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     @Override
     public Map<ImageView, Port> getAllPorts() {
     	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(wn_outPort, bruitBlanc.getOutputPort());
+    	hm.put(outPort, bruitBlanc.getOutputPort());
         return hm;
     }
 
@@ -85,7 +87,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     public void connectOutPort() {
 
         if(!this.bruitBlanc.getOutput().isConnected()) {
-            getLayout(wn_outPort);
+            getLayout(outPort);
             super.connect();
         }
     }
@@ -111,9 +113,14 @@ public class WHITENOISEModuleController extends ModuleController implements Init
             stackPane.getChildren().remove(pane);
             this.controller.disconnect(this);
         }
+
+
     }
 
-    //Setters et Getters
+    /**
+     * getter utilisé par l'IHM pour recuperer le port de sortie
+     * @return
+     */
     public PortOutput getOutPort() {
         return this.bruitBlanc.getOutputPort();
     }
