@@ -25,6 +25,7 @@ public class ReglageKB extends UnitGenerator {
 
     private UnitGatePort portGate;
     private UnitOutputPort portCv;
+    
 	private TextArea displayArea;
 
     public UnitGatePort getPortGate() {
