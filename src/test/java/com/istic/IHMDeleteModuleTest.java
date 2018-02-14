@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.CubicCurve;
@@ -834,6 +835,201 @@ public class IHMDeleteModuleTest extends ApplicationTest {
         assertNotNull(vco4);
 
 
+
+        clickOn("#mute");
+
+    }
+
+    @Test
+    public void testDeleteVCFLP() {
+
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcfLpMenuItem");
+        AnchorPane vcflp = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#whiteNoiseMenuItem");
+        AnchorPane whiteNoise = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco = lookup("#module-4").query();
+
+
+        // out white --> in vcflp
+        clickOn(whiteNoise.lookup("#outPort"));
+        clickOn(vcflp.lookup("#inPort"));
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
+
+        // out white --> in output
+        clickOn(vcflp.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+
+        CubicCurve cable2 = lookup("#cable-2").query();
+        assertNotNull(cable2);
+        assertEquals(cable2.getId(), "cable-2");
+
+        // out vco --> fm vcflp
+        clickOn(vco.lookup("#outPort"));
+        clickOn(vcflp.lookup("#fmPort"));
+
+        CubicCurve cable3 = lookup("#cable-3").query();
+        assertNotNull(cable3);
+        assertEquals(cable3.getId(), "cable-3");
+        // slider
+
+        moveTo("#resonanceSlider");
+        Slider resonance = (Slider) vcflp.lookup("#resonanceSlider");
+        resonance.setValue(1);
+        sleep(1000);
+        resonance.setValue(10);
+
+        moveTo("#frequencySlider");
+        Slider frequency = (Slider) vcflp.lookup("#frequencySlider");
+        frequency.setValue(3);
+        sleep(1000);
+        frequency.setValue(4);
+        sleep(1000);
+        frequency.setValue(14);
+
+        // Drag&Drop
+        StackPane box6 = lookup("#box6").query();
+        drag(vcflp, MouseButton.PRIMARY);
+        dropTo(box6);
+
+        // box2 should be empty
+        StackPane box2 = lookup("#box2").query();
+        assertEquals(new ArrayList(), box2.getChildren());
+
+        // box 12 y'a un anchor pane avec l'id
+        assertNotNull(box6.lookup("#module-2"));
+        assertEquals(box6.getChildren().get(0).getId(), "module-2");
+
+
+        clickOn(vcflp.lookup("#closeButton"));
+
+        // verif cable
+        cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+        // verif cable
+        cable2 = lookup("#cable-2").query();
+        assertNull(cable2);
+        // verif cable
+        cable3 = lookup("#cable-3").query();
+        assertNull(cable3);
+
+        //verif module
+        vco = lookup("#module-4").query();
+        assertNotNull(vco);
+
+        whiteNoise = lookup("#module-3").query();
+        assertNotNull(whiteNoise);
+
+        vcflp = lookup("#module-2").query();
+        assertNull(vcflp);
+
+        output = lookup("#module-1").query();
+        assertNotNull(output);
+
+
+
+        clickOn("#mute");
+
+    }
+
+    @Test
+    public void testDeleteVCFHP() {
+
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcfHpMenuItem");
+        AnchorPane vcfhp = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#whiteNoiseMenuItem");
+        AnchorPane whiteNoise = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco = lookup("#module-4").query();
+
+        // out white --> in vcfhp
+        clickOn(whiteNoise.lookup("#outPort"));
+        clickOn(vcfhp.lookup("#inPort"));
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
+
+        // out white --> in output
+        clickOn(vcfhp.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+
+        CubicCurve cable2 = lookup("#cable-2").query();
+        assertNotNull(cable2);
+        assertEquals(cable2.getId(), "cable-2");
+
+        // out vco --> fm vcfhp
+        clickOn(vco.lookup("#outPort"));
+        clickOn(vcfhp.lookup("#fmPort"));
+
+        CubicCurve cable3 = lookup("#cable-3").query();
+        assertNotNull(cable3);
+        assertEquals(cable3.getId(), "cable-3");
+        // slider
+
+
+        moveTo("#frequencySlider");
+        Slider frequency = (Slider) vcfhp.lookup("#frequencySlider");
+        frequency.setValue(3);
+        sleep(1000);
+        frequency.setValue(4);
+        sleep(1000);
+        frequency.setValue(14);
+
+
+
+
+
+        // Drag&Drop
+        StackPane box12 = lookup("#box12").query();
+        drag(vcfhp, MouseButton.PRIMARY);
+        dropTo(box12);
+
+        // box2 should be empty
+        StackPane box2 = lookup("#box2").query();
+        assertEquals(new ArrayList(), box2.getChildren());
+
+        // box 12 y'a un anchor pane avec l'id
+        assertNotNull(box12.lookup("#module-2"));
+        assertEquals(box12.getChildren().get(0).getId(), "module-2");
+
+
+
+        clickOn(vcfhp.lookup("#closeButton"));
+
+        // verif cable
+        cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+        // verif cable
+        cable2 = lookup("#cable-2").query();
+        assertNull(cable2);
+        // verif cable
+        cable3 = lookup("#cable-3").query();
+        assertNull(cable3);
+
+        //verif module
+        vco = lookup("#module-4").query();
+        assertNotNull(vco);
+
+        whiteNoise = lookup("#module-3").query();
+        assertNotNull(whiteNoise);
+
+        vcfhp = lookup("#module-2").query();
+        assertNull(vcfhp);
+
+        output = lookup("#module-1").query();
+        assertNotNull(output);
 
         clickOn("#mute");
 

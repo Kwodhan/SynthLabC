@@ -190,6 +190,8 @@ public class Controller implements Initializable {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Sound File");
+        fileChooser.setInitialFileName("mySound");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
