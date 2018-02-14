@@ -114,7 +114,10 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         }
     }
 
-    //Setters et Getters
+    /**
+     * getter utilisé par l'IHM pour recuperer le port de sortie
+     * @return
+     */
     public PortOutput getOutPort() {
         return this.bruitBlanc.getOutputPort();
     }
