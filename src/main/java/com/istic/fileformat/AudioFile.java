@@ -7,36 +7,19 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public abstract class AudioFile {
+public class AudioFile {
 String path;
 byte [] raw_data;
-float[] data ;
+
 
 public AudioFile (String path) {
 	this.path=path;
 }
-abstract public    void get_float_data();
 
-/////////////////////////////////////////////
-public void load_raw_data() {
-	try {
-		raw_data = Files.readAllBytes(Paths.get(path));
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-}
-public void save_raw_data() {
-	try {
-		Files.write(  Paths.get(path), raw_data);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-}
-public static void convert ( AudioFileWAV afw, AudioFileMP3 afm) {
-	File source = new File(afw.path);
-	File target = new File(afm.path);
+
+public void convertToMP3 (String destination) {
+	File source = new File(this.path);
+	File target = new File(destination);
 	AudioAttributes audio = new AudioAttributes();
 	audio.setCodec("libmp3lame");
 	audio.setBitRate(new Integer(128000));
@@ -61,9 +44,9 @@ public static void convert ( AudioFileWAV afw, AudioFileMP3 afm) {
 	
 }
 
-static void convert ( AudioFileMP3 afm, AudioFileWAV afw) {
-	File source = new File(afm.path);
-	File target = new File(afw.path);
+/*public void convertToWav ( String destination) {
+	File source = new File(this.path);
+	File target = new File(destination);
 	AudioAttributes audio = new AudioAttributes();
 //	audio.setCodec("pcm_s16le");
 //	audio.setBitRate(new Integer(128000));
@@ -84,6 +67,6 @@ static void convert ( AudioFileMP3 afm, AudioFileWAV afw) {
 	} catch (EncoderException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}}
+	}}*/
  
 }
