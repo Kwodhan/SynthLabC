@@ -294,6 +294,22 @@ public class Controller implements Initializable {
     }
 
     /**
+     * Crée les objets nécessaires pour l'apparition d'un module Mixer sur le board
+     *
+     * @throws IOException si ajout impossible
+     */
+    public KBModuleController addKeyBoard() throws IOException {
+
+        Node root = FXMLLoader.load(getClass().getResource(
+                "../../../modules/keyboard.fxml"));
+        addMod(root);
+
+        KBModuleController kbModuleController = (KBModuleController) root.getUserData();
+        this.moduleControllers.add(kbModuleController);
+        kbModuleController.init(this);
+        return kbModuleController;
+    }
+    /**
      * Crée les objets nécessaires pour l'apparition d'un module EG sur le board
      *
      * @throws IOException si ajout impossible

@@ -17,8 +17,9 @@ public class KB  extends Circuit {
     ReglageKB reglageKB = new ReglageKB();
 
     public KB() {
-    	this.portGate = new PortGate(new UnitGatePort ("gate"));
-		this.portCv = new PortOutput(new UnitOutputPort ("cv"));
+    	add(reglageKB);
+    	this.portGate = new PortGate(this.reglageKB.getPortGate());
+		this.portCv = new PortOutput(this.reglageKB.getPortCv());
     }
 	public PortOutput getCv() {
 		return portCv;

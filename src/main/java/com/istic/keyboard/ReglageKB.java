@@ -4,6 +4,7 @@ import com.istic.Constraints;
 import com.istic.port.PortOutput;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import com.jsyn.ports.UnitGatePort;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.LineOut;
@@ -23,6 +24,15 @@ String notes_descr []= {
 
 private SineOscillator[] oscillators;
 
+private UnitGatePort portGate;
+private UnitOutputPort portCv;
+public UnitGatePort getPortGate() {
+	return portGate;
+}
+public UnitOutputPort getPortCv() {
+	return portCv;
+}
+
 public   ReglageKB() {
 	for (boolean n : notes) {
 		n=false;
@@ -34,7 +44,7 @@ public   ReglageKB() {
 	octave =3;
 	octave_max=7;
 }
-
+/////////////////////////////////////////////////////////////
 	@Override
 	public void generate(int arg0, int arg1) {
 		// TODO Auto-generated method stub
@@ -54,17 +64,20 @@ public   ReglageKB() {
     public static void main(String[] args) {
 		ReglageKB rkb =  new ReglageKB();
 		
-//		Synthesizer synth = JSyn.createSynthesizer();
-//		SineOscillator sineOsc = new SineOscillator(300);
-//		SineOscillator sineOsc2 = new SineOscillator(440); 
-//		LineOut  lineOut = new LineOut();
-//		synth.add(lineOut );
-//		synth.add(sineOsc2 );
-//				synth.add(sineOsc );				
-//		sineOsc.output.connect( 0, lineOut.input, 0 );   // connect to left channel
-//		sineOsc.output.connect( 0, lineOut.input, 1 );   // connect to right channel
-//		lineOut.start();
-//		synth.start();
+		Synthesizer synth = JSyn.createSynthesizer();
+		SineOscillator sineOsc = new SineOscillator(440);
+		SineOscillator sineOsc2 = new SineOscillator(440); 
+		LineOut  lineOut = new LineOut();
+		synth.add(lineOut );
+		synth.add(sineOsc2 );
+			synth.add(sineOsc );				
+		sineOsc.output.connect( 0, lineOut.input, 0 );   // connect to left channel
+		sineOsc.output.connect( 0, lineOut.input, 1 );   // connect to right channel
+		
+		sineOsc2.output.connect( 0, lineOut.input, 1 );   // connect to right channel
+		sineOsc2.output.connect( 0, lineOut.input, 1 );   // connect to right channel
+		lineOut.start();
+		synth.start();
 	}
 	/////////////////////////////////////////////////////////////////:
     private void print_frequencies () {
