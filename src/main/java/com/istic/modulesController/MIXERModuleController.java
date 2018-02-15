@@ -115,10 +115,10 @@ public class MIXERModuleController extends ModuleController implements Initializ
     @Override
     public void serialize() {
         super.serialize();
-        jsonCableObject.put("amplitudeSlider1", amplitudeSlider1.getValue());
-        jsonCableObject.put("amplitudeSlider2", amplitudeSlider2.getValue());
-        jsonCableObject.put("amplitudeSlider3", amplitudeSlider3.getValue());
-        jsonCableObject.put("amplitudeSlider4", amplitudeSlider4.getValue());
+        jsonModuleObject.put("amplitudeSlider1", amplitudeSlider1.getValue());
+        jsonModuleObject.put("amplitudeSlider2", amplitudeSlider2.getValue());
+        jsonModuleObject.put("amplitudeSlider3", amplitudeSlider3.getValue());
+        jsonModuleObject.put("amplitudeSlider4", amplitudeSlider4.getValue());
 
     }
 

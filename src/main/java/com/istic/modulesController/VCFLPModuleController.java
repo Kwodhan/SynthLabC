@@ -83,14 +83,14 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     @Override
     public void serialize() {
         super.serialize();
-        jsonCableObject.put("frequencySlider", Math.pow(2,frequencySlider.getValue()));
-        jsonCableObject.put("resonanceSlider", resonanceSlider.getValue());
+        jsonModuleObject.put("frequencySlider", Math.pow(2,frequencySlider.getValue()));
+        jsonModuleObject.put("resonanceSlider", resonanceSlider.getValue());
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-    setJsonCableObject(jsonObjectModule);
+    setJsonModuleObject(jsonObjectModule);
         double frequency = (double) jsonObjectModule.get("frequencySlider");
         double resonance = (double) jsonObjectModule.get("resonanceSlider");
         //model

@@ -4,12 +4,11 @@ import com.istic.cable.CableController;
 import com.istic.port.Port;
 import com.istic.port.PortController;
 import javafx.event.Event;
-import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import org.json.simple.JSONObject;
@@ -22,10 +21,7 @@ import java.util.Map;
 public abstract class ModuleController implements Serializable {
 
     protected Controller controller;
-
-    @FXML
-    AnchorPane pane;
-
+    Node root;
     /**
      * valeur de la position du port
      */
@@ -33,7 +29,7 @@ public abstract class ModuleController implements Serializable {
 
     protected int currentPort = -1;
 
-    JSONObject jsonCableObject;
+    JSONObject jsonModuleObject;
 
     ArrayList<PortController> portControllers;
 
@@ -45,6 +41,7 @@ public abstract class ModuleController implements Serializable {
     public void init(Controller controller) {
         this.controller = controller;
         this.portControllers = new ArrayList<>();
+
     }
 
     /**
@@ -98,10 +95,11 @@ public abstract class ModuleController implements Serializable {
      * @param port port duquel on veut supprimer le cable
      */
     public void disconnect(Port port) {
-        List<CableController> cables = this.controller.getCables();
+        ArrayList<CableController> cables = (ArrayList<CableController>) this.controller.getCables().clone();
         Port portOne;
         Port portTwo;
         CableController removeCable = null;
+
         for (CableController cableController : cables) {
             portOne = cableController.getCable().getPortOne();
             portTwo = cableController.getCable().getPortTwo();
@@ -126,11 +124,7 @@ public abstract class ModuleController implements Serializable {
      */
     public void getLayout(ImageView port) {
 
-        Bounds modele = this.pane.localToScene(this.pane.getBoundsInLocal());
         Bounds boundsInScene = port.localToScene(port.getBoundsInLocal());
-
-        System.out.println(modele);
-
         x = (boundsInScene.getMaxX() + boundsInScene.getMinX()) / 2.0;
         y = (boundsInScene.getMaxY() + boundsInScene.getMinY()) / 2.0;
     }
@@ -158,9 +152,6 @@ public abstract class ModuleController implements Serializable {
         }
     }
 
-
-
-
     // Setters & Getters
 
     /**
@@ -180,8 +171,8 @@ public abstract class ModuleController implements Serializable {
      *
      * @return liste des ports, images
      */
-    public  ArrayList<PortController> getAllPorts(){
-        return portControllers;
+    public ArrayList<PortController> getAllPorts(){
+        return  portControllers;
     }
 
 
@@ -197,20 +188,20 @@ public abstract class ModuleController implements Serializable {
      * Sauvegarde l'etat courant du module dans un objet  json
      */
     public void serialize() {
-        jsonCableObject = new JSONObject();
-        jsonCableObject.put("type", this.getClass().getSimpleName());
-        jsonCableObject.put("position", getPosition(this.controller.getStacks()));
+        jsonModuleObject = new JSONObject();
+        jsonModuleObject.put("type", this.getClass().getSimpleName());
+        jsonModuleObject.put("position", getPosition(this.controller.getStacks()));
 
 
     }
 
-    public JSONObject getJsonCableObject() {
-        return jsonCableObject;
+    public JSONObject getJsonModuleObject() {
+        return jsonModuleObject;
     }
 
-    public void setJsonCableObject(JSONObject jsonCableObject) {
+    public void setJsonModuleObject(JSONObject jsonModuleObject) {
 
-        this.jsonCableObject = jsonCableObject;
+        this.jsonModuleObject = jsonModuleObject;
     }
 
     /**
@@ -220,5 +211,11 @@ public abstract class ModuleController implements Serializable {
      */
     public abstract void restore(JSONObject jsonObjectModule);
 
+    public Node getRoot() {
+        return root;
+    }
 
+    public void setRoot(Node root) {
+        this.root = root;
+    }
 }

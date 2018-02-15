@@ -154,8 +154,8 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     @Override
     public void serialize() {
         super.serialize();
-        jsonCableObject.put("mute", lineOut.getMute());
-        jsonCableObject.put("attenuation", lineOut.getAttenuation());
+        jsonModuleObject.put("mute", lineOut.getMute());
+        jsonModuleObject.put("attenuation", lineOut.getAttenuation());
 
 
     }
@@ -185,7 +185,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
         double attenuation = (double) jsonObjectModule.get("attenuation");
         int mute = ((Long) jsonObjectModule.get("mute")).intValue();
         //model
@@ -195,8 +195,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         this.getAttenuationSlider().setValue(attenuation);
         if (mute == 0)
             this.getMute().setSelected(true);
-
-
 
     }
 

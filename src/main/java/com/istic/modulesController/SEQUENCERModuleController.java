@@ -125,14 +125,14 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     public void serialize() {
     	super.serialize();
     	for (int i = 0; i<sliders.length;i++){
-    		jsonCableObject.put("sliderseq"+(i+1), sliders[i].getValue());
+    		jsonModuleObject.put("sliderseq"+(i+1), sliders[i].getValue());
     	}
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
         double val;
     	for (int i = 0; i<8;i++){
     		val = (double) jsonObjectModule.get("sliderseq"+(i+1));

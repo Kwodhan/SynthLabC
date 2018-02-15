@@ -151,7 +151,7 @@ public class VCAModuleController extends ModuleController implements Initializab
     public void serialize() {
     super.serialize();
 
-        jsonCableObject.put("amplitudeSlider", amplitudeSlider.getValue());
+        jsonModuleObject.put("amplitudeSlider", amplitudeSlider.getValue());
 
     }
 

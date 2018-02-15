@@ -164,17 +164,17 @@ public class VCOModuleController extends ModuleController implements Initializab
     @Override
     public void serialize() {
     	super.serialize();
-    	jsonCableObject.put("frequencySlider", frequencySlider.getValue() );
-    	jsonCableObject.put("frequencyFineSlider", frequencyFineSlider.getValue());
-    	jsonCableObject.put("squareRadio", squareRadio.isSelected());
-    	jsonCableObject.put("sawRadio", sawRadio.isSelected());
-    	jsonCableObject.put("triangleRadio", triangleRadio.isSelected());
+    	jsonModuleObject.put("frequencySlider", frequencySlider.getValue() );
+    	jsonModuleObject.put("frequencyFineSlider", frequencyFineSlider.getValue());
+    	jsonModuleObject.put("squareRadio", squareRadio.isSelected());
+    	jsonModuleObject.put("sawRadio", sawRadio.isSelected());
+    	jsonModuleObject.put("triangleRadio", triangleRadio.isSelected());
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
         double frequencySlider_ = (double) jsonObjectModule.get("frequencySlider");
         double frequencyFineSlider_ = (double) jsonObjectModule.get("frequencyFineSlider");
         boolean squareRadio_ = (boolean) jsonObjectModule.get("squareRadio");

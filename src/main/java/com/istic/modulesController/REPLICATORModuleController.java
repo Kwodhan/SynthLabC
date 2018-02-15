@@ -156,6 +156,6 @@ public class REPLICATORModuleController extends ModuleController implements Init
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
     }
 }

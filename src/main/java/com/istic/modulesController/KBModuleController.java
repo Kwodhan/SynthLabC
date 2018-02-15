@@ -30,7 +30,7 @@ public class KBModuleController  extends ModuleController implements Initializab
 
     public void init(Controller controller) {
         super.init(controller);
-        kbListener.add_listener(this.controller.mainPane);
+        kbListener.add_listener(this.controller.pane);
         //this.controller.getSynth().add(kbListener);
 
 
