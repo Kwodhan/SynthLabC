@@ -7,6 +7,7 @@ import com.istic.util.DragAndDrop;
 import com.istic.util.Files;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -137,7 +138,32 @@ public class Controller implements Initializable {
 			e.printStackTrace();
 		}
 
+        Platform.runLater(this::setupKeyboardShortCutConfig);
 	}
+
+    /**
+     * Setup CTRL+S and CTRL+O to save and open config
+     */
+    private void setupKeyboardShortCutConfig() {
+        getPane().getScene().getAccelerators().put(
+            new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN), () -> {
+                try {
+                    saveConfig();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        );
+        getPane().getScene().getAccelerators().put(
+                new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN), () -> {
+                    try {
+                        openConfig();
+                    } catch (IOException | ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+    }
 
     /**
      * Supprime tous les modules sur le board
