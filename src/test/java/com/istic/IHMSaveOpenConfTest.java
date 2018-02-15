@@ -4,15 +4,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.io.File;
-import java.security.Key;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -30,9 +30,16 @@ public class IHMSaveOpenConfTest extends ApplicationTest {
      * Save d'une configuration simple
      * 3 modules, 2 cables, 2 couleurs de cable
      * enregistre la conf, dropAll et réappliquer la config
+     * Puis drag le vco et vérifie it's OK
      */
     @Test
     public void testSaveOpenConf() {
+        StackPane box1 = lookup("#box1").query();
+        StackPane box2 = lookup("#box2").query();
+        StackPane box3 = lookup("#box3").query();
+        StackPane box4 = lookup("#box4").query();
+        StackPane box5 = lookup("#box5").query();
+
         // get output module
         AnchorPane output = lookup("#module-1").query();
 
@@ -53,6 +60,19 @@ public class IHMSaveOpenConfTest extends ApplicationTest {
         clickOn(oscillo.lookup("#outPort"));
         clickOn(output.lookup("#inPort"));
 
+        // check all is OK
+        assertNotNull(output);
+        assertNotNull(vco1);
+        assertNotNull(oscillo);
+
+        assertNotEquals(new ArrayList(), box1.getChildren());
+        assertNotEquals(new ArrayList(), box2.getChildren());
+        assertNotEquals(new ArrayList(), box3.getChildren());
+
+        assertNotNull(lookup("#cable-1").query());
+        assertNotNull(lookup("#cable-2").query());
+        assertNull(lookup("#cable-3").query());
+        assertNull(lookup("#cable-4").query());
 
         // Save conf
         clickOn("#file").clickOn("#saveConfigMenuItem");
@@ -72,11 +92,48 @@ public class IHMSaveOpenConfTest extends ApplicationTest {
         press(KeyCode.F); release(KeyCode.F);
         press(KeyCode.ENTER);
 
-
-        // Verify
-
+        sleep(500);
 
 
+        // VERIFY
+
+        assertNotNull(output);
+        assertNotNull(vco1);
+        assertNotNull(oscillo);
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+
+        CubicCurve cable2 = lookup("#cable-2").query();
+        assertNull(cable2);
+
+        CubicCurve cable3 = lookup("#cable-3").query();
+        assertNotNull(cable3);
+
+        CubicCurve cable4 = lookup("#cable-4").query();
+        assertNotNull(cable4);
+
+        assertNotEquals(new ArrayList(), box1.getChildren());
+        assertNotEquals(new ArrayList(), box2.getChildren());
+        assertNotEquals(new ArrayList(), box3.getChildren());
+        assertEquals(new ArrayList(), box4.getChildren());
+        assertEquals(new ArrayList(), box5.getChildren());
+
+
+        // Drag&Drop + VERIFY
+
+
+//        drag(vco1, MouseButton.PRIMARY);
+//        dropTo(box5);
+//
+//        assertNotEquals(new ArrayList(), box1.getChildren());
+//        assertEquals(new ArrayList(), box2.getChildren());
+//        assertNotEquals(new ArrayList(), box3.getChildren());
+//        assertEquals(new ArrayList(), box4.getChildren());
+//        assertNotEquals(new ArrayList(), box5.getChildren());
+
+        clickOn("#mute");
+        sleep(1000);
     }
 
 
