@@ -29,7 +29,7 @@ public class Cable {
 
     /**
      * réalise la connection entre deux cable
-     * @return true si les ports sont branchés | false si les ports sont incompatible
+     * @return true si les ports sont branchés | false si les ports sont incompatibles
      */
     public boolean connect() {
 
