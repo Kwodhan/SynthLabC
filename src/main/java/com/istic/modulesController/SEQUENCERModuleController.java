@@ -71,8 +71,8 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         super.init(controller);
         this.sequenceur = new Sequenceur();
         this.controller.getSynth().add(sequenceur);
-        this.portControllers.add(new PortController(this.sequenceur.getGatePort(),this.gate));
-        this.portControllers.add(new PortController(this.sequenceur.getOutputPort(),this.out));
+        this.portControllers.add(new PortController(this.sequenceur.getGatePort(),this.gatePort));
+        this.portControllers.add(new PortController(this.sequenceur.getOutputPort(),this.outPort));
 
 
     }
@@ -91,14 +91,6 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         return null;
     }
 
-
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-    	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(outPort, sequenceur.getOutputPort());
-    	hm.put(gatePort, sequenceur.getGatePort());
-        return hm;
-    }
 
     
     /**
