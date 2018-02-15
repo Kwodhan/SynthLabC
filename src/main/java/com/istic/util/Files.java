@@ -146,6 +146,7 @@ public class Files {
         ModuleController mc1;
         ModuleController mc2;
         ArrayList<ArrayList<Double>> linesData;
+        ArrayList<String> colors=new ArrayList<>() ;
         int i = 0;
         linesData = new ArrayList<>();
 
@@ -154,6 +155,7 @@ public class Files {
         for (Object cable : jsonArrayCables) {
             JSONObject jsonObjectCable = (JSONObject) cable;
             linesData.add(new ArrayList<>());
+            colors.add((String) ((JSONObject) cable).get("color"));
 
             //attaching the modules for the connexion
 
@@ -187,13 +189,17 @@ public class Files {
             System.out.println("data at :" + linesData.get(i));
             i++;
 
+
+
         }
         //  Redrawing the new lines with the correct coordination
         i = 0;
         for (CableController cableController : this.controller.getCables()) {
-            cableController.restoreLine(linesData.get(i));
+            cableController.restoreLine(linesData.get(i),colors.get(i));
+
             i++;
         }
+
 
 
     }

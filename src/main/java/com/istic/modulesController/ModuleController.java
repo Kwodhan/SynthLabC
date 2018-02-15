@@ -13,6 +13,7 @@ import javafx.scene.shape.Line;
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -90,10 +91,11 @@ public abstract class ModuleController implements Serializable {
      * @param port port duquel on veut supprimer le cable
      */
     public void disconnect(Port port) {
-        List<CableController> cables = this.controller.getCables();
+        ArrayList<CableController> cables = (ArrayList<CableController>) this.controller.getCables().clone();
         Port portOne;
         Port portTwo;
         CableController removeCable = null;
+
         for (CableController cableController : cables) {
             portOne = cableController.getCable().getPortOne();
             portTwo = cableController.getCable().getPortTwo();

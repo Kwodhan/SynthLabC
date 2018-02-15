@@ -68,17 +68,6 @@ public class CableController {
         }
     }
 
-    /**
-     * restore the cable from a Json Object
-     *
-     * @param jsonObjectCable specification of the cable
-     */
-    public void restore(JSONObject jsonObjectCable) {
-        setJsonCableObject(jsonObjectCable);
-        this.color = Color.BLUE;
-        //this.color = (Color) jsonObjectCable.get("color");
-
-    }
 
     /**
      * Disconnect a cable from the UI
@@ -155,7 +144,7 @@ public class CableController {
      *
      * @param lineData the data of the cable to draw
      */
-    public void restoreLine(ArrayList<Double> lineData) {
+    public void restoreLine(ArrayList<Double> lineData,String color) {
 
         double x1, x2, y1, y2;
         x1 = lineData.get(0);
@@ -172,8 +161,9 @@ public class CableController {
 
         line.setFill(null);
         line.setStrokeWidth(5);
+        this.color = Color.valueOf(color);
 
-        line.setStroke(Color.GOLD);
+        line.setStroke(this.color);
 
         line.setId(lineId);
 

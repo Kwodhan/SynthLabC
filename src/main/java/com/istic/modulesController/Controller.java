@@ -475,12 +475,12 @@ public class Controller implements Initializable {
      */
     public void disconnect(ModuleController moduleController) {
         this.moduleControllers.remove(moduleController);
-        for(CableController cableController : cables){
+       /* for(CableController cableController : cables){
             if(cableController.getMc1().equals(moduleController)
                     ||cableController.getMc2().equals(moduleController)){
-                cables.remove(cableController);
+                //if(cables.contains(cableController))cables.remove(cableController);
             }
-        }
+        }*/
     }
 
     /**
@@ -538,7 +538,7 @@ public class Controller implements Initializable {
         return synth;
     }
 
-    public List<CableController> getCables() {
+    public ArrayList<CableController> getCables() {
         return cables;
     }
 
