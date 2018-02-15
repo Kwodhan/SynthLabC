@@ -111,7 +111,16 @@ public class VCO extends Circuit {
         this.reglageVCO.getOctave().set(octave);
     }
 
+    /**
+     *
+     * @return Fréquence de base du VCO
+     */
+    public double getFrequence() {
+        return reglageVCO.getFrequence();
+    }
 
+
+    // Setters & Getters
     public PortOutput getOutput() {
 
         return portOutput;
@@ -119,13 +128,5 @@ public class VCO extends Circuit {
 
     public PortFm getFm(){
         return portFm;
-    }
-
-    /**
-     *
-     * @return Fréquence de base du VCO
-     */
-    public double getFrequence() {
-        return reglageVCO.getFrequence();
     }
 }
