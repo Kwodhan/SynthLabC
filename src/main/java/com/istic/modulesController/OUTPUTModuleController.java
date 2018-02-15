@@ -117,7 +117,11 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
            // cas où l'utilisateur renseigne bien le nom du fichier et path
             if (this.dest != null) {
-                this.lineOut.setWriter(new WaveFileWriter(new File(this.dest.getPath())));
+                if (this.extension.equals("*.mp3")) {
+                    this.lineOut.setWriter(new WaveFileWriter(new File("/tmp/mySound.wav")));
+                } else {
+                    this.lineOut.setWriter(new WaveFileWriter(new File(this.dest.getPath())));
+                }
             } else { // cas où l'utilisateur appuie sur Annuler
                 this.lineOut.setRecord(false);
                 this.recordButton.setSelected(false);
@@ -128,7 +132,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
             this.lineOut.setWriter(null);
             //Conversion du fichier en mp3 si extension correspondante choisie
             if (this.extension.equals("*.mp3")) {
-                AudioFile file = new AudioFile(this.dest.getPath());
+                AudioFile file = new AudioFile("/tmp/mySound.wav");
                 file.convertToMP3(this.dest.getPath());
             }
         }

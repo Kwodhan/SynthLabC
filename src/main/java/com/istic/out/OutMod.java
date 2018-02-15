@@ -57,8 +57,8 @@ public class OutMod extends LineOut {
         double value0;
         for (int i = start; i < limit; i++) {
         	fromDCBL = AudioMath.semitonesToFrequencyScaler(this.attenuation);
-        	value0 = inputs0[i]*mute*fromDCBL;
-            buffer0[i] += value0;
+        	value0 = inputs0[i]*fromDCBL;
+            buffer0[i] += value0*mute;
             buffer1[i] += inputs1[i]*mute*fromDCBL;
             if (record && (this.writer != null)) {
 				try {
