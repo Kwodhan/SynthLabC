@@ -3,6 +3,8 @@ package com.istic.util;
 import com.istic.cable.CableController;
 import com.istic.modulesController.Controller;
 import com.istic.modulesController.ModuleController;
+import com.istic.port.Port;
+import com.istic.port.PortController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -177,8 +179,20 @@ public class Files {
             String portOne = (String) jsonObjectCable.get("portM1");
             String portTwo = (String) jsonObjectCable.get("portM2");
 
-            mc1.launchConnection(portOne);
-            mc2.launchConnection(portTwo);
+            Port port1 = null;
+            Port port2 = null;
+            for(PortController portController : mc1.getAllPorts()){
+                if(portController.getView().getId().equals(portOne)){
+                    port1 = portController.getPort();
+                }
+            }
+            for(PortController portController : mc2.getAllPorts()){
+                if(portController.getView().getId().equals(portTwo)){
+                    port2 = portController.getPort();
+                }
+            }
+            this.controller.connect(port1,port2,mc1,mc2);
+
 
             //getting the lines data to draw on the UI
 
@@ -196,7 +210,6 @@ public class Files {
         i = 0;
         for (CableController cableController : this.controller.getCables()) {
             cableController.restoreLine(linesData.get(i),colors.get(i));
-
             i++;
         }
 

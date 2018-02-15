@@ -48,11 +48,6 @@ public class KBModuleController  extends ModuleController implements Initializab
 		
 	}
 
-	@Override
-	public Map<ImageView, Port> getAllPorts() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void restore(JSONObject jsonObjectModule) {

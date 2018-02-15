@@ -1,6 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.vcfhp.VCFHP;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -75,13 +76,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
     }
 
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(fmPort, vcfhp.getFm());
-        hashMap.put(outPort, vcfhp.getOutput());
-        hashMap.put(inPort, vcfhp.getInput());
-        return hashMap;    }
+
 
     /**
      * Supprime le module du Board ainsi que les cables
@@ -118,6 +113,10 @@ public class VCFHPModuleController extends ModuleController implements Initializ
         this.vcfhp.setF0(Math.pow(2,frequencySlider.getValue()));
 
         this.frequence.setText((Math.round(this.vcfhp.getFrequence()*100.0) / 100.0) + " Hz");
+
+        this.portControllers.add(new PortController(this.vcfhp.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.vcfhp.getFm(),this.fmPort));
+        this.portControllers.add(new PortController(this.vcfhp.getOutput(),this.outPort));
 
 
     }

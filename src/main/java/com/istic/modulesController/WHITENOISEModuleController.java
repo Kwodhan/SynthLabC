@@ -1,6 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.port.PortOutput;
 import com.istic.whitenoise.BruitBlanc;
 
@@ -49,6 +50,8 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         super.init(controller);
         this.bruitBlanc = new BruitBlanc();
         this.controller.getSynth().add(bruitBlanc);
+        this.portControllers.add(new PortController(this.bruitBlanc.getOutputPort(),this.outPort));
+
     }
 
     /**
@@ -62,12 +65,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         return null;
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-    	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(outPort, bruitBlanc.getOutputPort());
-        return hm;
-    }
+
 
     @Override
     public void serialize() {

@@ -2,11 +2,14 @@ package com.istic.modulesController;
 
 import com.istic.cable.Cable;
 import com.istic.cable.CableController;
+import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
 import com.istic.util.Files;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,7 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -136,7 +139,55 @@ public class Controller implements Initializable {
 			e.printStackTrace();
 		}
 
+        Platform.runLater(this::setupKeyboardShortCutConfig);
+        Platform.runLater(this::setupKeyboardShortCutModules);
 	}
+
+    /**
+     * Setup CTRL+S and CTRL+O to save and open config
+     */
+    private void setupKeyboardShortCutConfig() {
+        getPane().getScene().getAccelerators().put(
+            new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN), () -> {
+                try {
+                    saveConfig();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        );
+        getPane().getScene().getAccelerators().put(
+                new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN), () -> {
+                    try {
+                        openConfig();
+                    } catch (IOException | ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+    }
+
+    /**
+     * Setup keyboard shortcuts to add modules
+     */
+    private void setupKeyboardShortCutModules() {
+        getPane().setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case F1: try { addOutput(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F2: try { addVco(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F3: try { addVca(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F4: try { addOscilloscope(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F5: try { addEG(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F6: try { addSequencer(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F7: try { addVcfLp(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F8: try { addVcfHp(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F9: try { addWhiteNoise(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F10: try { addReplicator(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F11: try { addMixer(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F12: try { addKeyBoard(); } catch (IOException e) { e.printStackTrace(); } break;
+            }
+        });
+    }
 
     /**
      * Supprime tous les modules sur le board
@@ -467,6 +518,17 @@ public class Controller implements Initializable {
 		}
 		return cableController;
 	}
+
+    public CableController connect(Port port1, Port port2,ModuleController moduleController1,ModuleController moduleController2) {
+        Cable cable = new Cable(port1,port2);
+        CableController cableController = null;
+        if (cable.connect()) {
+            cableController = new CableController(this,pane, cable, getCableColor());
+            cableController.drawCable(moduleController1, moduleController2,cableId++);
+            this.cables.add(cableController);
+        }
+        return cableController;
+    }
 
     /**
      * Supprime un module controller de la liste du controller

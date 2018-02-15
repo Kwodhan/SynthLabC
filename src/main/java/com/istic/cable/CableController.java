@@ -2,6 +2,7 @@ package com.istic.cable;
 
 import com.istic.modulesController.Controller;
 import com.istic.modulesController.ModuleController;
+import com.istic.port.PortController;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
@@ -59,8 +60,16 @@ public class CableController {
 
             jsonCableObject.put("positionM1", mc1.getPosition(this.controller.getStacks()));
             jsonCableObject.put("positionM2", mc2.getPosition(this.controller.getStacks()));
-            jsonCableObject.put("portM1", cable.portOne.getClass().getSimpleName());
-            jsonCableObject.put("portM2", cable.portTwo.getClass().getSimpleName());
+            for(PortController portController : mc1.getAllPorts()){
+                if(portController.getPort().equals(cable.portOne)){
+                    jsonCableObject.put("portM1", portController.getView().getId());
+                }
+            }
+            for(PortController portController : mc2.getAllPorts()){
+                if(portController.getPort().equals(cable.portTwo)){
+                    jsonCableObject.put("portM2", portController.getView().getId());
+                }
+            }
             jsonCableObject.put("StartX", line.getStartX());
             jsonCableObject.put("EndX", line.getEndX());
             jsonCableObject.put("StartY", line.getStartY());

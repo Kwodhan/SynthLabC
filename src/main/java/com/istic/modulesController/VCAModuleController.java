@@ -1,6 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.vca.VCA;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,6 +59,11 @@ public class VCAModuleController extends ModuleController implements Initializab
         this.controller.getSynth().add(vca);
 
         vca.changeA0(amplitudeSlider.getValue());
+
+        this.portControllers.add(new PortController(this.vca.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.vca.getAm(),this.amPort));
+        this.portControllers.add(new PortController(this.vca.getOutput(),this.outPort));
+
 
 
     }
@@ -139,14 +145,7 @@ public class VCAModuleController extends ModuleController implements Initializab
         }
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, vca.getOutput());
-        hashMap.put(inPort, vca.getInput());
-        hashMap.put(amPort, vca.getAm());
-        return hashMap;
-    }
+
 
     @Override
     public void serialize() {

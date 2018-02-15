@@ -1,6 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.sequencer.Sequenceur;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -71,6 +72,10 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         super.init(controller);
         this.sequenceur = new Sequenceur();
         this.controller.getSynth().add(sequenceur);
+        this.portControllers.add(new PortController(this.sequenceur.getGatePort(),this.gate));
+        this.portControllers.add(new PortController(this.sequenceur.getOutputPort(),this.out));
+
+
     }
     
     /**
@@ -87,13 +92,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         return null;
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-    	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(out, sequenceur.getOutputPort());
-    	hm.put(gate, sequenceur.getGatePort());
-        return hm;
-    }
+
     
     
     /**

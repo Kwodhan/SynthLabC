@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 import com.istic.eg.EG;
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -78,6 +79,10 @@ public class EGModuleController extends ModuleController implements Initializabl
         this.eg = new EG();
         this.controller.getSynth().add(eg);
 
+        this.portControllers.add(new PortController(this.eg.getGateInput(),this.gatePort));
+        this.portControllers.add(new PortController(this.eg.getOutput(),this.outPort));
+
+
         this.eg.setAttack(sliderFormule(attackSlider.getValue()));
         this.eg.setRelease(sliderFormule(releaseSlider.getValue()));
         this.eg.setDecay(sliderFormule(decaySlider.getValue()));
@@ -98,13 +103,7 @@ public class EGModuleController extends ModuleController implements Initializabl
         return null;
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, eg.getOutput());
-        hashMap.put(gatePort, eg.getGateInput());
-        return hashMap;
-    }
+
 
     @Override
     public void serialize() {
