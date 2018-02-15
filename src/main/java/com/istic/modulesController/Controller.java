@@ -49,8 +49,8 @@ public class Controller implements Initializable {
     @FXML
 	RadioMenuItem cableColorGoldMenuItem, cableColorRedMenuItem, cableColorLightGreenMenuItem, cableColorBluevioletMenuItem;
 
-	private final ToggleGroup group;
-	private final ToggleGroup groupToggleCableColor = new ToggleGroup();
+	final ToggleGroup group;
+	final ToggleGroup groupToggleCableColor;
 
     private StackPane[] stacks;
     private Files files;
@@ -76,6 +76,7 @@ public class Controller implements Initializable {
 
     public Controller() {
         group = new ToggleGroup();
+        groupToggleCableColor = new ToggleGroup();
     }
 
 
@@ -134,12 +135,7 @@ public class Controller implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
-
-	}
-
-
+    }
 
     /**
      * Supprime tous les modules sur le board
@@ -165,6 +161,8 @@ public class Controller implements Initializable {
     public void openConfig() throws IOException, ParseException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Configuration File");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
         //Show open file dialog
         File file = fileChooser.showOpenDialog(mainPane.getScene().getWindow());
         if (file != null) {
@@ -172,7 +170,6 @@ public class Controller implements Initializable {
             files = new Files(file, this);
             files.open();
         }
-
     }
 
     /**
@@ -182,11 +179,13 @@ public class Controller implements Initializable {
     public void saveConfig() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Configuration File");
+        fileChooser.setInitialFileName("conf.json");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setInitialFileName("*.json");
+
         //Show save file dialog
         File file = fileChooser.showSaveDialog(mainPane.getScene().getWindow());
 

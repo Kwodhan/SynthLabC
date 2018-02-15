@@ -13,7 +13,7 @@
   <children>
     <MenuBar layoutX="-6.0">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu fx:id="file" mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="openConfigMenuItem" mnemonicParsing="false" onAction="#openConfig" text="Open Configuration" accelerator="Shortcut+O"/>
             <MenuItem fx:id="saveConfigMenuItem" mnemonicParsing="false" onAction="#saveConfig" text="Save Configuration" accelerator="Shortcut+S"/>
