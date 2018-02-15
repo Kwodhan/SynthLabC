@@ -16,7 +16,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -156,8 +155,6 @@ public class VCOModuleController extends ModuleController implements Initializab
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
 
 
@@ -196,6 +193,10 @@ public class VCOModuleController extends ModuleController implements Initializab
         
     }
 
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     */
     @FXML
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.istic.eg.EG;
+import com.istic.keyboard.KB;
 import com.istic.keyboard.KBListener;
 import com.istic.port.Port;
 
@@ -16,23 +17,30 @@ import javafx.scene.image.ImageView;
 import org.json.simple.JSONObject;
 
 public class KBModuleController  extends ModuleController implements Initializable {
-    KBListener kbListener;
+	KB kb;
     @FXML
     TextArea displayArea;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-        this.kbListener = new KBListener();
+        //this.kbListener = new KBListener();
         //listener
         //displayArea.addEventHandler(kbListener);
-        displayArea.setText(kbListener.getReglageKB().update_ouput_signal());
+        displayArea.setStyle("-fx-line-spacing: 0.5em;");
+        //displayArea.setText(kbListener.getReglageKB().update_ouput_signal());
+        displayArea.setText("CLAVIER DE PIANO");
+       displayArea.setEditable(false);
+         //displayArea.setFocusTraversable(false);
 	}
 
     public void init(Controller controller) {
         super.init(controller);
-        kbListener.add_listener(this.controller.pane);
+        this.kb= new KB(displayArea);
+        //kbListener.add_listener(this.controller.pane);
         //this.controller.getSynth().add(kbListener);
 
+        displayArea.setOnKeyPressed(kb.kblistener);
+        displayArea.setOnKeyReleased(kb.kblistener);
 
 
     }

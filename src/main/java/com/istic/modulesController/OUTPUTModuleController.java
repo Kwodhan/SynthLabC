@@ -1,8 +1,6 @@
 package com.istic.modulesController;
 
 import com.istic.fileformat.AudioFile;
-import com.istic.fileformat.AudioFileMP3;
-import com.istic.fileformat.AudioFileWAV;
 import com.istic.out.OutMod;
 import com.istic.port.Port;
 import com.istic.port.PortController;
@@ -104,6 +102,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     /**
      * Gère la fonctionnalité "Muet"
      * Coupe le son
+     * @throws IOException in/out erreur
      */
     public void toggleRecord() throws IOException {
         // true if first click , false else
@@ -129,9 +128,8 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
             this.lineOut.setWriter(null);
             //Conversion du fichier en mp3 si extension correspondante choisie
             if (this.extension.equals("*.mp3")) {
-                AudioFileWAV wavFile = new AudioFileWAV(this.dest.getPath());
-                AudioFileMP3 mp3File = new AudioFileMP3(this.dest.getPath());
-                AudioFile.convert(wavFile, mp3File);
+                AudioFile file = new AudioFile(this.dest.getPath());
+                file.convertToMP3(this.dest.getPath());
             }
         }
     }
@@ -163,8 +161,6 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {

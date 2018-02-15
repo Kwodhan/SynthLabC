@@ -10,8 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import org.json.simple.JSONObject;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -92,10 +94,8 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
-    @FXML // A decommenter et adapter quand le model white noise sera fait !
+    @FXML
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
             Port port = bruitBlanc.getOutputPort();
@@ -115,7 +115,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
 
     /**
      * getter utilisé par l'IHM pour recuperer le port de sortie
-     * @return
+     * @return port de sortie
      */
     public PortOutput getOutPort() {
         return this.bruitBlanc.getOutputPort();

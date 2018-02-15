@@ -63,14 +63,10 @@ public class Controller implements Initializable {
     private Synthesizer synth;
     private Line mouseLine;
 
-    /**
-     * Module temporaire pour le cablage
-     */
+    //Module temporaire pour le cablage
     private ModuleController temporaryCableModuleController;
 
-    /**
-     * valeur incrementale pour chaque id
-     */
+    //valeur incrementale pour chaque id
     private Integer cableId = 1;
     private Integer moduleId = 1;
 
@@ -143,6 +139,7 @@ public class Controller implements Initializable {
         Platform.runLater(this::setupKeyboardShortCutModules);
 	}
 
+
     /**
      * Setup CTRL+S and CTRL+O to save and open config
      */
@@ -207,6 +204,8 @@ public class Controller implements Initializable {
 
     /**
      * Open a configuration
+     * @throws IOException erreur Input/Output fichier
+     * @throws ParseException erreur parsage fichier de config
      */
     public void openConfig() throws IOException, ParseException {
         FileChooser fileChooser = new FileChooser();
@@ -223,6 +222,7 @@ public class Controller implements Initializable {
 
     /**
      * Save a configuration
+     * @throws IOException In/Out erreur
      */
     public void saveConfig() throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -241,9 +241,10 @@ public class Controller implements Initializable {
         }
     }
 
-	/**
-	 * Save as MP3 file
-	 */
+    /**
+     * Get information about saving of sound file
+     * @return Destination File and Extension of file to save
+     */
 	public Pair<File, String> saveSound(){
 
         FileChooser fileChooser = new FileChooser();
@@ -260,16 +261,17 @@ public class Controller implements Initializable {
         //Show save file dialog
         File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
         String ext;
-        //System.out.println("extension : " +fileChooser.getSelectedExtensionFilter().getExtensions());
+        //System.outPort.println("extension : " +fileChooser.getSelectedExtensionFilter().getExtensions());
         if (fileChooser.getSelectedExtensionFilter() != null) {
             ext = fileChooser.getSelectedExtensionFilter().getExtensions().get(0);
         } else {
             ext = null;
         }
-        //System.out.println(ext);
+        //System.outPort.println(ext);
         Pair<File, String> info_dest = new Pair<>(dest, ext);
         return info_dest;
     }
+
 	/**
 	 * Change le thème en coral
 	 */
@@ -301,9 +303,10 @@ public class Controller implements Initializable {
         pane.getStylesheets().add("/skins/wood.css");
     }
 
+
     /**
      * Crée les objets nécessaires pour l'apparition d'un module VCO sur le board
-     *
+     * @return contrôleur du module VCO
      * @throws IOException si ajout impossible
      */
     public VCOModuleController addVco() throws IOException {
@@ -319,12 +322,10 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Output sur le board
-     *
+     * @return contrôleur du module Output
      * @throws IOException si ajout impossible
      */
     public OUTPUTModuleController addOutput() throws IOException {
-
-        // outputModuleController=new OUTPUTModuleController();
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/output.fxml"));
         addMod(root);
@@ -338,7 +339,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Mixer sur le board
-     *
+     * @return contrôleur du module Mixer
      * @throws IOException si ajout impossible
      */
     public MIXERModuleController addMixer() throws IOException {
@@ -356,7 +357,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Mixer sur le board
-     *
+     * @return contrôleur du module Keyboard
      * @throws IOException si ajout impossible
      */
     public KBModuleController addKeyBoard() throws IOException {
@@ -371,9 +372,10 @@ public class Controller implements Initializable {
         kbModuleController.setRoot(root);
         return kbModuleController;
     }
+
     /**
      * Crée les objets nécessaires pour l'apparition d'un module EG sur le board
-     *
+     * @return contrôleur du module EG
      * @throws IOException si ajout impossible
      */
     public EGModuleController addEG() throws IOException {
@@ -390,7 +392,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Oscilloscope sur le board
-     *
+     * @return contrôleur du module Oscilloscope
      * @throws IOException si ajout impossible
      */
     public OSCILLOSCOPEModuleController addOscilloscope() throws IOException {
@@ -407,7 +409,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Réplicateur sur le board
-     *
+     * @return contrôleur du module Replicator
      * @throws IOException si ajout impossible
      */
     public REPLICATORModuleController addReplicator() throws IOException {
@@ -424,7 +426,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module Séquenceur sur le board
-     *
+     * @return contrôleur du module sequenceur
      * @throws IOException si ajout impossible
      */
     public SEQUENCERModuleController addSequencer() throws IOException {
@@ -441,7 +443,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module VCA sur le board
-     *
+     * @return contrôleur du module VCA
      * @throws IOException si ajout impossible
      */
     public VCAModuleController addVca() throws IOException {
@@ -458,7 +460,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module VCF LP sur le board
-     *
+     * @return contrôleur du module VCF LP
      * @throws IOException si ajout impossible
      */
     public VCFLPModuleController addVcfLp() throws IOException {
@@ -474,7 +476,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module VCF HP sur le board
-     *
+     * @return contrôleur du module VCF HP
      * @throws IOException si ajout impossible
      */
     public VCFHPModuleController addVcfHp() throws IOException {
@@ -490,7 +492,7 @@ public class Controller implements Initializable {
 
     /**
      * Crée les objets nécessaires pour l'apparition d'un module bruit blanc sur le board
-     *
+     * @return contrôleur du module White noise
      * @throws IOException si ajout impossible
      */
     public WHITENOISEModuleController addWhiteNoise() throws IOException {
@@ -504,9 +506,11 @@ public class Controller implements Initializable {
         return whiteModuleController;
     }
 
-	/**
-	 * Ajout d'un cable
-     * @param moduleController controleur du module qu'il faut connecter
+
+    /**
+     * Ajout d'un cable
+     * @param moduleController contrôleur du module qu'il faut connecter
+     * @return contrôleur du cable
      */
 	public CableController connect(ModuleController moduleController) {
 		Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
@@ -587,7 +591,6 @@ public class Controller implements Initializable {
         isPlugged = plugged;
     }
 
-
     public ModuleController getTemporaryCableModuleController() {
         return temporaryCableModuleController;
     }
@@ -616,9 +619,10 @@ public class Controller implements Initializable {
         return moduleControllers;
     }
 
-	/**
-	 * Change cable color
-	 */
+    /**
+     * Change cable color
+     * @param event listener clicking on menu to select color
+     */
 	public void selectCableColor(ActionEvent event) {
 		RadioMenuItem menu = (RadioMenuItem) event.getSource();
 		String color = (String) menu.getUserData();

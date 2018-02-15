@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -116,6 +115,10 @@ public class EGModuleController extends ModuleController implements Initializabl
 
     }
 
+    /**
+     * Restaure une configuration à partir d'un objet JSON
+     * @param jsonObjectModule configuration à restaurer
+     */
     @Override
     public void restore(JSONObject jsonObjectModule) {
         double attack = (double) jsonObjectModule.get("attack");
@@ -156,8 +159,6 @@ public class EGModuleController extends ModuleController implements Initializabl
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {
@@ -180,7 +181,6 @@ public class EGModuleController extends ModuleController implements Initializabl
 
     private double sliderFormule (double view){
         return 4*Math.exp(view-9);
-
     }
 
     public EG getEg() {

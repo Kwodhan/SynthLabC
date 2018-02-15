@@ -940,6 +940,74 @@ public class IHMDeleteModuleTest extends ApplicationTest {
     }
 
     @Test
+    public void testDeleteSequencer() {
+
+        AnchorPane output = lookup("#module-1").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#sequencerMenuItem");
+        AnchorPane seq = lookup("#module-2").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco1 = lookup("#module-3").query();
+
+        clickOn("#display").clickOn("#add").moveTo("#egMenuItem").clickOn("#vcoMenuItem");
+        AnchorPane vco2 = lookup("#module-4").query();
+
+        // out vco1 --> in seq
+        clickOn(vco1.lookup("#outPort"));
+        clickOn(seq.lookup("#gatePort"));
+
+        CubicCurve cable1 = lookup("#cable-1").query();
+        assertNotNull(cable1);
+        assertEquals(cable1.getId(), "cable-1");
+
+        // out seq --> fm vco2
+        clickOn(seq.lookup("#outPort"));
+        clickOn(vco2.lookup("#fmPort"));
+
+        CubicCurve cable2 = lookup("#cable-2").query();
+        assertNotNull(cable2);
+        assertEquals(cable2.getId(), "cable-2");
+
+        // out vco2 --> in output
+        clickOn(vco2.lookup("#outPort"));
+        clickOn(output.lookup("#inPort"));
+
+        CubicCurve cable3 = lookup("#cable-3").query();
+        assertNotNull(cable3);
+        assertEquals(cable3.getId(), "cable-3");
+
+
+        clickOn(seq.lookup("#closeButton"));
+
+        // verif cable
+        cable1 = lookup("#cable-1").query();
+        assertNull(cable1);
+
+        cable2 = lookup("#cable-2").query();
+        assertNull(cable2);
+
+        cable3 = lookup("#cable-3").query();
+        assertNotNull(cable3);
+
+        //verif module
+        vco2 = lookup("#module-4").query();
+        assertNotNull(vco2);
+
+        vco1 = lookup("#module-3").query();
+        assertNotNull(vco1);
+
+        seq = lookup("#module-2").query();
+        assertNull(seq);
+
+        output = lookup("#module-1").query();
+        assertNotNull(output);
+
+        clickOn("#mute");
+
+    }
+
+    @Test
     public void testDeleteVCFHP() {
 
         AnchorPane output = lookup("#module-1").query();

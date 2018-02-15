@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -122,6 +121,10 @@ public class MIXERModuleController extends ModuleController implements Initializ
 
     }
 
+    /**
+     * Restaure la configuration à partir de l'objet JSON
+     * @param jsonObjectModule configuration à charger
+     */
     @Override
     public void restore(JSONObject jsonObjectModule) {
         double amplitude1 = (double) jsonObjectModule.get("amplitudeSlider1");
@@ -203,8 +206,6 @@ public class MIXERModuleController extends ModuleController implements Initializ
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {

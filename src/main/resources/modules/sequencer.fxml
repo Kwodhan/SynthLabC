@@ -21,43 +21,46 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0c" height="210.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="3.0" width="270.0" />
       <GridPane layoutX="2.0" maxHeight="210.0" maxWidth="260.0" minHeight="200.0" minWidth="260.0" prefHeight="200.0" prefWidth="260.0">
         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="25.0" prefWidth="25.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SEQUENCER" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="System Bold" size="11.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-            <ImageView fx:id="out" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectOutPort" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OUT" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <ImageView fx:id="outPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectOutPort" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../img/out.png" />
                </image>
             </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="GATE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-            <ImageView fx:id="gate" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectGatePort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="GATE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <ImageView fx:id="gatePort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectGatePort" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../img/in.png" />
                </image>
             </ImageView>
-            <Slider fx:id="sliderSeq1" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="sliderSeq2" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="sliderSeq3" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="sliderSeq7" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="sliderSeq4" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="sliderSeq5" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="sliderSeq6" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <Slider fx:id="sliderSeq8" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-            <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
+            <Slider fx:id="sliderSeq8" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Slider fx:id="sliderSeq1" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Slider fx:id="sliderSeq5" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Slider fx:id="sliderSeq4" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Slider fx:id="sliderSeq2" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Slider fx:id="sliderSeq3" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Slider fx:id="sliderSeq6" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Slider fx:id="sliderSeq7" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+             <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="   SEQ" wrappingWidth="80.12890625" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+
          </children>
       </GridPane>
    </children>

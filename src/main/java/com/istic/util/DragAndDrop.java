@@ -20,7 +20,7 @@ public class DragAndDrop {
 
     /**
      * permet le drag sur le Node
-     * @param b the node
+     * @param b noeud
      */
     public void dragNode(Node b) {
         b.setOnDragDetected(e -> {
@@ -37,7 +37,7 @@ public class DragAndDrop {
 
     /**
      * evenement sur le node
-     * @param pane the pane
+     * @param pane panneau du board
      */
     public void addDropHandling(StackPane pane) {
         // onDragOver

@@ -3,11 +3,16 @@ package com.istic.vcflp;
 import com.istic.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.UnitGenerator;
 import com.jsyn.unitgen.VariableRateMonoReader;
 
-public class ReglageVCFLP extends VariableRateMonoReader {
+/**
+ * Reglage des entrées du VCFLP
+ */
+public class ReglageVCFLP extends UnitGenerator {
+
     /**
-     * Réglage manuel en façade de la fréquence
+     * Réglage manuel de la fréquence de base
      */
     private UnitInputPort f0;
     /**
@@ -16,7 +21,7 @@ public class ReglageVCFLP extends VariableRateMonoReader {
     private UnitInputPort fm;
 
     /**
-     * une sortie de signal
+     * Sortie de signal
      */
     private UnitOutputPort out;
 

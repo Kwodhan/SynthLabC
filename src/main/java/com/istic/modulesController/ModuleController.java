@@ -45,9 +45,9 @@ public abstract class ModuleController implements Serializable {
     }
 
     /**
-     * Get the position of the module on the UI
-     *
+     *  Get the position of the module on the UI
      * @param stacks the positions on the UI
+     * @return position du module
      */
     public int getPosition(StackPane[] stacks) {
         int position = -1, current = -1;
@@ -146,25 +146,12 @@ public abstract class ModuleController implements Serializable {
             portTwo = cableController.getCable().getPortTwo();
             if (portOne.equals(port)) {
                 cableController.updatePosition(1);
-
-
             } else if (portTwo.equals(port)) {
                 cableController.updatePosition(2);
             }
         }
-    }/*
-    public ImageView updateXandY(String port) {
+    }
 
-        for (PortController entry : getAllPorts()) {
-            if(entry.getPort().equals(port)){
-                getLayout(entry.getView());
-                Bounds boundsInScene = entry.getKey().localToScene(entry.getKey().getBoundsInLocal());
-                System.out.println("x image :"+boundsInScene);
-                return entry.getKey();
-            }
-        }
-        return null;
-    }*/
     // Setters & Getters
 
     /**
@@ -181,8 +168,7 @@ public abstract class ModuleController implements Serializable {
 
     /**
      * recupere les ports du module avec le composant javafx associé
-     *
-     * @return liste des ports, images
+     * @return les ports
      */
     public ArrayList<PortController> getAllPorts(){
         return  portControllers;
@@ -218,9 +204,8 @@ public abstract class ModuleController implements Serializable {
     }
 
     /**
-     * Charge une configuration du plan de monatge depuis un objet json
-     *
-     * @param jsonObjectModule
+     * Charge une configuration du plan de montage depuis un objet json
+     * @param jsonObjectModule configuration à charger
      */
     public abstract void restore(JSONObject jsonObjectModule);
 

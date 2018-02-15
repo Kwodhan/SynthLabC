@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +23,10 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     AnchorPane pane;
     
     @FXML
-    ImageView gate;
+    ImageView gatePort;
     
     @FXML
-    ImageView out;
+    ImageView outPort;
     
     @FXML
     Slider sliderSeq1,sliderSeq2,sliderSeq3,sliderSeq4,sliderSeq5,sliderSeq6,sliderSeq7,sliderSeq8;
@@ -93,7 +92,14 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     }
 
 
-    
+    @Override
+    public Map<ImageView, Port> getAllPorts() {
+    	Map<ImageView, Port> hm = new HashMap<>();
+    	hm.put(outPort, sequenceur.getOutputPort());
+    	hm.put(gatePort, sequenceur.getGatePort());
+        return hm;
+    }
+
     
     /**
      * Connecting the outPort to draw the cable
@@ -102,7 +108,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 
         if(!this.sequenceur.getOutput().isConnected()) {
         	currentPort = 0;
-            getLayout(out);
+            getLayout(outPort);
             super.connect();
         }
     }
@@ -114,7 +120,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 
         if(!this.sequenceur.getGatePort().isConnected()) {
         	currentPort = 1;
-            getLayout(gate);
+            getLayout(gatePort);
             super.connect();
         }
     }
@@ -145,10 +151,8 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
-    @FXML // A decommenter et adapter quand le model sequencer sera fait !
+    @FXML
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
         	Port port1 = sequenceur.getOutputPort();
