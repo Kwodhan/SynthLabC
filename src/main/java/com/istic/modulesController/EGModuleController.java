@@ -108,10 +108,10 @@ public class EGModuleController extends ModuleController implements Initializabl
     @Override
     public void serialize() {
         super.serialize();
-        jsonModuleObject.put("attack",eg.getAttack() );
-        jsonModuleObject.put("decay", eg.getDecay());
-        jsonModuleObject.put("sustain",eg.getSustain() );
-        jsonModuleObject.put("release", eg.getRelease());
+        jsonModuleObject.put("attack",attackSlider.getValue());
+        jsonModuleObject.put("decay", decaySlider.getValue());
+        jsonModuleObject.put("sustain",sustainSlider.getValue() );
+        jsonModuleObject.put("release", releaseSlider.getValue());
 
 
     }
@@ -122,12 +122,8 @@ public class EGModuleController extends ModuleController implements Initializabl
         double decay = (double) jsonObjectModule.get("decay");
         double sustain = (double) jsonObjectModule.get("sustain");
         double release = (double) jsonObjectModule.get("release");
-        //model
-        this.getEg().setAttack(attack);
-        this.getEg().setDecay(decay);
-        this.getEg().setSustain(sustain);
-        this.getEg().setRelease(release);
-        //ui
+
+        //update
         attackSlider.setValue(attack);
         decaySlider.setValue(decay);
         sustainSlider.setValue(sustain);

@@ -146,12 +146,25 @@ public abstract class ModuleController implements Serializable {
             portTwo = cableController.getCable().getPortTwo();
             if (portOne.equals(port)) {
                 cableController.updatePosition(1);
+
+
             } else if (portTwo.equals(port)) {
                 cableController.updatePosition(2);
             }
         }
-    }
+    }/*
+    public ImageView updateXandY(String port) {
 
+        for (PortController entry : getAllPorts()) {
+            if(entry.getPort().equals(port)){
+                getLayout(entry.getView());
+                Bounds boundsInScene = entry.getKey().localToScene(entry.getKey().getBoundsInLocal());
+                System.out.println("x image :"+boundsInScene);
+                return entry.getKey();
+            }
+        }
+        return null;
+    }*/
     // Setters & Getters
 
     /**
@@ -217,5 +230,13 @@ public abstract class ModuleController implements Serializable {
 
     public void setRoot(Node root) {
         this.root = root;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }
