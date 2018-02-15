@@ -160,8 +160,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
     public void restore(JSONObject jsonObjectModule) {
     setJsonModuleObject(jsonObjectModule);
         double frequency = (double) jsonObjectModule.get("frequencySlider");
-        //model
-        vcfhp.setF0(frequency);
+
         //graphique
         frequencySlider.setValue(frequency);
     }

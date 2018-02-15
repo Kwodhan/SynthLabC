@@ -92,9 +92,6 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     setJsonModuleObject(jsonObjectModule);
         double frequency = (double) jsonObjectModule.get("frequencySlider");
         double resonance = (double) jsonObjectModule.get("resonanceSlider");
-        //model
-        this.vcflp.setF0(frequency);
-        this.vcflp.setResonance(resonance);
 
         //graphique
         frequencySlider.setValue(frequency);

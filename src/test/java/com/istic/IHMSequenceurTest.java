@@ -67,7 +67,7 @@ public class IHMSequenceurTest extends ApplicationTest {
 	        	slider = lookup("#sliderSeq"+i).query();
 	        	double value = Math.random()*(-1+(i%2)*2);
 	        	slider.setValue(value);
-	        	System.out.println(value);
+
 	        }      
         	Thread.sleep(1000);
         }

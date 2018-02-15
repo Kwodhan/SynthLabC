@@ -55,7 +55,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
             double value = sliders[j].getValue();
             sliders[j].setValue(value);
             sequenceur.setValue(value,j);
-            System.out.println(j);
+
         });
     	}
     }
@@ -135,7 +135,6 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     	for (int i = 0; i<8;i++){
     		val = (double) jsonObjectModule.get("sliderseq"+(i+1));
     		sliders[i].setValue(val);
-    		sequenceur.setValue(val,i);
     	}
 
     }

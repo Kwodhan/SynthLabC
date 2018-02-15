@@ -132,11 +132,6 @@ public class MIXERModuleController extends ModuleController implements Initializ
         double amplitude3 = (double) jsonObjectModule.get("amplitudeSlider3");
         double amplitude4 = (double) jsonObjectModule.get("amplitudeSlider4");
 
-        //model
-        mixer.changeAtt1( amplitude1);
-        mixer.changeAtt2( amplitude2);
-        mixer.changeAtt3( amplitude3);
-        mixer.changeAtt4( amplitude4);
         //ui
         amplitudeSlider1.setValue(amplitude1);
         amplitudeSlider2.setValue(amplitude2);

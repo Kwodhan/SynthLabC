@@ -184,9 +184,7 @@ public class VCOModuleController extends ModuleController implements Initializab
         squareRadio.setSelected(squareRadio_);
         sawRadio.setSelected(sawRadio_);
         triangleRadio.setSelected(triangleRadio_);
-        
-        this.vco.changeOctave(frequencySlider_);
-        this.vco.changeFin(frequencyFineSlider_);
+
         int wave = (squareRadio_)? VCO.SQUAREWAVE : (sawRadio_)? VCO.SAWWAVE: VCO.TRIANGLEWAVE;
         this.vco.changeShapeWave(wave);
         

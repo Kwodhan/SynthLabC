@@ -156,8 +156,7 @@ public class VCAModuleController extends ModuleController implements Initializab
     public void restore(JSONObject jsonObjectModule) {
 
         double amplitude = (double) jsonObjectModule.get("amplitudeSlider");
-        //model
-        vca.changeA0(amplitude);
+
         //graphique
         amplitudeSlider.setValue(Math.round(amplitude));
 

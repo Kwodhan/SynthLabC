@@ -315,7 +315,7 @@ public class Controller implements Initializable {
     public VCOModuleController addVco() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/vco.fxml"));
-        System.out.println("dqsd");
+
         addMod(root);
         VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
         this.moduleControllers.add(vcoModuleController);
@@ -632,7 +632,7 @@ public class Controller implements Initializable {
 	public void selectCableColor(ActionEvent event) {
 		RadioMenuItem menu = (RadioMenuItem) event.getSource();
 		String color = (String) menu.getUserData();
-		System.out.println(color);
+
 		cableColor = Color.valueOf(color.toUpperCase());
 	}
 

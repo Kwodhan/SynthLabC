@@ -112,7 +112,7 @@ public class CableController {
             line.setControlY1(mc1.getY() + getCurve(mc1.getX(), mc1.getY(), mc2.getX(), mc2.getY()));
             line.setControlX2(mc2.getX());
             line.setControlY2(mc2.getY() + getCurve(mc1.getX(), mc1.getY(), mc2.getX(), mc2.getY()));
-            System.out.println("x1:"+mc1.getX()+" x2:"+mc2.getX());
+
         } else {
             if(justRestored){
                 mc1.setX(restorations.get(0));
@@ -125,7 +125,7 @@ public class CableController {
             line.setControlY1(mc1.getY() + getCurve(mc1.getX(), mc1.getY(), mc2.getX(), mc2.getY()));
             line.setControlX2(mc2.getX());
             line.setControlY2(mc2.getY() + getCurve(mc1.getX(), mc1.getY(), mc2.getX(), mc2.getY()));
-            System.out.println("x1:"+mc1.getX()+" x2:"+mc2.getX());
+
 
         }
 

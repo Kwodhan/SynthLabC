@@ -200,7 +200,7 @@ public class Files {
             linesData.get(i).add((Double) jsonObjectCable.get("EndX"));
             linesData.get(i).add((Double) jsonObjectCable.get("StartY"));
             linesData.get(i).add((Double) jsonObjectCable.get("EndY"));
-            System.out.println("data at :" + linesData.get(i));
+
             i++;
 
 
@@ -245,7 +245,7 @@ public class Files {
         JSONObject objectCable;
         for (CableController cableController : this.controller.getCables()) {
             if (cableController.serialize()) {
-                System.out.println("ok one");
+
                 objectCable = cableController.getJsonCableObject();
                 objectsCables.add(objectCable);
                 //System.out.println(objectsCables);

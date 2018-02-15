@@ -184,9 +184,8 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         setJsonModuleObject(jsonObjectModule);
         double attenuation = (double) jsonObjectModule.get("attenuation");
         int mute = ((Long) jsonObjectModule.get("mute")).intValue();
-        //model
-        this.getLineOut().setAttenuation(attenuation);
-        this.getLineOut().setMute(mute);
+
+
         //graphique
         this.getAttenuationSlider().setValue(attenuation);
         if (mute == 0)
