@@ -56,7 +56,7 @@ public class VCOModuleController extends ModuleController implements Initializab
         triangleRadio.setToggleGroup(group);
         squareRadio.setToggleGroup(group);
         squareRadio.setSelected(true);
-        Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
+
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
             vco.changeOctave((int) frequencySlider.getValue());
@@ -86,7 +86,7 @@ public class VCOModuleController extends ModuleController implements Initializab
         this.controller.getSynth().add(vco);
         this.portControllers.add(new PortController(this.vco.getFm(),this.fmPort));
         this.portControllers.add(new PortController(this.vco.getOutput(),this.outPort));
-
+        Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
 
     }
 

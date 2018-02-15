@@ -268,12 +268,14 @@ public class Controller implements Initializable {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/vco.fxml"));
 
-        addMod(root);
-        VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
-        this.moduleControllers.add(vcoModuleController);
-        vcoModuleController.init(this);
-        vcoModuleController.setRoot(root);
-        return vcoModuleController;
+        if(addMod(root)) {
+            VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
+            this.moduleControllers.add(vcoModuleController);
+            vcoModuleController.init(this);
+            vcoModuleController.setRoot(root);
+            return vcoModuleController;
+        }
+        return null;
     }
 
     /**
@@ -284,13 +286,15 @@ public class Controller implements Initializable {
     public OUTPUTModuleController addOutput() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/output.fxml"));
-        addMod(root);
+        if(addMod(root)) {
 
-        OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
-        this.moduleControllers.add(outputModuleController);
-        outputModuleController.init(this);
-        outputModuleController.setRoot(root);
-        return outputModuleController;
+            OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
+            this.moduleControllers.add(outputModuleController);
+            outputModuleController.init(this);
+            outputModuleController.setRoot(root);
+            return outputModuleController;
+        }
+        return null;
     }
 
     /**
@@ -302,13 +306,15 @@ public class Controller implements Initializable {
 
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/mixer.fxml"));
-        addMod(root);
+        if(addMod(root)) {
 
-        MIXERModuleController mixerModuleController = (MIXERModuleController) root.getUserData();
-        this.moduleControllers.add(mixerModuleController);
-        mixerModuleController.init(this);
-        mixerModuleController.setRoot(root);
-        return mixerModuleController;
+            MIXERModuleController mixerModuleController = (MIXERModuleController) root.getUserData();
+            this.moduleControllers.add(mixerModuleController);
+            mixerModuleController.init(this);
+            mixerModuleController.setRoot(root);
+            return mixerModuleController;
+        }
+        return null;
     }
 
     /**
@@ -320,13 +326,15 @@ public class Controller implements Initializable {
 
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/keyboard.fxml"));
-        addMod(root);
+        if(addMod(root)) {
 
-        KBModuleController kbModuleController = (KBModuleController) root.getUserData();
-        this.moduleControllers.add(kbModuleController);
-        kbModuleController.init(this);
-        kbModuleController.setRoot(root);
-        return kbModuleController;
+            KBModuleController kbModuleController = (KBModuleController) root.getUserData();
+            this.moduleControllers.add(kbModuleController);
+            kbModuleController.init(this);
+            kbModuleController.setRoot(root);
+            return kbModuleController;
+        }
+        return null;
     }
 
     /**
@@ -337,13 +345,15 @@ public class Controller implements Initializable {
     public EGModuleController addEG() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/eg.fxml"));
-        addMod(root);
+        if(addMod(root)) {
 
-        EGModuleController egModuleController = (EGModuleController) root.getUserData();
-        this.moduleControllers.add(egModuleController);
-        egModuleController.init(this);
-        egModuleController.setRoot(root);
-        return egModuleController;
+            EGModuleController egModuleController = (EGModuleController) root.getUserData();
+            this.moduleControllers.add(egModuleController);
+            egModuleController.init(this);
+            egModuleController.setRoot(root);
+            return egModuleController;
+        }
+        return null;
     }
 
     /**
@@ -355,12 +365,15 @@ public class Controller implements Initializable {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/oscilloscope.fxml"));
 
-        OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
-        this.moduleControllers.add(oscilloscopeModuleController);
-        oscilloscopeModuleController.init(this);
-        addMod(root);
-        oscilloscopeModuleController.setRoot(root);
-        return oscilloscopeModuleController;
+        if(addMod(root)) {
+            OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
+            this.moduleControllers.add(oscilloscopeModuleController);
+            oscilloscopeModuleController.init(this);
+
+            oscilloscopeModuleController.setRoot(root);
+            return oscilloscopeModuleController;
+        }
+        return null;
     }
 
     /**
@@ -371,13 +384,15 @@ public class Controller implements Initializable {
     public REPLICATORModuleController addReplicator() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/replicator.fxml"));
-        addMod(root);
+        if(addMod(root)) {
 
-        REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root.getUserData();
-        this.moduleControllers.add(replicatorModuleController);
-        replicatorModuleController.init(this);
-        replicatorModuleController.setRoot(root);
-        return replicatorModuleController;
+            REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root.getUserData();
+            this.moduleControllers.add(replicatorModuleController);
+            replicatorModuleController.init(this);
+            replicatorModuleController.setRoot(root);
+            return replicatorModuleController;
+        }
+        return null;
     }
 
     /**
@@ -388,13 +403,15 @@ public class Controller implements Initializable {
     public SEQUENCERModuleController addSequencer() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/sequencer.fxml"));
-        addMod(root);
+        if(addMod(root)) {
 
-        SEQUENCERModuleController seqModuleController = (SEQUENCERModuleController) root.getUserData();
-        this.moduleControllers.add(seqModuleController);
-        seqModuleController.init(this);
-        seqModuleController.setRoot(root);
-        return seqModuleController;
+            SEQUENCERModuleController seqModuleController = (SEQUENCERModuleController) root.getUserData();
+            this.moduleControllers.add(seqModuleController);
+            seqModuleController.init(this);
+            seqModuleController.setRoot(root);
+            return seqModuleController;
+        }
+        return null;
     }
 
     /**
@@ -405,13 +422,15 @@ public class Controller implements Initializable {
     public VCAModuleController addVca() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/vca.fxml"));
-        addMod(root);
+        if(addMod(root)) {
 
-        VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
-        this.moduleControllers.add(vcaModuleController);
-        vcaModuleController.init(this);
-        vcaModuleController.setRoot(root);
-        return vcaModuleController;
+            VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
+            this.moduleControllers.add(vcaModuleController);
+            vcaModuleController.init(this);
+            vcaModuleController.setRoot(root);
+            return vcaModuleController;
+        }
+        return null;
     }
 
     /**
@@ -422,12 +441,14 @@ public class Controller implements Initializable {
     public VCFLPModuleController addVcfLp() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/vcfLp.fxml"));
-        addMod(root);
-        VCFLPModuleController vcflpModuleController = (VCFLPModuleController) root.getUserData();
-        this.moduleControllers.add(vcflpModuleController);
-        vcflpModuleController.init(this);
-        vcflpModuleController.setRoot(root);
-        return vcflpModuleController;
+        if(addMod(root)) {
+            VCFLPModuleController vcflpModuleController = (VCFLPModuleController) root.getUserData();
+            this.moduleControllers.add(vcflpModuleController);
+            vcflpModuleController.init(this);
+            vcflpModuleController.setRoot(root);
+            return vcflpModuleController;
+        }
+        return null;
     }
 
     /**
@@ -438,12 +459,14 @@ public class Controller implements Initializable {
     public VCFHPModuleController addVcfHp() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/vcfHp.fxml"));
-        addMod(root);
-        VCFHPModuleController vcfhpModuleController = (VCFHPModuleController) root.getUserData();
-        this.moduleControllers.add(vcfhpModuleController);
-        vcfhpModuleController.init(this);
-        vcfhpModuleController.setRoot(root);
-        return vcfhpModuleController;
+        if(addMod(root)) {
+            VCFHPModuleController vcfhpModuleController = (VCFHPModuleController) root.getUserData();
+            this.moduleControllers.add(vcfhpModuleController);
+            vcfhpModuleController.init(this);
+            vcfhpModuleController.setRoot(root);
+            return vcfhpModuleController;
+        }
+        return null;
     }
 
     /**
@@ -454,12 +477,14 @@ public class Controller implements Initializable {
     public WHITENOISEModuleController addWhiteNoise() throws IOException {
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/whiteNoise.fxml"));
-        addMod(root);
-        WHITENOISEModuleController whiteModuleController = (WHITENOISEModuleController) root.getUserData();
-        this.moduleControllers.add(whiteModuleController);
-        whiteModuleController.init(this);
-        whiteModuleController.setRoot(root);
-        return whiteModuleController;
+        if(addMod(root)) {
+            WHITENOISEModuleController whiteModuleController = (WHITENOISEModuleController) root.getUserData();
+            this.moduleControllers.add(whiteModuleController);
+            whiteModuleController.init(this);
+            whiteModuleController.setRoot(root);
+            return whiteModuleController;
+        }
+        return null;
     }
 
 
@@ -506,21 +531,25 @@ public class Controller implements Initializable {
     }
 
     /**
+     * /**
      * Ajoute un module sur le board
      *
      * @param root noeud du module à ajouter au board
+     * @return true si reussi à ajouter un module | false si il n'a pas reussi
      */
-    private void addMod(Node root) {
+    private boolean addMod(Node root) {
 
-        root.setId("module-" + moduleId++);
+
         for (StackPane s : stacks) {
 
             if (s.getChildren().isEmpty()) {
                 s.getChildren().add(root);
+                root.setId("module-" + moduleId++);
                 this.dragAndDrop.dragNode(root);
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public void addMod(int[] positions, ArrayList<ModuleController> moduleControllers) {
