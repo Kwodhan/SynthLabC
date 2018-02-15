@@ -1,5 +1,7 @@
 package com.istic.keyboard;
 
+import java.sql.Timestamp;
+
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitGatePort;
@@ -27,6 +29,13 @@ public class ReglageKB extends UnitGenerator {
     private UnitOutputPort portCv;
     
 	private TextArea displayArea;
+	
+	int derniere_note=-1;
+//	int derniere_octave=-1;
+	int current_note=-1;
+	//int current_octave=0;
+    boolean notes_playing[] = new boolean[13];
+    long notes_timestamp[] = new long[13];
 
     public UnitGatePort getPortGate() {
         return portGate;
@@ -54,42 +63,110 @@ public class ReglageKB extends UnitGenerator {
     public void generate(int arg0, int arg1) {
         // TODO Auto-generated method stub
 
+    	
     }
+    
+    Synthesizer synth;
+    SineOscillator sineOsc ;
+    LineOut lineOut ;
+    boolean firsttime=true;
+    boolean playing = false;
+private void play_signal (double hz, boolean play) {
+		if (firsttime) {
+			synth = JSyn.createSynthesizer();
+		      sineOsc = new SineOscillator(hz*1000);
+		       lineOut = new LineOut();
+		    synth.add(lineOut);
+		    synth.add(sineOsc);
+		    sineOsc.output.connect(0, lineOut.input, 0);   // connect to left channel
+		    sineOsc.output.connect(0, lineOut.input, 1);   // connect to right channel
+		    lineOut.start();
+		    synth.start();
+		    firsttime=false;
+		    return;
+		}
+		if (!play) {
+			lineOut.stop();
+			//synth.stop();
+			return;
+		}
+		//play not first time
+		sineOsc.frequency.set(hz*1000);
+		lineOut.start();
+ }
 
+	
     public String update_ouput_signal() {
-        for (int i = 0; i < 13; i++) {
-            //oscillators[i].stop();
-            if (notes[i] == true) {
-//			oscillators[i]=new SineOscillator(notes_hz[i]); 
-//			oscillators[i].start();
-            }
-        }
-        
+    	update_playing();
         this.displayArea.setText(this.print_frequencies());
         return "";
 
     }
-
-    public static void main(String[] args) {
-        ReglageKB rkb = new ReglageKB(null);
-
-        Synthesizer synth = JSyn.createSynthesizer();
-        SineOscillator sineOsc = new SineOscillator(440);
-        SineOscillator sineOsc2 = new SineOscillator(440);
-        LineOut lineOut = new LineOut();
-        synth.add(lineOut);
-        synth.add(sineOsc2);
-        synth.add(sineOsc);
-        sineOsc.output.connect(0, lineOut.input, 0);   // connect to left channel
-        sineOsc.output.connect(0, lineOut.input, 1);   // connect to right channel
-
-        sineOsc2.output.connect(0, lineOut.input, 1);   // connect to right channel
-        sineOsc2.output.connect(0, lineOut.input, 1);   // connect to right channel
-        lineOut.start();
-        synth.start();
-        
+    private int get_last_note () {
+long max= 0;
+int index=0;
+for (int i = 0; i< 13;i++) {
+	if (max < notes_timestamp[i]) {
+		max=notes_timestamp[i];
+		index=i;
+	}
+	
+}
+return index;
     }
 
+    
+    private void update_playing() {  
+       int i = get_last_note();
+       
+            if (notes[i] == true && ! notes_playing[i]) {
+          	  start_playing(i);
+          	  return;
+            }
+           if (notes[i] == true &&  notes_playing[i]) {
+          	continue_playing(i);
+        	  return;
+           }
+
+          if (notes[i] == false && notes_playing[i]) {
+          	stop_playing(i);
+        	  return;
+
+          }
+      }
+
+
+    
+	private void stop_playing(int i) {
+		notes_playing[i]=false;
+		System.out.println("stop"+i);
+		play_signal(notes_hz[i], false);
+
+		
+	}
+
+	private void continue_playing(int i) {
+//System.out.println("contine"+i);		
+	}
+
+	private void start_playing(int i) {
+		stop_playing_all();
+		notes_playing[i]=true;
+		System.out.println("start"+i);
+		play_signal(notes_hz[i], true);
+		
+	}
+
+	private void stop_playing_all() {
+        for (int i = 0; i < 13; i++) {
+if (notes_playing[i]) {
+	stop_playing(i);
+	notes_playing[i]=false;
+}
+        }
+	}
+
+ 
     /////////////////////////////////////////////////////////////////:
     private String print_frequencies() {
         String res="";
@@ -120,9 +197,13 @@ public class ReglageKB extends UnitGenerator {
         return this.Vo * Math.pow(2, octave - 5) * Math.pow(2, index / 12.0);
 
     }
-
+private long get_timestamp() {
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    return timestamp.getTime();  
+}
     private void toggle_on(int note) {
-        if (this.notes[note] == false) {
+this.notes_timestamp[note]=get_timestamp();
+if (this.notes[note] == false) {
             this.notes[note] = true;
             this.compute_frequency(note);
             this.update_ouput_signal();
@@ -133,6 +214,8 @@ public class ReglageKB extends UnitGenerator {
     }
 
     private void toggle_off(int note) {
+    	this.notes_timestamp[note]=get_timestamp();
+
         if (this.notes[note] == true) {
 
             this.notes[note] = false;
