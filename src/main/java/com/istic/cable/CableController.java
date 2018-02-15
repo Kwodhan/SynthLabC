@@ -28,13 +28,16 @@ public class CableController {
     private Controller controller;
     private ModuleController mc1;
     private ModuleController mc2;
+    private boolean justRestored;
+    private ArrayList<Double> restorations;
 
     public CableController(Controller controller, AnchorPane pane, Cable cable, Color color) {
         this.cable = cable;
         this.pane = pane;
         this.color = color;
         this.controller = controller;
-
+        justRestored=false;
+        restorations=new ArrayList<>();
 
         jsonCableObject = null;
     }
@@ -86,21 +89,34 @@ public class CableController {
      * @param i the new position
      */
     public void updatePosition(int i) {
+
+
         if (i == 1) {
+            if(justRestored){
+                mc2.setX(restorations.get(1));
+                mc2.setY(restorations.get(3));
+                justRestored=false;
+            }
             line.setStartX(mc1.getX());
             line.setStartY(mc1.getY());
             line.setControlX1(mc1.getX());
             line.setControlY1(mc1.getY() + getCurve(mc1.getX(), mc1.getY(), mc2.getX(), mc2.getY()));
             line.setControlX2(mc2.getX());
             line.setControlY2(mc2.getY() + getCurve(mc1.getX(), mc1.getY(), mc2.getX(), mc2.getY()));
-
+            System.out.println("x1:"+mc1.getX()+" x2:"+mc2.getX());
         } else {
+            if(justRestored){
+                mc1.setX(restorations.get(0));
+                mc1.setY(restorations.get(2));
+                justRestored=false;
+            }
             line.setEndX(mc2.getX());
             line.setEndY(mc2.getY());
             line.setControlX1(mc1.getX());
             line.setControlY1(mc1.getY() + getCurve(mc1.getX(), mc1.getY(), mc2.getX(), mc2.getY()));
             line.setControlX2(mc2.getX());
             line.setControlY2(mc2.getY() + getCurve(mc1.getX(), mc1.getY(), mc2.getX(), mc2.getY()));
+            System.out.println("x1:"+mc1.getX()+" x2:"+mc2.getX());
 
         }
 
@@ -124,6 +140,8 @@ public class CableController {
         y1 = mc1.getY();
         y2 = mc2.getY();
 
+
+
         line = new CubicCurve(x1, y1, x1, y1 + getCurve(x1, y1, x2, y2)
                 , x2, y2 + getCurve(x1, y1, x2, y2), x2, y2);
 
@@ -146,14 +164,22 @@ public class CableController {
      */
     public void restoreLine(ArrayList<Double> lineData,String color) {
 
+        justRestored=true;
         double x1, x2, y1, y2;
         x1 = lineData.get(0);
         x2 = lineData.get(1);
         y1 = lineData.get(2);
         y2 = lineData.get(3);
+        restorations.add(x1);
+        restorations.add(x2);
+        restorations.add(y1);
+        restorations.add(y2);
         String lineId = line.getId();
         pane.getChildren().remove(line);
-
+        mc1.setX(x1);
+        mc1.setX(x2);
+        mc2.setY(y1);
+        mc2.setY(y2);
         line.setOnMouseClicked(null);
 
         line = new CubicCurve(x1, y1, x1, y1 + getCurve(x1, y1, x2, y2)
