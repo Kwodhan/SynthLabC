@@ -9,6 +9,7 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -139,6 +140,7 @@ public class Controller implements Initializable {
 		}
 
         Platform.runLater(this::setupKeyboardShortCutConfig);
+        Platform.runLater(this::setupKeyboardShortCutModules);
 	}
 
     /**
@@ -163,6 +165,28 @@ public class Controller implements Initializable {
                     }
                 }
         );
+    }
+
+    /**
+     * Setup keyboard shortcuts to add modules
+     */
+    private void setupKeyboardShortCutModules() {
+        getPane().setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case F1: try { addOutput(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F2: try { addVco(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F3: try { addVca(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F4: try { addOscilloscope(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F5: try { addEG(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F6: try { addSequencer(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F7: try { addVcfLp(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F8: try { addVcfHp(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F9: try { addWhiteNoise(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F10: try { addReplicator(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F11: try { addMixer(); } catch (IOException e) { e.printStackTrace(); } break;
+                case F12: try { addKeyBoard(); } catch (IOException e) { e.printStackTrace(); } break;
+            }
+        });
     }
 
     /**
