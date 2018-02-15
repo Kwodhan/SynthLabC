@@ -135,59 +135,11 @@ public class Controller implements Initializable {
 			e.printStackTrace();
 		}
 
-        Platform.runLater(this::setupKeyboardShortCutConfig);
-        Platform.runLater(this::setupKeyboardShortCutModules);
+
+
 	}
 
 
-    /**
-     * Setup CTRL+S and CTRL+O to save and open config
-     */
-    private void setupKeyboardShortCutConfig() {
-        getPane().getScene().getAccelerators().put(
-            new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN), () -> {
-                try {
-                    saveConfig();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        );
-        getPane().getScene().getAccelerators().put(
-                new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN), () -> {
-                    try {
-                        openConfig();
-                    } catch (IOException | ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-        );
-    }
-
-    /**
-     * Setup keyboard shortcuts to add modules
-     */
-    private void setupKeyboardShortCutModules() {
-
-        getPane().getScene().setOnKeyPressed(event -> {
-
-            switch (event.getCode()) {
-                case F1: try { addOutput(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F2: try { addVco(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F3: try { addVca(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F4: try { addOscilloscope(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F5: try { addEG(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F6: try { addSequencer();
-                     } catch (IOException e) { e.printStackTrace(); } break;
-                case F7: try { addVcfLp(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F8: try { addVcfHp(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F9: try { addWhiteNoise(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F10: try { addReplicator(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F11: try { addMixer(); } catch (IOException e) { e.printStackTrace(); } break;
-                case F12: try { addKeyBoard(); } catch (IOException e) { e.printStackTrace(); } break;
-            }
-        });
-    }
 
     /**
      * Supprime tous les modules sur le board

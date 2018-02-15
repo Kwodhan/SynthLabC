@@ -15,30 +15,27 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="openConfigMenuItem" mnemonicParsing="false" onAction="#openConfig" text="Open Configuration" />
-            <MenuItem fx:id="saveConfigMenuItem" mnemonicParsing="false" onAction="#saveConfig" text="Save Configuration" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="saveToMP3MenuItem" mnemonicParsing="false" onAction="#saveSound" text="Save to MP3" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem fx:id="openConfigMenuItem" mnemonicParsing="false" onAction="#openConfig" text="Open Configuration" accelerator="Shortcut+O"/>
+            <MenuItem fx:id="saveConfigMenuItem" mnemonicParsing="false" onAction="#saveConfig" text="Save Configuration" accelerator="Shortcut+S"/>
+
           </items>
         </Menu>
         <Menu fx:id="display" mnemonicParsing="false" text="Display">
           <items>
             <Menu fx:id="add" mnemonicParsing="false" text="Add">
               <items>
-                <MenuItem fx:id="egMenuItem" mnemonicParsing="false" onAction="#addEG" text="EG" />
-                <MenuItem fx:id="mixerMenuItem" mnemonicParsing="false" onAction="#addMixer" text="Mixer" />
-                <MenuItem fx:id="outputMenuItem" mnemonicParsing="false" onAction="#addOutput" text="Output" />
-                <MenuItem fx:id="oscilloscopeMenuItem" mnemonicParsing="false" onAction="#addOscilloscope" text="Oscilloscope" />
-                <MenuItem fx:id="replicatorMenuItem" mnemonicParsing="false" onAction="#addReplicator" text="Replicator" />
-                <MenuItem fx:id="sequencerMenuItem" mnemonicParsing="false" onAction="#addSequencer" text="Sequencer" />
-                <MenuItem fx:id="vcaMenuItem" mnemonicParsing="false" onAction="#addVca" text="VCA" />
-                <MenuItem fx:id="vcfLpMenuItem" mnemonicParsing="false" onAction="#addVcfLp" text="VCF LP" />
-                <MenuItem fx:id="vcfHpMenuItem" mnemonicParsing="false" onAction="#addVcfHp" text="VCF HP" />
-                <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVco" text="VCO" />
-                <MenuItem fx:id="whiteNoiseMenuItem" mnemonicParsing="false" onAction="#addWhiteNoise" text="White Noise" />
-                <MenuItem fx:id="keyBoardMenuItem" mnemonicParsing="false" onAction="#addKeyBoard" text="KeyBoard" />
+                <MenuItem fx:id="egMenuItem" mnemonicParsing="false" onAction="#addEG" text="EG" accelerator="F1"/>
+                <MenuItem fx:id="mixerMenuItem" mnemonicParsing="false" onAction="#addMixer" text="Mixer" accelerator="F2"/>
+                <MenuItem fx:id="outputMenuItem" mnemonicParsing="false" onAction="#addOutput" text="Output" accelerator="F3"/>
+                <MenuItem fx:id="oscilloscopeMenuItem" mnemonicParsing="false" onAction="#addOscilloscope" text="Oscilloscope" accelerator="F4" />
+                <MenuItem fx:id="replicatorMenuItem" mnemonicParsing="false" onAction="#addReplicator" text="Replicator" accelerator="F5"/>
+                <MenuItem fx:id="sequencerMenuItem" mnemonicParsing="false" onAction="#addSequencer" text="Sequencer" accelerator="F6"/>
+                <MenuItem fx:id="vcaMenuItem" mnemonicParsing="false" onAction="#addVca" text="VCA" accelerator="F7"/>
+                <MenuItem fx:id="vcfLpMenuItem" mnemonicParsing="false" onAction="#addVcfLp" text="VCF LP" accelerator="F8"/>
+                <MenuItem fx:id="vcfHpMenuItem" mnemonicParsing="false" onAction="#addVcfHp" text="VCF HP" accelerator="F9"/>
+                <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVco" text="VCO" accelerator="F10"/>
+                <MenuItem fx:id="whiteNoiseMenuItem" mnemonicParsing="false" onAction="#addWhiteNoise" text="White Noise" accelerator="F11"/>
+                <MenuItem fx:id="keyBoardMenuItem" mnemonicParsing="false" onAction="#addKeyBoard" text="KeyBoard" accelerator="F12"/>
               </items>
             </Menu>
             <MenuItem fx:id="dropAllMenuItem" mnemonicParsing="false" onAction="#dropAll" text="Drop All" />

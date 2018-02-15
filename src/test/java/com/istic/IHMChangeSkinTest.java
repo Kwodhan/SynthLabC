@@ -25,7 +25,7 @@ public class IHMChangeSkinTest extends ApplicationTest {
      */
     @Test
     public void testChangeSkin() {
-        AnchorPane pane = lookup("#pane").query();
+        AnchorPane pane = lookup("#mainPane").query();
         assertEquals(0, pane.getStylesheets().size());
 
         clickOn("#display").clickOn("#woodMenuItem");
