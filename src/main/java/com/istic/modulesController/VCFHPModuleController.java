@@ -151,7 +151,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
     @Override
     public void serialize() {
     super.serialize();
-        jsonModuleObject.put("frequencySlider", Math.pow(2,frequencySlider.getValue()));
+        jsonModuleObject.put("frequencySlider", frequencySlider.getValue());
 
 
     }
