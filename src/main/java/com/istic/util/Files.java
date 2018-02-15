@@ -212,9 +212,6 @@ public class Files {
             cableController.restoreLine(linesData.get(i),colors.get(i));
             i++;
         }
-
-
-
     }
 
     /**
@@ -253,14 +250,12 @@ public class Files {
             }
 
         }
-        //puttin the cables in the final file configuration
+        //putting the cables in the final file configuration
         finalJsonObject.put("cables", objectsCables);
 
 
         //writing the json file
         finalJsonObject.writeJSONString(fileWriter);
         fileWriter.close();
-
-
     }
 }

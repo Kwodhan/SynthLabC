@@ -4,7 +4,6 @@ import com.istic.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
-import com.jsyn.unitgen.VariableRateMonoReader;
 
 /**
  * Reglage des entrées du VCFHP
@@ -47,9 +46,6 @@ public class ReglageVCFHP extends UnitGenerator {
             outputs[i] = Constraints.verifFrequenceMax(f0s[i] * Math.pow(2,Constraints.verifModFreq(Math.abs(fms[i])*Constraints.VOLT)));
 
         }
-
-
-
 
     }
 
