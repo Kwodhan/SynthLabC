@@ -5,6 +5,7 @@ import com.istic.fileformat.AudioFileMP3;
 import com.istic.fileformat.AudioFileWAV;
 import com.istic.out.OutMod;
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.jsyn.util.WaveFileWriter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,6 +75,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         super.init(controller);
         this.lineOut = new OutMod();
         this.controller.getSynth().add(this.lineOut);
+        this.portControllers.add(new PortController(this.lineOut.getPortInput(),this.inPort));
         lineOut.start();
 
     }
@@ -147,12 +149,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         return null;
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(inPort, lineOut.getPortInput());
-        return hashMap;
-    }
+
 
     @Override
     public void serialize() {

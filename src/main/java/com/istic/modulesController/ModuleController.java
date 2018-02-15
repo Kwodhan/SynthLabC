@@ -2,22 +2,29 @@ package com.istic.modulesController;
 
 import com.istic.cable.CableController;
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public abstract class ModuleController implements Serializable {
 
     protected Controller controller;
+
+    @FXML
+    AnchorPane pane;
 
     /**
      * valeur de la position du port
@@ -28,6 +35,8 @@ public abstract class ModuleController implements Serializable {
 
     JSONObject jsonCableObject;
 
+    ArrayList<PortController> portControllers;
+
     /**
      * Lie le controller du module au controller général
      *
@@ -35,7 +44,7 @@ public abstract class ModuleController implements Serializable {
      */
     public void init(Controller controller) {
         this.controller = controller;
-
+        this.portControllers = new ArrayList<>();
     }
 
     /**
@@ -117,8 +126,10 @@ public abstract class ModuleController implements Serializable {
      */
     public void getLayout(ImageView port) {
 
-
+        Bounds modele = this.pane.localToScene(this.pane.getBoundsInLocal());
         Bounds boundsInScene = port.localToScene(port.getBoundsInLocal());
+
+        System.out.println(modele);
 
         x = (boundsInScene.getMaxX() + boundsInScene.getMinX()) / 2.0;
         y = (boundsInScene.getMaxY() + boundsInScene.getMinY()) / 2.0;
@@ -146,52 +157,19 @@ public abstract class ModuleController implements Serializable {
             }
         }
     }
-    public ImageView updateXandY(String port) {
-
-        for (Map.Entry<ImageView, Port> entry : getAllPorts().entrySet()) {
-            if(entry.getValue().getClass().getSimpleName().equals(port)){
-                   getLayout(entry.getKey());
-                Bounds boundsInScene = entry.getKey().localToScene(entry.getKey().getBoundsInLocal());
-                System.out.println("x image :"+boundsInScene);
-                return entry.getKey();
-            }
-        }
-        return null;
-    }
-
-    public Map.Entry<ImageView, Port> launchConnection(String port) {
-
-        for (Map.Entry<ImageView, Port> entry : getAllPorts().entrySet()) {
-            if(entry.getValue().getClass().getSimpleName().equals(port)){
 
 
 
-                return entry;
-            }
-        }
-        return null;
-    }
 
-    public void launching(ImageView imageView){
-        Event.fireEvent(imageView, new MouseEvent(MouseEvent.MOUSE_CLICKED,
-                imageView.getX(), imageView.getY(),
-                imageView.getX(), imageView.getY(),
-                MouseButton.PRIMARY, 1,
-                true, true,
-                true, true,
-                true, true,
-                true, true, true,
-                true, null));
-    }
     // Setters & Getters
 
     /**
      * Met à jour la position des cables liés au module
      */
     public void updateCablesPosition() {
-        for (Map.Entry<ImageView, Port> entry : getAllPorts().entrySet()) {
-            getLayout(entry.getKey());
-            this.updateCablesPositionFromPort(entry.getValue());
+        for (PortController portController : getAllPorts()) {
+            getLayout(portController.getView());
+            this.updateCablesPositionFromPort(portController.getPort());
         }
     }
 
@@ -202,7 +180,9 @@ public abstract class ModuleController implements Serializable {
      *
      * @return liste des ports, images
      */
-    public abstract Map<ImageView, Port> getAllPorts();
+    public  ArrayList<PortController> getAllPorts(){
+        return portControllers;
+    }
 
 
     public double getX() {

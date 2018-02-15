@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.vco.VCO;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -84,6 +85,9 @@ public class VCOModuleController extends ModuleController implements Initializab
         super.init(controller);
         this.vco = new VCO();
         this.controller.getSynth().add(vco);
+        this.portControllers.add(new PortController(this.vco.getFm(),this.fmPort));
+        this.portControllers.add(new PortController(this.vco.getOutput(),this.outPort));
+
 
     }
 
@@ -155,13 +159,7 @@ public class VCOModuleController extends ModuleController implements Initializab
      *
      * @throws IOException si deconnexion impossible
      */
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, vco.getOutput());
-        hashMap.put(fmPort, vco.getFm());
-        return hashMap;
-    }
+
 
     @Override
     public void serialize() {

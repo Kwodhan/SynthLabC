@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
-    AnchorPane pane;
+    AnchorPane mainPane;
     @FXML
     MenuItem vcoMenuItem, saveConfigMenuItem, openConfigMenuItem, saveToMP3MenuItem, dropAllMenuItem;
 
@@ -114,8 +114,8 @@ public class Controller implements Initializable {
         this.moduleControllers = new ArrayList<>();
         this.cables = new ArrayList<>();
 
-        pane.getChildren().add(mouseLine);
-        pane.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
+        mainPane.getChildren().add(mouseLine);
+        mainPane.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
             int x = (this.mouseLine.getStartX() > event.getX() ? 2 : -2);
             int y = (this.mouseLine.getStartY() > event.getY() ? 2 : -2);
             this.mouseLine.setEndX(event.getX() + x);
@@ -157,7 +157,7 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Configuration File");
         //Show open file dialog
-        File file = fileChooser.showOpenDialog(pane.getScene().getWindow());
+        File file = fileChooser.showOpenDialog(mainPane.getScene().getWindow());
         if (file != null) {
             dropAll();
             files = new Files(file, this);
@@ -178,7 +178,7 @@ public class Controller implements Initializable {
         fileChooser.getExtensionFilters().add(extFilter);
         fileChooser.setInitialFileName("*.json");
         //Show save file dialog
-        File file = fileChooser.showSaveDialog(pane.getScene().getWindow());
+        File file = fileChooser.showSaveDialog(mainPane.getScene().getWindow());
 
         if (file != null) {
             files = new Files(file, this);
@@ -203,7 +203,7 @@ public class Controller implements Initializable {
         fileChooser.getExtensionFilters().add(extFiltermp3);
 
         //Show save file dialog
-        File dest = fileChooser.showSaveDialog(pane.getScene().getWindow());
+        File dest = fileChooser.showSaveDialog(mainPane.getScene().getWindow());
         String ext;
         //System.out.println("extension : " +fileChooser.getSelectedExtensionFilter().getExtensions());
         if (fileChooser.getSelectedExtensionFilter() != null) {
@@ -219,31 +219,31 @@ public class Controller implements Initializable {
 	 * Change le thème en coral
 	 */
 	public void coralTheme(){
-		pane.getStylesheets().clear();
-		pane.getStylesheets().add("/skins/coral.css");
+        mainPane.getStylesheets().clear();
+        mainPane.getStylesheets().add("/skins/coral.css");
 	}
 
     /**
      * Change le thème en default
      */
     public void defaultTheme() {
-        pane.getStylesheets().clear();
+        mainPane.getStylesheets().clear();
     }
 
     /**
      * Change le thème en dark
      */
     public void darkTheme() {
-        pane.getStylesheets().clear();
-        pane.getStylesheets().add("/skins/dark.css");
+        mainPane.getStylesheets().clear();
+        mainPane.getStylesheets().add("/skins/dark.css");
     }
 
     /**
      * Change le thème en wood
      */
     public void woodTheme() {
-        pane.getStylesheets().clear();
-        pane.getStylesheets().add("/skins/wood.css");
+        mainPane.getStylesheets().clear();
+        mainPane.getStylesheets().add("/skins/wood.css");
     }
 
     /**
@@ -252,9 +252,11 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public VCOModuleController addVCO() throws IOException {
+
         Node root = FXMLLoader.load(getClass().getResource(
                 "../../../modules/vco.fxml"));
         addMod(root);
+
         VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
         this.moduleControllers.add(vcoModuleController);
         vcoModuleController.init(this);
@@ -445,7 +447,7 @@ public class Controller implements Initializable {
 		Cable cable = new Cable(this.temporaryCableModuleController.getCurrentPort(),moduleController.getCurrentPort());
         CableController cableController = null;
 		if (cable.connect()) {
-			cableController = new CableController(this,pane, cable, getCableColor());
+			cableController = new CableController(this,mainPane, cable, getCableColor());
 			cableController.drawCable(this.temporaryCableModuleController, moduleController,cableId++);
 			this.cables.add(cableController);
 		}
@@ -455,7 +457,7 @@ public class Controller implements Initializable {
         Cable cable = new Cable(port1,port2);
         CableController cableController = null;
         if (cable.connect()) {
-            cableController = new CableController(this,pane, cable, getCableColor());
+            cableController = new CableController(this,mainPane, cable, getCableColor());
             cableController.drawCable(moduleController1, moduleController2,cableId++);
             this.cables.add(cableController);
         }
@@ -545,10 +547,10 @@ public class Controller implements Initializable {
 	}
 
     public AnchorPane getPane() {
-        return pane;
+        return mainPane;
     }
 
-    public void setPane(AnchorPane pane) {
-        this.pane = pane;
+    public void setPane(AnchorPane mainPane) {
+        this.mainPane = mainPane;
     }
 }

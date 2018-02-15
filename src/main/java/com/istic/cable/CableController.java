@@ -3,6 +3,7 @@ package com.istic.cable;
 import com.istic.modulesController.Controller;
 import com.istic.modulesController.ModuleController;
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -55,14 +56,14 @@ public class CableController {
         //mc1.getAllPorts()
         jsonModuleObject.put("positionM1", mc1.getPosition(this.controller.getStacks()));
         jsonModuleObject.put("positionM2", mc2.getPosition(this.controller.getStacks()));
-        for (Map.Entry<ImageView, Port> entry : mc1.getAllPorts().entrySet()) {
-            if(entry.getValue().equals(cable.portOne)){
-                jsonModuleObject.put("portM1", entry.getKey().getId());
+        for (PortController portController : mc1.getAllPorts()) {
+            if(portController.getPort().equals(cable.portOne)){
+                jsonModuleObject.put("portM1", portController.getView().getId());
             }
         }
-        for (Map.Entry<ImageView, Port> entry : mc2.getAllPorts().entrySet()) {
-            if(entry.getValue().equals(cable.portTwo)){
-                jsonModuleObject.put("portM2", entry.getKey().getId());
+        for (PortController portController : mc2.getAllPorts()) {
+            if(portController.getPort().equals(cable.portTwo)){
+                jsonModuleObject.put("portM2", portController.getView().getId());
             }
         }
 

@@ -30,7 +30,7 @@ public class KBModuleController  extends ModuleController implements Initializab
 
     public void init(Controller controller) {
         super.init(controller);
-        kbListener.add_listener(this.controller.pane);
+        kbListener.add_listener(this.controller.mainPane);
         //this.controller.getSynth().add(kbListener);
 
 
@@ -48,11 +48,6 @@ public class KBModuleController  extends ModuleController implements Initializab
 		
 	}
 
-	@Override
-	public Map<ImageView, Port> getAllPorts() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void restore(JSONObject jsonObjectModule) {

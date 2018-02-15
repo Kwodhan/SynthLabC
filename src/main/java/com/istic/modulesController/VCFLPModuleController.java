@@ -1,6 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -77,13 +78,7 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     }
 
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, vcflp.getOutput());
-        hashMap.put(fmPort, vcflp.getFm());
-        hashMap.put(inPort, vcflp.getInput());
-        return hashMap;    }
+
 
     @Override
     public void serialize() {
@@ -144,6 +139,9 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         this.vcflp.setResonance(resonanceSlider.getValue());
 
         this.frequence.setText((Math.round(this.vcflp.getFrequence()*100.0) / 100.0) + " Hz");
+        this.portControllers.add(new PortController(this.vcflp.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.vcflp.getFm(),this.fmPort));
+        this.portControllers.add(new PortController(this.vcflp.getOutput(),this.outPort));
 
     }
     /**
