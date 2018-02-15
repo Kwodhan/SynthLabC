@@ -117,7 +117,9 @@ public abstract class ModuleController implements Serializable {
      */
     public void getLayout(ImageView port) {
 
+
         Bounds boundsInScene = port.localToScene(port.getBoundsInLocal());
+
         x = (boundsInScene.getMaxX() + boundsInScene.getMinX()) / 2.0;
         y = (boundsInScene.getMaxY() + boundsInScene.getMinY()) / 2.0;
     }
@@ -157,14 +159,14 @@ public abstract class ModuleController implements Serializable {
         return null;
     }
 
-    public ImageView launchConnection(String port) {
+    public Map.Entry<ImageView, Port> launchConnection(String port) {
 
         for (Map.Entry<ImageView, Port> entry : getAllPorts().entrySet()) {
             if(entry.getValue().getClass().getSimpleName().equals(port)){
 
-                launching(entry.getKey());
 
-                return entry.getKey();
+
+                return entry;
             }
         }
         return null;

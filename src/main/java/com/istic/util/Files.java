@@ -116,36 +116,44 @@ public class Files {
                     .get(0)
                     .getUserData();
 
-            System.out.println("m1 :"+mc1.getClass().getSimpleName());
             mc2 = (ModuleController) this.controller
                     .getStacks()[((Long) jsonObjectCable.get("positionM2")).intValue()]
                     .getChildren()
                     .get(0)
                     .getUserData();
 
-            System.out.println("m2 :"+mc2.getClass().getSimpleName());
-
             //attaching the modules ports
             String portOne = (String) jsonObjectCable.get("portM1");
             String portTwo = (String) jsonObjectCable.get("portM2");
 
-            mc1.getLayout(mc1.updateXandY(portOne));
-            mc2.getLayout(mc2.updateXandY(portTwo));
-            System.out.println("Result():" + mc1.getX()
-                    + " y :" + mc1.getY());
-            mc1.launchConnection(portOne);
-            mc2.launchConnection(portTwo);
+            Port port1 = null;
+            Port port2 = null;
+            for (Map.Entry<ImageView, Port> entry : mc1.getAllPorts().entrySet()) {
 
+                if(entry.getKey().getId().equals(portOne)){
+                    System.out.println("Take1");
+                    mc2.getLayout(entry.getKey());
+                    port1 = entry.getValue();
+                }
 
-        }
-
-        for (ModuleController moduleController:this.controller.getModuleControllers()){
-            for (Map.Entry<ImageView, Port> entry : moduleController.getAllPorts().entrySet()) {
-
-
-                moduleController.updateCablesPositionFromPort(entry.getValue());
             }
+            for (Map.Entry<ImageView, Port> entry : mc2.getAllPorts().entrySet()) {
+
+                if(entry.getKey().getId().equals(portTwo)){
+                    System.out.println("Take2");
+                    mc1.getLayout(entry.getKey());
+                    port2 = entry.getValue();
+                }
+
+            }
+
+            CableController cableController = this.controller.connect(port1,port2,mc1,mc2);
+            cableController.updatePosition(1);
+            cableController.updatePosition(2);
+
         }
+
+
     }
 
     /**

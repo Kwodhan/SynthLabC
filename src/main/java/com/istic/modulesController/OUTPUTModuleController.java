@@ -199,6 +199,8 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         if (mute == 0)
             this.getMute().setSelected(true);
 
+
+
     }
 
     //Setters & Getters

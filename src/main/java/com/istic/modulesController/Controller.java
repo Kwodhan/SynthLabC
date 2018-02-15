@@ -163,9 +163,7 @@ public class Controller implements Initializable {
             files = new Files(file, this);
             files.open();
         }
-        for(ModuleController moduleController:moduleControllers){
-            moduleController.updateCablesPosition();
-        }
+
     }
 
     /**
@@ -453,6 +451,16 @@ public class Controller implements Initializable {
 		}
 		return cableController;
 	}
+    public CableController connect(Port port1, Port port2, ModuleController moduleController1, ModuleController moduleController2) {
+        Cable cable = new Cable(port1,port2);
+        CableController cableController = null;
+        if (cable.connect()) {
+            cableController = new CableController(this,pane, cable, getCableColor());
+            cableController.drawCable(moduleController1, moduleController2,cableId++);
+            this.cables.add(cableController);
+        }
+        return cableController;
+    }
 
     /**
      * Supprime un module controller de la liste du controller

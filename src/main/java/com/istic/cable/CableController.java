@@ -50,14 +50,24 @@ public class CableController {
         jsonModuleObject.put("type", this.getClass().getSimpleName());
         jsonModuleObject.put("color", color.toString());
 
-        String portOne = "";
-        String portTwo = "";
+
         //recuperer un port
         //mc1.getAllPorts()
         jsonModuleObject.put("positionM1", mc1.getPosition(this.controller.getStacks()));
         jsonModuleObject.put("positionM2", mc2.getPosition(this.controller.getStacks()));
-        jsonModuleObject.put("portM1", cable.portOne.getClass().getSimpleName());
-        jsonModuleObject.put("portM2", cable.portTwo.getClass().getSimpleName());
+        for (Map.Entry<ImageView, Port> entry : mc1.getAllPorts().entrySet()) {
+            if(entry.getValue().equals(cable.portOne)){
+                jsonModuleObject.put("portM1", entry.getKey().getId());
+            }
+        }
+        for (Map.Entry<ImageView, Port> entry : mc2.getAllPorts().entrySet()) {
+            if(entry.getValue().equals(cable.portTwo)){
+                jsonModuleObject.put("portM2", entry.getKey().getId());
+            }
+        }
+
+
+
 
 
     }
@@ -105,6 +115,7 @@ public class CableController {
         x2 = mc2.getX();
         y1 = mc1.getY();
         y2 = mc2.getY();
+
         line = new CubicCurve(x1, y1, x1, y1 + getCurve(x1, y1, x2, y2)
                 , x2, y2 + getCurve(x1, y1, x2, y2), x2, y2);
 
