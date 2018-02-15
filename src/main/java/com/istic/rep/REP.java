@@ -76,7 +76,6 @@ public class REP extends Circuit{
      public PortOutput getOutput3() {
          return portOutput3;
      }
-
      public PortInput getInput(){
          return portInput;
      }

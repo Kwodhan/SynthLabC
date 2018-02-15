@@ -12,28 +12,12 @@ public abstract class Port implements Serializable {
      * Si le port est cablé à un cable
      */
 
-    boolean connected = false;
+    private boolean connected = false;
 
     /**
      * Définie les contraintes avec un autre port
      */
     protected VisitorPort visitorPort;
-
-
-    public VisitorPort getVisitorPort() {
-        return visitorPort;
-    }
-
-    public boolean isConnected() {
-        return connected;
-    }
-
-
-
-    public void setConnected(boolean connected) {
-
-        this.connected = connected;
-    }
 
     /**
      *
@@ -43,4 +27,21 @@ public abstract class Port implements Serializable {
     abstract public boolean accept(VisitorPort visitor);
 
     abstract public void disconnect();
+
+
+    //Setters & Getters
+
+    public VisitorPort getVisitorPort() {
+        return visitorPort;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+
+        this.connected = connected;
+    }
+
 }

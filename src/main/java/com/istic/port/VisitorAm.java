@@ -2,7 +2,7 @@ package com.istic.port;
 
 public class VisitorAm implements VisitorPort {
 
-    PortAm portAm;
+    private PortAm portAm;
 
     public VisitorAm(PortAm portAm) {
         this.portAm = portAm;
