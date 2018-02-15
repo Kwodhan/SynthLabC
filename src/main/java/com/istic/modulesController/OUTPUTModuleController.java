@@ -3,6 +3,7 @@ package com.istic.modulesController;
 import com.istic.fileformat.AudioFile;
 import com.istic.out.OutMod;
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.jsyn.util.WaveFileWriter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -72,6 +73,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         super.init(controller);
         this.lineOut = new OutMod();
         this.controller.getSynth().add(this.lineOut);
+        this.portControllers.add(new PortController(this.lineOut.getPortInput(),this.inPort));
         lineOut.start();
 
     }
@@ -83,6 +85,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         if (!this.lineOut.getPortInput().isConnected()) {
             super.getLayout(inPort);
             super.connect();
+
         }
     }
 
@@ -144,18 +147,13 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         return null;
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(inPort, lineOut.getPortInput());
-        return hashMap;
-    }
+
 
     @Override
     public void serialize() {
         super.serialize();
-        jsonCableObject.put("mute", lineOut.getMute());
-        jsonCableObject.put("attenuation", lineOut.getAttenuation());
+        jsonModuleObject.put("mute", lineOut.getMute());
+        jsonModuleObject.put("attenuation", lineOut.getAttenuation());
 
 
     }
@@ -183,12 +181,11 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
         double attenuation = (double) jsonObjectModule.get("attenuation");
         int mute = ((Long) jsonObjectModule.get("mute")).intValue();
-        //model
-        this.getLineOut().setAttenuation(attenuation);
-        this.getLineOut().setMute(mute);
+
+
         //graphique
         this.getAttenuationSlider().setValue(attenuation);
         if (mute == 0)

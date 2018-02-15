@@ -1,6 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.sequencer.Sequenceur;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,7 +55,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
             double value = sliders[j].getValue();
             sliders[j].setValue(value);
             sequenceur.setValue(value,j);
-            System.out.println(j);
+
         });
     	}
     }
@@ -70,6 +71,10 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         super.init(controller);
         this.sequenceur = new Sequenceur();
         this.controller.getSynth().add(sequenceur);
+        this.portControllers.add(new PortController(this.sequenceur.getGatePort(),this.gatePort));
+        this.portControllers.add(new PortController(this.sequenceur.getOutputPort(),this.outPort));
+
+
     }
     
     /**
@@ -86,14 +91,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         return null;
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-    	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(outPort, sequenceur.getOutputPort());
-    	hm.put(gatePort, sequenceur.getGatePort());
-        return hm;
-    }
-    
+
     
     /**
      * Connecting the outPort to draw the cable
@@ -125,19 +123,18 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
     public void serialize() {
     	super.serialize();
     	for (int i = 0; i<sliders.length;i++){
-    		jsonCableObject.put("sliderseq"+(i+1), sliders[i].getValue());
+    		jsonModuleObject.put("sliderseq"+(i+1), sliders[i].getValue());
     	}
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
         double val;
     	for (int i = 0; i<8;i++){
     		val = (double) jsonObjectModule.get("sliderseq"+(i+1));
     		sliders[i].setValue(val);
-    		sequenceur.setValue(val,i);
     	}
 
     }

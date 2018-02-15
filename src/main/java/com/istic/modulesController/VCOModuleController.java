@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.vco.VCO;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -83,6 +84,9 @@ public class VCOModuleController extends ModuleController implements Initializab
         super.init(controller);
         this.vco = new VCO();
         this.controller.getSynth().add(vco);
+        this.portControllers.add(new PortController(this.vco.getFm(),this.fmPort));
+        this.portControllers.add(new PortController(this.vco.getOutput(),this.outPort));
+
 
     }
 
@@ -152,28 +156,22 @@ public class VCOModuleController extends ModuleController implements Initializab
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
      */
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, vco.getOutput());
-        hashMap.put(fmPort, vco.getFm());
-        return hashMap;
-    }
+
 
     @Override
     public void serialize() {
     	super.serialize();
-    	jsonCableObject.put("frequencySlider", frequencySlider.getValue() );
-    	jsonCableObject.put("frequencyFineSlider", frequencyFineSlider.getValue());
-    	jsonCableObject.put("squareRadio", squareRadio.isSelected());
-    	jsonCableObject.put("sawRadio", sawRadio.isSelected());
-    	jsonCableObject.put("triangleRadio", triangleRadio.isSelected());
+    	jsonModuleObject.put("frequencySlider", frequencySlider.getValue() );
+    	jsonModuleObject.put("frequencyFineSlider", frequencyFineSlider.getValue());
+    	jsonModuleObject.put("squareRadio", squareRadio.isSelected());
+    	jsonModuleObject.put("sawRadio", sawRadio.isSelected());
+    	jsonModuleObject.put("triangleRadio", triangleRadio.isSelected());
 
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
         double frequencySlider_ = (double) jsonObjectModule.get("frequencySlider");
         double frequencyFineSlider_ = (double) jsonObjectModule.get("frequencyFineSlider");
         boolean squareRadio_ = (boolean) jsonObjectModule.get("squareRadio");
@@ -186,9 +184,7 @@ public class VCOModuleController extends ModuleController implements Initializab
         squareRadio.setSelected(squareRadio_);
         sawRadio.setSelected(sawRadio_);
         triangleRadio.setSelected(triangleRadio_);
-        
-        this.vco.changeOctave(frequencySlider_);
-        this.vco.changeFin(frequencyFineSlider_);
+
         int wave = (squareRadio_)? VCO.SQUAREWAVE : (sawRadio_)? VCO.SAWWAVE: VCO.TRIANGLEWAVE;
         this.vco.changeShapeWave(wave);
         

@@ -56,11 +56,6 @@ public class KBModuleController  extends ModuleController implements Initializab
 		
 	}
 
-	@Override
-	public Map<ImageView, Port> getAllPorts() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void restore(JSONObject jsonObjectModule) {
@@ -68,7 +63,7 @@ public class KBModuleController  extends ModuleController implements Initializab
 	}
 
     public void connectGatePort() {
-    	System.out.println("gate");
+
 //        if(!this.eg.getGateInput().isConnected()) {
 //            currentPort = 1;
 //            getLayout(gatePort);
@@ -81,7 +76,7 @@ public class KBModuleController  extends ModuleController implements Initializab
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
-    	System.out.println("out");
+
 
 //        if(!this.eg.getOutput().isConnected()) {
 //            currentPort = 0;

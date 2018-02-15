@@ -1,6 +1,7 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.rep.REP;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,6 +49,10 @@ public class REPLICATORModuleController extends ModuleController implements Init
         super.init(controller);
         this.rep = new REP();
         this.controller.getSynth().add(rep);
+        this.portControllers.add(new PortController(this.rep.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.rep.getOutput1(),this.outPort1));
+        this.portControllers.add(new PortController(this.rep.getOutput2(),this.outPort2));
+        this.portControllers.add(new PortController(this.rep.getOutput3(),this.outPort3));
 
     }
 
@@ -142,22 +147,12 @@ public class REPLICATORModuleController extends ModuleController implements Init
     }
 
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(inPort, rep.getInput());
-        hashMap.put(outPort1, rep.getOutput1());
-        hashMap.put(outPort2, rep.getOutput2());
-        hashMap.put(outPort3, rep.getOutput3());
-        return hashMap;
-    }
-
-    @Override
     public void serialize() {
         super.serialize();
     }
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
     }
 }

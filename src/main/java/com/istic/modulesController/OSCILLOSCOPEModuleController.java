@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 import com.istic.oscillo.Oscilloscope;
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.jsyn.scope.swing.AudioScopeView;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
@@ -59,7 +60,8 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
     public void init(Controller controller) {
         super.init(controller);
         this.oscilloscope = new Oscilloscope(controller.getSynth());
-
+        this.portControllers.add(new PortController(this.oscilloscope.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.oscilloscope.getOutput(),this.outPort));
         final SwingNode swingNode = new SwingNode();
         oscilloscope.start();
         createSwingContent(swingNode, oscilloscope.getView());
@@ -81,13 +83,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         return null;
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, oscilloscope.getOutput());
-        hashMap.put(inPort, oscilloscope.getInput());
-        return hashMap;
-    }
+
 
     @Override
     public void serialize() {
@@ -96,7 +92,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-        setJsonCableObject(jsonObjectModule);
+        setJsonModuleObject(jsonObjectModule);
     }
 
     /**

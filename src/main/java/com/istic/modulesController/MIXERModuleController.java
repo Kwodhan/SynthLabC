@@ -2,6 +2,7 @@ package com.istic.modulesController;
 
 import com.istic.mixer.MIXER;
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -72,6 +73,13 @@ public class MIXERModuleController extends ModuleController implements Initializ
         this.mixer = new MIXER();
         this.controller.getSynth().add(mixer);
 
+        this.portControllers.add(new PortController(this.mixer.getInput1(),this.inPort1));
+        this.portControllers.add(new PortController(this.mixer.getInput2(),this.inPort2));
+        this.portControllers.add(new PortController(this.mixer.getInput3(),this.inPort3));
+        this.portControllers.add(new PortController(this.mixer.getInput4(),this.inPort4));
+        this.portControllers.add(new PortController(this.mixer.getOutput(),this.outPort));
+
+
         mixer.changeAtt1(amplitudeSlider1.getValue());
         mixer.changeAtt2(amplitudeSlider2.getValue());
         mixer.changeAtt3(amplitudeSlider3.getValue());
@@ -101,26 +109,15 @@ public class MIXERModuleController extends ModuleController implements Initializ
     }
 
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
 
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, mixer.getOutput());
-        hashMap.put(inPort1, mixer.getInput1());
-        hashMap.put(inPort2, mixer.getInput2());
-        hashMap.put(inPort3, mixer.getInput3());
-        hashMap.put(inPort4, mixer.getInput4());
-
-        return hashMap;
-    }
 
     @Override
     public void serialize() {
         super.serialize();
-        jsonCableObject.put("amplitudeSlider1", amplitudeSlider1.getValue());
-        jsonCableObject.put("amplitudeSlider2", amplitudeSlider2.getValue());
-        jsonCableObject.put("amplitudeSlider3", amplitudeSlider3.getValue());
-        jsonCableObject.put("amplitudeSlider4", amplitudeSlider4.getValue());
+        jsonModuleObject.put("amplitudeSlider1", amplitudeSlider1.getValue());
+        jsonModuleObject.put("amplitudeSlider2", amplitudeSlider2.getValue());
+        jsonModuleObject.put("amplitudeSlider3", amplitudeSlider3.getValue());
+        jsonModuleObject.put("amplitudeSlider4", amplitudeSlider4.getValue());
 
     }
 
@@ -135,11 +132,6 @@ public class MIXERModuleController extends ModuleController implements Initializ
         double amplitude3 = (double) jsonObjectModule.get("amplitudeSlider3");
         double amplitude4 = (double) jsonObjectModule.get("amplitudeSlider4");
 
-        //model
-        mixer.changeAtt1( amplitude1);
-        mixer.changeAtt2( amplitude2);
-        mixer.changeAtt3( amplitude3);
-        mixer.changeAtt4( amplitude4);
         //ui
         amplitudeSlider1.setValue(amplitude1);
         amplitudeSlider2.setValue(amplitude2);

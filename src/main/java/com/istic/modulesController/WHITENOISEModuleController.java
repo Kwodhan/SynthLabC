@@ -1,15 +1,20 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.port.PortOutput;
 import com.istic.whitenoise.BruitBlanc;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import org.json.simple.JSONObject;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +52,8 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         super.init(controller);
         this.bruitBlanc = new BruitBlanc();
         this.controller.getSynth().add(bruitBlanc);
+        this.portControllers.add(new PortController(this.bruitBlanc.getOutputPort(),this.outPort));
+
     }
 
     /**
@@ -60,12 +67,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         return null;
     }
 
-    @Override
-    public Map<ImageView, Port> getAllPorts() {
-    	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(outPort, bruitBlanc.getOutputPort());
-        return hm;
-    }
+
 
     @Override
     public void serialize() {
@@ -74,7 +76,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
 
     @Override
     public void restore(JSONObject jsonObjectModule) {
-    setJsonCableObject(jsonObjectModule);
+    setJsonModuleObject(jsonObjectModule);
     }
 
     /**
