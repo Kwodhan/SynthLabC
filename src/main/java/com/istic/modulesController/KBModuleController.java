@@ -1,26 +1,25 @@
 package com.istic.modulesController;
 
-import java.awt.*;
-import java.net.URL;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import com.istic.eg.EG;
 import com.istic.keyboard.KB;
-import com.istic.keyboard.KBListener;
 import com.istic.port.Port;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import org.json.simple.JSONObject;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class KBModuleController  extends ModuleController implements Initializable {
-	KB kb;
+	private KB kb;
     @FXML
     TextArea displayArea;
-	@Override
+    @FXML
+    AnchorPane pane;
+
+    @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
         //this.kbListener = new KBListener();
@@ -50,9 +49,25 @@ public class KBModuleController  extends ModuleController implements Initializab
 		return null;
 	}
 
-	@Override
+    @FXML
 	public void removeModule() {
-		// TODO Auto-generated method stub
+        if(this.controller.getTemporaryCableModuleController()==null) {
+            //Deconnexion cables
+            Port gate = kb.getGate();
+            Port out = kb.getCv();
+
+            super.disconnect(gate);
+            super.disconnect(out);
+
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(kb);
+            // Get parent node of pane corresponding to OutMod
+            // Recupere le noeud parent fxml du outmod
+            StackPane stackPane = (StackPane) pane.getParent();
+            // supprime le mod niveau ihm
+            stackPane.getChildren().remove(pane);
+            this.controller.disconnect(this);
+        }
 		
 	}
 
