@@ -81,8 +81,6 @@ public class VCFHP extends Circuit {
         return portFm;
     }
 
-    public void setResonance(double resonance){
-        this.filterHighPass.Q.set(resonance);
-    }
+
 
 }

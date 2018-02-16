@@ -14,22 +14,22 @@ import com.jsyn.unitgen.UnitOscillator;
 import javafx.scene.control.TextArea;
 
 public class KB  extends Circuit {
-    private PortOutput portCv; // +1V par octave ???
-    private PortGate portGate; //+5V par octave ???
+    private PortOutput portCv;
+    private PortOutput portGate;
     public ReglageKB reglageKB ;
    public KBListener kblistener;
 
     public KB(TextArea displayArea) {
-    	reglageKB = new ReglageKB( displayArea);
+    	reglageKB = new ReglageKB( );
     	kblistener=  new KBListener(this.reglageKB);
     	add(reglageKB);
-    	this.portGate = new PortGate(this.reglageKB.getPortGate());
+    	this.portGate = new PortOutput(this.reglageKB.getPortGate());
 		this.portCv = new PortOutput(this.reglageKB.getPortCv());
     }
 	public PortOutput getCv() {
 		return portCv;
 	}
-	public PortGate getGate() {
+	public PortOutput getGate() {
 		return portGate;
 	}
     

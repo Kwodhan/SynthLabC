@@ -623,13 +623,6 @@ public class Controller implements Initializable {
 		return cableColor;
 	}
 
-    public AnchorPane getPane() {
-        return mainPane;
-    }
-
-    public void setPane(AnchorPane mainPane) {
-        this.mainPane = mainPane;
-    }
 
 
 }

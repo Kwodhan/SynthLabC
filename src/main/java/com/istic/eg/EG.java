@@ -74,19 +74,5 @@ public class EG extends Circuit {
 		this.dahdsr.release.set(release);
 	}
 
-	public double getAttack(){
-        return this.dahdsr.attack.get();
-	}
 
-    public double getSustain(){
-        return this.dahdsr.sustain.get();
-    }
-
-    public double getDecay(){
-        return this.dahdsr.decay.get();
-    }
-
-    public double getRelease(){
-        return this.dahdsr.release.get();
-    }
 }

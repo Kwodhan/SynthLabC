@@ -12,10 +12,7 @@ public class KBListener implements EventHandler<KeyEvent> {
 	{
 		this.reglageKB=reglageKB;
 	}
-	public void add_listener (AnchorPane pane) {
-        pane.setOnKeyPressed(this);
-        pane.setOnKeyReleased(this);
-	}
+
 	@Override
 	public void handle(KeyEvent event) {
 		if (event.getEventType() == KeyEvent.KEY_PRESSED) {
@@ -38,7 +35,6 @@ public class KBListener implements EventHandler<KeyEvent> {
 
 		   case X:   reglageKB.onpressOctaveUP (); break;
 		   case W:   reglageKB.onpressOctaveDOWN (); break;
-		   default : reglageKB.ignore_key();break;
 
             }		
 		}
@@ -60,21 +56,11 @@ public class KBListener implements EventHandler<KeyEvent> {
 			   case Y:   reglageKB.onreleaseSOLd (); break;
 			   case U:   reglageKB.onreleaseLAd (); break;
 
-			   case X:   reglageKB.onreleaseOctaveUP (); break;
-			   case W:   reglageKB.onreleaseOctaveDOWN (); break;
-			   default : reglageKB.ignore_key();break;
 	            }
 			
 		}
 		event.consume();
 	}
 
-    public ReglageKB getReglageKB() {
-        return reglageKB;
-    }
-
-    public void setReglageKB(ReglageKB reglageKB) {
-        this.reglageKB = reglageKB;
-    }
 }
  
