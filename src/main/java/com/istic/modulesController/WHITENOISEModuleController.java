@@ -10,14 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import org.json.simple.JSONObject;
 
-import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class WHITENOISEModuleController extends ModuleController implements Initializable {
@@ -52,7 +47,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         super.init(controller);
         this.bruitBlanc = new BruitBlanc();
         this.controller.getSynth().add(bruitBlanc);
-        this.portControllers.add(new PortController(this.bruitBlanc.getOutputPort(),this.outPort));
+        this.portControllers.add(new PortController(this.bruitBlanc.getOutput(),this.outPort));
 
     }
 
@@ -61,8 +56,8 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      * @return le port sur lequel l'utilisateur a cliqué côté IHM
      */
     public Port getCurrentPort(){
-        if(!this.bruitBlanc.getOutputPort().isConnected()) {
-            return bruitBlanc.getOutputPort();
+        if(!this.bruitBlanc.getOutput().isConnected()) {
+            return bruitBlanc.getOutput();
         }
         return null;
     }
@@ -98,7 +93,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     @FXML
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
-            Port port = bruitBlanc.getOutputPort();
+            Port port = bruitBlanc.getOutput();
             super.disconnect(port);
             // Deconnexion du module Output du synthetizer
             this.controller.getSynth().remove(bruitBlanc);
@@ -118,7 +113,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      * @return port de sortie
      */
     public PortOutput getOutPort() {
-        return this.bruitBlanc.getOutputPort();
+        return this.bruitBlanc.getOutput();
     }
 
 }

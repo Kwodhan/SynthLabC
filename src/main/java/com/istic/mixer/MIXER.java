@@ -7,8 +7,8 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 
 public class MIXER  extends Circuit {
-    private UnitInputPort in1,in2,in3,in4;
-    private UnitOutputPort out;
+
+
     private PortOutput portOutput;
 
 
@@ -16,8 +16,8 @@ public class MIXER  extends Circuit {
     private ReglageMIXER mixer;
 
     public MIXER() {
-
-
+        UnitInputPort in1,in2,in3,in4;
+        UnitOutputPort out;
         add(mixer= new ReglageMIXER());
         addPortAlias(in1 = mixer.getIn1(),"in1");
         addPortAlias(in2 = mixer.getIn2(),"in2");

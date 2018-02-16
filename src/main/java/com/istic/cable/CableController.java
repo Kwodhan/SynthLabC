@@ -11,6 +11,10 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class CableController {
+
+    /**
+     * Couleur du cable
+     */
     private Color color;
 
     /**
