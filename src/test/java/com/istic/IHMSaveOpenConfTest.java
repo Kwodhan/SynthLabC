@@ -76,8 +76,8 @@ public class IHMSaveOpenConfTest extends ApplicationTest {
 
         // Save conf
         clickOn("#file").clickOn("#saveConfigMenuItem");
-        press(KeyCode.ENTER); release(KeyCode.ENTER);
-        press(KeyCode.ENTER); release(KeyCode.ENTER);
+        type(KeyCode.ENTER);
+        type(KeyCode.ENTER);
 
         // Drop
         sleep(1000);
@@ -86,11 +86,16 @@ public class IHMSaveOpenConfTest extends ApplicationTest {
 
         // Open conf
         clickOn("#file").clickOn("#openConfigMenuItem");
-        press(KeyCode.C); release(KeyCode.C);
-        press(KeyCode.O); release(KeyCode.O);
-        press(KeyCode.N); release(KeyCode.N);
-        press(KeyCode.F); release(KeyCode.F);
-        press(KeyCode.ENTER);
+        type(KeyCode.C);
+        type(KeyCode.O);
+        type(KeyCode.N);
+        type(KeyCode.F);
+        type(KeyCode.ENTER);
+        type(KeyCode.DECIMAL);
+        type(KeyCode.J);
+        type(KeyCode.S);
+        type(KeyCode.O);
+        type(KeyCode.N);
 
         sleep(500);
 
@@ -145,51 +150,51 @@ public class IHMSaveOpenConfTest extends ApplicationTest {
 
         // module output était 1, donc on recommence à l'id 2
 
-        press(KeyCode.F1); release(KeyCode.F1);
+        type(KeyCode.F1);
         AnchorPane eg = lookup("#module-2").query();
         assertNotNull(eg);
 
-        press(KeyCode.F2); release(KeyCode.F2);
+        type(KeyCode.F2);
         AnchorPane mixer = lookup("#module-3").query();
         assertNotNull(mixer);
 
-        press(KeyCode.F3); release(KeyCode.F3);
+        type(KeyCode.F3);
         AnchorPane output = lookup("#module-4").query();
         assertNotNull(output);
 
-        press(KeyCode.F4); release(KeyCode.F4);
+        type(KeyCode.F4);
         AnchorPane oscillo = lookup("#module-5").query();
         assertNotNull(oscillo);
 
-        press(KeyCode.F5); release(KeyCode.F5);
+        type(KeyCode.F5);
         AnchorPane rep = lookup("#module-6").query();
         assertNotNull(rep);
 
-        press(KeyCode.F6); release(KeyCode.F6);
+        type(KeyCode.F6);
         AnchorPane seq = lookup("#module-7").query();
         assertNotNull(seq);
 
-        press(KeyCode.F7); release(KeyCode.F7);
+        type(KeyCode.F7);
         AnchorPane vca = lookup("#module-8").query();
         assertNotNull(vca);
 
-        press(KeyCode.F8); release(KeyCode.F8);
+        type(KeyCode.F8);
         AnchorPane vcfLp = lookup("#module-9").query();
         assertNotNull(vcfLp);
 
-        press(KeyCode.F9); release(KeyCode.F9);
+        type(KeyCode.F9);
         AnchorPane vcfHp = lookup("#module-10").query();
         assertNotNull(vcfHp);
 
-        press(KeyCode.F10); release(KeyCode.F10);
+        type(KeyCode.F10);
         AnchorPane vco = lookup("#module-11").query();
         assertNotNull(vco);
 
-        press(KeyCode.F11); release(KeyCode.F11);
+        type(KeyCode.F11); release(KeyCode.F11);
         AnchorPane whiteNoise = lookup("#module-12").query();
         assertNotNull(whiteNoise);
 
-        press(KeyCode.F12); release(KeyCode.F12);
+        type(KeyCode.F12);
         AnchorPane kb = lookup("#module-13").query();
         assertNotNull(kb);
 
@@ -275,8 +280,8 @@ public class IHMSaveOpenConfTest extends ApplicationTest {
 
         // **** Save conf ****
         clickOn("#file").clickOn("#saveConfigMenuItem");
-        press(KeyCode.ENTER); release(KeyCode.ENTER);
-        press(KeyCode.ENTER); release(KeyCode.ENTER);
+        type(KeyCode.ENTER);
+        type(KeyCode.ENTER);
 
 
         // **** DROP ALL ****
@@ -324,11 +329,11 @@ public class IHMSaveOpenConfTest extends ApplicationTest {
 
         // **** Open conf ****
         clickOn("#file").clickOn("#openConfigMenuItem");
-        press(KeyCode.C); release(KeyCode.C);
-        press(KeyCode.O); release(KeyCode.O);
-        press(KeyCode.N); release(KeyCode.N);
-        press(KeyCode.F); release(KeyCode.F);
-        press(KeyCode.ENTER);
+        type(KeyCode.C);
+        type(KeyCode.O);
+        type(KeyCode.N);
+        type(KeyCode.F);
+        type(KeyCode.ENTER);
 
 
         sleep(3000); // mandatory
