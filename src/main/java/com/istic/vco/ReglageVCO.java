@@ -59,6 +59,15 @@ public class ReglageVCO extends UnitGenerator {
         }
     }
 
+    /**
+     * Fréquence de base avec réglage sur le module
+     * @return fréquence de base
+     */
+    public double getFrequence(){
+        return this.f0.get() * Math.pow(2,this.octave.get()) * Math.pow(1.05946f,this.fin.get());
+    }
+
+    //Setters & Getters
     public UnitInputPort getF0() {
         return f0;
     }
@@ -77,13 +86,5 @@ public class ReglageVCO extends UnitGenerator {
 
     public UnitOutputPort getOut() {
         return out;
-    }
-
-    /**
-     * Fréquence de base avec réglage sur le module
-     * @return fréquence de base
-     */
-    public double getFrequence(){
-        return this.f0.get() * Math.pow(2,this.octave.get()) * Math.pow(1.05946f,this.fin.get());
     }
 }

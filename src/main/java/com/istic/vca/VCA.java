@@ -3,8 +3,6 @@ package com.istic.vca;
 import com.istic.port.PortAm;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
-import com.jsyn.ports.UnitInputPort;
-import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 
 /**
@@ -44,6 +42,11 @@ public class VCA extends Circuit {
         portAm = new PortAm(this.reglageVCA.getAm());
 
     }
+
+    public void changeA0(double a0){
+        this.reglageVCA.getA0().set(a0);
+    }
+
     public PortOutput getOutput() {
 
         return portOutput;
@@ -56,10 +59,6 @@ public class VCA extends Circuit {
         return portAm;
     }
 
-
-    public void changeA0(double a0){
-        this.reglageVCA.getA0().set(a0);
-    }
 
 
 }

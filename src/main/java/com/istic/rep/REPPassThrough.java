@@ -58,7 +58,6 @@ public class REPPassThrough extends UnitGenerator {
 	public UnitInputPort getInput() {
 		return in;
 	}
-
 	public UnitOutputPort getOut1() {
 		return out1;
 	}

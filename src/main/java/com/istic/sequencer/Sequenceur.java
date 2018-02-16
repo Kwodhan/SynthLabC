@@ -33,21 +33,6 @@ public class Sequenceur extends UnitGate {
 		gate = new PortGate(this.input);
 	}
 
-	/**
-	 * retourne le output du sequenceur 
-	 * @return port de sortie
-	 */
-	public PortOutput getOutputPort() {
-		return out;
-	}
-
-	/**
-	 * retourne le input gate
-	 * @return port gate
-	 */
-	public PortGate getGatePort() {
-		return gate;
-	}
 
 	/**
 	 * Change la valeur du pas (ind+1) par d
@@ -81,4 +66,22 @@ public class Sequenceur extends UnitGate {
 		}
 		else exceeded = false;
 	}
+
+	//Setters & Getters
+	/**
+	 * retourne le output du sequenceur
+	 * @return port de sortie
+	 */
+	public PortOutput getOutputPort() {
+		return out;
+	}
+
+	/**
+	 * retourne le input gate
+	 * @return port gate
+	 */
+	public PortGate getGatePort() {
+		return gate;
+	}
+
 }

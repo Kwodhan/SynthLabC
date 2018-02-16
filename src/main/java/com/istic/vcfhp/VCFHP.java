@@ -3,11 +3,8 @@ package com.istic.vcfhp;
 import com.istic.port.PortFm;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
-import com.jsyn.ports.UnitInputPort;
-import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.FilterHighPass;
-import com.jsyn.unitgen.UnitGenerator;
 
 /**
  *  module Voltage Control Filter type Hig Pass
@@ -59,6 +56,19 @@ public class VCFHP extends Circuit {
 
     }
 
+    public void setF0(double fo){
+        this.vcfhp.getF0().set(fo);
+    }
+
+    /**
+     *
+     * @return Fréquence de base du VCF HP
+     */
+    public double getFrequence(){
+        return this.vcfhp.getFrequence();
+    }
+
+    //Setters & Getters
     public PortOutput getOutput() {
         return portOutput;
     }
@@ -71,20 +81,8 @@ public class VCFHP extends Circuit {
         return portFm;
     }
 
-    public void setResonance(double resonnance){
-        this.filterHighPass.Q.set(resonnance);
-    }
-
-    public void setF0(double fo){
-        this.vcfhp.getF0().set(fo);
-    }
-
-    /**
-     *
-     * @return Fréquence de base du VCF HP
-     */
-    public double getFrequence(){
-        return this.vcfhp.getFrequence();
+    public void setResonance(double resonance){
+        this.filterHighPass.Q.set(resonance);
     }
 
 }

@@ -3,13 +3,8 @@ package com.istic.vcflp;
 import com.istic.port.PortFm;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
-import com.jsyn.ports.UnitInputPort;
-import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.FilterLowPass;
-
-import java.util.ArrayList;
-import java.util.List;
 /**
  * module Voltage Control Filter type Low Pass
  */
@@ -65,20 +60,9 @@ public class VCFLP extends Circuit {
 
     }
 
-    public PortOutput getOutput() {
-        return portOutput;
-    }
 
-    public PortInput getInput() {
-        return portInput;
-    }
-
-    public PortFm getFm(){
-        return portFm;
-    }
-
-    public void setResonance(double resonnance){
-        this.filterLowPass2.Q.set(resonnance);
+    public void setResonance(double resonance){
+        this.filterLowPass2.Q.set(resonance);
     }
 
     public void setF0(double fo){
@@ -93,5 +77,17 @@ public class VCFLP extends Circuit {
         return this.vcflp.getFrequence();
     }
 
+    //Setters & Getters
 
+    public PortOutput getOutput() {
+        return portOutput;
+    }
+
+    public PortInput getInput() {
+        return portInput;
+    }
+
+    public PortFm getFm(){
+        return portFm;
+    }
 }
