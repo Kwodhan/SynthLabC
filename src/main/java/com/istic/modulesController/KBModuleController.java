@@ -62,7 +62,7 @@ public class KBModuleController  extends ModuleController implements Initializab
         if (currentPort == 0) {
             return kb.getOutputPort();
         } else if (currentPort == 1) {
-            return kb.getGatePort();
+            return kb.getOutputGate();
         }
         return null;
     }
@@ -83,7 +83,7 @@ public class KBModuleController  extends ModuleController implements Initializab
 	public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
             //Deconnexion cables
-            Port gate = kb.getGatePort();
+            Port gate = kb.getOutputGate();
             Port out = kb.getOutputPort();
 
             super.disconnect(gate);
@@ -119,7 +119,7 @@ public class KBModuleController  extends ModuleController implements Initializab
      */
     public void connectGatePort() {
 
-        if(!this.kb.getGatePort().isConnected()) {
+        if(!this.kb.getOutputGate().isConnected()) {
         	currentPort = 1;
             getLayout(gatePort);
             super.connect();
