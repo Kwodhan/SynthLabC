@@ -34,13 +34,8 @@ public class EG extends Circuit {
 		this.dahdsr.amplitude.setMaximum(1);
 	}
 
-	public PortGate getGateInput() {
-		return portGate;
-	}
 
-	public PortOutput getOutput() {
-		return portOutput;
-	}
+	//Setters & Getters
 
     /**
      * temps de montée
@@ -74,5 +69,12 @@ public class EG extends Circuit {
 		this.dahdsr.release.set(release);
 	}
 
+	public PortGate getGateInput() {
+		return portGate;
+	}
+
+	public PortOutput getOutput() {
+		return portOutput;
+	}
 
 }

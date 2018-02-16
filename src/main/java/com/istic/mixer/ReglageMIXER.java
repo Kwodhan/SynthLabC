@@ -10,8 +10,8 @@ import java.util.List;
 
 public class ReglageMIXER extends UnitGenerator {
 
-    List<UnitInputPort> inputs;
-    List<UnitInputPort> inAtts;
+    private List<UnitInputPort> inputs;
+    private List<UnitInputPort> inAtts;
 
     private UnitOutputPort out;
 
@@ -58,6 +58,8 @@ public class ReglageMIXER extends UnitGenerator {
             outputs[i] = Constraints.verifAmp(deb);
         }
     }
+
+    //Setters & Getters
 
     public UnitInputPort getIn1() {
         return this.inputs.get(0);

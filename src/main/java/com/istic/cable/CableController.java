@@ -61,12 +61,12 @@ public class CableController {
             jsonCableObject.put("positionM1", mc1.getPosition(this.controller.getStacks()));
             jsonCableObject.put("positionM2", mc2.getPosition(this.controller.getStacks()));
             for(PortController portController : mc1.getAllPorts()){
-                if(portController.getPort().equals(cable.portOne)){
+                if(portController.getPort().equals(cable.getPortOne())){
                     jsonCableObject.put("portM1", portController.getView().getId());
                 }
             }
             for(PortController portController : mc2.getAllPorts()){
-                if(portController.getPort().equals(cable.portTwo)){
+                if(portController.getPort().equals(cable.getPortTwo())){
                     jsonCableObject.put("portM2", portController.getView().getId());
                 }
             }
@@ -208,6 +208,7 @@ public class CableController {
 
     }
 
+    //Getters & Setters
     /**
      * Return the cable
      *

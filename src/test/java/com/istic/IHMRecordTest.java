@@ -47,7 +47,7 @@ public class IHMRecordTest extends ApplicationTest {
 
         // START RECORDING for 5s
         clickOn(output.lookup("#recordButton"));
-        press(KeyCode.ENTER);
+        type(KeyCode.ENTER);
         sleep(5000);
 
         // STOP RECORDING
@@ -72,7 +72,6 @@ public class IHMRecordTest extends ApplicationTest {
      */
 
     @Test
-    @Ignore
     public void testRecordSimpleMP3() {
         // get output module
         AnchorPane output = lookup("#module-1").query();
@@ -89,16 +88,25 @@ public class IHMRecordTest extends ApplicationTest {
         // START RECORDING for 5s
         clickOn(output.lookup("#recordButton"));
 
-        clickOn(1000, 680);
-        clickOn(1000, 700);
+        // test.mp3
+        type(KeyCode.T);
+        type(KeyCode.E);
+        type(KeyCode.S);
+        type(KeyCode.T);
+        type(KeyCode.DECIMAL);
+        type(KeyCode.M);
+        type(KeyCode.P);
+        type(KeyCode.NUMPAD3);
 
-        press(KeyCode.ENTER);
-        sleep(5000);
+        type(KeyCode.ENTER);
+
+        // Record 5s
+        sleep(1000);
 
         // STOP RECORDING
         clickOn(output.lookup("#recordButton"));
 
-        File file = new File(filePath);
+        File file = new File(System.getProperty("user.home") + "/test.mp3");
         assertNotNull(file);
         assertNotEquals(0, file.getTotalSpace());
 
@@ -133,7 +141,7 @@ public class IHMRecordTest extends ApplicationTest {
 
         // START RECORDING for 5s
         clickOn(output.lookup("#recordButton"));
-        press(KeyCode.ESCAPE);
+        type(KeyCode.ESCAPE);
 
         sleep(2000);
 

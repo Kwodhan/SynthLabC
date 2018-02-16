@@ -3,15 +3,12 @@ package com.istic.fileformat;
 import it.sauronsoftware.jave.*;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class AudioFile {
 	/**
 	 * Chemin du fichier source
 	 */
-	String path;
+	private String path;
 
 
 

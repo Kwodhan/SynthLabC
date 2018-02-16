@@ -8,23 +8,15 @@ import com.istic.port.Port;
  */
 public class Cable {
 
-    Port portOne;
+    private Port portOne;
 
-    Port portTwo;
+    private Port portTwo;
 
 
     public Cable(Port portOne, Port portTwo) {
         this.portOne = portOne;
         this.portTwo = portTwo;
 
-    }
-
-    public Port getPortOne() {
-        return portOne;
-    }
-
-    public Port getPortTwo() {
-        return portTwo;
     }
 
     /**
@@ -46,8 +38,6 @@ public class Cable {
             return true;
         }
         return false;
-
-
     }
 
     /**
@@ -59,4 +49,15 @@ public class Cable {
         this.portOne.disconnect();
         this.portTwo.disconnect();
     }
+
+    //Getters & Setters
+
+    public Port getPortOne() {
+        return portOne;
+    }
+
+    public Port getPortTwo() {
+        return portTwo;
+    }
+
 }
