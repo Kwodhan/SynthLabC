@@ -26,6 +26,10 @@ public class KB  extends Circuit {
     	this.portGate = new PortOutput(this.reglageKB.getPortGate());
 		this.portCv = new PortOutput(this.reglageKB.getPortCv());
     }
+
+    public String print() {
+    	return reglageKB.print_frequencies();
+	}
 	public void onpressDO() {
 		this.reglageKB.toggle_on(0);
 	}

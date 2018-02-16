@@ -331,6 +331,8 @@ public class Controller implements Initializable {
             this.moduleControllers.add(kbModuleController);
             kbModuleController.init(this);
             kbModuleController.setRoot(root);
+            this.mainPane.setOnKeyReleased(kbModuleController);
+            this.mainPane.setOnKeyPressed(kbModuleController);
             return kbModuleController;
         }
         return null;

@@ -18,7 +18,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class KBModuleController  extends ModuleController implements Initializable,EventHandler<KeyEvent> {
-	private KB kb;
+
+
+    private KB kb;
+
     @FXML
     TextArea displayArea;
 
@@ -41,6 +44,7 @@ public class KBModuleController  extends ModuleController implements Initializab
         //displayArea.setText(kbListener.getReglageKB().update_ouput_signal());
         displayArea.setText("CLAVIER DE PIANO");
         displayArea.setEditable(false);
+
          //displayArea.setFocusTraversable(false);
 	}
 
@@ -49,7 +53,7 @@ public class KBModuleController  extends ModuleController implements Initializab
         this.kb= new KB();
         this.controller.getSynth().add(kb);
 
-        this.pane.setOnKeyPressed(this);
+
 
 
 
@@ -130,7 +134,7 @@ public class KBModuleController  extends ModuleController implements Initializab
 
     @Override
     public void handle(KeyEvent event) {
-        System.out.println(event.getEventType());
+
         if (event.getEventType() == KeyEvent.KEY_PRESSED) {
             switch (event.getCode()) {
                 case Q:   kb.onpressDO (); break;
@@ -176,6 +180,7 @@ public class KBModuleController  extends ModuleController implements Initializab
             }
 
         }
+        this.displayArea.setText(this.kb.print());
 
     }
 }
