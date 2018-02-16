@@ -76,6 +76,7 @@ public class Oscilloscope {
         scope.start();
     }
 
+    //Getters & Setters
     public PortOutput getOutput() {
         return portOutput;
     }

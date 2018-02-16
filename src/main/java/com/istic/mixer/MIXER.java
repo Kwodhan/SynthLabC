@@ -5,16 +5,14 @@ import com.istic.port.PortOutput;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
-import com.jsyn.unitgen.MixerMono;
-import com.jsyn.unitgen.MixerMonoRamped;
 
 public class MIXER  extends Circuit {
     private UnitInputPort in1,in2,in3,in4;
     private UnitOutputPort out;
-    PortOutput portOutput;
+    private PortOutput portOutput;
 
 
-    PortInput portInput1,portInput2,portInput3,portInput4;
+    private PortInput portInput1,portInput2,portInput3,portInput4;
     private ReglageMIXER mixer;
 
     public MIXER() {
@@ -37,6 +35,28 @@ public class MIXER  extends Circuit {
         portInput4 = new PortInput(in4);
         portOutput = new PortOutput(out);
     }
+
+    public void changeAtt1(double att)
+    {
+        this.mixer.getIn1Att().set(att);
+    }
+
+    public void changeAtt2(double att)
+    {
+        this.mixer.getIn2Att().set(att);
+    }
+
+    public void changeAtt3(double att)
+    {
+        this.mixer.getIn3Att().set(att);
+    }
+
+    public void changeAtt4(double att)
+    {
+        this.mixer.getIn4Att().set(att);
+    }
+
+    //Setters & Getters
     public PortOutput getOutput() {
 
         return  portOutput;
@@ -59,25 +79,5 @@ public class MIXER  extends Circuit {
     public PortInput getInput4() {
 
         return portInput4;
-    }
-
-    public void changeAtt1(double att)
-    {
-        this.mixer.getIn1Att().set(att);
-    }
-
-    public void changeAtt2(double att)
-    {
-        this.mixer.getIn2Att().set(att);
-    }
-
-    public void changeAtt3(double att)
-    {
-        this.mixer.getIn3Att().set(att);
-    }
-
-    public void changeAtt4(double att)
-    {
-        this.mixer.getIn4Att().set(att);
     }
 }
