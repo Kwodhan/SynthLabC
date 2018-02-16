@@ -22,6 +22,8 @@ public class ReglageKB extends UnitGenerator {
     double notes_hz[] = new double[13];
     String notes_descr[] = {
             "DO", "DOd", "RE", "REd", "MI", "FA", "FAd", "SOL", "SOLd", "LA", "LAd", "SI", "DO2"};
+    String notes_touch[] = {
+            "Q", "Z", "S", "E", "D", "F", "T", "G", "Y", "H", "U", "J", "K"};
     double cur_hz = 0;
 
     private UnitOutputPort portGate;
@@ -71,13 +73,13 @@ public class ReglageKB extends UnitGenerator {
         return octave + ((double)this.get_last_note()/12);
     }
     
-    public int get_gate () {
+    public double get_gate () {
     	for (int i = 0; i< 13;i++) {
             if  (notes_playing[i]) {
-                return 5;
+                return Constraints.VOLT;
             }
          }
-    	return -5;
+    	return -Constraints.VOLT;
     }
     
     
@@ -169,11 +171,10 @@ if (notes_playing[i]) {
         String res="";
         for (int i = 0; i < 13; i++) {
             if (notes[i] == true) {
-               String  result = this.format_double(this.notes_hz[i]);
-
-                res+="(" + this.notes_descr[i] + " " + result + "hz ) "+" //with octave=" + this.octave+"\n";
+               double  result = (double) Math.round(((octave + (i/12d))*100d))/100d;
+                res+= notes_touch[i]+ " : " +this.notes_descr[i] + " : " + result + " V with octave=" + this.octave+"\n";
             } else {
-                res+="(" + this.notes_descr[i] + " "  + ") "+" //with octave=" + this.octave+"\n";
+                res+= notes_touch[i]+ " : " +this.notes_descr[i] +" : with octave=" + this.octave+"\n";
 
             }
         }
@@ -236,7 +237,6 @@ if (notes_playing[i]) {
         this.update_ouput_signal();
 
     }
-
 
 
     public UnitOutputPort getPortGate() {

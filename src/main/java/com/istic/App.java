@@ -1,7 +1,5 @@
 package com.istic;
 
-import com.istic.keyboard.KBListener;
-import com.istic.keyboard.ReglageKB;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
