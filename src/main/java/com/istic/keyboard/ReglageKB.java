@@ -161,13 +161,13 @@ public class ReglageKB extends UnitGenerator {
 
     /////////////////////////////////////////////////////////////////:
     protected String print_frequencies() {
-        String res = "";
+        String res = "Octave : "+octave+"\n";
         for (int i = 0; i < 13; i++) {
+            double result = (double) Math.round(((octave + (i / 12d)) * 100d)) / 100d;
             if (notes[i] == true) {
-                double result = (double) Math.round(((octave + (i / 12d)) * 100d)) / 100d;
-                res += notes_touch[i] + " : " + this.notes_descr[i] + " : " + result + " V with octave=" + this.octave + "\n";
+                res += "[o] " + notes_descr[i] + " : " + this.notes_touch[i] + " : " + result + " V\n";
             } else {
-                res += notes_touch[i] + " : " + this.notes_descr[i] + " : with octave=" + this.octave + "\n";
+                res += "[  ] " + notes_descr[i] + " : " + this.notes_touch[i] + " : " + result + " V\n";
 
             }
         }

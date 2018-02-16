@@ -6,6 +6,7 @@ import com.istic.port.Port;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -23,7 +24,7 @@ public class KBModuleController  extends ModuleController implements Initializab
     private KB kb;
 
     @FXML
-    TextArea displayArea;
+    Label text;
 
     @FXML
     AnchorPane pane;
@@ -40,10 +41,7 @@ public class KBModuleController  extends ModuleController implements Initializab
         //this.kbListener = new KBListener();
         //listener
         //displayArea.addEventHandler(kbListener);
-        displayArea.setStyle("-fx-line-spacing: 0.5em;");
-        //displayArea.setText(kbListener.getReglageKB().update_ouput_signal());
-        displayArea.setText("CLAVIER DE PIANO");
-        displayArea.setEditable(false);
+
 
          //displayArea.setFocusTraversable(false);
 	}
@@ -180,7 +178,7 @@ public class KBModuleController  extends ModuleController implements Initializab
             }
 
         }
-        this.displayArea.setText(this.kb.print());
+        this.text.setText(this.kb.print());
 
     }
 }

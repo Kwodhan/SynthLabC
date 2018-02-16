@@ -50,9 +50,7 @@ public class ReglageVCA  extends UnitGenerator {
 
         for (int i = start; i < limit ; i++) {
 
-           if(ams[i] > 0 ) {
-                outputs[i] = inputs[i] * Math.pow(2, 2 * (Constraints.verifModAmp(Math.abs(ams[i]) * Constraints.VOLT) - 5 ) + a0s[i]);
-            } else if (ams[i] < 0) {
+           if(ams[i] != 0 ) {
                 outputs[i] = inputs[i] * Math.pow(2, 2 * (Constraints.verifModAmp(Math.abs(ams[i]) * Constraints.VOLT) - 5 ) + a0s[i]);
             } else{
                 outputs[i] = 0;
