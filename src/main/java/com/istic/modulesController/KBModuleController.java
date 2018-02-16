@@ -47,6 +47,7 @@ public class KBModuleController  extends ModuleController implements Initializab
 		super.init(controller);
 		this.kb = new KB();
 		this.controller.getSynth().add(kb);
+        this.text.setText(this.kb.print());
 		Style.updateStyleTheme(pane, this.controller.choosedTheme);
 	}
 
