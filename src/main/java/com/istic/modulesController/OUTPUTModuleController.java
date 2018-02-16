@@ -130,8 +130,9 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         } else { // deuxieme click
             this.lineOut.getWriter().close();
             this.lineOut.setWriter(null);
-            //Conversion du fichier en mp3 si extension correspondante choisie
-            if (this.extension.equals("*.mp3")) {
+            // Conversion du fichier en mp3 si extension correspondante choisie,
+            // check extension too for better coverage.
+            if (this.extension.equals("*.mp3") || this.dest.getName().endsWith(".mp3")) {
                 AudioFile file = new AudioFile("/tmp/mySound.wav");
                 file.convertToMP3(this.dest.getPath());
             }
