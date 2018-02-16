@@ -71,9 +71,34 @@ public class ReglageKB extends UnitGenerator {
     LineOut lineOut ;
     boolean firsttime=true;
     boolean playing = false;
+    
+    public double get_cv(int min_volt, int max_volt) {
+    	int nb_octave=8;
+    	int nb_note=12;
+    	int plage_volt= max_volt-min_volt;
+    	double plage_hz=7.902-0.0327;
+     	double volt= plage_volt/plage_hz * cur_hz;
+    			return volt;
+    			 
+		
+    	
+    }
+    
+    public int get_gate () {
+    	for (int i = 0; i< 13;i++) {
+        if  (notes_playing[i]) {
+        	return -5;
+        }
+
+    }
+    	return 5;
+    }
+    
+    
+    double cur_hz=-1;
 private void play_signal (double hz, boolean play) {
 		if (firsttime) {
-			synth = JSyn.createSynthesizer();
+ 			synth = JSyn.createSynthesizer();
 		      sineOsc = new SineOscillator(hz*1000);
 		       lineOut = new LineOut();
 		    synth.add(lineOut);
@@ -92,6 +117,9 @@ private void play_signal (double hz, boolean play) {
 		}
 		//play not first time
 		sineOsc.frequency.set(hz*1000);
+		cur_hz=hz;
+		System.out.println(get_cv(-10, 10)-10);
+
 		lineOut.start();
  }
 
@@ -103,8 +131,8 @@ private void play_signal (double hz, boolean play) {
 
     }
     private int get_last_note () {
-long max= 0;
-int index=0;
+long max= -1;
+int index=-1;
 for (int i = 0; i< 13;i++) {
 	if (max < notes_timestamp[i]) {
 		max=notes_timestamp[i];
