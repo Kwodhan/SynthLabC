@@ -95,6 +95,8 @@ public class KBModuleController  extends ModuleController implements Initializab
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
             this.controller.remove(this);
+            this.controller.mainPane.setOnKeyPressed(null);
+            this.controller.mainPane.setOnKeyReleased(null);
         }
 		
 	}
