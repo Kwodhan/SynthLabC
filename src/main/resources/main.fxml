@@ -15,8 +15,8 @@
       <menus>
         <Menu fx:id="file" mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="openConfigMenuItem" mnemonicParsing="false" onAction="#openConfig" text="Open Configuration" accelerator="Shortcut+O"/>
-            <MenuItem fx:id="saveConfigMenuItem" mnemonicParsing="false" onAction="#saveConfig" text="Save Configuration" accelerator="Shortcut+S"/>
+            <MenuItem fx:id="openConfigMenuItem" accelerator="Shortcut+O" mnemonicParsing="false" onAction="#openConfig" text="Open Configuration" />
+            <MenuItem fx:id="saveConfigMenuItem" accelerator="Shortcut+S" mnemonicParsing="false" onAction="#saveConfig" text="Save Configuration" />
 
           </items>
         </Menu>
@@ -24,18 +24,18 @@
           <items>
             <Menu fx:id="add" mnemonicParsing="false" text="Add">
               <items>
-                <MenuItem fx:id="egMenuItem" mnemonicParsing="false" onAction="#addEG" text="EG" accelerator="F1"/>
-                <MenuItem fx:id="mixerMenuItem" mnemonicParsing="false" onAction="#addMixer" text="Mixer" accelerator="F2"/>
-                <MenuItem fx:id="outputMenuItem" mnemonicParsing="false" onAction="#addOutput" text="Output" accelerator="F3"/>
-                <MenuItem fx:id="oscilloscopeMenuItem" mnemonicParsing="false" onAction="#addOscilloscope" text="Oscilloscope" accelerator="F4" />
-                <MenuItem fx:id="replicatorMenuItem" mnemonicParsing="false" onAction="#addReplicator" text="Replicator" accelerator="F5"/>
-                <MenuItem fx:id="sequencerMenuItem" mnemonicParsing="false" onAction="#addSequencer" text="Sequencer" accelerator="F6"/>
-                <MenuItem fx:id="vcaMenuItem" mnemonicParsing="false" onAction="#addVca" text="VCA" accelerator="F7"/>
-                <MenuItem fx:id="vcfLpMenuItem" mnemonicParsing="false" onAction="#addVcfLp" text="VCF LP" accelerator="F8"/>
-                <MenuItem fx:id="vcfHpMenuItem" mnemonicParsing="false" onAction="#addVcfHp" text="VCF HP" accelerator="F9"/>
-                <MenuItem fx:id="vcoMenuItem" mnemonicParsing="false" onAction="#addVco" text="VCO" accelerator="F10"/>
-                <MenuItem fx:id="whiteNoiseMenuItem" mnemonicParsing="false" onAction="#addWhiteNoise" text="White Noise" accelerator="F11"/>
-                <MenuItem fx:id="keyBoardMenuItem" mnemonicParsing="false" onAction="#addKeyBoard" text="KeyBoard" accelerator="F12"/>
+                <MenuItem fx:id="egMenuItem" accelerator="F1" mnemonicParsing="false" onAction="#addEG" text="EG" />
+                <MenuItem fx:id="mixerMenuItem" accelerator="F2" mnemonicParsing="false" onAction="#addMixer" text="Mixer" />
+                <MenuItem fx:id="outputMenuItem" accelerator="F3" mnemonicParsing="false" onAction="#addOutput" text="Output" />
+                <MenuItem fx:id="oscilloscopeMenuItem" accelerator="F4" mnemonicParsing="false" onAction="#addOscilloscope" text="Oscilloscope" />
+                <MenuItem fx:id="replicatorMenuItem" accelerator="F5" mnemonicParsing="false" onAction="#addReplicator" text="Replicator" />
+                <MenuItem fx:id="sequencerMenuItem" accelerator="F6" mnemonicParsing="false" onAction="#addSequencer" text="Sequencer" />
+                <MenuItem fx:id="vcaMenuItem" accelerator="F7" mnemonicParsing="false" onAction="#addVca" text="VCA" />
+                <MenuItem fx:id="vcfLpMenuItem" accelerator="F8" mnemonicParsing="false" onAction="#addVcfLp" text="VCF LP" />
+                <MenuItem fx:id="vcfHpMenuItem" accelerator="F9" mnemonicParsing="false" onAction="#addVcfHp" text="VCF HP" />
+                <MenuItem fx:id="vcoMenuItem" accelerator="F10" mnemonicParsing="false" onAction="#addVco" text="VCO" />
+                <MenuItem fx:id="whiteNoiseMenuItem" accelerator="F11" mnemonicParsing="false" onAction="#addWhiteNoise" text="White Noise" />
+                <MenuItem fx:id="keyBoardMenuItem" accelerator="F12" mnemonicParsing="false" onAction="#addKeyBoard" text="KeyBoard" />
               </items>
             </Menu>
             <MenuItem fx:id="dropAllMenuItem" mnemonicParsing="false" onAction="#dropAll" text="Drop All" />
@@ -47,10 +47,10 @@
         </Menu>
         <Menu fx:id="cableColorMenu" mnemonicParsing="false" text="Cable color">
           <items>
-            <RadioMenuItem fx:id="cableColorGoldMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="GOLD" text="Gold" />
-            <RadioMenuItem fx:id="cableColorRedMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="RED" text="Red" />
-            <RadioMenuItem fx:id="cableColorLightGreenMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="LIGHTGREEN" text="Green" />
-            <RadioMenuItem fx:id="cableColorBluevioletMenuItem" mnemonicParsing="false" onAction="#selectCableColor" userData="BLUEVIOLET" text="Blue Violet" />
+            <RadioMenuItem fx:id="cableColorGoldMenuItem" mnemonicParsing="false" onAction="#selectCableColor" text="Gold" userData="GOLD" />
+            <RadioMenuItem fx:id="cableColorRedMenuItem" mnemonicParsing="false" onAction="#selectCableColor" text="Red" userData="RED" />
+            <RadioMenuItem fx:id="cableColorLightGreenMenuItem" mnemonicParsing="false" onAction="#selectCableColor" text="Green" userData="LIGHTGREEN" />
+            <RadioMenuItem fx:id="cableColorBluevioletMenuItem" mnemonicParsing="false" onAction="#selectCableColor" text="Blue Violet" userData="BLUEVIOLET" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
@@ -63,20 +63,20 @@
     </MenuBar>
     <SplitPane layoutY="28.0" maxHeight="700.0" maxWidth="1200.0" minHeight="698.0" minWidth="1200.0" prefHeight="698.0" prefWidth="1200.0">
       <items>
-        <AnchorPane fx:id="boxpane"  maxHeight="700.0" maxWidth="1200.0" minHeight="658.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0">
+        <AnchorPane fx:id="boxpane" maxHeight="700.0" maxWidth="1200.0" minHeight="658.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0">
           <children>
             <StackPane fx:id="box1" layoutX="14.0" layoutY="14.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box2" layoutX="313.0" layoutY="14.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box5" layoutX="14.0" layoutY="229.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box6" layoutX="313.0" layoutY="229.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box3" layoutX="609.0" layoutY="14.0" prefHeight="220.0" prefWidth="280.0" />
-            <StackPane fx:id="box7" layoutX="609.0" layoutY="232.0" prefHeight="220.0" prefWidth="280.0" />
+            <StackPane fx:id="box7" layoutX="609.0" layoutY="229.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box9" layoutX="14.0" layoutY="447.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box10" layoutX="313.0" layoutY="447.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box11" layoutX="609.0" layoutY="447.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box12" layoutX="900.0" layoutY="447.0" prefHeight="220.0" prefWidth="280.0" />
-            <StackPane fx:id="box8" layoutX="899.0" layoutY="230.0" prefHeight="220.0" prefWidth="280.0" />
-            <StackPane fx:id="box4" layoutX="901.0" layoutY="12.0" prefHeight="220.0" prefWidth="280.0" />
+            <StackPane fx:id="box8" layoutX="900.0" layoutY="229.0" prefHeight="220.0" prefWidth="280.0" />
+            <StackPane fx:id="box4" layoutX="901.0" layoutY="14.0" prefHeight="220.0" prefWidth="280.0" />
           </children>
         </AnchorPane>
       </items>
