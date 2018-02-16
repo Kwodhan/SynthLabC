@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -53,7 +52,7 @@
             <Slider fx:id="sliderSeq3" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Slider fx:id="sliderSeq6" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Slider fx:id="sliderSeq7" blockIncrement="0.2" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-             <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
+             <Button fx:id="closeButton" mnemonicParsing="false" translateX="5.0" translateY="6.0" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="   SEQ" wrappingWidth="80.12890625" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="24.0" />
