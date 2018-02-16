@@ -101,7 +101,7 @@ public class VCFHPModuleController extends ModuleController implements Initializ
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
     public void init(Controller controller) {

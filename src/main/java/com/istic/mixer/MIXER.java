@@ -6,13 +6,23 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 
+/**
+ * Module mixer
+ */
 public class MIXER  extends Circuit {
 
-
+    /**
+     * Port de sortie
+     */
     private PortOutput portOutput;
-
-
+    /**
+     * Les quatre port d'entrées
+     */
     private PortInput portInput1,portInput2,portInput3,portInput4;
+
+    /**
+     * Réglage des atténuateurs
+     */
     private ReglageMIXER mixer;
 
     public MIXER() {

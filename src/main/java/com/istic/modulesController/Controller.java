@@ -11,7 +11,6 @@ import com.jsyn.Synthesizer;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,14 +32,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Grand controller de l'application
+ */
 public class Controller implements Initializable {
 
     @FXML
     AnchorPane mainPane;
-    
+
     @FXML
     AnchorPane boxpane;
     @FXML
@@ -55,39 +56,71 @@ public class Controller implements Initializable {
     @FXML
 	RadioMenuItem cableColorGoldMenuItem, cableColorRedMenuItem, cableColorLightGreenMenuItem, cableColorBluevioletMenuItem;
 
-	final ToggleGroup group;
-	final ToggleGroup groupToggleCableColor;
-	
-	static final int WOOD = 1;
-	static final int METAL = 0;
-	static final int BASIC = 2;
+    /**
+     * Choix du Skin de la fenetre
+     */
+    final ToggleGroup groupSkin;
+    static final int WOOD = 1;
+    static final int METAL = 0;
+    static final int BASIC = 2;
+    /**
+     * Choix de la couleur des cables
+     */
+    final ToggleGroup groupToggleCableColor;
 
     private StackPane[] stacks;
-    private Files files;
 
-    private Color cableColor = Color.BLUEVIOLET;
-
+    /**
+     * Couleur à applicer sur les futurs cables
+     */
+    private Color cableColor;
+    /**
+     * Liste des modules sur le board
+     */
     private ArrayList<ModuleController> moduleControllers;
+
+    /**
+     * Liste des calbes sur le board
+     */
     private ArrayList<CableController> cables;
 
     private Synthesizer synth;
+    /**
+     * La ligne qui s'affiche lorsqu'on tente un cablage
+     */
     private Line mouseLine;
 
-    //Module temporaire pour le cablage
+    /**
+     * Module temporaire lors du cablage
+     */
     private ModuleController temporaryCableModuleController;
 
-    //valeur incrementale pour chaque id
-    private Integer cableId = 1;
-    private Integer moduleId = 1;
-
-    private DragAndDrop dragAndDrop;
-    
-    protected int choosedTheme = BASIC;
-
+    /**
+     * Savoir si nous sommes entrain de cabler un nouveau cable
+     */
     private boolean isPlugged = false;
 
+    /**
+     * Id fxml des cables. S'incremente a chaque création
+     */
+    private Integer cableId = 1;
+
+    /**
+     * Id fxml des modules. S'incremente a chaque création
+     */
+    private Integer moduleId = 1;
+
+
+    /**
+     * Réalise la gestion du drag and drop des modules
+     */
+    private DragAndDrop dragAndDrop;
+
+    protected int choosedTheme = BASIC;
+
+
     public Controller() {
-        group = new ToggleGroup();
+        groupSkin = new ToggleGroup();
         groupToggleCableColor = new ToggleGroup();
     }
 
@@ -106,10 +139,10 @@ public class Controller implements Initializable {
 		this.synth.start();
 
         // Skin
-        metalMenuItem.setToggleGroup(group);
-        woodMenuItem.setToggleGroup(group);
-        defaultMenuItem.setToggleGroup(group);
-        group.selectToggle(defaultMenuItem);
+        metalMenuItem.setToggleGroup(groupSkin);
+        woodMenuItem.setToggleGroup(groupSkin);
+        defaultMenuItem.setToggleGroup(groupSkin);
+        groupSkin.selectToggle(defaultMenuItem);
 
         // Cable color
 		cableColorGoldMenuItem.setToggleGroup(groupToggleCableColor);
@@ -136,6 +169,8 @@ public class Controller implements Initializable {
         });
 
         stacks = new StackPane[]{box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12};
+
+        cableColor = Color.BLUEVIOLET;
         //make stackpane handle drop
         for (StackPane s : stacks) {
             this.dragAndDrop.addDropHandling(s);
@@ -166,7 +201,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Open a configuration
+     * Ouvre une configuration
      * @throws IOException erreur Input/Output fichier
      * @throws ParseException erreur parsage fichier de config
      */
@@ -179,13 +214,13 @@ public class Controller implements Initializable {
         File file = fileChooser.showOpenDialog(mainPane.getScene().getWindow());
         if (file != null) {
             dropAll();
-            files = new Files(file, this);
+            Files files = new Files(file, this);
             files.open();
         }
     }
 
     /**
-     * Save a configuration
+     * Sauvegarde une configuration
      * @throws IOException In/Out erreur
      */
     public void saveConfig() throws IOException {
@@ -202,14 +237,14 @@ public class Controller implements Initializable {
         File file = fileChooser.showSaveDialog(mainPane.getScene().getWindow());
 
         if (file != null) {
-            files = new Files(file, this);
+            Files files = new Files(file, this);
             files.save();
         }
     }
 
     /**
-     * Get information about saving of sound file
-     * @return Destination File and Extension of file to save
+     * Fenetre qui s'ouvre lors de la sauvegarde d'un fichier son
+     * @return Destination du fichier et son extension
      */
 	public Pair<File, String> saveSound(){
 
@@ -504,7 +539,7 @@ public class Controller implements Initializable {
 
 
     /**
-     * Ajout d'un cable
+     * Fonction appelé lors de l'ajout d'un cable
      * @param moduleController contrôleur du module qu'il faut connecter
      * @return contrôleur du cable
      */
@@ -519,6 +554,14 @@ public class Controller implements Initializable {
 		return cableController;
 	}
 
+    /**
+     * Fonction appelé lors de l'ajout d'un cable lors d'un chargement d'un fichier de configuration
+     * @param port1 port 1 à connecter
+     * @param port2 port 2 à connecter
+     * @param moduleController1 contrôleur 1 du module qu'il faut connecter
+     * @param moduleController2 contrôleur 2 du module qu'il faut connecter
+     * @return contrôleur du cable
+     */
     public CableController connect(Port port1, Port port2,ModuleController moduleController1,ModuleController moduleController2) {
         Cable cable = new Cable(port1,port2);
         CableController cableController = null;
@@ -535,18 +578,12 @@ public class Controller implements Initializable {
      *
      * @param moduleController controleur du module à supprimer
      */
-    public void disconnect(ModuleController moduleController) {
+    public void remove(ModuleController moduleController) {
         this.moduleControllers.remove(moduleController);
-       /* for(CableController cableController : cables){
-            if(cableController.getMc1().equals(moduleController)
-                    ||cableController.getMc2().equals(moduleController)){
-                //if(cables.contains(cableController))cables.remove(cableController);
-            }
-        }*/
     }
 
     /**
-     * /**
+     *
      * Ajoute un module sur le board
      *
      * @param root noeud du module à ajouter au board
@@ -554,7 +591,7 @@ public class Controller implements Initializable {
      */
     private boolean addMod(Node root) {
 
-    	
+
         for (StackPane s : stacks) {
 
             if (s.getChildren().isEmpty()) {
@@ -567,6 +604,11 @@ public class Controller implements Initializable {
         return false;
     }
 
+    /**
+     * Ajoute des modules sur le board lors d'un chargement de configuration
+     * @param positions position des modules de chaque controller dans la StackPane
+     * @param moduleControllers liste des controllers
+     */
     public void addMod(int[] positions, ArrayList<ModuleController> moduleControllers) {
         int i=0;
         for (StackPane s : stacks) {
@@ -580,6 +622,17 @@ public class Controller implements Initializable {
             this.dragAndDrop.dragNode(moduleController.getRoot());
             i++;
         }
+    }
+
+    /**
+     * Change cable color
+     * @param event listener clicking on menu to select color
+     */
+    public void selectCableColor(ActionEvent event) {
+        RadioMenuItem menu = (RadioMenuItem) event.getSource();
+        String color = (String) menu.getUserData();
+
+        cableColor = Color.valueOf(color.toUpperCase());
     }
 
 
@@ -620,17 +673,6 @@ public class Controller implements Initializable {
     public ArrayList<ModuleController> getModuleControllers() {
         return moduleControllers;
     }
-
-    /**
-     * Change cable color
-     * @param event listener clicking on menu to select color
-     */
-	public void selectCableColor(ActionEvent event) {
-		RadioMenuItem menu = (RadioMenuItem) event.getSource();
-		String color = (String) menu.getUserData();
-
-		cableColor = Color.valueOf(color.toUpperCase());
-	}
 
 	/**
 	 * @return Color for cable

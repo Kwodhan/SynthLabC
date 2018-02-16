@@ -4,6 +4,9 @@ import it.sauronsoftware.jave.*;
 
 import java.io.File;
 
+/**
+ * Permet la convertion des fichiers WAV
+ */
 public class AudioFile {
 	/**
 	 * Chemin du fichier source

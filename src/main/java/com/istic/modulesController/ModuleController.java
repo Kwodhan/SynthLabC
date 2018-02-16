@@ -22,18 +22,35 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class ModuleController implements Serializable {
-
+    /**
+     * Le grand Controller
+     */
     protected Controller controller;
+
+    /**
+     * Node du controller
+     */
     Node root;
+
     /**
      * valeur de la position du port
      */
     protected double x = 0, y = 0;
 
+
+    /**
+     * sur quel port l'utisateur à decider de cabler
+     */
     protected int currentPort = -1;
 
+    /**
+     * Sert lors de la sauvegarde et de la restoration
+     */
     JSONObject jsonModuleObject;
 
+    /**
+     * Liste des Ports controller
+     */
     ArrayList<PortController> portControllers;
 
     /**
@@ -131,7 +148,10 @@ public abstract class ModuleController implements Serializable {
         y = (boundsInScene.getMaxY() + boundsInScene.getMinY()) / 2.0;
     }
 
-
+    /**
+     * Récupère l'information concernant le port sur lequel l'utilisateur a cliqué
+     * @return le port sur lequel l'utilisateur a cliqué côté IHM
+     */
     public abstract Port getCurrentPort();
     
     public abstract void updateTheme(int i);
@@ -156,7 +176,7 @@ public abstract class ModuleController implements Serializable {
         }
     }
 
-    // Setters & Getters
+
 
     /**
      * Met à jour la position des cables liés au module

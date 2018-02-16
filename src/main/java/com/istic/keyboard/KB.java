@@ -3,9 +3,21 @@ package com.istic.keyboard;
 import com.istic.port.PortOutput;
 import com.jsyn.unitgen.Circuit;
 
+/**
+ * Module KeyBoard
+ */
 public class KB  extends Circuit {
+    /**
+     * Produit entre -5 et 5 V
+     */
     private PortOutput portCv;
+
+    /**
+     *  Produit -5 V quand aucune touche est enfoncé
+     *  Produit 5 V quand une touche est enfoncé
+     */
     private PortOutput portGate;
+
 
     public ReglageKB reglageKB ;
 

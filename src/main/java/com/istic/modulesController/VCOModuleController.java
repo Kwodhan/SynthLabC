@@ -214,7 +214,7 @@ public class VCOModuleController extends ModuleController implements Initializab
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
 

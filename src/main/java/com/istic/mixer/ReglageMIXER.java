@@ -9,10 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReglageMIXER extends UnitGenerator {
-
+    /**
+     * Liste des entrées de signal
+     */
     private List<UnitInputPort> inputs;
+
+    /**
+     * Liste des atténuateurs
+     */
     private List<UnitInputPort> inAtts;
 
+    /**
+     * Sortie du signal
+     */
     private UnitOutputPort out;
 
     public ReglageMIXER() {
