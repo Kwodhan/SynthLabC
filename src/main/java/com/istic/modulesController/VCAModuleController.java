@@ -2,13 +2,16 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import com.istic.port.PortController;
+import com.istic.util.Style;
 import com.istic.vca.VCA;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
 import org.json.simple.JSONObject;
 
 import java.net.URL;
@@ -62,6 +65,7 @@ public class VCAModuleController extends ModuleController implements Initializab
         this.portControllers.add(new PortController(this.vca.getInput(),this.inPort));
         this.portControllers.add(new PortController(this.vca.getAm(),this.amPort));
         this.portControllers.add(new PortController(this.vca.getOutput(),this.outPort));
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
 
 
 
@@ -161,4 +165,9 @@ public class VCAModuleController extends ModuleController implements Initializab
         amplitudeSlider.setValue(Math.round(amplitude));
 
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

@@ -40,8 +40,7 @@
             </Menu>
             <MenuItem fx:id="dropAllMenuItem" mnemonicParsing="false" onAction="#dropAll" text="Drop All" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <RadioMenuItem fx:id="coralMenuItem" mnemonicParsing="false" onAction="#coralTheme" text="Coral Skin" />
-            <RadioMenuItem fx:id="darkMenuItem" mnemonicParsing="false" onAction="#darkTheme" text="Dark Skin" />
+            <RadioMenuItem fx:id="metalMenuItem" mnemonicParsing="false" onAction="#metalTheme" text="Metal" />
             <RadioMenuItem fx:id="woodMenuItem" mnemonicParsing="false" onAction="#woodTheme" text="Wood" />
             <RadioMenuItem fx:id="defaultMenuItem" mnemonicParsing="false" onAction="#defaultTheme" text="Default" />
           </items>
@@ -64,7 +63,7 @@
     </MenuBar>
     <SplitPane layoutY="28.0" maxHeight="700.0" maxWidth="1200.0" minHeight="698.0" minWidth="1200.0" prefHeight="698.0" prefWidth="1200.0">
       <items>
-        <AnchorPane maxHeight="700.0" maxWidth="1200.0" minHeight="658.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0">
+        <AnchorPane fx:id="boxpane"  maxHeight="700.0" maxWidth="1200.0" minHeight="658.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0">
           <children>
             <StackPane fx:id="box1" layoutX="14.0" layoutY="14.0" prefHeight="220.0" prefWidth="280.0" />
             <StackPane fx:id="box2" layoutX="313.0" layoutY="14.0" prefHeight="220.0" prefWidth="280.0" />

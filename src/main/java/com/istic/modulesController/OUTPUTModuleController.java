@@ -4,7 +4,9 @@ import com.istic.fileformat.AudioFile;
 import com.istic.out.OutMod;
 import com.istic.port.Port;
 import com.istic.port.PortController;
+import com.istic.util.Style;
 import com.jsyn.util.WaveFileWriter;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Pair;
+
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -56,6 +59,9 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	
+    	closeButton.setTranslateX(5);
+    	closeButton.setTranslateY(6);
 
         attenuationSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             double newAttenuation = Math.round(attenuationSlider.getValue());
@@ -75,7 +81,7 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
         this.controller.getSynth().add(this.lineOut);
         this.portControllers.add(new PortController(this.lineOut.getPortInput(),this.inPort));
         lineOut.start();
-
+        Style.updateStyleTheme(pane, this.controller.choosedTheme);
     }
 
     /**
@@ -219,4 +225,11 @@ public class OUTPUTModuleController extends ModuleController implements Initiali
     public void setExtension(String extension) {
         this.extension = extension;
     }
+	@Override
+	public void updateTheme(int i) {
+		// TODO Auto-generated method stub
+		
+		Style.updateStyleTheme(pane, i);
+		
+	}
 }

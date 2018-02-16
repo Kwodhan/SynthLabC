@@ -5,8 +5,10 @@ import com.istic.cable.CableController;
 import com.istic.port.Port;
 import com.istic.util.DragAndDrop;
 import com.istic.util.Files;
+import com.istic.util.Style;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
+
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
@@ -37,6 +40,9 @@ public class Controller implements Initializable {
 
     @FXML
     AnchorPane mainPane;
+    
+    @FXML
+    AnchorPane boxpane;
     @FXML
     MenuItem vcoMenuItem, saveConfigMenuItem, openConfigMenuItem, saveToMP3MenuItem, dropAllMenuItem;
 
@@ -44,13 +50,17 @@ public class Controller implements Initializable {
     StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
 
     @FXML
-    RadioMenuItem woodMenuItem, darkMenuItem, coralMenuItem, defaultMenuItem;
+    RadioMenuItem woodMenuItem, metalMenuItem, defaultMenuItem;
 
     @FXML
 	RadioMenuItem cableColorGoldMenuItem, cableColorRedMenuItem, cableColorLightGreenMenuItem, cableColorBluevioletMenuItem;
 
 	final ToggleGroup group;
 	final ToggleGroup groupToggleCableColor;
+	
+	static final int WOOD = 1;
+	static final int METAL = 0;
+	static final int BASIC = 2;
 
     private StackPane[] stacks;
     private Files files;
@@ -71,6 +81,8 @@ public class Controller implements Initializable {
     private Integer moduleId = 1;
 
     private DragAndDrop dragAndDrop;
+    
+    protected int choosedTheme = BASIC;
 
     private boolean isPlugged = false;
 
@@ -94,8 +106,7 @@ public class Controller implements Initializable {
 		this.synth.start();
 
         // Skin
-        coralMenuItem.setToggleGroup(group);
-        darkMenuItem.setToggleGroup(group);
+        metalMenuItem.setToggleGroup(group);
         woodMenuItem.setToggleGroup(group);
         defaultMenuItem.setToggleGroup(group);
         group.selectToggle(defaultMenuItem);
@@ -135,6 +146,7 @@ public class Controller implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		defaultTheme();
     }
 
     /**
@@ -226,35 +238,37 @@ public class Controller implements Initializable {
         return info_dest;
     }
 
-	/**
-	 * Change le thème en coral
-	 */
-	public void coralTheme(){
-        mainPane.getStylesheets().clear();
-        mainPane.getStylesheets().add("/skins/coral.css");
-	}
-
     /**
      * Change le thème en default
      */
     public void defaultTheme() {
-        mainPane.getStylesheets().clear();
+    	choosedTheme = BASIC;
+    	Style.updateStyle(boxpane, BASIC);
+    	for(ModuleController m: moduleControllers){
+    		m.updateTheme(BASIC);
+    	}
     }
 
     /**
      * Change le thème en dark
      */
-    public void darkTheme() {
-        mainPane.getStylesheets().clear();
-        mainPane.getStylesheets().add("/skins/dark.css");
+    public void metalTheme() {
+    	choosedTheme = METAL;
+    	Style.updateStyle(boxpane, METAL);
+    	for(ModuleController m: moduleControllers){
+    		m.updateTheme(METAL);
+    	}
     }
 
     /**
      * Change le thème en wood
      */
     public void woodTheme() {
-        mainPane.getStylesheets().clear();
-        mainPane.getStylesheets().add("/skins/wood.css");
+    	choosedTheme = WOOD;
+    	Style.updateStyle(boxpane, WOOD);
+    	for(ModuleController m: moduleControllers){
+    		m.updateTheme(WOOD);
+    	}
     }
 
 
@@ -540,7 +554,7 @@ public class Controller implements Initializable {
      */
     private boolean addMod(Node root) {
 
-
+    	
         for (StackPane s : stacks) {
 
             if (s.getChildren().isEmpty()) {

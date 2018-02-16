@@ -3,6 +3,8 @@ package com.istic.modulesController;
 import com.istic.cable.CableController;
 import com.istic.port.Port;
 import com.istic.port.PortController;
+import com.istic.util.Style;
+
 import javafx.event.Event;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -11,6 +13,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
+
 import org.json.simple.JSONObject;
 
 import java.io.Serializable;
@@ -41,7 +44,6 @@ public abstract class ModuleController implements Serializable {
     public void init(Controller controller) {
         this.controller = controller;
         this.portControllers = new ArrayList<>();
-
     }
 
     /**
@@ -131,6 +133,8 @@ public abstract class ModuleController implements Serializable {
 
 
     public abstract Port getCurrentPort();
+    
+    public abstract void updateTheme(int i);
 
     /**
      * met à jour le cables du port lors d'un dragAndDrop

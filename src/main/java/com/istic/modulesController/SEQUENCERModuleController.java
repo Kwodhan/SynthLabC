@@ -3,12 +3,15 @@ package com.istic.modulesController;
 import com.istic.port.Port;
 import com.istic.port.PortController;
 import com.istic.sequencer.Sequenceur;
+import com.istic.util.Style;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
 import org.json.simple.JSONObject;
 
 import java.net.URL;
@@ -58,6 +61,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
 
         });
     	}
+    	
     }
 
     
@@ -73,8 +77,7 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
         this.controller.getSynth().add(sequenceur);
         this.portControllers.add(new PortController(this.sequenceur.getGatePort(),this.gatePort));
         this.portControllers.add(new PortController(this.sequenceur.getOutputPort(),this.outPort));
-
-
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
     }
     
     /**
@@ -160,4 +163,10 @@ public class SEQUENCERModuleController extends ModuleController implements Initi
             this.controller.disconnect(this);
         }
     }
+
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

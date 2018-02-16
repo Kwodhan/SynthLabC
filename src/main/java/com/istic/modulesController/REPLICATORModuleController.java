@@ -3,11 +3,14 @@ package com.istic.modulesController;
 import com.istic.port.Port;
 import com.istic.port.PortController;
 import com.istic.rep.REP;
+import com.istic.util.Style;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
 import org.json.simple.JSONObject;
 
 import java.net.URL;
@@ -53,7 +56,7 @@ public class REPLICATORModuleController extends ModuleController implements Init
         this.portControllers.add(new PortController(this.rep.getOutput1(),this.outPort1));
         this.portControllers.add(new PortController(this.rep.getOutput2(),this.outPort2));
         this.portControllers.add(new PortController(this.rep.getOutput3(),this.outPort3));
-
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
     }
 
     /**
@@ -155,4 +158,9 @@ public class REPLICATORModuleController extends ModuleController implements Init
     public void restore(JSONObject jsonObjectModule) {
         setJsonModuleObject(jsonObjectModule);
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

@@ -3,7 +3,9 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import com.istic.port.PortController;
+import com.istic.util.Style;
 import com.istic.vco.VCO;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +16,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
 import org.json.simple.JSONObject;
 
 import java.net.URL;
@@ -87,6 +90,7 @@ public class VCOModuleController extends ModuleController implements Initializab
         this.portControllers.add(new PortController(this.vco.getFm(),this.fmPort));
         this.portControllers.add(new PortController(this.vco.getOutput(),this.outPort));
         Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
 
     }
 
@@ -213,6 +217,11 @@ public class VCOModuleController extends ModuleController implements Initializab
             this.controller.disconnect(this);
         }
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);	
+	}
 
 
 }

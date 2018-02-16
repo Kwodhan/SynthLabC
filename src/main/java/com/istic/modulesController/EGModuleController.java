@@ -3,12 +3,15 @@ package com.istic.modulesController;
 import com.istic.eg.EG;
 import com.istic.port.Port;
 import com.istic.port.PortController;
+import com.istic.util.Style;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
 import org.json.simple.JSONObject;
 
 import java.net.URL;
@@ -86,6 +89,7 @@ public class EGModuleController extends ModuleController implements Initializabl
         this.eg.setRelease(sliderFormule(releaseSlider.getValue()));
         this.eg.setDecay(sliderFormule(decaySlider.getValue()));
         this.eg.setSustain(sustainSlider.getValue()/10);
+        Style.updateStyleTheme(pane, this.controller.choosedTheme);
 
     }
 
@@ -186,4 +190,9 @@ public class EGModuleController extends ModuleController implements Initializabl
     public EG getEg() {
         return eg;
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

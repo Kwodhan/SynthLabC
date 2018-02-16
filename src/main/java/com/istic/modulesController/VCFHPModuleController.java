@@ -2,7 +2,9 @@ package com.istic.modulesController;
 
 import com.istic.port.Port;
 import com.istic.port.PortController;
+import com.istic.util.Style;
 import com.istic.vcfhp.VCFHP;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +13,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
 import org.json.simple.JSONObject;
 
 import java.net.URL;
@@ -114,6 +117,8 @@ public class VCFHPModuleController extends ModuleController implements Initializ
         this.portControllers.add(new PortController(this.vcfhp.getInput(),this.inPort));
         this.portControllers.add(new PortController(this.vcfhp.getFm(),this.fmPort));
         this.portControllers.add(new PortController(this.vcfhp.getOutput(),this.outPort));
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
+
 
 
     }
@@ -164,4 +169,9 @@ public class VCFHPModuleController extends ModuleController implements Initializ
         //graphique
         frequencySlider.setValue(frequency);
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

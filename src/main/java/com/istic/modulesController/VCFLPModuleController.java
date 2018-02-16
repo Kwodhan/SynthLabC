@@ -1,8 +1,10 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.util.Style;
 import com.istic.vcflp.VCFLP;
 import com.istic.port.PortController;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +13,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
 import org.json.simple.JSONObject;
 
 import java.net.URL;
@@ -136,6 +139,7 @@ public class VCFLPModuleController extends ModuleController implements Initializ
         this.portControllers.add(new PortController(this.vcflp.getInput(),this.inPort));
         this.portControllers.add(new PortController(this.vcflp.getFm(),this.fmPort));
         this.portControllers.add(new PortController(this.vcflp.getOutput(),this.outPort));
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
 
     }
     /**
@@ -168,4 +172,9 @@ public class VCFLPModuleController extends ModuleController implements Initializ
             super.connect();
         }
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

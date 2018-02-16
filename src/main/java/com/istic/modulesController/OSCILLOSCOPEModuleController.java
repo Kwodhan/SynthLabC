@@ -3,7 +3,9 @@ package com.istic.modulesController;
 import com.istic.oscillo.Oscilloscope;
 import com.istic.port.Port;
 import com.istic.port.PortController;
+import com.istic.util.Style;
 import com.jsyn.scope.swing.AudioScopeView;
+
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,9 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+
 import org.json.simple.JSONObject;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.net.URL;
 import java.util.HashMap;
@@ -66,7 +70,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         oscilloscope.start();
         createSwingContent(swingNode, oscilloscope.getView());
         paneOscilloscope.getChildren().add(swingNode);
-
+        Style.updateStyleTheme(pane, this.controller.choosedTheme);
     }
 
     /**
@@ -158,5 +162,10 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
        super.updateCablesPosition();
         createSwingContent(swingNode, oscilloscope.getView());
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 
 }
