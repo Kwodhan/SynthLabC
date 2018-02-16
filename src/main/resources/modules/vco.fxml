@@ -32,7 +32,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="VCO" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="VCO" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -63,7 +63,7 @@
             <Slider fx:id="frequencySlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" min="-10.0" minorTickCount="0" prefHeight="38.0" prefWidth="95.0" showTickLabels="true" showTickMarks="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fine Tune" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Label fx:id="txtHertz" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="93.0" text="Hz" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button fx:id="closeButton" mnemonicParsing="false" translateX="5.0" translateY="6.0" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" GridPane.valignment="TOP" />
+            <Button fx:id="closeButton" mnemonicParsing="false" onMouseClicked="#removeModule" text="X" textAlignment="CENTER" textFill="#dd1919" translateX="5.0" translateY="6.0" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </children>
