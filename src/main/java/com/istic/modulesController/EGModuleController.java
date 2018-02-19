@@ -2,6 +2,9 @@ package com.istic.modulesController;
 
 import com.istic.eg.EG;
 import com.istic.port.Port;
+import com.istic.port.PortController;
+import com.istic.util.Style;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -9,7 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
+import org.json.simple.JSONObject;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,24 +49,24 @@ public class EGModuleController extends ModuleController implements Initializabl
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         attackSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-
-
-
-            this.eg.setAttack(8*Math.exp(attackSlider.getValue()-10));
+            this.eg.setAttack(sliderFormule(attackSlider.getValue()));
         });
 
         releaseSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.eg.setRelease(8*Math.exp(releaseSlider.getValue()-10));
+            this.eg.setRelease(sliderFormule(releaseSlider.getValue()));
         });
 
         decaySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            this.eg.setDecay(8*Math.exp(decaySlider.getValue()-10));
+            this.eg.setDecay(sliderFormule(decaySlider.getValue()));
         });
 
         sustainSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             this.eg.setSustain(sustainSlider.getValue()/10);
         });
+
+
 
     }
 
@@ -76,6 +80,16 @@ public class EGModuleController extends ModuleController implements Initializabl
         super.init(controller);
         this.eg = new EG();
         this.controller.getSynth().add(eg);
+
+        this.portControllers.add(new PortController(this.eg.getGateInput(),this.gatePort));
+        this.portControllers.add(new PortController(this.eg.getOutput(),this.outPort));
+
+
+        this.eg.setAttack(sliderFormule(attackSlider.getValue()));
+        this.eg.setRelease(sliderFormule(releaseSlider.getValue()));
+        this.eg.setDecay(sliderFormule(decaySlider.getValue()));
+        this.eg.setSustain(sustainSlider.getValue()/10);
+        Style.updateStyleTheme(pane, this.controller.choosedTheme);
 
     }
 
@@ -92,14 +106,37 @@ public class EGModuleController extends ModuleController implements Initializabl
         return null;
     }
 
+
+
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, eg.getOutput());
-        hashMap.put(gatePort, eg.getGateInput());
-        return hashMap;
+    public void serialize() {
+        super.serialize();
+        jsonModuleObject.put("attack",attackSlider.getValue());
+        jsonModuleObject.put("decay", decaySlider.getValue());
+        jsonModuleObject.put("sustain",sustainSlider.getValue() );
+        jsonModuleObject.put("release", releaseSlider.getValue());
+
+
     }
-    
+
+    /**
+     * Restaure une configuration à partir d'un objet JSON
+     * @param jsonObjectModule configuration à restaurer
+     */
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+        double attack = (double) jsonObjectModule.get("attack");
+        double decay = (double) jsonObjectModule.get("decay");
+        double sustain = (double) jsonObjectModule.get("sustain");
+        double release = (double) jsonObjectModule.get("release");
+
+        //update
+        attackSlider.setValue(attack);
+        decaySlider.setValue(decay);
+        sustainSlider.setValue(sustain);
+        releaseSlider.setValue(release);
+    }
+
     /**
      * Connecte le port Gate pour tracer le cable
      */
@@ -109,6 +146,7 @@ public class EGModuleController extends ModuleController implements Initializabl
             getLayout(gatePort);
             super.connect();
         }
+        serialize();
     }
 
     /**
@@ -125,8 +163,6 @@ public class EGModuleController extends ModuleController implements Initializabl
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {
@@ -143,8 +179,20 @@ public class EGModuleController extends ModuleController implements Initializabl
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
 
+    private double sliderFormule (double view){
+        return 4*Math.exp(view-9);
+    }
+
+    public EG getEg() {
+        return eg;
+    }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

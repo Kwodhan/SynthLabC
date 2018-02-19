@@ -5,13 +5,25 @@ import com.istic.port.PortOutput;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.EnvelopeDAHDSR;
 
+/**
+ * module Enveloppe Generator
+ */
 public class EG extends Circuit {
 
-	private EnvelopeDAHDSR dahdsr;
+    /**
+     * EG JSyn
+     */
+    private final EnvelopeDAHDSR dahdsr;
 
-	PortGate portGate;
+    /**
+     * Port d'entrée Gate
+     */
+	private final PortGate portGate;
 
-	PortOutput portOutput;
+    /**
+     * Port de Sortie
+     */
+	private final PortOutput portOutput;
 
 	public EG() {
 
@@ -22,45 +34,47 @@ public class EG extends Circuit {
 		this.dahdsr.amplitude.setMaximum(1);
 	}
 
+
+	//Setters & Getters
+
+    /**
+     * temps de montée
+     * @param attack varie entre 0 et 8 s
+     */
+	public void setAttack(double attack) {
+		this.dahdsr.attack.set(attack);
+	}
+
+    /**
+     * temps d’extinction
+     * @param decay varie entre 0 et 8 s
+     */
+	public void setDecay(double decay) {
+		this.dahdsr.decay.set(decay);
+	}
+
+    /**
+     * niveau de maintien
+     * @param sustain varie entre 0 et 1 d'amplitude
+     */
+	public void setSustain(double sustain) {
+		this.dahdsr.sustain.set(sustain);
+	}
+
+    /**
+     * temps de relâchement
+     * @param release varie entre 0 et 8 s
+     */
+	public void setRelease(double release) {
+		this.dahdsr.release.set(release);
+	}
+
 	public PortGate getGateInput() {
 		return portGate;
 	}
 
 	public PortOutput getOutput() {
 		return portOutput;
-	}
-
-	/**
-	 *
-	 * @param attack varie 0.0003 et 8s
-	 */
-	public void setAttack(double attack) {
-		this.dahdsr.attack.set(attack);
-	}
-
-	/**
-	 *
-	 * @param decay varie 0.0003 et 8s
-	 */
-	public void setDecay(double decay) {
-		this.dahdsr.decay.set(decay);
-	}
-
-	/**
-	 *
-	 * @param sustain varie 0 et 5 V
-	 */
-	public void setSustain(double sustain) {
-		this.dahdsr.sustain.set(sustain);
-	}
-
-	/**
-	 *
-	 * @param release varie 0.0003 et 8s
-	 */
-	public void setRelease(double release) {
-		this.dahdsr.release.set(release);
-
 	}
 
 }

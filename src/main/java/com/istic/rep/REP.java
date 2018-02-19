@@ -1,17 +1,10 @@
 package com.istic.rep;
 
-import com.istic.port.PortFm;
 import com.istic.port.PortInput;
 import com.istic.port.PortOutput;
-import com.istic.vca.ReglageVCA;
-import com.jsyn.ports.UnitInputPort;
-import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
-import com.jsyn.unitgen.PassThrough;
-import com.jsyn.unitgen.UnitGenerator;
-import com.jsyn.unitgen.UnitOscillator;
 
-/**
+/*
  *
  +--------------------------------------+
  |                                      |
@@ -27,56 +20,62 @@ import com.jsyn.unitgen.UnitOscillator;
  +--------------------------------------+
 
  */
-public class REP  extends Circuit{
 
+/**
+ * module réplicateur
+ */
+public class REP extends Circuit{
 
-    private UnitInputPort in;
-	private UnitOutputPort out1;
-	private UnitOutputPort out2;
-	private UnitOutputPort out3;
-
-	PortOutput portOutput1;
-
-	PortOutput portOutput2;
-
-	PortOutput portOutput3;
-
-	PortInput portInput;
-
-    private ReglageREP reglageREP;
     /**
-     * reglage wave
+     * Port de sortie 1
      */
-     public REP() {
+	private final PortOutput portOutput1;
 
-        add(reglageREP = new ReglageREP());
-        addPortAlias(out1 = reglageREP.getOut1(), "com/istic/out1");
-        addPortAlias(out2 = reglageREP.getOut2(), "com/istic/out2");
-        addPortAlias(out3 = reglageREP.getOut3(), "com/istic/out3");
-        addPortAlias(in = reglageREP.getInput(),"in");
+    /**
+     * Port de sortie 2
+     */
+    private final PortOutput portOutput2;
 
-         portInput = new PortInput(in);
-         portOutput1 = new PortOutput(out1);
-         portOutput2 = new PortOutput(out2);
-         portOutput3 = new PortOutput(out3);
-         //addPort(oscillator.getOutput());
-        //reglageVCA.getOut().connect(oscillator.amplitude);
+    /**
+     * Port de sortie 3
+     */
+    private final PortOutput portOutput3;
+
+    /**
+     * Port d'entrée
+     */
+    private final PortInput portInput;
+
+    /**
+     * Réplicateur du signal
+     */
+    private final REPPassThrough REPPassThrough;
+
+    public REP() {
+
+        add(REPPassThrough = new REPPassThrough());
+        addPortAlias(REPPassThrough.getOut1(), "out1");
+        addPortAlias(REPPassThrough.getOut2(), "out2");
+        addPortAlias(REPPassThrough.getOut3(), "out3");
+        addPortAlias(REPPassThrough.getInput(),"in");
+
+        portInput = new PortInput(REPPassThrough.getInput());
+        portOutput1 = new PortOutput(REPPassThrough.getOut1());
+        portOutput2 = new PortOutput(REPPassThrough.getOut2());
+        portOutput3 = new PortOutput(REPPassThrough.getOut3());
+
 
 
     }
      public PortOutput getOutput1() {
-
          return portOutput1;
      }
      public PortOutput getOutput2() {
-
          return portOutput2;
      }
      public PortOutput getOutput3() {
-
          return portOutput3;
      }
-
      public PortInput getInput(){
          return portInput;
      }

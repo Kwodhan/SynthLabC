@@ -2,6 +2,9 @@ package com.istic.modulesController;
 
 import com.istic.mixer.MIXER;
 import com.istic.port.Port;
+import com.istic.port.PortController;
+import com.istic.util.Style;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -9,8 +12,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
+import org.json.simple.JSONObject;
+
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -22,6 +27,7 @@ public class MIXERModuleController extends ModuleController implements Initializ
     ImageView inPort1,inPort2,inPort3,inPort4,outPort;
     @FXML
     Slider amplitudeSlider1,amplitudeSlider2,amplitudeSlider3,amplitudeSlider4;
+
     MIXER mixer;
 
     /**
@@ -35,29 +41,27 @@ public class MIXERModuleController extends ModuleController implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         amplitudeSlider1.valueProperty().addListener((ov, old_val, new_val) -> {
-            amplitudeSlider1.setValue(Math.round(amplitudeSlider1.getValue()));
-            mixer.changeAtt1((int) amplitudeSlider1.getValue());
+            mixer.changeAtt1( amplitudeSlider1.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
         amplitudeSlider2.valueProperty().addListener((ov, old_val, new_val) -> {
-            amplitudeSlider2.setValue(Math.round(amplitudeSlider2.getValue()));
-            mixer.changeAtt2((int) amplitudeSlider2.getValue());
+            mixer.changeAtt2( amplitudeSlider2.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
         amplitudeSlider3.valueProperty().addListener((ov, old_val, new_val) -> {
-            amplitudeSlider3.setValue(Math.round(amplitudeSlider3.getValue()));
-            mixer.changeAtt3((int) amplitudeSlider3.getValue());
+            mixer.changeAtt3( amplitudeSlider3.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
         amplitudeSlider4.valueProperty().addListener((ov, old_val, new_val) -> {
-            amplitudeSlider4.setValue(Math.round(amplitudeSlider4.getValue()));
-            mixer.changeAtt4((int) amplitudeSlider4.getValue());
+            mixer.changeAtt4( amplitudeSlider4.getValue());
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
+
+
 
     }
 
@@ -71,6 +75,20 @@ public class MIXERModuleController extends ModuleController implements Initializ
         super.init(controller);
         this.mixer = new MIXER();
         this.controller.getSynth().add(mixer);
+
+        this.portControllers.add(new PortController(this.mixer.getInput1(),this.inPort1));
+        this.portControllers.add(new PortController(this.mixer.getInput2(),this.inPort2));
+        this.portControllers.add(new PortController(this.mixer.getInput3(),this.inPort3));
+        this.portControllers.add(new PortController(this.mixer.getInput4(),this.inPort4));
+        this.portControllers.add(new PortController(this.mixer.getOutput(),this.outPort));
+
+
+        mixer.changeAtt1(amplitudeSlider1.getValue());
+        mixer.changeAtt2(amplitudeSlider2.getValue());
+        mixer.changeAtt3(amplitudeSlider3.getValue());
+        mixer.changeAtt4(amplitudeSlider4.getValue());
+        
+        Style.updateStyleTheme(pane, this.controller.choosedTheme);
     }
 
     /**
@@ -96,9 +114,34 @@ public class MIXERModuleController extends ModuleController implements Initializ
     }
 
 
+
+
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-        return null;
+    public void serialize() {
+        super.serialize();
+        jsonModuleObject.put("amplitudeSlider1", amplitudeSlider1.getValue());
+        jsonModuleObject.put("amplitudeSlider2", amplitudeSlider2.getValue());
+        jsonModuleObject.put("amplitudeSlider3", amplitudeSlider3.getValue());
+        jsonModuleObject.put("amplitudeSlider4", amplitudeSlider4.getValue());
+
+    }
+
+    /**
+     * Restaure la configuration à partir de l'objet JSON
+     * @param jsonObjectModule configuration à charger
+     */
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+        double amplitude1 = (double) jsonObjectModule.get("amplitudeSlider1");
+        double amplitude2 = (double) jsonObjectModule.get("amplitudeSlider2");
+        double amplitude3 = (double) jsonObjectModule.get("amplitudeSlider3");
+        double amplitude4 = (double) jsonObjectModule.get("amplitudeSlider4");
+
+        //ui
+        amplitudeSlider1.setValue(amplitude1);
+        amplitudeSlider2.setValue(amplitude2);
+        amplitudeSlider3.setValue(amplitude3);
+        amplitudeSlider4.setValue(amplitude4);
     }
 
     /**
@@ -163,8 +206,6 @@ public class MIXERModuleController extends ModuleController implements Initializ
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {
@@ -175,11 +216,13 @@ public class MIXERModuleController extends ModuleController implements Initializ
             Port in3 = mixer.getInput3();
             Port in4 = mixer.getInput4();
             Port out = mixer.getOutput();
+
             super.disconnect(in1);
             super.disconnect(in2);
             super.disconnect(in3);
             super.disconnect(in4);
             super.disconnect(out);
+
             // Deconnexion du module Output du synthetizer
             this.controller.getSynth().remove(mixer);
             // Get parent node of pane corresponding to OutMod
@@ -187,8 +230,14 @@ public class MIXERModuleController extends ModuleController implements Initializ
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+
+	}
 
 }

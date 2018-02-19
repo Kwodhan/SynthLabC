@@ -8,9 +8,9 @@ import com.istic.port.Port;
  */
 public class Cable {
 
-    Port portOne;
+    private Port portOne;
 
-    Port portTwo;
+    private Port portTwo;
 
 
     public Cable(Port portOne, Port portTwo) {
@@ -19,17 +19,9 @@ public class Cable {
 
     }
 
-    public Port getPortOne() {
-        return portOne;
-    }
-
-    public Port getPortTwo() {
-        return portTwo;
-    }
-
     /**
      * réalise la connection entre deux cable
-     * @return true si les ports sont branchés | false si les ports sont incompatible
+     * @return true si les ports sont branchés | false si les ports sont incompatibles
      */
     public boolean connect() {
 
@@ -46,8 +38,6 @@ public class Cable {
             return true;
         }
         return false;
-
-
     }
 
     /**
@@ -59,4 +49,15 @@ public class Cable {
         this.portOne.disconnect();
         this.portTwo.disconnect();
     }
+
+    //Getters & Setters
+
+    public Port getPortOne() {
+        return portOne;
+    }
+
+    public Port getPortTwo() {
+        return portTwo;
+    }
+
 }

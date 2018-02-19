@@ -3,13 +3,11 @@ package com.istic.vco;
 
 import com.istic.port.PortFm;
 import com.istic.port.PortOutput;
-import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.*;
 
 import java.util.ArrayList;
-
-/**
- * +--------------------------------------------+
+/*
+ +--------------------------------------------+
  |                                              |
  |                                              |
  |                                              |
@@ -23,9 +21,10 @@ import java.util.ArrayList;
  | | | |                                        |
  | | | |                                        |
  +-O-O-O----------------------------------------+
+ */
 
-
-   Génére 1 Volt.
+/**
+ * module Voltage Controlled Oscillator
  */
 public class VCO extends Circuit {
 
@@ -34,25 +33,31 @@ public class VCO extends Circuit {
     public static final int TRIANGLEWAVE = 1;
     public static final int SAWWAVE = 2;
 
-    private ArrayList<UnitOscillator> oscillators ;
-
     /**
-     * Port de sortie du VCO
+     * Liste d'oscillators possible
      */
-    private UnitOutputPort out;
-
+    private final ArrayList<UnitOscillator> oscillators ;
 
     /**
      * reglage fo, octave, fm, fin
      */
-    private ReglageVCO reglageVCO;
+    private final ReglageVCO reglageVCO;
 
+    /**
+     * Permet le changement d'oscillators
+     */
+    private final PassThrough passThrough;
 
-    private PassThrough passThrough;
+    /**
+     * Port FM
+     */
+    private final PortFm portFm;
 
-    PortFm portFm;
+    /**
+     * Port de sortie
+     */
+    private final PortOutput portOutput;
 
-    PortOutput portOutput;
     public VCO() {
 
 
@@ -63,7 +68,7 @@ public class VCO extends Circuit {
 
         add(reglageVCO = new ReglageVCO());
         add(passThrough = new PassThrough());
-        addPort(out = passThrough.getOutput());
+        addPort(passThrough.getOutput());
         addPort(passThrough.getInput());
 
 
@@ -82,7 +87,7 @@ public class VCO extends Circuit {
         reglageVCO.getF0().set(440);
 
         portFm =  new PortFm(this.reglageVCO.getFm());
-        portOutput = new PortOutput(out);
+        portOutput = new PortOutput(this.passThrough.getOutput());
 
     }
 
@@ -106,7 +111,16 @@ public class VCO extends Circuit {
         this.reglageVCO.getOctave().set(octave);
     }
 
+    /**
+     *
+     * @return Fréquence de base du VCO
+     */
+    public double getFrequence() {
+        return reglageVCO.getFrequence();
+    }
 
+
+    // Setters & Getters
     public PortOutput getOutput() {
 
         return portOutput;
@@ -114,10 +128,5 @@ public class VCO extends Circuit {
 
     public PortFm getFm(){
         return portFm;
-    }
-
-
-    public double getFrequence() {
-        return reglageVCO.getFrequence();
     }
 }

@@ -1,30 +1,26 @@
 package com.istic.vcflp;
 
-import com.istic.Constraints;
+import com.istic.util.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
-import com.jsyn.unitgen.VariableRateMonoReader;
+import com.jsyn.unitgen.UnitGenerator;
 
-public class ReglageVCFLP extends VariableRateMonoReader {
+/**
+ * Reglage des entrées du VCFLP
+ */
+public class ReglageVCFLP extends UnitGenerator {
+
     /**
-     * Réglage manuel en façade de la fréquence
+     * Réglage manuel de la fréquence de base
      */
     private UnitInputPort f0;
-    /**
-     * Signal d'entrée
-     */
-    private UnitInputPort input;
     /**
      *  Entrée de modulation de fréquence
      */
     private UnitInputPort fm;
-    /**
-     *  Réglage de résonance du filtre
-     */
-    private UnitInputPort filter;
 
     /**
-     * une sortie de signal
+     * Sortie de signal
      */
     private UnitOutputPort out;
 
@@ -32,59 +28,46 @@ public class ReglageVCFLP extends VariableRateMonoReader {
     public ReglageVCFLP() {
 
         addPort(this.f0 = new UnitInputPort("f0"));
-        addPort(this.input = new UnitInputPort("input"));
         addPort(this.fm = new UnitInputPort("fm"));
-        addPort(this.filter= new UnitInputPort("filter"));
         addPort(this.out = new UnitOutputPort("out"));
+        this.fm.setMaximum(2);
+        this.f0.setMaximum(21000);
+
 
     }
 
     @Override
     public void generate(int start, int limit) {
         double[] f0s = f0.getValues();
-        double[] inputs = input.getValues();
         double[] fms = fm.getValues();
-        double[] filters = filter.getValues();
         double[] outputs = out.getValues();
 
         for (int i = start; i < limit ; i++) {
-//
-//            //Fonctionnement du VCF
-//            - lorsque que l’entrée `fm` est déconnectée ou nulle, l’oscillateur doit produire un signal à la fréquence `f0`
-//
-//            - lorsque le filtre est totalement ouvert (fréquence de coupure infinie) le signal de sortie est identique au signal d’entrée
-//
-//                    - lorsque le filtre est totalement fermé (fréquence de coupure nulle), le signal de sortie est nul
-//
-//                    - lorsque la tension d’entrée sur `fm` augmente d’1 V, la fréquence de coupure double
-//
-//            - lorsque la tension d’entrée sur `fm` diminue d’1 V, la fréquence de coupure divisée par deux
+
+            outputs[i] = Constraints.verifFrequenceMax(f0s[i] * Math.pow(2,Constraints.verifModFreq(Math.abs(fms[i])*Constraints.VOLT)));
+
         }
 
 
 
 
-
-
-
     }
+
+    public double getFrequence(){
+        return this.f0.get();
+    }
+
+
 
     public UnitInputPort getF0() {
         return f0;
     }
 
 
-    public UnitInputPort getInput() {
-        return input;
-    }
-
     public UnitInputPort getFm() {
         return fm;
     }
 
-    public UnitInputPort getFilter() {
-        return filter;
-    }
 
     public UnitOutputPort getOut() {
         return out;

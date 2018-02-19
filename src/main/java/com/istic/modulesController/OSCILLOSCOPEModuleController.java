@@ -2,7 +2,10 @@ package com.istic.modulesController;
 
 import com.istic.oscillo.Oscilloscope;
 import com.istic.port.Port;
+import com.istic.port.PortController;
+import com.istic.util.Style;
 import com.jsyn.scope.swing.AudioScopeView;
+
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,23 +14,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
+import org.json.simple.JSONObject;
+
 import javax.swing.*;
+
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 public class OSCILLOSCOPEModuleController extends ModuleController implements Initializable {
-    /**
-     * Called to initialize a controller after its root element has been
-     * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
-     */
 
     private Oscilloscope oscilloscope;
 
@@ -67,12 +64,13 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
     public void init(Controller controller) {
         super.init(controller);
         this.oscilloscope = new Oscilloscope(controller.getSynth());
-
+        this.portControllers.add(new PortController(this.oscilloscope.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.oscilloscope.getOutput(),this.outPort));
         final SwingNode swingNode = new SwingNode();
         oscilloscope.start();
         createSwingContent(swingNode, oscilloscope.getView());
         paneOscilloscope.getChildren().add(swingNode);
-
+        Style.updateStyleTheme(pane, this.controller.choosedTheme);
     }
 
     /**
@@ -89,12 +87,16 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
         return null;
     }
 
+
+
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, oscilloscope.getOutput());
-        hashMap.put(inPort, oscilloscope.getInput());
-        return hashMap;
+    public void serialize() {
+    super.serialize();
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+        setJsonModuleObject(jsonObjectModule);
     }
 
     /**
@@ -136,8 +138,6 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {
@@ -154,7 +154,7 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
     @Override
@@ -162,5 +162,10 @@ public class OSCILLOSCOPEModuleController extends ModuleController implements In
        super.updateCablesPosition();
         createSwingContent(swingNode, oscilloscope.getView());
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 
 }

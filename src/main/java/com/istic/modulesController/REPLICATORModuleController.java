@@ -1,14 +1,18 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.rep.REP;
+import com.istic.util.Style;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
+import org.json.simple.JSONObject;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +52,11 @@ public class REPLICATORModuleController extends ModuleController implements Init
         super.init(controller);
         this.rep = new REP();
         this.controller.getSynth().add(rep);
-
+        this.portControllers.add(new PortController(this.rep.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.rep.getOutput1(),this.outPort1));
+        this.portControllers.add(new PortController(this.rep.getOutput2(),this.outPort2));
+        this.portControllers.add(new PortController(this.rep.getOutput3(),this.outPort3));
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
     }
 
     /**
@@ -117,8 +125,6 @@ public class REPLICATORModuleController extends ModuleController implements Init
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {
@@ -139,17 +145,22 @@ public class REPLICATORModuleController extends ModuleController implements Init
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
 
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(inPort, rep.getInput());
-        hashMap.put(outPort1, rep.getOutput1());
-        hashMap.put(outPort2, rep.getOutput2());
-        hashMap.put(outPort3, rep.getOutput3());
-        return hashMap;
+    public void serialize() {
+        super.serialize();
     }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+        setJsonModuleObject(jsonObjectModule);
+    }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

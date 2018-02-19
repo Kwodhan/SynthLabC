@@ -15,7 +15,6 @@ public class PortAm extends Port {
         this.visitorPort = new VisitorAm(this);
     }
 
-
     @Override
     public boolean accept(VisitorPort visitor) {
         return visitor.visit(this);
@@ -26,6 +25,7 @@ public class PortAm extends Port {
         this.unitAmPort.disconnectAll();
     }
 
+    //Setters & Getters
     public UnitInputPort getUnitAmPort() {
         return unitAmPort;
     }

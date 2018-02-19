@@ -1,8 +1,9 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.port.PortOutput;
-import com.istic.vco.VCO;
+import com.istic.util.Style;
 import com.istic.whitenoise.BruitBlanc;
 
 import javafx.fxml.FXML;
@@ -11,10 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
+import org.json.simple.JSONObject;
+
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class WHITENOISEModuleController extends ModuleController implements Initializable {
@@ -25,7 +25,7 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     BruitBlanc bruitBlanc;
     
     @FXML
-    ImageView wn_outPort;
+    ImageView outPort;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -49,6 +49,8 @@ public class WHITENOISEModuleController extends ModuleController implements Init
         super.init(controller);
         this.bruitBlanc = new BruitBlanc();
         this.controller.getSynth().add(bruitBlanc);
+        this.portControllers.add(new PortController(this.bruitBlanc.getOutput(),this.outPort));
+        Style.updateStyleTheme(pane, this.controller.choosedTheme);
     }
 
     /**
@@ -56,26 +58,31 @@ public class WHITENOISEModuleController extends ModuleController implements Init
      * @return le port sur lequel l'utilisateur a cliqué côté IHM
      */
     public Port getCurrentPort(){
-        if(!this.bruitBlanc.getOutputPort().isConnected()) {
-            return bruitBlanc.getOutputPort();
+        if(!this.bruitBlanc.getOutput().isConnected()) {
+            return bruitBlanc.getOutput();
         }
         return null;
     }
 
+
+
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-    	Map<ImageView, Port> hm = new HashMap<>();
-    	hm.put(wn_outPort, bruitBlanc.getOutputPort());
-        return hm;
+    public void serialize() {
+        super.serialize();
     }
-    
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+    setJsonModuleObject(jsonObjectModule);
+    }
+
     /**
      * Connecting the outPort to draw the cable
      */
     public void connectOutPort() {
 
         if(!this.bruitBlanc.getOutput().isConnected()) {
-            getLayout(wn_outPort);
+            getLayout(outPort);
             super.connect();
         }
     }
@@ -84,13 +91,11 @@ public class WHITENOISEModuleController extends ModuleController implements Init
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
-    @FXML // A decommenter et adapter quand le model white noise sera fait !
+    @FXML
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
-            Port port = bruitBlanc.getOutputPort();
+            Port port = bruitBlanc.getOutput();
             super.disconnect(port);
             // Deconnexion du module Output du synthetizer
             this.controller.getSynth().remove(bruitBlanc);
@@ -99,13 +104,23 @@ public class WHITENOISEModuleController extends ModuleController implements Init
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
+
+
+    }
+
+    /**
+     * getter utilisé par l'IHM pour recuperer le port de sortie
+     * @return port de sortie
+     */
+    public PortOutput getOutPort() {
+        return this.bruitBlanc.getOutput();
     }
     
-    //Setters et Getters
-    public PortOutput getOutPort() {
-        return this.bruitBlanc.getOutputPort();
-    }
+    @Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 
 }

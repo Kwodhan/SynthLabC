@@ -1,7 +1,10 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
+import com.istic.util.Style;
 import com.istic.vca.VCA;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -9,7 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
+import org.json.simple.JSONObject;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +45,8 @@ public class VCAModuleController extends ModuleController implements Initializab
             //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
 
         });
+
+
     }
 
     /**
@@ -53,6 +59,14 @@ public class VCAModuleController extends ModuleController implements Initializab
         super.init(controller);
         this.vca = new VCA();
         this.controller.getSynth().add(vca);
+
+        vca.changeA0(amplitudeSlider.getValue());
+
+        this.portControllers.add(new PortController(this.vca.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.vca.getAm(),this.amPort));
+        this.portControllers.add(new PortController(this.vca.getOutput(),this.outPort));
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
+
 
 
     }
@@ -110,8 +124,6 @@ public class VCAModuleController extends ModuleController implements Initializab
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
     @FXML
     public void removeModule() {
@@ -130,16 +142,32 @@ public class VCAModuleController extends ModuleController implements Initializab
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
 
+
+
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, vca.getOutput());
-        hashMap.put(inPort, vca.getInput());
-        hashMap.put(amPort, vca.getAm());
-        return hashMap;
+    public void serialize() {
+    super.serialize();
+
+        jsonModuleObject.put("amplitudeSlider", amplitudeSlider.getValue());
+
     }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+
+        double amplitude = (double) jsonObjectModule.get("amplitudeSlider");
+
+        //graphique
+        amplitudeSlider.setValue(Math.round(amplitude));
+
+    }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

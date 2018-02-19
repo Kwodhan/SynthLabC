@@ -1,10 +1,13 @@
 package com.istic.vco;
 
-import com.istic.Constraints;
+import com.istic.util.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;
 
+/**
+ * Réglage des entrées du VCO
+ */
 public class ReglageVCO extends UnitGenerator {
 
     /**
@@ -13,20 +16,23 @@ public class ReglageVCO extends UnitGenerator {
     private UnitInputPort f0;
 
     /**
-     * Changement d'octave
+     * Réglage manuel du changement d'octave
      */
     private UnitInputPort octave;
 
     /**
-     * Changement de note
+     * Réglage manuel du changement de note
      */
     private UnitInputPort fin;
 
     /**
-     * Signal de Modulation de fréquence Fm varie entre -5 et 5
+     * Entrée de modulation de fréquenceO
      */
     private UnitInputPort fm;
 
+    /**
+     * Sortie de signal
+     */
     private UnitOutputPort out;
 
     public ReglageVCO() {
@@ -48,11 +54,20 @@ public class ReglageVCO extends UnitGenerator {
         double[] outputs = out.getValues();
 
         for (int i = start; i < limit; i++) {
-            outputs[i] = f0s[i] * Math.pow(2,octaves[i] + Constraints.verifModFreq(fms[i]*5)) * Math.pow(1.05946f,fins[i]);
+            outputs[i] = f0s[i] * Math.pow(2,octaves[i] + Constraints.verifModFreq(fms[i]*Constraints.VOLT)) * Math.pow(1.05946f,fins[i]);
 
         }
     }
 
+    /**
+     * Fréquence de base avec réglage sur le module
+     * @return fréquence de base
+     */
+    public double getFrequence(){
+        return this.f0.get() * Math.pow(2,this.octave.get()) * Math.pow(1.05946f,this.fin.get());
+    }
+
+    //Setters & Getters
     public UnitInputPort getF0() {
         return f0;
     }
@@ -71,13 +86,5 @@ public class ReglageVCO extends UnitGenerator {
 
     public UnitOutputPort getOut() {
         return out;
-    }
-
-    /**
-     * Fréquence de base
-     * @return fréquence finale
-     */
-    public double getFrequence(){
-        return this.f0.get() * Math.pow(2,this.octave.get()) * Math.pow(1.05946f,this.fin.get());
     }
 }

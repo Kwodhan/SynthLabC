@@ -6,18 +6,28 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 
+/**
+ * Module mixer
+ */
 public class MIXER  extends Circuit {
-    private UnitInputPort in1,in2,in3,in4;
-    private UnitOutputPort out;
-    PortOutput portOutput;
 
+    /**
+     * Port de sortie
+     */
+    private PortOutput portOutput;
+    /**
+     * Les quatre port d'entrées
+     */
+    private PortInput portInput1,portInput2,portInput3,portInput4;
 
-    PortInput portInput1,portInput2,portInput3,portInput4;
+    /**
+     * Réglage des atténuateurs
+     */
     private ReglageMIXER mixer;
 
     public MIXER() {
-
-
+        UnitInputPort in1,in2,in3,in4;
+        UnitOutputPort out;
         add(mixer= new ReglageMIXER());
         addPortAlias(in1 = mixer.getIn1(),"in1");
         addPortAlias(in2 = mixer.getIn2(),"in2");
@@ -34,29 +44,6 @@ public class MIXER  extends Circuit {
         portInput3 = new PortInput(in3);
         portInput4 = new PortInput(in4);
         portOutput = new PortOutput(out);
-    }
-    public PortOutput getOutput() {
-
-        return  portOutput;
-    }
-    public PortInput getInput1() {
-
-        return portInput1;
-    }
-
-    public PortInput getInput2() {
-
-        return portInput2;
-    }
-
-    public PortInput getInput3() {
-
-        return portInput4;
-    }
-
-    public PortInput getInput4() {
-
-        return portInput4;
     }
 
     public void changeAtt1(double att)
@@ -77,5 +64,30 @@ public class MIXER  extends Circuit {
     public void changeAtt4(double att)
     {
         this.mixer.getIn4Att().set(att);
+    }
+
+    //Setters & Getters
+    public PortOutput getOutput() {
+
+        return  portOutput;
+    }
+    public PortInput getInput1() {
+
+        return portInput1;
+    }
+
+    public PortInput getInput2() {
+
+        return portInput2;
+    }
+
+    public PortInput getInput3() {
+
+        return portInput3;
+    }
+
+    public PortInput getInput4() {
+
+        return portInput4;
     }
 }

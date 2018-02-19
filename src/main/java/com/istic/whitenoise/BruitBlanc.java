@@ -1,16 +1,29 @@
 package com.istic.whitenoise;
 
 import com.istic.port.PortOutput;
+import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.WhiteNoise;
 
-public class BruitBlanc extends WhiteNoise {
-	
-	private PortOutput out;
+/**
+ *  module bruit blanc
+ */
+public class BruitBlanc extends Circuit {
+	/**
+	 * Object JSyn
+	 */
+	private WhiteNoise whiteNoise;
+	/**
+	 * Port de sortie
+	 */
+	private final PortOutput out;
+
 	public BruitBlanc(){
-		this.out = new PortOutput(this.output);
+		add(whiteNoise = new WhiteNoise());
+
+		this.out = new PortOutput(whiteNoise.output);
 	}
 
-	public PortOutput getOutputPort(){
+	public PortOutput getOutput(){
 		return  out;
 	}
 }

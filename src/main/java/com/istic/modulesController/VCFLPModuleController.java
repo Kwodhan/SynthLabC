@@ -1,29 +1,37 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
+import com.istic.util.Style;
+import com.istic.vcflp.VCFLP;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import com.istic.vcflp.VCFLP;
+import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class VCFLPModuleController extends ModuleController implements Initializable {
 
     @FXML
     AnchorPane pane;
+
     protected VCFLP vcflp;
+
     @FXML
     ImageView outPort,inPort,fmPort;
+
     @FXML
-    Slider filterSlider,frequencySlider;
+    Slider resonanceSlider,frequencySlider;
+
+    @FXML
+    Label frequence;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -35,18 +43,19 @@ public class VCFLPModuleController extends ModuleController implements Initializ
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        filterSlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            filterSlider.setValue(Math.round(filterSlider.getValue()));
-            vcflp.changeFilter((int) filterSlider.getValue());
-            //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
+        resonanceSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            Platform.runLater(() ->this.vcflp.setResonance(resonanceSlider.getValue()));
 
         });
+
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
-            frequencySlider.setValue(Math.round(frequencySlider.getValue()));
-            vcflp.changeF0((int) frequencySlider.getValue());
-            //txtHertz.setText(Math.round(vco.getFrequence()) + " Hz");
+            this.vcflp.setF0(Math.pow(2,frequencySlider.getValue()));
+            Platform.runLater(() ->this.frequence.setText((Math.round(this.vcflp.getFrequence()*100.0) / 100.0) + " Hz"));
 
         });
+
+
+
     }
 
     /**
@@ -56,11 +65,10 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     @Override
     public Port getCurrentPort() {
         switch (currentPort) {
-
-            case 0:
-                return vcflp.getOutput();
             case 1:
                 return vcflp.getInput();
+            case 0:
+                return vcflp.getOutput();
             case 2 :
                 return vcflp.getFm();
             default: return null;
@@ -68,43 +76,66 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     }
 
 
+
+
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, vcflp.getOutput());
-        hashMap.put(fmPort, vcflp.getFm());
-        hashMap.put(inPort, vcflp.getInput());
-        return hashMap;    }
+    public void serialize() {
+        super.serialize();
+        jsonModuleObject.put("frequencySlider", frequencySlider.getValue());
+        jsonModuleObject.put("resonanceSlider", resonanceSlider.getValue());
+
+    }
+
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+    setJsonModuleObject(jsonObjectModule);
+        double frequency = (double) jsonObjectModule.get("frequencySlider");
+        double resonance = (double) jsonObjectModule.get("resonanceSlider");
+
+        //graphique
+        frequencySlider.setValue(frequency);
+        resonanceSlider.setValue(resonance);
+
+    }
 
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
-    @FXML // A decommenter et adapter quand le model vcf LP sera fait !
+    @FXML
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
-//        //Deconnexion cable
-//        Port gate = vcflp.getGateInput();
-//        Port out = vcflp.getOutput();
-//        super.disconnect(gate);
-//        super.disconnect(out);
-//        // Deconnexion du module Output du synthetizer
-//        this.controller.getSynth().remove(vcflp);
+            //Deconnexion cable
+            Port fm = this.vcflp.getFm();
+            Port out = this.vcflp.getOutput();
+            Port in = this.vcflp.getInput();
+            super.disconnect(fm);
+            super.disconnect(out);
+            super.disconnect(in);
+            // Deconnexion du module Output du synthetizer
+            this.controller.getSynth().remove(vcflp);
             // Get parent node of pane corresponding to OutMod
             // Recupere le noeud parent fxml du outmod
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
     public void init(Controller controller) {
         super.init(controller);
         this.vcflp = new VCFLP();
         this.controller.getSynth().add(vcflp);
+        this.frequencySlider.setValue(frequencySlider.getMax());
 
+        this.vcflp.setF0(Math.pow(2,frequencySlider.getValue()));
+        this.vcflp.setResonance(resonanceSlider.getValue());
+
+        this.frequence.setText((Math.round(this.vcflp.getFrequence()*100.0) / 100.0) + " Hz");
+        this.portControllers.add(new PortController(this.vcflp.getInput(),this.inPort));
+        this.portControllers.add(new PortController(this.vcflp.getFm(),this.fmPort));
+        this.portControllers.add(new PortController(this.vcflp.getOutput(),this.outPort));
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
 
     }
     /**
@@ -137,4 +168,9 @@ public class VCFLPModuleController extends ModuleController implements Initializ
             super.connect();
         }
     }
+
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);
+	}
 }

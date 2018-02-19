@@ -2,8 +2,10 @@ package com.istic.modulesController;
 
 
 import com.istic.port.Port;
-import com.istic.port.PortOutput;
+import com.istic.port.PortController;
+import com.istic.util.Style;
 import com.istic.vco.VCO;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
+import org.json.simple.JSONObject;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +59,7 @@ public class VCOModuleController extends ModuleController implements Initializab
         triangleRadio.setToggleGroup(group);
         squareRadio.setToggleGroup(group);
         squareRadio.setSelected(true);
-        Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
+
         frequencySlider.valueProperty().addListener((ov, old_val, new_val) -> {
             frequencySlider.setValue(Math.round(frequencySlider.getValue()));
             vco.changeOctave((int) frequencySlider.getValue());
@@ -84,6 +87,10 @@ public class VCOModuleController extends ModuleController implements Initializab
         super.init(controller);
         this.vco = new VCO();
         this.controller.getSynth().add(vco);
+        this.portControllers.add(new PortController(this.vco.getFm(),this.fmPort));
+        this.portControllers.add(new PortController(this.vco.getOutput(),this.outPort));
+        Platform.runLater(() -> txtHertz.setText((Math.round(vco.getFrequence()*100.0) / 100.0) + " Hz"));
+    	Style.updateStyleTheme(pane, this.controller.choosedTheme);
 
     }
 
@@ -152,17 +159,46 @@ public class VCOModuleController extends ModuleController implements Initializab
     /**
      * Supprime le module du Board ainsi que les cables
      * et les dépendances côté modèle
-     *
-     * @throws IOException si deconnexion impossible
      */
+
+
     @Override
-    public Map<ImageView, Port> getAllPorts() {
-        Map<ImageView, Port> hashMap = new HashMap<>();
-        hashMap.put(outPort, vco.getOutput());
-        hashMap.put(fmPort, vco.getFm());
-        return hashMap;
+    public void serialize() {
+    	super.serialize();
+    	jsonModuleObject.put("frequencySlider", frequencySlider.getValue() );
+    	jsonModuleObject.put("frequencyFineSlider", frequencyFineSlider.getValue());
+    	jsonModuleObject.put("squareRadio", squareRadio.isSelected());
+    	jsonModuleObject.put("sawRadio", sawRadio.isSelected());
+    	jsonModuleObject.put("triangleRadio", triangleRadio.isSelected());
+
     }
 
+    @Override
+    public void restore(JSONObject jsonObjectModule) {
+        setJsonModuleObject(jsonObjectModule);
+        double frequencySlider_ = (double) jsonObjectModule.get("frequencySlider");
+        double frequencyFineSlider_ = (double) jsonObjectModule.get("frequencyFineSlider");
+        boolean squareRadio_ = (boolean) jsonObjectModule.get("squareRadio");
+        boolean sawRadio_ = (boolean) jsonObjectModule.get("sawRadio");
+        boolean triangleRadio_ = (boolean) jsonObjectModule.get("triangleRadio");
+        
+        
+        frequencySlider.setValue(frequencySlider_);
+        frequencyFineSlider.setValue(frequencyFineSlider_);
+        squareRadio.setSelected(squareRadio_);
+        sawRadio.setSelected(sawRadio_);
+        triangleRadio.setSelected(triangleRadio_);
+
+        int wave = (squareRadio_)? VCO.SQUAREWAVE : (sawRadio_)? VCO.SAWWAVE: VCO.TRIANGLEWAVE;
+        this.vco.changeShapeWave(wave);
+        
+        
+    }
+
+    /**
+     * Supprime le module du Board ainsi que les cables
+     * et les dépendances côté modèle
+     */
     @FXML
     public void removeModule() {
         if(this.controller.getTemporaryCableModuleController()==null) {
@@ -178,13 +214,14 @@ public class VCOModuleController extends ModuleController implements Initializab
             StackPane stackPane = (StackPane) pane.getParent();
             // supprime le mod niveau ihm
             stackPane.getChildren().remove(pane);
-            this.controller.disconnect(this);
+            this.controller.remove(this);
         }
     }
 
-    //Setters et Getters
-    public PortOutput getOutPort() {
-        return this.vco.getOutput();
-    }
+	@Override
+	public void updateTheme(int i) {
+		Style.updateStyleTheme(pane, i);	
+	}
+
 
 }
