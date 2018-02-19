@@ -1,6 +1,6 @@
 package com.istic.sequencer;
 
-import com.istic.Constraints;
+import com.istic.util.Constraints;
 import com.istic.port.PortGate;
 import com.istic.port.PortOutput;
 import com.jsyn.unitgen.UnitGate;

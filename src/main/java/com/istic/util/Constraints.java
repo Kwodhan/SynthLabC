@@ -1,4 +1,4 @@
-package com.istic;
+package com.istic.util;
 
 public class Constraints {
 

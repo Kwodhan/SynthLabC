@@ -1,6 +1,6 @@
 package com.istic.mixer;
 
-import com.istic.Constraints;
+import com.istic.util.Constraints;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.UnitGenerator;

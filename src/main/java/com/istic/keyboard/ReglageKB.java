@@ -2,16 +2,9 @@ package com.istic.keyboard;
 
 import java.sql.Timestamp;
 
-import com.istic.Constraints;
-import com.jsyn.JSyn;
-import com.jsyn.Synthesizer;
-import com.jsyn.ports.UnitGatePort;
+import com.istic.util.Constraints;
 import com.jsyn.ports.UnitOutputPort;
-import com.jsyn.unitgen.LineOut;
-import com.jsyn.unitgen.SineOscillator;
 import com.jsyn.unitgen.UnitGenerator;
-
-import javafx.scene.control.TextArea;
 
 public class ReglageKB extends UnitGenerator {
     private final int octave_min = -5;
