@@ -2,8 +2,11 @@
 
 Branch dev : [![Build Status](https://travis-ci.com/Kwodhan/SynthLabC.svg?token=6zdxF4MUzxXu29Z8EQzC&branch=dev)](https://travis-ci.com/Kwodhan/SynthLabC) Branch master : [![Build Status](https://travis-ci.com/Kwodhan/SynthLabC.svg?token=yEvcBv9NYXmyDfvx1xFm&branch=master)](https://travis-ci.com/Kwodhan/SynthLabC)
 
+## Description
+SynthLabC is a graphical application dealing with sound synthesis. It allows the synthesis of audio streams by using a set of audio processing modules. It is possible to interconnect several modules and to set them.
+
 ## Usage 
-``` java -jar .jar ```
+In terminal, in the root directory of the project : ``` java -jar SynthLabC.jar ```
 
 ## Documentation
 #### Javadoc
