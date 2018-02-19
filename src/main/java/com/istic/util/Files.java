@@ -16,6 +16,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Fichier de sauvegarde Json
+ */
 public class Files {
     private File file;
     private Controller controller;
