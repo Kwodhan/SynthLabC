@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.VCOModuleController">
+<AnchorPane fx:id="pane" maxHeight="210.0" maxWidth="270.0" minHeight="210.0" minWidth="270.0" prefHeight="210.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.istic.modulesController.VCOModuleController">
     <userData>
         <fx:reference source="controller" />
     </userData>
@@ -42,20 +42,20 @@
             <RadioButton fx:id="squareRadio" mnemonicParsing="false" onAction="#squareSound" text="Square" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <RadioButton fx:id="triangleRadio" mnemonicParsing="false" onAction="#triangleSound" text="Triangle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <RadioButton fx:id="sawRadio" mnemonicParsing="false" onAction="#sawSound" text="SawT   " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FM" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FM" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin></Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Out" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Out" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin></Text>
-            <ImageView fx:id="outPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectOutPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <ImageView fx:id="outPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectOutPort" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../img/out.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="fmPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectFmPort" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <ImageView fx:id="fmPort" fitHeight="44.0" fitWidth="38.0" onMouseClicked="#connectFmPort" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../img/fm.png" />
                </image>
