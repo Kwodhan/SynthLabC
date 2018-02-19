@@ -3,6 +3,7 @@ package com.istic.modulesController;
 import com.istic.keyboard.KB;
 import com.istic.port.Port;
 
+import com.istic.port.PortController;
 import com.istic.util.Style;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -48,6 +49,8 @@ public class KBModuleController  extends ModuleController implements Initializab
 		this.kb = new KB();
 		this.controller.getSynth().add(kb);
         this.text.setText(this.kb.print());
+        this.portControllers.add(new PortController(this.kb.getCv(),outPort));
+        this.portControllers.add(new PortController(this.kb.getGate(),gatePort));
 		Style.updateStyleTheme(pane, this.controller.choosedTheme);
 	}
 
