@@ -44,8 +44,6 @@ public class Controller implements Initializable {
 
     @FXML
     AnchorPane boxpane;
-    @FXML
-    MenuItem vcoMenuItem, saveConfigMenuItem, openConfigMenuItem, saveToMP3MenuItem, dropAllMenuItem;
 
     @FXML
     StackPane box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box12;
@@ -313,8 +311,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public VCOModuleController addVco() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/vco.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/vco.fxml"));
 
         if(addMod(root)) {
             VCOModuleController vcoModuleController = (VCOModuleController) root.getUserData();
@@ -332,8 +330,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public OUTPUTModuleController addOutput() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/output.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/output.fxml"));
         if(addMod(root)) {
 
             OUTPUTModuleController outputModuleController = (OUTPUTModuleController) root.getUserData();
@@ -352,8 +350,8 @@ public class Controller implements Initializable {
      */
     public MIXERModuleController addMixer() throws IOException {
 
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/mixer.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/mixer.fxml"));
         if(addMod(root)) {
 
             MIXERModuleController mixerModuleController = (MIXERModuleController) root.getUserData();
@@ -372,8 +370,8 @@ public class Controller implements Initializable {
      */
     public KBModuleController addKeyBoard() throws IOException {
 
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/keyboard.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/keyboard.fxml"));
         if(addMod(root)) {
 
             KBModuleController kbModuleController = (KBModuleController) root.getUserData();
@@ -393,8 +391,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public EGModuleController addEG() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/eg.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/eg.fxml"));
         if(addMod(root)) {
 
             EGModuleController egModuleController = (EGModuleController) root.getUserData();
@@ -412,8 +410,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public OSCILLOSCOPEModuleController addOscilloscope() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/oscilloscope.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/oscilloscope.fxml"));
 
         if(addMod(root)) {
             OSCILLOSCOPEModuleController oscilloscopeModuleController = (OSCILLOSCOPEModuleController) root.getUserData();
@@ -432,8 +430,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public REPLICATORModuleController addReplicator() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/replicator.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/replicator.fxml"));
         if(addMod(root)) {
 
             REPLICATORModuleController replicatorModuleController = (REPLICATORModuleController) root.getUserData();
@@ -451,8 +449,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public SEQUENCERModuleController addSequencer() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/sequencer.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/sequencer.fxml"));
         if(addMod(root)) {
 
             SEQUENCERModuleController seqModuleController = (SEQUENCERModuleController) root.getUserData();
@@ -470,8 +468,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public VCAModuleController addVca() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/vca.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/vca.fxml"));
         if(addMod(root)) {
 
             VCAModuleController vcaModuleController = (VCAModuleController) root.getUserData();
@@ -489,8 +487,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public VCFLPModuleController addVcfLp() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/vcfLp.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/vcfLp.fxml"));
         if(addMod(root)) {
             VCFLPModuleController vcflpModuleController = (VCFLPModuleController) root.getUserData();
             this.moduleControllers.add(vcflpModuleController);
@@ -507,8 +505,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public VCFHPModuleController addVcfHp() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/vcfHp.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/vcfHp.fxml"));
         if(addMod(root)) {
             VCFHPModuleController vcfhpModuleController = (VCFHPModuleController) root.getUserData();
             this.moduleControllers.add(vcfhpModuleController);
@@ -525,8 +523,8 @@ public class Controller implements Initializable {
      * @throws IOException si ajout impossible
      */
     public WHITENOISEModuleController addWhiteNoise() throws IOException {
-        Node root = FXMLLoader.load(getClass().getResource(
-                "../../../modules/whiteNoise.fxml"));
+        Node root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                "modules/whiteNoise.fxml"));
         if(addMod(root)) {
             WHITENOISEModuleController whiteModuleController = (WHITENOISEModuleController) root.getUserData();
             this.moduleControllers.add(whiteModuleController);

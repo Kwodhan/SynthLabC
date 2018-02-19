@@ -14,7 +14,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         System.out.println();
-        root = FXMLLoader.load(getClass().getResource("../../main.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("main.fxml"));
         scene = new Scene(root);
         stage.setResizable(false);
         stage.setTitle("SynthLabC");
