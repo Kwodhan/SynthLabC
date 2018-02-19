@@ -1,10 +1,9 @@
 package com.istic.modulesController;
 
 import com.istic.port.Port;
+import com.istic.port.PortController;
 import com.istic.util.Style;
 import com.istic.vcflp.VCFLP;
-import com.istic.port.PortController;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,12 +12,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-
 import org.json.simple.JSONObject;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class VCFLPModuleController extends ModuleController implements Initializable {
@@ -85,7 +81,7 @@ public class VCFLPModuleController extends ModuleController implements Initializ
     @Override
     public void serialize() {
         super.serialize();
-        jsonModuleObject.put("frequencySlider", Math.pow(2,frequencySlider.getValue()));
+        jsonModuleObject.put("frequencySlider", frequencySlider.getValue());
         jsonModuleObject.put("resonanceSlider", resonanceSlider.getValue());
 
     }
