@@ -53,12 +53,6 @@
             <RadioMenuItem fx:id="cableColorBluevioletMenuItem" mnemonicParsing="false" onAction="#selectCableColor" text="Blue Violet" userData="BLUEVIOLET" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Documentation" />
-            <MenuItem mnemonicParsing="false" text="About" />
-          </items>
-        </Menu>
       </menus>
     </MenuBar>
     <SplitPane layoutY="28.0" maxHeight="700.0" maxWidth="1200.0" minHeight="698.0" minWidth="1200.0" prefHeight="698.0" prefWidth="1200.0">
