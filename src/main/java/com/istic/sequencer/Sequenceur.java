@@ -49,7 +49,7 @@ public class Sequenceur extends UnitGate {
 		double[] outputs = output.getValues();
 		for (int i = start; i < limit; i++) {
 			nextStep(inputs[i]);
-			outputs[i] = Constraints.verifAmp((inputs[i] * values[step])*5)/5;
+			outputs[i] = Constraints.verifAmp((inputs[i] * values[step]/Constraints.VOLT)*Constraints.VOLT)/Constraints.VOLT;
 		}
 	}
 
